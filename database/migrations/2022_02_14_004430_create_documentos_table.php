@@ -21,6 +21,9 @@ return new class extends Migration {
             $table->foreignId('semestre_id')->constrained('semestres')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
+            $table->foreignId('entidad_id')->constrained('entidades')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();

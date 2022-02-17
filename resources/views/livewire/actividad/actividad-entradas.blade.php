@@ -11,7 +11,7 @@
             </p>
         </x-slot>
 
-        <div class="space-y-4">
+        <div class="space-y-2">
             @forelse( $proveedores as $proveedor)
                 <div class="ml-2 py-2 flex items-center">
                     <div

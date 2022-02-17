@@ -31,6 +31,7 @@ class InfoActividad extends Component
             ])
             ->with('actividad', 'entidad')
             ->where('actividad_id', $this->resp->actividad_id)
+            ->where('entidad_id', $this->resp->entidad_id)
             ->first();
 
         $semestre = Semestre::find($this->semestre_id);

@@ -9,7 +9,7 @@ class Documento extends Model
 {
     use HasFactory;
 
-    public $fillable = ['nombre', 'enlace_interno', 'enlace_externo', 'semestre_id', 'user_id'];
+    public $fillable = ['nombre', 'enlace_interno', 'enlace_externo', 'semestre_id', 'entidad_id', 'user_id'];
 
     //Relación de uno a muchos
     /*public function documento_tesis()

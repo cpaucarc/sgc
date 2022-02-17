@@ -17,10 +17,14 @@ class ActividadSalidas extends Component
 {
     use WithFileUploads;
 
-    public $responsable_id;
+    public $responsable;
     public $semestre_id;
     public $open = false;
+
     public $salida_seleccionado = null;
+    public $clientes;
+    public $documentos;
+
     public $archivo;
 
     protected $rules = [
@@ -29,7 +33,7 @@ class ActividadSalidas extends Component
 
     public function mount($responsable_id, $semestre_id)
     {
-        $this->responsable_id = $responsable_id;
+        $this->responsable = Responsable::find($responsable_id);
         $this->semestre_id = $semestre_id;
     }
 
@@ -38,7 +42,7 @@ class ActividadSalidas extends Component
         $salidas = Salida::query()
             ->whereIn('id', function ($query) {
                 $query->select('salida_id')->from('clientes')
-                    ->where('responsable_id', $this->responsable_id);
+                    ->where('responsable_id', $this->responsable->id);
             })
             ->get();
 
@@ -49,20 +53,33 @@ class ActividadSalidas extends Component
     public function abrirModal($salida_id)
     {
         $this->open = true;
-//        $this->salida_seleccionado = Salida::query()
-//            ->with('clientes', 'documentos')
-//            ->where('id', $salida_id)
-//            ->first();
 
-        $this->salida_seleccionado = Cliente::query()
-            ->with()
-            ->where('salida_id', $salida_id)
-            ->where('responsable_id', $this->responsable_id)
+        $this->salida_seleccionado = Salida::query()
+            ->where('id', $salida_id)
+            ->first();
+
+        $this->documentos = DocumentoEnviado::query()
+            ->with('documento')
+            ->where('documentable_id', $salida_id)
+            ->where('documentable_type', "App\\Models\\Salida")
+            ->whereHas('documento', function ($query) {
+                $query->where('user_id', Auth::user()->id)
+                    ->where('entidad_id', $this->responsable->entidad_id);
+            })
             ->get();
+//        $this->documentos = 0;
+
+        $this->clientes = Cliente::query()
+            ->with('entidad')
+            ->where('salida_id', $salida_id)
+            ->where('responsable_id', $this->responsable->id)
+            ->get()
+            ->pluck('entidad.nombre');
 
     }
 
-    public function enviarArchivo()
+    public
+    function enviarArchivo()
     {
         $this->validate();
         $rutaCarpeta = '/public/salidas';
@@ -96,8 +113,9 @@ class ActividadSalidas extends Component
         $documento = Documento::create([
             'nombre' => $nombreArchivo,
             'enlace_interno' => 'salidas' . '/' . $nombreArchivo,
+            'entidad_id' => $this->responsable->entidad_id,
             'semestre_id' => $this->semestre_id,
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
         ]);
 
         //Guardar en la relacion polimorfica
@@ -108,7 +126,8 @@ class ActividadSalidas extends Component
         $this->emit('guardado', "El documento '$nombreArchivo' fue guardado.");
     }
 
-    public function eliminarArchivo($doc_id)
+    public
+    function eliminarArchivo($doc_id)
     {
         $documento_enviado = DocumentoEnviado::where('documento_id', $doc_id);
         $documento_enviado->delete();
