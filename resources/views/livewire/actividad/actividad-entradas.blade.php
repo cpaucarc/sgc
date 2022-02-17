@@ -38,9 +38,10 @@
             @empty
                 <p>No hay entradas</p>
             @endforelse
-
         </div>
+
     </x-utils.card>
+
 
     @if($proveedor_seleccionado)
         <x-jet-dialog-modal wire:model="open" maxWidth="3xl">
@@ -58,49 +59,50 @@
             </x-slot>
 
             <x-slot name="content">
-
-                <div class="bg-gray-50 rounded p-4">
-
-                    @if(count($proveedor_seleccionado->entrada->documentos) > 0 )
-                        <div class="flex justify-between items-center mb-4">
-                            <h2 class="text-gray-600 text-sm font-bold">
-                                Documentos enviados por el proveedor:
-                            </h2>
-                        </div>
-
-                        <div class="ml-2 table w-full mb-6 text-gray-700">
-                            @foreach($proveedor_seleccionado->entrada->documentos as $documento)
-                                <div class="table-row-group py-2 space-y-2">
-                                    <div class="table-row">
-                                        <div class="table-cell align-middle text-sm flex-1">
-                                            @if(strlen($documento->nombre) < 60)
-                                                {{ $documento->nombre }}
-                                            @else
-                                                {{ substr($documento->nombre, 0, 45) .'...'. substr($documento->nombre, -15) }}
-                                            @endif
-                                        </div>
+                @if(count($documentos) > 0 )
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-gray-600 text-sm font-bold">
+                            Documentos enviados por el proveedor:
+                        </h2>
+                    </div>
+                    <x-utils.tables.table>
+                        @slot('body')
+                            @foreach($documentos as $documento)
+                                <x-utils.tables.row class="p-1">
+                                    <x-utils.tables.body class="text-left text-sm">
+                                        @if(strlen($documento->nombre) > 60)
+                                            {{ substr($documento->nombre, 0, 45) }}
+                                            ...{{ substr($documento->nombre, -15) }}
+                                        @else
+                                            {{ $documento->nombre }}
+                                        @endif
+                                    </x-utils.tables.body>
+                                    <x-utils.tables.body class="text-right text-sm">
+                                        {{ $documento->created_at->diffForHumans() }}
+                                    </x-utils.tables.body>
+                                    <x-utils.tables.body class="text-right">
                                         <div
-                                            class="table-cell align-middle text-right whitespace-nowrap text-sm text-gray-600">
-                                            {{ $documento->created_at->diffForHumans() }}
-                                        </div>
-                                        <div class="table-cell text-gray-500 text-right px-4 flex-shrink-0 w-min">
-                                            <x-utils.links.ghost-link target="_blank" class="text-xs"
-                                                                      href="{{ route('archivos', $documento->enlace_interno) }}">
-                                                <x-icons.documents class="h-4 w-4 mr-1" stroke="1.5"/>
+                                            class="flex items-center justify-end w-full gap-2 whitespace-nowrap">
+                                            <x-utils.links.ghost-link
+                                                class="group hover:text-sky-700 flex items-center text-xs"
+                                                target="_blank"
+                                                href="{{ route('archivos', $documento->enlace_interno) }}">
+                                                <x-icons.documents class="h-4 w-4 group-hover:text-sky-600"
+                                                                   stroke="1.25"/>
                                                 Ver
                                             </x-utils.links.ghost-link>
                                         </div>
-                                    </div>
-                                </div>
+                                    </x-utils.tables.body>
+                                </x-utils.tables.row>
                             @endforeach
-                        </div>
-                    @else
-                        <x-utils.message-image image="{{ asset('images/svg/sin_documentos.svg') }}"
-                                               title="El proveedor aun no ha enviado ningun documento."
-                                               description="">
-                        </x-utils.message-image>
-                    @endif
-                </div>
+                        @endslot
+                    </x-utils.tables.table>
+                @else
+                    <x-utils.message-image image="{{ asset('images/svg/sin_documentos.svg') }}"
+                                           title="El proveedor aun no ha enviado ningun documento."
+                                           description="">
+                    </x-utils.message-image>
+                @endif
             </x-slot>
 
         </x-jet-dialog-modal>

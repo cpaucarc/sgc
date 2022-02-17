@@ -18,10 +18,9 @@ class ListaActividadResponsable extends Component
     public $procesos = null;
     public $proceso_seleccionado = null;
 
-
     public function mount()
     {
-        $this->semestres = Semestre::orderBy('id', 'desc')->get();
+        $this->semestres = Semestre::orderBy('nombre', 'desc')->get();
         $this->semestre_seleccionado = $this->semestres->first()->id;
 
         $this->entidades = Auth::user()->entidades->pluck('id');

@@ -67,7 +67,6 @@ class ActividadSalidas extends Component
                     ->where('entidad_id', $this->responsable->entidad_id);
             })
             ->get();
-//        $this->documentos = 0;
 
         $this->clientes = Cliente::query()
             ->with('entidad')
@@ -75,11 +74,9 @@ class ActividadSalidas extends Component
             ->where('responsable_id', $this->responsable->id)
             ->get()
             ->pluck('entidad.nombre');
-
     }
 
-    public
-    function enviarArchivo()
+    public function enviarArchivo()
     {
         $this->validate();
         $rutaCarpeta = '/public/salidas';
@@ -126,8 +123,7 @@ class ActividadSalidas extends Component
         $this->emit('guardado', "El documento '$nombreArchivo' fue guardado.");
     }
 
-    public
-    function eliminarArchivo($doc_id)
+    public function eliminarArchivo($doc_id)
     {
         $documento_enviado = DocumentoEnviado::where('documento_id', $doc_id);
         $documento_enviado->delete();

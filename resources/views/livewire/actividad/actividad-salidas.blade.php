@@ -60,50 +60,48 @@
                             <span class="text-gray-400 hover:text-sky-700 text-sm">[Ver]</span>
                         </summary>
                         @if(count($documentos) > 0)
-                            <div class="table w-full text-gray-700">
-                                <x-utils.tables.table>
-                                    @slot('body')
-                                        @foreach($documentos as $documento_enviado)
-                                            <x-utils.tables.row class="p-1">
-                                                <x-utils.tables.body class="text-left text-sm">
-                                                    @if(strlen($documento_enviado->documento->nombre) > 60)
-                                                        {{ substr($documento_enviado->documento->nombre, 0, 45) }}
-                                                        ...{{ substr($documento_enviado->documento->nombre, -15) }}
-                                                    @else
-                                                        {{ $documento_enviado->documento->nombre }}
-                                                    @endif
-                                                </x-utils.tables.body>
-                                                <x-utils.tables.body class="text-right text-sm">
-                                                    {{ $documento_enviado->documento->created_at->diffForHumans() }}
-                                                </x-utils.tables.body>
-                                                <x-utils.tables.body class="text-right">
-                                                    <div
-                                                        class="flex items-center justify-end w-full gap-2 whitespace-nowrap">
-                                                        <x-utils.links.ghost-link
-                                                            class="group hover:text-sky-700 flex items-center text-xs"
-                                                            target="_blank"
-                                                            href="{{ route('archivos', $documento_enviado->documento->enlace_interno) }}">
-                                                            <x-icons.documents class="h-4 w-4 group-hover:text-sky-600"
-                                                                               stroke="1.25"/>
-                                                            Ver
-                                                        </x-utils.links.ghost-link>
-                                                        <x-utils.buttons.ghost-button
-                                                            class="group hover:border-rose-600"
-                                                            wire:click="eliminarArchivo({{ $documento_enviado->documento->id }})">
-                                                            <x-icons.delete :stroke="1.25"
-                                                                            class="h-4 w-4 group-hover:text-rose-700"/>
-                                                        </x-utils.buttons.ghost-button>
-                                                    </div>
-                                                </x-utils.tables.body>
-                                            </x-utils.tables.row>
-                                        @endforeach
-                                    @endslot
-                                </x-utils.tables.table>
-                            </div>
+                            <x-utils.tables.table>
+                                @slot('body')
+                                    @foreach($documentos as $documento_enviado)
+                                        <x-utils.tables.row class="p-1">
+                                            <x-utils.tables.body class="text-left text-sm">
+                                                @if(strlen($documento_enviado->documento->nombre) > 60)
+                                                    {{ substr($documento_enviado->documento->nombre, 0, 45) }}
+                                                    ...{{ substr($documento_enviado->documento->nombre, -15) }}
+                                                @else
+                                                    {{ $documento_enviado->documento->nombre }}
+                                                @endif
+                                            </x-utils.tables.body>
+                                            <x-utils.tables.body class="text-right text-sm">
+                                                {{ $documento_enviado->documento->created_at->diffForHumans() }}
+                                            </x-utils.tables.body>
+                                            <x-utils.tables.body class="text-right">
+                                                <div
+                                                    class="flex items-center justify-end w-full gap-2 whitespace-nowrap">
+                                                    <x-utils.links.ghost-link
+                                                        class="group hover:text-sky-700 flex items-center text-xs"
+                                                        target="_blank"
+                                                        href="{{ route('archivos', $documento_enviado->documento->enlace_interno) }}">
+                                                        <x-icons.documents class="h-4 w-4 group-hover:text-sky-600"
+                                                                           stroke="1.25"/>
+                                                        Ver
+                                                    </x-utils.links.ghost-link>
+                                                    <x-utils.buttons.ghost-button
+                                                        class="group hover:border-rose-600"
+                                                        wire:click="eliminarArchivo({{ $documento_enviado->documento->id }})">
+                                                        <x-icons.delete :stroke="1.25"
+                                                                        class="h-4 w-4 group-hover:text-rose-700"/>
+                                                    </x-utils.buttons.ghost-button>
+                                                </div>
+                                            </x-utils.tables.body>
+                                        </x-utils.tables.row>
+                                    @endforeach
+                                @endslot
+                            </x-utils.tables.table>
                         @else
                             <div class="grid place-items-center">
                                 <div class="flex items-center">
-                                    <img src="{{ asset('images/ilustraciones/sin_documentos.svg') }}" class="w-24"
+                                    <img src="{{ asset('images/svg/sin_documentos.svg') }}" class="w-24"
                                          alt="Grafico">
                                     <p class="font-bold text-gray-600">
                                         Aún no has enviado ningun documento
@@ -115,7 +113,7 @@
 
                     <div class="space-y-2">
                         <h2 class="text-gray-600 text-sm font-bold">
-                            Esta información será visto por los siguientes clientes:
+                            Esta información será visto por las siguientes entidades:
                         </h2>
                         <ul class="mt-1 flex flex-wrap gap-2">
                             @foreach($clientes as $cliente)

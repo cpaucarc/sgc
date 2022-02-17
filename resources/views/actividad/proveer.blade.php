@@ -6,9 +6,9 @@
             <x-actividad.rutas-actividad></x-actividad.rutas-actividad>
         </div>
 
-{{--        <div class="col-span-3 space-y-4">--}}
-{{--            <livewire:actividad.lista-actividad-responsable/>--}}
-{{--        </div>--}}
+        <div class="col-span-3 space-y-4">
+            <livewire:actividad.lista-actividad-proveedor/>
+        </div>
     </div>
 
 </x-app-layout>
