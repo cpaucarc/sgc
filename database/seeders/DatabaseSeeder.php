@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,6 +15,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Storage::deleteDirectory('/public/salidas');
+
         // Nivel 0
         $this->call(CargoJuradoSeeder::class);
         $this->call(CategoriaEstadoSeeder::class);
@@ -49,18 +52,18 @@ class DatabaseSeeder extends Seeder
         $this->call(RequisitoSeeder::class);
 
         // Nivel 2
-        $this->call(ClienteSeeder::class);
         $this->call(ConvalidacionSeeder::class);
         \App\Models\EstudianteExterno::factory(50)->create();
         $this->call(IndicadorSeeder::class);
         $this->call(LineaInvestigacionSeeder::class);
-        $this->call(ProveedorSeeder::class);
         \App\Models\ResponsabilidadSocial::factory(50)->create();
         $this->call(ResponsableSeeder::class);
         \App\Models\Tesis::factory(50)->create();
 
         // Nivel 3
+        $this->call(ClienteSeeder::class);
         \App\Models\ConvalidacionPostulante::factory(75)->create();
+        $this->call(ProveedorSeeder::class);
         \App\Models\RsuParticipante::factory(75)->create();
         $this->call(SublineaInvestigacionSeeder::class);
         \App\Models\Sustentacion::factory(30)->create();

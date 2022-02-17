@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ActividadController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +22,14 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])->prefix('actividad')->controller(ActividadController::class)->group(function () {
+    Route::get('/', 'index')->name('actividad.index');
+    Route::get('proveer', 'proveer')->name('actividad.proveer');
+    Route::get('{id}/{semestre}', 'show')->name('actividad.show');
+});
+
+// Para mostrar archivos subidos al servidor
+Route::get('storage/{file}', function ($file) {
+    return Storage::response($file);
+})->name('archivos');

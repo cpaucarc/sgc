@@ -12,15 +12,12 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('proveedores', function (Blueprint $table) {
+        Schema::create('documento_enviado', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('actividad_id')->constrained('actividades')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
-            $table->foreignId('oficina_id')->constrained('oficinas')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
-            $table->foreignId('entrada_id')->constrained('entradas')
+            $table->unsignedBigInteger('documentable_id');
+            $table->string('documentable_type');
+
+            $table->foreignId('documento_id')->constrained('documentos')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
         });
@@ -33,6 +30,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('proveedores');
+        Schema::dropIfExists('documento_enviado');
     }
 };

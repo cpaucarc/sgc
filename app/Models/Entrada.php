@@ -11,4 +11,11 @@ class Entrada extends Model
 
     public $timestamps = false;
     public $fillable = ['codigo', 'nombre', 'descripcion'];
+
+    // relacion uno a muchos polimorfica
+    public function documentos()
+    {
+        return $this->morphMany(DocumentoEnviado::class, 'documentable')
+            ->with('documento');
+    }
 }

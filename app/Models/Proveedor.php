@@ -11,5 +11,21 @@ class Proveedor extends Model
 
     protected $table = "proveedores";
     public $timestamps = false;
-    public $fillable = ['actividad_id', 'oficina_id', 'entrada_id'];
+    public $fillable = ['responsable_id', 'entidad_id', 'entrada_id'];
+
+    public function entidad()
+    {
+        return $this->belongsTo(Entidad::class);
+    }
+
+    public function entrada()
+    {
+        return $this->belongsTo(Entrada::class);
+    }
+
+    public function responsable()
+    {
+        return $this->belongsTo(Responsable::class)
+            ->with('entidad');
+    }
 }

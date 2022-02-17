@@ -12,10 +12,12 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('usuario_entidad', function (Blueprint $table) {
+        Schema::create('actividad_completado', function (Blueprint $table) {
             $table->id();
-            $table->boolean('activo')->default(true);
-            $table->foreignId('entidad_id')->constrained('entidades')
+            $table->foreignId('responsable_id')->constrained('responsables')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->foreignId('semestre_id')->constrained('semestres')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')
@@ -32,6 +34,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('usuario_entidad');
+        Schema::dropIfExists('actividad_completado');
     }
 };

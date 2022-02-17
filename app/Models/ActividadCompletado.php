@@ -10,5 +10,5 @@ class ActividadCompletado extends Model
     use HasFactory;
 
     protected $table = "actividad_completado";
-    public $fillable = ['actividad_id', 'semestre_id', 'user_id'];
+    public $fillable = ['responsable_id', 'semestre_id', 'user_id'];
 }

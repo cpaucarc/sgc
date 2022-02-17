@@ -17,55 +17,107 @@ class ResponsableSeeder extends Seeder
         $responsables = [
             [
                 'actividad_id' => 1,
-                'oficina_id' => 1
+                'entidad_id' => 1
+            ],
+            [
+                'actividad_id' => 1,
+                'entidad_id' => 2
             ],
             [
                 'actividad_id' => 2,
-                'oficina_id' => 4
+                'entidad_id' => 6
+            ],
+            [
+                'actividad_id' => 2,
+                'entidad_id' => 7
             ],
             [
                 'actividad_id' => 3,
-                'oficina_id' => 1
+                'entidad_id' => 1
+            ],
+            [
+                'actividad_id' => 3,
+                'entidad_id' => 2
             ],
             [
                 'actividad_id' => 4,
-                'oficina_id' => 4
+                'entidad_id' => 6
+            ],
+            [
+                'actividad_id' => 4,
+                'entidad_id' => 7
             ],
             [
                 'actividad_id' => 5,
-                'oficina_id' => 4
+                'entidad_id' => 6
+            ],
+            [
+                'actividad_id' => 5,
+                'entidad_id' => 7
             ],
             [
                 'actividad_id' => 6,
-                'oficina_id' => 4
+                'entidad_id' => 6
+            ],
+            [
+                'actividad_id' => 6,
+                'entidad_id' => 7
             ],
             [
                 'actividad_id' => 7,
-                'oficina_id' => 1
+                'entidad_id' => 1
             ],
             [
                 'actividad_id' => 7,
-                'oficina_id' => 2
+                'entidad_id' => 2
+            ],
+            [
+                'actividad_id' => 7,
+                'entidad_id' => 3
+            ],
+            [
+                'actividad_id' => 7,
+                'entidad_id' => 4
             ],
             [
                 'actividad_id' => 8,
-                'oficina_id' => 1
+                'entidad_id' => 1
             ],
             [
                 'actividad_id' => 8,
-                'oficina_id' => 4
+                'entidad_id' => 2
+            ],
+            [
+                'actividad_id' => 8,
+                'entidad_id' => 6
+            ],
+            [
+                'actividad_id' => 8,
+                'entidad_id' => 7
             ],
             [
                 'actividad_id' => 9,
-                'oficina_id' => 1
+                'entidad_id' => 1
+            ],
+            [
+                'actividad_id' => 9,
+                'entidad_id' => 2
             ],
             [
                 'actividad_id' => 10,
-                'oficina_id' => 1
+                'entidad_id' => 1
+            ],
+            [
+                'actividad_id' => 10,
+                'entidad_id' => 2
             ],
             [
                 'actividad_id' => 11,
-                'oficina_id' => 1
+                'entidad_id' => 1
+            ],
+            [
+                'actividad_id' => 11,
+                'entidad_id' => 2
             ],
         ];
 

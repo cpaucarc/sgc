@@ -11,4 +11,10 @@ class Oficina extends Model
 
     public $timestamps = false;
     public $fillable = ['nombre'];
+
+    public function actividad_responsable()
+    {
+        return $this->belongsToMany(Actividad::class, 'responsables')
+            ->with('tipo');
+    }
 }

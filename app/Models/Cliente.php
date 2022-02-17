@@ -10,5 +10,15 @@ class Cliente extends Model
     use HasFactory;
 
     public $timestamps = false;
-    public $fillable = ['actividad_id', 'salida_id', 'oficina_id'];
+    public $fillable = ['responsable_id', 'salida_id', 'entidad_id'];
+
+    public function salida()
+    {
+        return $this->belongsTo(Salida::class);
+    }
+
+    public function entidad()
+    {
+        return $this->belongsTo(Entidad::class);
+    }
 }

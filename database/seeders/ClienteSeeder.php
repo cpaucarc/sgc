@@ -18,434 +18,1027 @@ class ClienteSeeder extends Seeder
             /* Actividad 1 */
             // Salida 1
             [
-                'actividad_id' => 1,
+                'responsable_id' => 1,
                 'salida_id' => 1,
-                'oficina_id' => 1,
-            ],
+                'entidad_id' => 1,
+            ], // Director de Enfermeria
             [
-                'actividad_id' => 1,
+                'responsable_id' => 1,
                 'salida_id' => 1,
-                'oficina_id' => 2,
-            ],
+                'entidad_id' => 3,
+            ], // Director de Enfermeria
             [
-                'actividad_id' => 1,
+                'responsable_id' => 1,
                 'salida_id' => 1,
-                'oficina_id' => 5,
-            ],
+                'entidad_id' => 8,
+            ], // Director de Enfermeria
+            [
+                'responsable_id' => 2,
+                'salida_id' => 1,
+                'entidad_id' => 2,
+            ], // Director de Obstetricia
+            [
+                'responsable_id' => 2,
+                'salida_id' => 1,
+                'entidad_id' => 4,
+            ], // Director de Obstetricia
+            [
+                'responsable_id' => 2,
+                'salida_id' => 1,
+                'entidad_id' => 8,
+            ], // Director de Obstetricia
+
             /* Actividad 2 */
             // Salida 2
             [
-                'actividad_id' => 2,
+                'responsable_id' => 3,
                 'salida_id' => 2,
-                'oficina_id' => 1,
-            ],
+                'entidad_id' => 1,
+            ], // Docente Enfermeria
             [
-                'actividad_id' => 2,
+                'responsable_id' => 3,
                 'salida_id' => 2,
-                'oficina_id' => 2,
-            ],
+                'entidad_id' => 3
+            ], // Docente Enfermeria
             [
-                'actividad_id' => 2,
+                'responsable_id' => 3,
                 'salida_id' => 2,
-                'oficina_id' => 3,
-            ],
+                'entidad_id' => 6,
+            ], // Docente Enfermeria
             [
-                'actividad_id' => 2,
+                'responsable_id' => 3,
                 'salida_id' => 2,
-                'oficina_id' => 4,
-            ],
+                'entidad_id' => 5,
+            ], // Docente Enfermeria
+            [
+                'responsable_id' => 4,
+                'salida_id' => 2,
+                'entidad_id' => 2,
+            ], // Docente Obstetricia
+            [
+                'responsable_id' => 4,
+                'salida_id' => 2,
+                'entidad_id' => 4
+            ], // Docente Obstetricia
+            [
+                'responsable_id' => 4,
+                'salida_id' => 2,
+                'entidad_id' => 7,
+            ], // Docente Obstetricia
+            [
+                'responsable_id' => 4,
+                'salida_id' => 2,
+                'entidad_id' => 5,
+            ], // Docente Obstetricia
+
             // Salida 3
             [
-                'actividad_id' => 2,
+                'responsable_id' => 3,
                 'salida_id' => 3,
-                'oficina_id' => 1,
-            ],
+                'entidad_id' => 1,
+            ], // Docente Enfermeria
             [
-                'actividad_id' => 2,
+                'responsable_id' => 3,
                 'salida_id' => 3,
-                'oficina_id' => 2,
-            ],
+                'entidad_id' => 3
+            ], // Docente Enfermeria
             [
-                'actividad_id' => 2,
+                'responsable_id' => 3,
                 'salida_id' => 3,
-                'oficina_id' => 4,
-            ],
+                'entidad_id' => 6,
+            ], // Docente Enfermeria
             [
-                'actividad_id' => 2,
+                'responsable_id' => 3,
                 'salida_id' => 3,
-                'oficina_id' => 9,
-            ],
+                'entidad_id' => 13,
+            ], // Docente Enfermeria
+            [
+                'responsable_id' => 4,
+                'salida_id' => 3,
+                'entidad_id' => 2,
+            ], // Docente Obstetricia
+            [
+                'responsable_id' => 4,
+                'salida_id' => 3,
+                'entidad_id' => 4
+            ], // Docente Obstetricia
+            [
+                'responsable_id' => 4,
+                'salida_id' => 3,
+                'entidad_id' => 7,
+            ], // Docente Obstetricia
+            [
+                'responsable_id' => 4,
+                'salida_id' => 3,
+                'entidad_id' => 14,
+            ], // Docente Obstetricia
+
             /* Actividad 3 */
             // Salida 4
             [
-                'actividad_id' => 3,
+                'responsable_id' => 5,
                 'salida_id' => 4,
-                'oficina_id' => 1,
-            ],
+                'entidad_id' => 1,
+            ], // Director Escuela Enfermeria
             [
-                'actividad_id' => 3,
+                'responsable_id' => 5,
                 'salida_id' => 4,
-                'oficina_id' => 5,
-            ],
+                'entidad_id' => 8,
+            ], // Director Escuela Enfermeria
+            [
+                'responsable_id' => 6,
+                'salida_id' => 4,
+                'entidad_id' => 2,
+            ], // Director Escuela Obstetricia
+            [
+                'responsable_id' => 6,
+                'salida_id' => 4,
+                'entidad_id' => 8,
+            ], // Director Escuela Obstetricia
+
             /* Actividad 4 */
             // Salida 5
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 5,
-                'oficina_id' => 1,
-            ],
+                'entidad_id' => 1,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 5,
-                'oficina_id' => 2,
-            ],
+                'entidad_id' => 3,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 5,
-                'oficina_id' => 4,
-            ],
+                'entidad_id' => 6,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 5,
-                'oficina_id' => 9,
-            ],
+                'entidad_id' => 13,
+            ], //Docente Enfermeria
+            [
+                'responsable_id' => 8,
+                'salida_id' => 5,
+                'entidad_id' => 2,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 8,
+                'salida_id' => 5,
+                'entidad_id' => 4,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 8,
+                'salida_id' => 5,
+                'entidad_id' => 7,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 8,
+                'salida_id' => 5,
+                'entidad_id' => 14,
+            ], //Docente Obstetricia
+
             // Salida 6
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 6,
-                'oficina_id' => 1,
-            ],
+                'entidad_id' => 1,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 6,
-                'oficina_id' => 2,
-            ],
+                'entidad_id' => 3,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 6,
-                'oficina_id' => 4,
-            ],
+                'entidad_id' => 6,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 6,
-                'oficina_id' => 9,
-            ],
+                'entidad_id' => 13,
+            ], //Docente Enfermeria
+            [
+                'responsable_id' => 8,
+                'salida_id' => 6,
+                'entidad_id' => 2,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 8,
+                'salida_id' => 6,
+                'entidad_id' => 4,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 8,
+                'salida_id' => 6,
+                'entidad_id' => 7,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 8,
+                'salida_id' => 6,
+                'entidad_id' => 14,
+            ], //Docente Obstetricia
+
             // Salida 7
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 7,
-                'oficina_id' => 1,
-            ],
+                'entidad_id' => 1,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 7,
-                'oficina_id' => 2,
-            ],
+                'entidad_id' => 3,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 7,
-                'oficina_id' => 4,
-            ],
+                'entidad_id' => 6,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 7,
-                'oficina_id' => 9,
-            ],
+                'entidad_id' => 13,
+            ], //Docente Enfermeria
+            [
+                'responsable_id' => 8,
+                'salida_id' => 7,
+                'entidad_id' => 2,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 8,
+                'salida_id' => 7,
+                'entidad_id' => 4,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 8,
+                'salida_id' => 7,
+                'entidad_id' => 7,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 8,
+                'salida_id' => 7,
+                'entidad_id' => 14,
+            ], //Docente Obstetricia
+
             // Salida 8
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 8,
-                'oficina_id' => 1,
-            ],
+                'entidad_id' => 1,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 8,
-                'oficina_id' => 2,
-            ],
+                'entidad_id' => 3,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 8,
-                'oficina_id' => 4,
-            ],
+                'entidad_id' => 6,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 8,
-                'oficina_id' => 9,
-            ],
+                'entidad_id' => 13,
+            ], //Docente Enfermeria
+            [
+                'responsable_id' => 8,
+                'salida_id' => 8,
+                'entidad_id' => 2,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 8,
+                'salida_id' => 8,
+                'entidad_id' => 4,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 8,
+                'salida_id' => 8,
+                'entidad_id' => 7,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 8,
+                'salida_id' => 8,
+                'entidad_id' => 14,
+            ], //Docente Obstetricia
+
             // Salida 9
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 9,
-                'oficina_id' => 1,
-            ],
+                'entidad_id' => 1,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 9,
-                'oficina_id' => 2,
-            ],
+                'entidad_id' => 3,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 9,
-                'oficina_id' => 4,
-            ],
+                'entidad_id' => 6,
+            ], //Docente Enfermeria
+            [
+                'responsable_id' => 8,
+                'salida_id' => 9,
+                'entidad_id' => 2,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 8,
+                'salida_id' => 9,
+                'entidad_id' => 4,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 8,
+                'salida_id' => 9,
+                'entidad_id' => 7,
+            ], //Docente Obstetricia
+
             // Salida 10
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 10,
-                'oficina_id' => 1,
-            ],
+                'entidad_id' => 1,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 10,
-                'oficina_id' => 2,
-            ],
+                'entidad_id' => 3,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 4,
+                'responsable_id' => 7,
                 'salida_id' => 10,
-                'oficina_id' => 4,
-            ],
+                'entidad_id' => 6,
+            ], //Docente Enfermeria
+            [
+                'responsable_id' => 8,
+                'salida_id' => 10,
+                'entidad_id' => 2,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 8,
+                'salida_id' => 10,
+                'entidad_id' => 4,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 8,
+                'salida_id' => 10,
+                'entidad_id' => 7,
+            ], //Docente Obstetricia
+
             /* Actividad 5 */
             // Salida 11
             [
-                'actividad_id' => 5,
+                'responsable_id' => 9,
                 'salida_id' => 11,
-                'oficina_id' => 1,
-            ],
+                'entidad_id' => 1,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 5,
+                'responsable_id' => 9,
                 'salida_id' => 11,
-                'oficina_id' => 2,
-            ],
+                'entidad_id' => 3,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 5,
+                'responsable_id' => 9,
                 'salida_id' => 11,
-                'oficina_id' => 4,
-            ],
+                'entidad_id' => 6,
+            ], //Docente Enfermeria
+            [
+                'responsable_id' => 10,
+                'salida_id' => 11,
+                'entidad_id' => 2,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 10,
+                'salida_id' => 11,
+                'entidad_id' => 4,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 10,
+                'salida_id' => 11,
+                'entidad_id' => 7,
+            ], //Docente Obstetricia
+
             /* Actividad 6 */
             // Salida 12
             [
-                'actividad_id' => 6,
+                'responsable_id' => 11,
                 'salida_id' => 12,
-                'oficina_id' => 1,
-            ],
+                'entidad_id' => 1,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 6,
+                'responsable_id' => 11,
                 'salida_id' => 12,
-                'oficina_id' => 2,
-            ],
+                'entidad_id' => 3,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 5,
+                'responsable_id' => 11,
                 'salida_id' => 12,
-                'oficina_id' => 4,
-            ],
+                'entidad_id' => 6,
+            ], //Docente Enfermeria
             [
-                'actividad_id' => 5,
+                'responsable_id' => 11,
                 'salida_id' => 12,
-                'oficina_id' => 9,
-            ],
+                'entidad_id' => 13,
+            ], //Docente Enfermeria
+            [
+                'responsable_id' => 12,
+                'salida_id' => 12,
+                'entidad_id' => 2,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 12,
+                'salida_id' => 12,
+                'entidad_id' => 4,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 12,
+                'salida_id' => 12,
+                'entidad_id' => 7,
+            ], //Docente Obstetricia
+            [
+                'responsable_id' => 12,
+                'salida_id' => 12,
+                'entidad_id' => 14,
+            ], //Docente Obstetricia
+
             /* Actividad 7 */
             // Salida 13
             [
-                'actividad_id' => 7,
+                'responsable_id' => 13,
                 'salida_id' => 13,
-                'oficina_id' => 1,
-            ],
+                'entidad_id' => 1,
+            ], // Director Escuela Enfermeria
             [
-                'actividad_id' => 7,
+                'responsable_id' => 13,
                 'salida_id' => 13,
-                'oficina_id' => 2,
-            ],
+                'entidad_id' => 3
+            ], // Director Escuela Enfermeria
             [
-                'actividad_id' => 7,
+                'responsable_id' => 13,
                 'salida_id' => 13,
-                'oficina_id' => 3,
-            ],
+                'entidad_id' => 6,
+            ], // Director Escuela Enfermeria
             [
-                'actividad_id' => 7,
+                'responsable_id' => 13,
                 'salida_id' => 13,
-                'oficina_id' => 4,
-            ],
+                'entidad_id' => 5,
+            ], // Director Escuela Enfermeria
+            [
+                'responsable_id' => 14,
+                'salida_id' => 13,
+                'entidad_id' => 2,
+            ], // Director Escuela Obstetricia
+            [
+                'responsable_id' => 14,
+                'salida_id' => 13,
+                'entidad_id' => 4
+            ], // Director Escuela Obstetricia
+            [
+                'responsable_id' => 14,
+                'salida_id' => 13,
+                'entidad_id' => 7,
+            ], // Director Escuela Obstetricia
+            [
+                'responsable_id' => 14,
+                'salida_id' => 13,
+                'entidad_id' => 5,
+            ], // Director Escuela Obstetricia
+
+            [
+                'responsable_id' => 15,
+                'salida_id' => 13,
+                'entidad_id' => 1,
+            ], // Director Depto. Enfermeria
+            [
+                'responsable_id' => 15,
+                'salida_id' => 13,
+                'entidad_id' => 3
+            ], // Director Depto. Enfermeria
+            [
+                'responsable_id' => 15,
+                'salida_id' => 13,
+                'entidad_id' => 6,
+            ], // Director Depto. Enfermeria
+            [
+                'responsable_id' => 15,
+                'salida_id' => 13,
+                'entidad_id' => 5,
+            ], // Director Depto. Enfermeria
+            [
+                'responsable_id' => 16,
+                'salida_id' => 13,
+                'entidad_id' => 2,
+            ], // Director Depto. Obstetricia
+            [
+                'responsable_id' => 16,
+                'salida_id' => 13,
+                'entidad_id' => 4
+            ], // Director Depto. Obstetricia
+            [
+                'responsable_id' => 16,
+                'salida_id' => 13,
+                'entidad_id' => 7,
+            ], // Director Depto. Obstetricia
+            [
+                'responsable_id' => 16,
+                'salida_id' => 13,
+                'entidad_id' => 5,
+            ], // Director Depto. Obstetricia
+
             /* Actividad 8 */
             // Salida 14
             [
-                'actividad_id' => 8,
+                'responsable_id' => 17,
                 'salida_id' => 14,
-                'oficina_id' => 1,
-            ],
+                'entidad_id' => 1,
+            ], // Director Escuela Enfermeria
             [
-                'actividad_id' => 8,
+                'responsable_id' => 17,
                 'salida_id' => 14,
-                'oficina_id' => 2,
-            ],
+                'entidad_id' => 3
+            ], // Director Escuela Enfermeria
             [
-                'actividad_id' => 8,
+                'responsable_id' => 17,
                 'salida_id' => 14,
-                'oficina_id' => 3,
-            ],
+                'entidad_id' => 6,
+            ], // Director Escuela Enfermeria
             [
-                'actividad_id' => 8,
+                'responsable_id' => 17,
                 'salida_id' => 14,
-                'oficina_id' => 4,
-            ],
+                'entidad_id' => 5,
+            ], // Director Escuela Enfermeria
+            [
+                'responsable_id' => 18,
+                'salida_id' => 14,
+                'entidad_id' => 2,
+            ], // Director Escuela Obstetricia
+            [
+                'responsable_id' => 18,
+                'salida_id' => 14,
+                'entidad_id' => 4
+            ], // Director Escuela Obstetricia
+            [
+                'responsable_id' => 18,
+                'salida_id' => 14,
+                'entidad_id' => 7,
+            ], // Director Escuela Obstetricia
+            [
+                'responsable_id' => 18,
+                'salida_id' => 14,
+                'entidad_id' => 5,
+            ], // Director Escuela Obstetricia
+
+            [
+                'responsable_id' => 19,
+                'salida_id' => 14,
+                'entidad_id' => 1,
+            ], // Docente Enfermeria
+            [
+                'responsable_id' => 19,
+                'salida_id' => 14,
+                'entidad_id' => 3
+            ], // Docente Enfermeria
+            [
+                'responsable_id' => 19,
+                'salida_id' => 14,
+                'entidad_id' => 6,
+            ], // Docente Enfermeria
+            [
+                'responsable_id' => 19,
+                'salida_id' => 14,
+                'entidad_id' => 5,
+            ], // Docente Enfermeria
+            [
+                'responsable_id' => 20,
+                'salida_id' => 14,
+                'entidad_id' => 2,
+            ], // Docente Obstetricia
+            [
+                'responsable_id' => 20,
+                'salida_id' => 14,
+                'entidad_id' => 4
+            ], // Docente Obstetricia
+            [
+                'responsable_id' => 20,
+                'salida_id' => 14,
+                'entidad_id' => 7,
+            ], // Docente Obstetricia
+            [
+                'responsable_id' => 20,
+                'salida_id' => 14,
+                'entidad_id' => 5,
+            ], // Docente Obstetricia
+
             // Salida 15
             [
-                'actividad_id' => 8,
+                'responsable_id' => 17,
                 'salida_id' => 15,
-                'oficina_id' => 1,
-            ],
+                'entidad_id' => 1,
+            ], // Director Escuela Enfermeria
             [
-                'actividad_id' => 8,
+                'responsable_id' => 17,
                 'salida_id' => 15,
-                'oficina_id' => 2,
-            ],
+                'entidad_id' => 3
+            ], // Director Escuela Enfermeria
             [
-                'actividad_id' => 8,
+                'responsable_id' => 17,
                 'salida_id' => 15,
-                'oficina_id' => 3,
-            ],
+                'entidad_id' => 6,
+            ], // Director Escuela Enfermeria
             [
-                'actividad_id' => 8,
+                'responsable_id' => 17,
                 'salida_id' => 15,
-                'oficina_id' => 4,
-            ],
+                'entidad_id' => 5,
+            ], // Director Escuela Enfermeria
+            [
+                'responsable_id' => 18,
+                'salida_id' => 15,
+                'entidad_id' => 2,
+            ], // Director Escuela Obstetricia
+            [
+                'responsable_id' => 18,
+                'salida_id' => 15,
+                'entidad_id' => 4
+            ], // Director Escuela Obstetricia
+            [
+                'responsable_id' => 18,
+                'salida_id' => 15,
+                'entidad_id' => 7,
+            ], // Director Escuela Obstetricia
+            [
+                'responsable_id' => 18,
+                'salida_id' => 15,
+                'entidad_id' => 5,
+            ], // Director Escuela Obstetricia
+
+            [
+                'responsable_id' => 19,
+                'salida_id' => 15,
+                'entidad_id' => 1,
+            ], // Docente Enfermeria
+            [
+                'responsable_id' => 19,
+                'salida_id' => 15,
+                'entidad_id' => 3
+            ], // Docente Enfermeria
+            [
+                'responsable_id' => 19,
+                'salida_id' => 15,
+                'entidad_id' => 6,
+            ], // Docente Enfermeria
+            [
+                'responsable_id' => 19,
+                'salida_id' => 15,
+                'entidad_id' => 5,
+            ], // Docente Enfermeria
+            [
+                'responsable_id' => 20,
+                'salida_id' => 15,
+                'entidad_id' => 2,
+            ], // Docente Obstetricia
+            [
+                'responsable_id' => 20,
+                'salida_id' => 15,
+                'entidad_id' => 4
+            ], // Docente Obstetricia
+            [
+                'responsable_id' => 20,
+                'salida_id' => 15,
+                'entidad_id' => 7,
+            ], // Docente Obstetricia
+            [
+                'responsable_id' => 20,
+                'salida_id' => 15,
+                'entidad_id' => 5,
+            ], // Docente Obstetricia
+
             // Salida 16
             [
-                'actividad_id' => 8,
+                'responsable_id' => 17,
                 'salida_id' => 16,
-                'oficina_id' => 1,
-            ],
+                'entidad_id' => 1,
+            ], // Director Escuela Enfermeria
             [
-                'actividad_id' => 8,
+                'responsable_id' => 17,
                 'salida_id' => 16,
-                'oficina_id' => 2,
-            ],
+                'entidad_id' => 3
+            ], // Director Escuela Enfermeria
             [
-                'actividad_id' => 8,
+                'responsable_id' => 17,
                 'salida_id' => 16,
-                'oficina_id' => 3,
-            ],
+                'entidad_id' => 6,
+            ], // Director Escuela Enfermeria
             [
-                'actividad_id' => 8,
+                'responsable_id' => 17,
                 'salida_id' => 16,
-                'oficina_id' => 4,
-            ],
+                'entidad_id' => 5,
+            ], // Director Escuela Enfermeria
             [
-                'actividad_id' => 8,
+                'responsable_id' => 17,
                 'salida_id' => 16,
-                'oficina_id' => 9,
-            ],
+                'entidad_id' => 13,
+            ], // Director Escuela Enfermeria
+            [
+                'responsable_id' => 18,
+                'salida_id' => 16,
+                'entidad_id' => 2,
+            ], // Director Escuela Obstetricia
+            [
+                'responsable_id' => 18,
+                'salida_id' => 16,
+                'entidad_id' => 4
+            ], // Director Escuela Obstetricia
+            [
+                'responsable_id' => 18,
+                'salida_id' => 16,
+                'entidad_id' => 7,
+            ], // Director Escuela Obstetricia
+            [
+                'responsable_id' => 18,
+                'salida_id' => 16,
+                'entidad_id' => 14,
+            ], // Director Escuela Obstetricia
+            [
+                'responsable_id' => 18,
+                'salida_id' => 16,
+                'entidad_id' => 5,
+            ], // Director Escuela Obstetricia
+
+            [
+                'responsable_id' => 19,
+                'salida_id' => 16,
+                'entidad_id' => 1,
+            ], // Docente Enfermeria
+            [
+                'responsable_id' => 19,
+                'salida_id' => 16,
+                'entidad_id' => 3
+            ], // Docente Enfermeria
+            [
+                'responsable_id' => 19,
+                'salida_id' => 16,
+                'entidad_id' => 6,
+            ], // Docente Enfermeria
+            [
+                'responsable_id' => 19,
+                'salida_id' => 16,
+                'entidad_id' => 5,
+            ], // Docente Enfermeria
+            [
+                'responsable_id' => 19,
+                'salida_id' => 16,
+                'entidad_id' => 13,
+            ], // Docente Enfermeria
+            [
+                'responsable_id' => 20,
+                'salida_id' => 16,
+                'entidad_id' => 2,
+            ], // Docente Obstetricia
+            [
+                'responsable_id' => 20,
+                'salida_id' => 16,
+                'entidad_id' => 4
+            ], // Docente Obstetricia
+            [
+                'responsable_id' => 20,
+                'salida_id' => 16,
+                'entidad_id' => 7,
+            ], // Docente Obstetricia
+            [
+                'responsable_id' => 20,
+                'salida_id' => 16,
+                'entidad_id' => 5,
+            ], // Docente Obstetricia
+            [
+                'responsable_id' => 20,
+                'salida_id' => 16,
+                'entidad_id' => 14,
+            ], // Docente Obstetricia
+
             /* Actividad 9 */
             // Salida 17
             [
-                'actividad_id' => 9,
+                'responsable_id' => 21,
                 'salida_id' => 17,
-                'oficina_id' => 1,
-            ],
+                'entidad_id' => 1,
+            ], // Director de Enfermeria
             [
-                'actividad_id' => 9,
+                'responsable_id' => 21,
                 'salida_id' => 17,
-                'oficina_id' => 2,
-            ],
+                'entidad_id' => 3,
+            ], // Director de Enfermeria
             [
-                'actividad_id' => 9,
+                'responsable_id' => 21,
                 'salida_id' => 17,
-                'oficina_id' => 5,
-            ],
+                'entidad_id' => 9,
+            ], // Director de Enfermeria
             [
-                'actividad_id' => 9,
+                'responsable_id' => 21,
                 'salida_id' => 17,
-                'oficina_id' => 6,
-            ],
+                'entidad_id' => 8,
+            ], // Director de Enfermeria
+            [
+                'responsable_id' => 22,
+                'salida_id' => 17,
+                'entidad_id' => 2,
+            ], // Director de Obstetricia
+            [
+                'responsable_id' => 22,
+                'salida_id' => 17,
+                'entidad_id' => 4,
+            ], // Director de Obstetricia
+            [
+                'responsable_id' => 22,
+                'salida_id' => 17,
+                'entidad_id' => 9,
+            ], // Director de Obstetricia
+            [
+                'responsable_id' => 22,
+                'salida_id' => 17,
+                'entidad_id' => 8,
+            ], // Director de Obstetricia
+
             // Salida 18
             [
-                'actividad_id' => 9,
+                'responsable_id' => 21,
                 'salida_id' => 18,
-                'oficina_id' => 1,
-            ],
+                'entidad_id' => 1,
+            ], // Director de Enfermeria
             [
-                'actividad_id' => 9,
+                'responsable_id' => 21,
                 'salida_id' => 18,
-                'oficina_id' => 2,
-            ],
+                'entidad_id' => 3,
+            ], // Director de Enfermeria
             [
-                'actividad_id' => 9,
+                'responsable_id' => 21,
                 'salida_id' => 18,
-                'oficina_id' => 5,
-            ],
+                'entidad_id' => 9,
+            ], // Director de Enfermeria
             [
-                'actividad_id' => 9,
+                'responsable_id' => 21,
                 'salida_id' => 18,
-                'oficina_id' => 6,
-            ],
+                'entidad_id' => 8,
+            ], // Director de Enfermeria
+            [
+                'responsable_id' => 22,
+                'salida_id' => 18,
+                'entidad_id' => 2,
+            ], // Director de Obstetricia
+            [
+                'responsable_id' => 22,
+                'salida_id' => 18,
+                'entidad_id' => 4,
+            ], // Director de Obstetricia
+            [
+                'responsable_id' => 22,
+                'salida_id' => 18,
+                'entidad_id' => 9,
+            ], // Director de Obstetricia
+            [
+                'responsable_id' => 22,
+                'salida_id' => 18,
+                'entidad_id' => 8,
+            ], // Director de Obstetricia
+
             /* Actividad 10 */
             // Salida 19
             [
-                'actividad_id' => 10,
+                'responsable_id' => 23,
                 'salida_id' => 19,
-                'oficina_id' => 1,
-            ],
+                'entidad_id' => 1,
+            ], // Director de Enfermeria
             [
-                'actividad_id' => 10,
+                'responsable_id' => 23,
                 'salida_id' => 19,
-                'oficina_id' => 2,
-            ],
+                'entidad_id' => 3,
+            ], // Director de Enfermeria
             [
-                'actividad_id' => 10,
+                'responsable_id' => 23,
                 'salida_id' => 19,
-                'oficina_id' => 5,
-            ],
+                'entidad_id' => 9,
+            ], // Director de Enfermeria
             [
-                'actividad_id' => 10,
+                'responsable_id' => 23,
                 'salida_id' => 19,
-                'oficina_id' => 6,
-            ],
+                'entidad_id' => 8,
+            ], // Director de Enfermeria
+            [
+                'responsable_id' => 24,
+                'salida_id' => 19,
+                'entidad_id' => 2,
+            ], // Director de Obstetricia
+            [
+                'responsable_id' => 24,
+                'salida_id' => 19,
+                'entidad_id' => 4,
+            ], // Director de Obstetricia
+            [
+                'responsable_id' => 24,
+                'salida_id' => 19,
+                'entidad_id' => 9,
+            ], // Director de Obstetricia
+            [
+                'responsable_id' => 24,
+                'salida_id' => 19,
+                'entidad_id' => 8,
+            ], // Director de Obstetricia
+
             /* Actividad 11 */
             // Salida 20
             [
-                'actividad_id' => 11,
+                'responsable_id' => 25,
                 'salida_id' => 20,
-                'oficina_id' => 1,
-            ],
+                'entidad_id' => 1,
+            ], // Director de Enfermeria
             [
-                'actividad_id' => 11,
+                'responsable_id' => 25,
                 'salida_id' => 20,
-                'oficina_id' => 2,
-            ],
+                'entidad_id' => 3,
+            ], // Director de Enfermeria
             [
-                'actividad_id' => 11,
+                'responsable_id' => 25,
                 'salida_id' => 20,
-                'oficina_id' => 4,
-            ],
+                'entidad_id' => 6,
+            ], // Director de Enfermeria
             [
-                'actividad_id' => 11,
+                'responsable_id' => 25,
                 'salida_id' => 20,
-                'oficina_id' => 9,
-            ],
+                'entidad_id' => 13,
+            ], // Director de Enfermeria
             [
-                'actividad_id' => 11,
+                'responsable_id' => 25,
                 'salida_id' => 20,
-                'oficina_id' => 10,
-            ],
+                'entidad_id' => 15,
+            ], // Director de Enfermeria
             [
-                'actividad_id' => 11,
+                'responsable_id' => 25,
                 'salida_id' => 20,
-                'oficina_id' => 12,
-            ],
+                'entidad_id' => 17,
+            ], // Director de Enfermeria
             [
-                'actividad_id' => 11,
+                'responsable_id' => 25,
                 'salida_id' => 20,
-                'oficina_id' => 13,
-            ],
+                'entidad_id' => 18,
+            ], // Director de Enfermeria
             [
-                'actividad_id' => 11,
+                'responsable_id' => 25,
                 'salida_id' => 20,
-                'oficina_id' => 6,
-            ],
+                'entidad_id' => 9,
+            ], // Director de Enfermeria
             [
-                'actividad_id' => 11,
+                'responsable_id' => 25,
                 'salida_id' => 20,
-                'oficina_id' => 5,
-            ],
+                'entidad_id' => 8,
+            ], // Director de Enfermeria
+            [
+                'responsable_id' => 26,
+                'salida_id' => 20,
+                'entidad_id' => 2,
+            ], // Director de Obstetricia
+            [
+                'responsable_id' => 26,
+                'salida_id' => 20,
+                'entidad_id' => 4,
+            ], // Director de Obstetricia
+            [
+                'responsable_id' => 26,
+                'salida_id' => 20,
+                'entidad_id' => 7,
+            ], // Director de Obstetricia
+            [
+                'responsable_id' => 26,
+                'salida_id' => 20,
+                'entidad_id' => 14,
+            ], // Director de Obstetricia
+            [
+                'responsable_id' => 26,
+                'salida_id' => 20,
+                'entidad_id' => 15,
+            ], // Director de Obstetricia
+            [
+                'responsable_id' => 26,
+                'salida_id' => 20,
+                'entidad_id' => 17,
+            ], // Director de Obstetricia
+            [
+                'responsable_id' => 26,
+                'salida_id' => 20,
+                'entidad_id' => 18,
+            ], // Director de Obstetricia
+            [
+                'responsable_id' => 26,
+                'salida_id' => 20,
+                'entidad_id' => 9,
+            ], // Director de Obstetricia
+            [
+                'responsable_id' => 26,
+                'salida_id' => 20,
+                'entidad_id' => 8,
+            ], // Director de Obstetricia
         ];
 
         \App\Models\Cliente::insert($clientes);
