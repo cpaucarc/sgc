@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\ResponsabilidadSocialController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
@@ -28,6 +29,9 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('actividad')->controller
     Route::get('proveer', 'proveer')->name('actividad.proveer');
     Route::get('recibidos', 'recibidos')->name('actividad.recibidos');
     Route::get('{id}/{semestre}', 'show')->name('actividad.show');
+});
+Route::middleware(['auth:sanctum', 'verified'])->prefix('rsu')->controller(ResponsabilidadSocialController::class)->group(function () {
+    Route::get('/', 'index')->name('rsu.index');
 });
 
 // Para mostrar archivos subidos al servidor

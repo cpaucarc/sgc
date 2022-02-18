@@ -43,7 +43,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ActividadSeeder::class);
         $this->call(AreaInvestigacionSeeder::class);
         $this->call(EncuestaPreguntaSeeder::class);
-        $this->call(EntidadSeeder::class);
         $this->call(EscuelaSeeder::class);
         $this->call(EstadoSeeder::class);
         //Factory de GradoEstudiante
@@ -53,24 +52,25 @@ class DatabaseSeeder extends Seeder
 
         // Nivel 2
         $this->call(ConvalidacionSeeder::class);
+        $this->call(EntidadSeeder::class);
         \App\Models\EstudianteExterno::factory(50)->create();
         $this->call(IndicadorSeeder::class);
         $this->call(LineaInvestigacionSeeder::class);
         \App\Models\ResponsabilidadSocial::factory(50)->create();
-        $this->call(ResponsableSeeder::class);
         \App\Models\Tesis::factory(50)->create();
 
         // Nivel 3
-        $this->call(ClienteSeeder::class);
         \App\Models\ConvalidacionPostulante::factory(75)->create();
-        $this->call(ProveedorSeeder::class);
+        $this->call(ResponsableSeeder::class);
         \App\Models\RsuParticipante::factory(75)->create();
         $this->call(SublineaInvestigacionSeeder::class);
         \App\Models\Sustentacion::factory(30)->create();
 
         // Nivel 4
+        $this->call(ClienteSeeder::class);
         \App\Models\Investigacion::factory(30)->create();
         \App\Models\JuradoSustentacion::factory(90)->create();
+        $this->call(ProveedorSeeder::class);
 
         // Nivel 5
         \App\Models\InvestigacionFinanciacion::factory(90)->create();
