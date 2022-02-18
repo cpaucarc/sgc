@@ -27,4 +27,9 @@ class ActividadController extends Controller
     {
         return view('actividad.proveer');
     }
+
+    public function recibidos()
+    {
+        return view('actividad.recibidos');
+    }
 }

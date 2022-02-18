@@ -29,14 +29,6 @@
         </div>
     @endslot
 
-    {{--    <x-utils.dd>--}}
-    {{--        {{ $entidades }}--}}
-    {{--    </x-utils.dd>--}}
-    {{--    <br>--}}
-    {{--    <x-utils.dd>--}}
-    {{--        {{ $proveer }}--}}
-    {{--    </x-utils.dd>--}}
-
     <x-utils.tables.table>
         @slot('head')
             <x-utils.tables.head>Entrada</x-utils.tables.head>

@@ -26,6 +26,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::middleware(['auth:sanctum', 'verified'])->prefix('actividad')->controller(ActividadController::class)->group(function () {
     Route::get('/', 'index')->name('actividad.index');
     Route::get('proveer', 'proveer')->name('actividad.proveer');
+    Route::get('recibidos', 'recibidos')->name('actividad.recibidos');
     Route::get('{id}/{semestre}', 'show')->name('actividad.show');
 });
 

@@ -11,6 +11,11 @@ class Documento extends Model
 
     public $fillable = ['nombre', 'enlace_interno', 'enlace_externo', 'semestre_id', 'entidad_id', 'user_id'];
 
+    public function entidad()
+    {
+        return $this->belongsTo(Entidad::class);
+    }
+
     //Relación de uno a muchos
     /*public function documento_tesis()
     {
