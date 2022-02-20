@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <div class="grid grid-cols-6 gap-8">
+    <div class="grid grid-cols-6 gap-14">
 
         <div class="col-span-2 space-y-4 p-4">
             <h2 class="text-gray-700 text-lg font-bold leading-tight">{{$rsu->titulo}}</h2>
@@ -54,9 +54,9 @@
 
         <div class="col-span-4 space-y-4">
 
-            <livewire:rsu.participantes :rsu_id="$rsu->id"/>
+            <livewire:rsu.participantes :rsu_id="$rsu->id" :es_responsable="$es_responsable" />
 
-            <livewire:rsu.encuesta :rsu_id="$rsu->id"/>
+            <livewire:rsu.encuesta :rsu_id="$rsu->id" :es_responsable="$es_responsable" />
 
             <x-utils.card>
                 @slot('header')

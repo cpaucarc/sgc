@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\ResponsabilidadSocial;
+use App\Models\RsuParticipante;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ResponsabilidadSocialController extends Controller
 {
@@ -20,7 +22,13 @@ class ResponsabilidadSocialController extends Controller
             ->with('empresa', 'escuela', 'semestre')
             ->where('uuid', $uuid)->first();
 
-        return view('rsu.show', compact('rsu'));
+        $es_responsable = RsuParticipante::query()
+            ->where('es_responsable', true)
+            ->where('codigo_participante', Auth::user()->codigo)
+            ->where('responsabilidad_social_id', $rsu->id)
+            ->exists();
+
+        return view('rsu.show', compact('rsu', 'es_responsable'));
     }
 
     public function por_usuario()

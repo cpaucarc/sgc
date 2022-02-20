@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\EncuestaController;
 use App\Http\Controllers\ResponsabilidadSocialController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -33,6 +34,11 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('actividad')->controller
 Route::middleware(['auth:sanctum', 'verified'])->prefix('rsu')->controller(ResponsabilidadSocialController::class)->group(function () {
     Route::get('/', 'index')->name('rsu.index');
     Route::get('{uuid}', 'show')->name('rsu.show');
+});
+
+//Para mostrar encuestas
+Route::prefix('encuestas')->controller(EncuestaController::class)->group(function () {
+    Route::get('rsu/{uuid}', 'rsu')->name('encuesta.rsu');
 });
 
 // Para mostrar archivos subidos al servidor

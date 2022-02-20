@@ -11,7 +11,7 @@ class EncuestaLink extends Model
 
 //    public $timestamps = false;
     protected $table = 'encuesta_links';
-    public $fillable = ['link', 'fecha_expiracion', 'encuestable_id', 'encuestable_type'];
+    public $fillable = ['uuid', 'link', 'fecha_expiracion', 'encuestable_id', 'encuestable_type'];
     protected $dates = ['fecha_expiracion',];
 
     public function encuestable()

@@ -5,10 +5,12 @@
                 Participantes
             </h3>
 
-            <x-utils.buttons.ghost-button class="text-gray-500 hover:text-gray-700">
-                <x-icons.people class="h-5 w-5 mr-2" stroke="1.55"></x-icons.people>
-                Añadir
-            </x-utils.buttons.ghost-button>
+            @if($es_responsable)
+                <x-utils.buttons.ghost-button class="text-gray-500 hover:text-gray-700">
+                    <x-icons.people class="h-5 w-5 mr-2" stroke="1.55"></x-icons.people>
+                    Añadir
+                </x-utils.buttons.ghost-button>
+            @endif
         </div>
     @endslot
 

@@ -8,10 +8,12 @@ use Livewire\Component;
 class Participantes extends Component
 {
     public $rsu_id;
+    public $es_responsable;
 
-    public function mount($rsu_id)
+    public function mount($rsu_id, $es_responsable)
     {
         $this->rsu_id = $rsu_id;
+        $this->es_responsable = $es_responsable;
     }
 
     public function render()
