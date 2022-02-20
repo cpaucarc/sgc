@@ -7,12 +7,12 @@
         </div>
     @endif
 
-    <div class="px-6 py-4">
+    <div class="px-4 py-3">
         {{ $slot }}
     </div>
 
     @if(isset($footer))
-        <div class="p-4 bg-gray-50 rounded-b-lg">
+        <div class="px-4 py-3 bg-gray-50 rounded-b-lg">
             {{ $footer }}
         </div>
     @endif

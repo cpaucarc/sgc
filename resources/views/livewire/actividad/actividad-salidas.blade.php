@@ -50,7 +50,7 @@
                 <div class="space-y-8">
                     <div class="space-y-2">
                         <h2 class="text-gray-600 text-sm font-bold">Subir archivo:</h2>
-                        <x-utils.forms.basic-file-input class="w-full block" wire:model.defer="archivo"/>
+                        <x-utils.forms.file-input class="w-full block" wire:model.defer="archivo"/>
                         <x-jet-input-error for="archivo"></x-jet-input-error>
                     </div>
 

@@ -31,6 +31,11 @@ class ResponsabilidadSocialController extends Controller
         return view('rsu.show', compact('rsu', 'es_responsable'));
     }
 
+    public function create()
+    {
+        return view('rsu.create');
+    }
+
     public function por_usuario()
     {
         // RSU por usuario

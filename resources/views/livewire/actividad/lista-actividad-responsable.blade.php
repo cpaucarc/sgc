@@ -11,21 +11,21 @@
                 </p>
             </div>
 
-            <x-utils.forms.basic-select class="w-24" wire:model="semestre_seleccionado">
+            <x-utils.forms.select class="w-24" wire:model="semestre_seleccionado">
                 @forelse($semestres as $semestre)
                     <option value="{{ $semestre->id }}">{{$semestre->nombre}}</option>
                 @empty
                     <option value="0">No hay datos</option>
                 @endforelse
-            </x-utils.forms.basic-select>
+            </x-utils.forms.select>
 
-            <x-utils.forms.basic-select wire:model="proceso_seleccionado">
+            <x-utils.forms.select wire:model="proceso_seleccionado">
                 @forelse($procesos as $proceso)
                     <option value="{{ $proceso->id }}">Proceso {{$proceso->nombre}}</option>
                 @empty
                     <option value="0">No hay datos</option>
                 @endforelse
-            </x-utils.forms.basic-select>
+            </x-utils.forms.select>
         </div>
     @endslot
 

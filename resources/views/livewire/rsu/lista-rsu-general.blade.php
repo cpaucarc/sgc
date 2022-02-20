@@ -8,15 +8,15 @@
             </div>
 
             <div class="inline-flex space-x-2 items-center">
-                <x-utils.forms.basic-select class="w-24" wire:model="semestre_seleccionado">
+                <x-utils.forms.select class="w-24" wire:model="semestre_seleccionado">
                     @forelse($semestres as $semestre)
                         <option value="{{ $semestre->id }}">{{$semestre->nombre}}</option>
                     @empty
                         <option value="0">No hay datos</option>
                     @endforelse
-                </x-utils.forms.basic-select>
+                </x-utils.forms.select>
 
-                <x-utils.links.link href="#">
+                <x-utils.links.link href="{{ route('rsu.create') }}">
                     <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
                     Nuevo
                 </x-utils.links.link>

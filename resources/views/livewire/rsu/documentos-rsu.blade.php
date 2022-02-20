@@ -67,7 +67,7 @@
             <div class="my-4">
 
                 <x-jet-label for="archivo" value="{{ __('Archivo') }}"/>
-                <x-utils.forms.basic-file-input class="block w-full" id="archivo" wire:model="archivo"/>
+                <x-utils.forms.file-input class="block w-full" id="archivo" wire:model="archivo"/>
                 <x-jet-input-error for="archivo"></x-jet-input-error>
 
             </div>
