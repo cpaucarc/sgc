@@ -5,12 +5,12 @@
                 Documentos
             </h3>
 
-            {{--            @if($es_responsable)--}}
-            <x-utils.buttons.ghost-button wire:click="openModal" class="text-gray-500 hover:text-gray-700">
-                <x-icons.documents class="h-5 w-5 mr-2" stroke="1.55"></x-icons.documents>
-                Subir
-            </x-utils.buttons.ghost-button>
-            {{--            @endif--}}
+            @if($es_responsable)
+                <x-utils.buttons.ghost-button wire:click="openModal" class="text-gray-500 hover:text-gray-700">
+                    <x-icons.documents class="h-5 w-5 mr-2" stroke="1.55"></x-icons.documents>
+                    Subir
+                </x-utils.buttons.ghost-button>
+            @endif
         </div>
     @endslot
 
@@ -26,8 +26,8 @@
                 @foreach($rsu->documentos as $documento_enviado)
                     <x-utils.tables.row>
                         <x-utils.tables.body class="font-semibold">
-                            <a href="{{ route('rsu.show', [$documento_enviado->id]) }}"
-                               class="hover:text-sky-600 hover:underline line-clamp-1">
+                            <a href="{{ route('archivos', $documento_enviado->documento->enlace_interno) }}"
+                               target="_blank" class="hover:text-sky-600 hover:underline line-clamp-1">
                                 {{ $documento_enviado->documento->nombre }}
                             </a>
                         </x-utils.tables.body>
