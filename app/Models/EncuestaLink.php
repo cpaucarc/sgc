@@ -13,4 +13,9 @@ class EncuestaLink extends Model
     protected $table = 'encuesta_links';
     public $fillable = ['link', 'fecha_expiracion', 'encuestable_id', 'encuestable_type'];
     protected $dates = ['fecha_expiracion',];
+
+    public function encuestable()
+    {
+        return $this->morphTo();
+    }
 }

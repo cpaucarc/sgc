@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Storage::deleteDirectory('/public/salidas');
+        Storage::deleteDirectory('/public/entradas');
 
         // Nivel 0
         $this->call(CargoJuradoSeeder::class);
@@ -61,6 +62,7 @@ class DatabaseSeeder extends Seeder
 
         // Nivel 3
         \App\Models\ConvalidacionPostulante::factory(75)->create();
+        $this->call(EntidadableSeeder::class);
         $this->call(ResponsableSeeder::class);
         \App\Models\RsuParticipante::factory(75)->create();
         $this->call(SublineaInvestigacionSeeder::class);

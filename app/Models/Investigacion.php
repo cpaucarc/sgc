@@ -10,7 +10,7 @@ class Investigacion extends Model
     use HasFactory;
 
     protected $table = "investigaciones";
-    public $fillable = ['titulo', 'resumen', 'fecha_publicacion', 'escuela_id', 'sublinea_id', 'estado_id'];
+    public $fillable = ['titulo', 'uuid', 'resumen', 'fecha_publicacion', 'escuela_id', 'sublinea_id', 'estado_id'];
 
     public $dates = ['fecha_publicacion'];
 }

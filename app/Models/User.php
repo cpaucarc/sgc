@@ -20,7 +20,7 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
-    protected $fillable = ['name', 'codigo', 'email', 'password',];
+    protected $fillable = ['name', 'uuid', 'codigo', 'email', 'password',];
 
     protected $hidden = ['password', 'remember_token', 'two_factor_recovery_codes', 'two_factor_secret',];
 

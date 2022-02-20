@@ -18,6 +18,7 @@ class InvestigacionFactory extends Factory
     {
         return [
             'titulo' => $this->faker->sentence(15),
+            'uuid' => $this->faker->uuid,
             'resumen' => $this->faker->paragraph() . " " . $this->faker->paragraph(),
             'fecha_publicacion' => ($this->faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now'))->format("Y-m-d"),
             'escuela_id' => $this->faker->numberBetween(1, 2),

@@ -14,6 +14,7 @@ return new class extends Migration {
     {
         Schema::create('investigaciones', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid', 40);
             $table->string('titulo');
             $table->text('resumen');
             $table->date('fecha_publicacion');

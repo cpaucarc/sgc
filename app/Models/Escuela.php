@@ -11,4 +11,11 @@ class Escuela extends Model
 
     public $timestamps = false;
     public $fillable = ['nombre', 'abrev', 'facultad_id'];
+
+    // relacion uno a muchos polimorfica
+    public function entidades()
+    {
+        return $this->morphMany(Entidadable::class, 'entidadable')
+            ->with('entidad');
+    }
 }

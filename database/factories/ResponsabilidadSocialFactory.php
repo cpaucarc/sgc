@@ -20,6 +20,7 @@ class ResponsabilidadSocialFactory extends Factory
 
         return [
             'titulo' => $this->faker->sentence(10),
+            'uuid' => $this->faker->uuid,
             'descripcion' => $this->faker->paragraph(),
             'lugar' => $this->faker->city . ' - ' . $this->faker->state,
             'fecha_inicio' => $this->faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now'),

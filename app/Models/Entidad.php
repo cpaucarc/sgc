@@ -11,5 +11,11 @@ class Entidad extends Model
 
     protected $table = "entidades";
     public $timestamps = false;
-    public $fillable = ['nombre', 'oficina_id', 'entidadable_id', 'entidadable_type'];
+    public $fillable = ['nombre', 'oficina_id'];
+
+    public function usuarios()
+    {
+        return $this->belongsToMany(User::class, 'entidad_user')
+            ->withPivot('activo');
+    }
 }

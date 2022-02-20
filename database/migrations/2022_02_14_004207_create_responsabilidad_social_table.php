@@ -15,10 +15,11 @@ return new class extends Migration {
         Schema::create('responsabilidad_social', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
+            $table->string('uuid', 40);
             $table->text('descripcion')->nullable();
             $table->string('lugar');
             $table->date('fecha_inicio');
-            $table->date('fecha_fin');
+            $table->date('fecha_fin')->nullable();
 
             $table->foreignId('semestre_id')->constrained('semestres')
                 ->cascadeOnUpdate()

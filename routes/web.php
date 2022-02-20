@@ -32,6 +32,7 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('actividad')->controller
 });
 Route::middleware(['auth:sanctum', 'verified'])->prefix('rsu')->controller(ResponsabilidadSocialController::class)->group(function () {
     Route::get('/', 'index')->name('rsu.index');
+    Route::get('{uuid}', 'show')->name('rsu.show');
 });
 
 // Para mostrar archivos subidos al servidor
