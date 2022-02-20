@@ -48,7 +48,7 @@
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             <x-utils.buttons.ghost-button
-                                class="text-gray-500 hover:text-gray-700 active:border-sky-500 active:text-sky-600 active:scale-90"
+                                class="text-gray-500 hover:text-gray-700 active:border-sky-500 active:text-sky-600"
                                 onclick="copyToClipboard('{{ $link->link }}')">
                                 <x-icons.clipboard class="h-4 w-4" stroke="1.55"></x-icons.clipboard>
                             </x-utils.buttons.ghost-button>
