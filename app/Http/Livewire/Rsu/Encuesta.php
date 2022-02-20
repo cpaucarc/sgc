@@ -52,7 +52,7 @@ class Encuesta extends Component
 
         $encuesta_creada = new EncuestaLink([
             'uuid' => $uuid,
-            'link' => route('encuesta.rsu', $uuid),
+            'link' => route('encuesta.rsu', '?encuesta=' . $uuid),
             'fecha_expiracion' => $this->fecha_de_expiracion,
         ]);
 

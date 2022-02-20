@@ -27,7 +27,7 @@
                 @foreach($rsu->links as $link)
                     <x-utils.tables.row>
                         <x-utils.tables.body class="font-semibold">
-                            <a href="{{ $link->link }}" target="_blank"
+                            <a href="{{ route('encuesta.rsu', $link->uuid) }}" target="_blank"
                                class="hover:text-sky-600 hover:underline line-clamp-1">
                                 {{ $link->uuid }}
                             </a>
