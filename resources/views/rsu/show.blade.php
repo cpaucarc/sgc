@@ -54,23 +54,12 @@
 
         <div class="col-span-4 space-y-4">
 
-            <livewire:rsu.participantes :rsu_id="$rsu->id" :es_responsable="$es_responsable" />
+            <livewire:rsu.encuesta :rsu_id="$rsu->id" :es_responsable="$es_responsable"/>
 
-            <livewire:rsu.encuesta :rsu_id="$rsu->id" :es_responsable="$es_responsable" />
+            <livewire:rsu.documentos-rsu :rsu_id="$rsu->id" :es_responsable="$es_responsable"/>
 
-            <x-utils.card>
-                @slot('header')
-                    Documentos
-                @endslot
-                xdxdxd
-            </x-utils.card>
+            <livewire:rsu.participantes :rsu_id="$rsu->id" :es_responsable="$es_responsable"/>
 
-
-            <x-utils.card>
-                <x-utils.dd>
-                    {{ $rsu }}
-                </x-utils.dd>
-            </x-utils.card>
         </div>
 
     </div>

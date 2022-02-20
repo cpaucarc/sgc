@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class ResponsabilidadSocial extends Model
 {
@@ -34,8 +35,16 @@ class ResponsabilidadSocial extends Model
         return $this->hasMany(RsuParticipante::class)->orderBy('es_responsable', 'desc');
     }
 
+    // relacion uno a muchos polimorfica
     public function links()
     {
-        return $this->morphMany(EncuestaLink::class, 'encuestable');
+        return $this->morphMany(EncuestaLink::class, 'encuestable')
+            ->orderBy('created_at', 'desc');
+    }
+
+    public function documentos()
+    {
+        return $this->morphMany(DocumentoEnviado::class, 'documentable')
+            ->with('documento');
     }
 }

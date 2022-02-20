@@ -52,7 +52,7 @@
             @endslot
         </x-utils.tables.table>
     @else
-        <p>No hay participantes registrados</p>
+        <p class="font-bold">No hay participantes registrados</p>
     @endif
 
 </x-utils.card>

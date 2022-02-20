@@ -48,9 +48,9 @@
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             <x-utils.buttons.ghost-button
-                                class="text-gray-500 hover:text-gray-700 active:border-sky-300 active:text-sky-700 active:scale-90"
+                                class="text-gray-500 hover:text-gray-700 active:border-sky-500 active:text-sky-600 active:scale-90"
                                 onclick="copyToClipboard('{{ $link->link }}')">
-                                <x-icons.clipboard class="h-5 w-5"></x-icons.clipboard>
+                                <x-icons.clipboard class="h-4 w-4" stroke="1.55"></x-icons.clipboard>
                             </x-utils.buttons.ghost-button>
                         </x-utils.tables.body>
                     </x-utils.tables.row>
@@ -62,7 +62,6 @@
     @endif
 
     <x-jet-dialog-modal wire:model="open" maxWidth="xl">
-
         <x-slot name="title">
             <h1 class="font-bold text-gray-700">
                 Generar nueva encuesta
@@ -71,10 +70,7 @@
         </x-slot>
 
         <x-slot name="content">
-
             <div class="my-4">
-
-                {{--                @if(!$mostrarLink)--}}
                 <x-jet-label for="fecha_de_expiracion" value="{{ __('Fecha de expiración de encuesta') }}"/>
                 <div class="flex space-x-4">
                     <x-jet-input id="fecha_de_expiracion" class="flex-1" wire:model.defer="fecha_de_expiracion"
@@ -92,26 +88,7 @@
                     <x-icons.info class="h-5 w-5 mr-1 flex-shrink-0"></x-icons.info>
                     Luego de esta fecha, la encuesta ya no se podrá responder
                 </p>
-
-                {{--                @else--}}
-                {{--                    <div class="flex items-end space-x-4">--}}
-                {{--                        <div class="w-full flex-1 mr-1">--}}
-                {{--                            <x-jet-label for="link">Link generado</x-jet-label>--}}
-                {{--                            <input wire:model="link" type="text" id="link" class="input-form w-full bg-gray-50 text-sm">--}}
-                {{--                        </div>--}}
-                {{--                        <x-button-void onclick="copyToClipboard()">--}}
-                {{--                            <x-icons.clipboard class="h-5 w-5"></x-icons.clipboard>--}}
-                {{--                        </x-button-void>--}}
-                {{--                    </div>--}}
-                {{--                    <span class="text-gray-600 text-sm inline-flex mt-2">--}}
-                {{--                        <x-icons.info class="h-5 w-5 mr-1"></x-icons.info>--}}
-                {{--                        Puede copiar este enlace y compartir con las personas de interes.--}}
-                {{--                    </span>--}}
-                {{--                @endif--}}
-
             </div>
-
-
         </x-slot>
 
     </x-jet-dialog-modal>

@@ -34,4 +34,8 @@ class User extends Authenticatable
             ->withPivot('activo');
     }
 
+    public static function getUserNameById($id){
+        return User::where('id', $id)->pluck('name')->first();
+    }
+
 }

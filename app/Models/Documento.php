@@ -16,6 +16,11 @@ class Documento extends Model
         return $this->belongsTo(Entidad::class);
     }
 
+    public function usuario()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     //Relación de uno a muchos
     /*public function documento_tesis()
     {
