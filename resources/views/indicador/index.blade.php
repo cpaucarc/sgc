@@ -1,7 +1,13 @@
 <x-app-layout>
 
-    <div class="flex justify-end mb-6">
-        <x-utils.forms.search-input class="w-full"/>
+    <div class="flex justify-end mb-6 bg-white items-start space-x-2 p-4">
+        <x-utils.forms.search-input/>
+
+
+        <x-utils.tooltip message="Prueba de message">
+            <x-utils.simple-progress color="blue" percent="25"/>
+        </x-utils.tooltip>
+
     </div>
 
     <div class="grid grid-cols-6 gap-12">
