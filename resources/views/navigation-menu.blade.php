@@ -21,6 +21,9 @@
                     <x-jet-nav-link href="{{ route('rsu.index') }}" :active="request()->routeIs('rsu.*')">
                         {{ __('Responsabilidad Social') }}
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('indicador.index') }}" :active="request()->routeIs('indicador.*')">
+                        {{ __('Indicadores') }}
+                    </x-jet-nav-link>
                 </div>
             </div>
 

@@ -11,12 +11,18 @@ class Facultad extends Model
 
     protected $table = "facultades";
     public $timestamps = false;
-    public $fillable = ['nombre', 'abrev', 'direccion'];
+    public $fillable = ['nombre', 'uuid', 'abrev', 'direccion'];
 
     // relacion uno a muchos polimorfica
     public function entidades()
     {
         return $this->morphMany(Entidadable::class, 'entidadable')
             ->with('entidad');
+    }
+
+    // relación muchos a muchos polimorfica
+    public function indicadores()
+    {
+        return $this->morphToMany(Indicador::class, 'indicadorable');
     }
 }

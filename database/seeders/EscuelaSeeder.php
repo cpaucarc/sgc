@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class EscuelaSeeder extends Seeder
 {
@@ -19,11 +20,13 @@ class EscuelaSeeder extends Seeder
                 'nombre' => 'Enfermeria',
                 'abrev' => 'ENF',
                 'facultad_id' => 1,
+                'uuid' => Str::uuid()
             ],
             [
                 'nombre' => 'Obstetricia',
                 'abrev' => 'OBS',
                 'facultad_id' => 1,
+                'uuid' => Str::uuid()
             ],
         ];
 

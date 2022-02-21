@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\EncuestaController;
+use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\ResponsabilidadSocialController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -39,6 +40,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/', 'index')->name('rsu.index');
         Route::get('crear', 'create')->name('rsu.create');
         Route::get('ver/{uuid}', 'show')->name('rsu.show');
+    });
+
+    Route::prefix('indicador')->controller(IndicadorController::class)->group(function () {
+        Route::get('/', 'index')->name('indicador.index');
+        Route::get('proceso/{proceso}/{uuid}', 'proceso')->name('indicador.proceso'); //proceso:nombre | uuid:escuela,facultad
     });
 
 });
