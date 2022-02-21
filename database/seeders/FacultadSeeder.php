@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class FacultadSeeder extends Seeder
 {
@@ -18,7 +19,8 @@ class FacultadSeeder extends Seeder
             [
                 'nombre' => 'Facultad de Ciencias Medicas',
                 'abrev' => 'FCM',
-                'direccion' => 'Av. Agustín Gamarra N° 1227'
+                'direccion' => 'Av. Agustín Gamarra N° 1227',
+                'uuid' => Str::uuid()
             ],
         ];
 

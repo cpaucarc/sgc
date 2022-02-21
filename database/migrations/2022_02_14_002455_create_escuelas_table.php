@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('escuelas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->string('uuid', 40);
             $table->string('abrev', 10)->nullable();
             $table->foreignId('facultad_id')->constrained('facultades')
                 ->cascadeOnUpdate()
