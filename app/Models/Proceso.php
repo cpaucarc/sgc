@@ -11,4 +11,9 @@ class Proceso extends Model
 
     public $timestamps = false;
     public $fillable = ['nombre'];
+
+    public static function getNombreById($id)
+    {
+        return Proceso::where('id', $id)->pluck('nombre')->first();
+    }
 }
