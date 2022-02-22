@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Seeders\FrecuenciaSeeder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,5 +15,40 @@ class Indicador extends Model
     public $fillable = ['objetivo', 'titulo_interes', 'titulo_total', 'titulo_resultado',
         'cod_ind', 'formula', 'minimo', 'satisfactorio', 'sobresaliente', 'unidad_medida_id',
         'frecuencia_medicion_id', 'frecuencia_reporte_id', 'proceso_id'];
+
+    public function medicion()
+    {
+        return $this->belongsTo(Frecuencia::class, 'frecuencia_medicion_id', 'id');
+    }
+
+    public function reporte()
+    {
+        return $this->belongsTo(Frecuencia::class, 'frecuencia_reporte_id', 'id');
+    }
+
+    public function proceso()
+    {
+        return $this->belongsTo(Proceso::class);
+    }
+
+    // Indicador tiene mucho analisis: uno a muchos
+    public function analisis()
+    {
+        return $this->hasManyThrough(
+            AnalisisIndicador::class,
+            Indicadorable::class,
+        );
+    }
+
+    // relación muchos a muchos polimorfica
+    public function escuelas()
+    {
+        return $this->morphedByMany(Escuela::class, 'indicadorable');
+    }
+
+    public function facultades()
+    {
+        return $this->morphedByMany(Facultad::class, 'indicadorable');
+    }
 
 }

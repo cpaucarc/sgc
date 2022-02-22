@@ -44,7 +44,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::prefix('indicador')->controller(IndicadorController::class)->group(function () {
         Route::get('/', 'index')->name('indicador.index');
-        Route::get('proceso/{proceso}/{uuid}', 'proceso')->name('indicador.proceso'); //proceso:nombre | uuid:escuela,facultad
+        Route::get('proceso/{proceso_id}/{tipo}/{uuid}', 'proceso')->name('indicador.proceso'); //proceso:id | tipo:1-escuela,2-facultad | uuid:escuela,facultad
+        Route::get('ver/{indicador_id}/{tipo}/{uuid}', 'indicador')->name('indicador.indicador'); //proceso:id | tipo:1-escuela,2-facultad | uuid:escuela,facultad
     });
 
 });
