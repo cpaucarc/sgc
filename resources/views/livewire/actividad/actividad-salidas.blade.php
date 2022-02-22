@@ -64,15 +64,22 @@
                                 @slot('body')
                                     @foreach($documentos as $documento_enviado)
                                         <x-utils.tables.row class="p-1">
-                                            <x-utils.tables.body class="text-left text-sm">
-                                                @if(strlen($documento_enviado->documento->nombre) > 60)
-                                                    {{ substr($documento_enviado->documento->nombre, 0, 45) }}
-                                                    ...{{ substr($documento_enviado->documento->nombre, -15) }}
-                                                @else
-                                                    {{ $documento_enviado->documento->nombre }}
-                                                @endif
+                                            <x-utils.tables.body class="text-left">
+                                                <div class="flex items-center gap-x-2">
+                                                    <svg class="text-gray-400" viewBox="0 0 16 16" width="16"
+                                                         height="16" fill="currentColor">
+                                                        <path fill-rule="evenodd"
+                                                              d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"></path>
+                                                    </svg>
+                                                    @if(strlen($documento_enviado->documento->nombre) > 80)
+                                                        {{ substr($documento_enviado->documento->nombre, 0, 55) }}
+                                                        ...{{ substr($documento_enviado->documento->nombre, -25) }}
+                                                    @else
+                                                        {{ $documento_enviado->documento->nombre }}
+                                                    @endif
+                                                </div>
                                             </x-utils.tables.body>
-                                            <x-utils.tables.body class="text-right text-sm">
+                                            <x-utils.tables.body class="text-right">
                                                 {{ $documento_enviado->documento->created_at->diffForHumans() }}
                                             </x-utils.tables.body>
                                             <x-utils.tables.body class="text-right">
@@ -135,6 +142,7 @@
                 <x-jet-button
                     wire:click="enviarArchivo"
                     wire:target="enviarArchivo, archivo"
+                    wire:loading.class="cursor-not-allowed"
                     wire:loading.attr="disabled">
                     <x-icons.load class="h-4 w-4" wire:loading wire:target="enviarArchivo"></x-icons.load>
                     {{ __('Guardar') }}
