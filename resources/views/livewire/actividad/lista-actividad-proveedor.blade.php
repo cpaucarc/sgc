@@ -58,10 +58,9 @@
                         </x-utils.badge>
                     </x-utils.tables.body>
                     <x-utils.tables.body>
-                        <x-utils.buttons.text-button wire:click="abrirModal({{$prov->id}})"
-                                                     class="text-gray-500 hover:text-indigo-600">
+                        <x-utils.buttons.invisible wire:click="abrirModal({{$prov->id}})" class="text-xs">
                             Revisar
-                        </x-utils.buttons.text-button>
+                        </x-utils.buttons.invisible>
                     </x-utils.tables.body>
                 </x-utils.tables.row>
             @endforeach
@@ -122,21 +121,16 @@
                                                 </x-utils.tables.body>
                                                 <x-utils.tables.body class="text-right">
                                                     <div
-                                                        class="flex items-center justify-end w-full gap-2 whitespace-nowrap">
-                                                        <x-utils.links.ghost-link
-                                                            class="group hover:text-sky-700 flex items-center text-xs"
-                                                            target="_blank"
-                                                            href="{{ route('archivos', $documento_enviado->documento->enlace_interno) }}">
-                                                            <x-icons.documents class="h-4 w-4 group-hover:text-sky-600"
-                                                                               stroke="1.25"/>
+                                                        class="flex items-center justify-end w-full gap-2 whitespace-nowrap text-xs">
+                                                        <x-utils.links.default class="group" target="_blank"
+                                                                               href="{{ route('archivos', $documento_enviado->documento->enlace_interno) }}">
+                                                            <x-icons.documents class="h-4 w-4" stroke="1.5"/>
                                                             Ver
-                                                        </x-utils.links.ghost-link>
-                                                        <x-utils.buttons.ghost-button
-                                                            class="group hover:border-rose-600"
-                                                            wire:click="eliminarArchivo({{ $documento_enviado->documento->id }})">
-                                                            <x-icons.delete :stroke="1.25"
-                                                                            class="h-4 w-4 group-hover:text-rose-700"/>
-                                                        </x-utils.buttons.ghost-button>
+                                                        </x-utils.links.default>
+                                                        <x-utils.buttons.danger class="group"
+                                                                                wire:click="eliminarArchivo({{ $documento_enviado->documento->id }})">
+                                                            <x-icons.delete :stroke="1.5" class="h-4 w-4"/>
+                                                        </x-utils.buttons.danger>
                                                     </div>
                                                 </x-utils.tables.body>
                                             </x-utils.tables.row>

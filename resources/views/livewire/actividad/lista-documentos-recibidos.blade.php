@@ -51,10 +51,9 @@
                             </p>
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            <x-utils.buttons.text-button wire:click="abrirModal({{$salida->id}})"
-                                                         class="text-gray-500 hover:text-indigo-600">
+                            <x-utils.buttons.invisible wire:click="abrirModal({{$salida->id}})" class="text-xs">
                                 Revisar
-                            </x-utils.buttons.text-button>
+                            </x-utils.buttons.invisible>
                         </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach
@@ -98,14 +97,11 @@
                                     <x-utils.tables.body class="text-right">
                                         <div
                                             class="flex items-center justify-end w-full gap-2 whitespace-nowrap">
-                                            <x-utils.links.ghost-link
-                                                class="group hover:text-sky-700 flex items-center text-xs"
-                                                target="_blank"
+                                            <x-utils.links.default class="group text-xs" target="_blank"
                                                 href="{{ route('archivos', $documento_recibido->documento->enlace_interno) }}">
-                                                <x-icons.documents class="h-4 w-4 group-hover:text-sky-600"
-                                                                   stroke="1.25"/>
+                                                <x-icons.documents class="h-4 w-4" stroke="1.5"/>
                                                 Ver
-                                            </x-utils.links.ghost-link>
+                                            </x-utils.links.default>
                                         </div>
                                     </x-utils.tables.body>
                                 </x-utils.tables.row>

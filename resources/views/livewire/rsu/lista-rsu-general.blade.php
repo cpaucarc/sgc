@@ -2,7 +2,7 @@
     @slot('header')
         <div class="flex justify-between items-center space-x-2">
             <div class="pr-4 flex-1">
-                <h1 class="text-xl font-bold text-gray-800">
+                <h1 class="text-xl font-bold text-gray-700">
                     Responsabilidad Social
                 </h1>
             </div>
@@ -16,10 +16,10 @@
                     @endforelse
                 </x-utils.forms.select>
 
-                <x-utils.links.link href="{{ route('rsu.create') }}">
+                <x-utils.links.primary class="text-sm" href="{{ route('rsu.create') }}">
                     <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
                     Nuevo
-                </x-utils.links.link>
+                </x-utils.links.primary>
             </div>
         </div>
     @endslot
@@ -36,10 +36,9 @@
             @foreach($rsu as $resp_social)
                 <x-utils.tables.row>
                     <x-utils.tables.body class="font-semibold">
-                        <a href="{{ route('rsu.show', [$resp_social->uuid]) }}"
-                           class="hover:text-sky-600 hover:underline line-clamp-1">
+                        <x-utils.links.basic href="{{ route('rsu.show', [$resp_social->uuid]) }}" class="text-xs">
                             {{ $resp_social->titulo }}
-                        </a>
+                        </x-utils.links.basic>
                     </x-utils.tables.body>
                     <x-utils.tables.body>
                         {{ $resp_social->escuela->nombre }}

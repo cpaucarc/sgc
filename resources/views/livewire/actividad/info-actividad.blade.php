@@ -34,20 +34,20 @@
         </div>
 
         @if(!$responsable->estado)
-            <x-utils.buttons.ghost-button class="flex items-center gap-2" wire:click="completarActividad">
-                <x-icons.load class="h-4 w-4" wire:loading wire:target="completarActividad"/>
+            <x-utils.buttons.default class="text-sm" wire:click="completarActividad">
+                <x-icons.load class="h-4 w-4 text-gray-600" wire:loading wire:target="completarActividad"/>
                 Marcar como completado
-            </x-utils.buttons.ghost-button>
+            </x-utils.buttons.default>
         @else
             <div class="flex flex-col items-end w-48 space-y-2">
-                <x-utils.buttons.basic-button
-                    class="cursor-not-allowed inline-flex items-center text-green-700 border-green-200 bg-green-100">
-                    <x-icons.check :stroke="2" class="h-5 w-5 mr-1"></x-icons.check>
+                <buttons
+                    class="cursor-not-allowed inline-flex items-center text-green-700 border border-green-200 bg-green-100 rounded-lg text-sm px-3 py-1">
+                    <x-icons.check :stroke="2" class="h-5 w-5 mr-1" />
                     Completado
-                </x-utils.buttons.basic-button>
+                </buttons>
                 <span class="text-xs">
-                        Completado el {{ date('h:m a d M', strtotime($responsable->estado)) }}
-                    </span>
+                    Completado el {{ date('h:m a d M', strtotime($responsable->estado)) }}
+                </span>
             </div>
         @endif
     </div>

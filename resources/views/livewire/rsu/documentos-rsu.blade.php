@@ -6,10 +6,10 @@
             </h3>
 
             @if($es_responsable)
-                <x-utils.buttons.ghost-button wire:click="openModal" class="text-gray-500 hover:text-gray-700">
-                    <x-icons.documents class="h-5 w-5 mr-2" stroke="1.55"></x-icons.documents>
+                <x-utils.buttons.default wire:click="openModal" class="text-xs">
+                    <x-icons.documents class="h-4 w-4 mr-1" stroke="1.5"></x-icons.documents>
                     Subir
-                </x-utils.buttons.ghost-button>
+                </x-utils.buttons.default>
             @endif
         </div>
     @endslot
@@ -26,10 +26,9 @@
                 @foreach($rsu->documentos as $documento_enviado)
                     <x-utils.tables.row>
                         <x-utils.tables.body class="font-semibold">
-                            <a href="{{ route('archivos', $documento_enviado->documento->enlace_interno) }}"
-                               target="_blank" class="hover:text-sky-600 hover:underline line-clamp-1">
+                            <x-utils.links.basic target="_blank" href="{{ route('archivos', $documento_enviado->documento->enlace_interno) }}" class="text-xs">
                                 {{ $documento_enviado->documento->nombre }}
-                            </a>
+                            </x-utils.links.basic>
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             {{ App\Models\User::getUserNameByID($documento_enviado->documento->user_id)  }}
@@ -39,11 +38,10 @@
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             @if($documento_enviado->documento->user_id === auth()->user()->id )
-                                <x-utils.buttons.ghost-button
-                                    class="text-rose-600 hover:text-rose-700 active:border-rose-500 active:text-rose-600"
+                                <x-utils.buttons.danger class="text-xs"
                                     wire:click="eliminarArchivo({{ $documento_enviado->documento_id }})">
                                     <x-icons.delete class="h-4 w-4" stroke="1.55"/>
-                                </x-utils.buttons.ghost-button>
+                                </x-utils.buttons.danger>
                             @else
                                 <span></span>
                             @endif
@@ -53,7 +51,7 @@
             @endslot
         </x-utils.tables.table>
     @else
-        <p class="font-bold">No hay documentos enviados</p>
+        <p class="font-bold text-gray-600">No hay documentos enviados</p>
     @endif
 
     <x-jet-dialog-modal wire:model="open" maxWidth="xl">

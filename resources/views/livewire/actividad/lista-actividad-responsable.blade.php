@@ -65,10 +65,10 @@
                         </x-utils.badge>
                     </x-utils.tables.body>
                     <x-utils.tables.body>
-                        <x-utils.links.text-link class="text-gray-500 hover:text-indigo-600"
+                        <x-utils.links.invisible class="text-xs"
                                                  href="{{ route('actividad.show', [$actividad->id, $semestre_seleccionado]) }}">
                             Revisar
-                        </x-utils.links.text-link>
+                        </x-utils.links.invisible>
                     </x-utils.tables.body>
                 </x-utils.tables.row>
             @endforeach

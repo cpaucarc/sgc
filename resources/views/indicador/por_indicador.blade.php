@@ -24,20 +24,21 @@
                 </div>
                 <div class="flex flex-col divide-y divide-gray-200 space-y-4">
                     <div class="flex flex-col space-y-2 font-semibold">
-                        <a href="{{ route('indicador.proceso', [$indicadorable->indicador->proceso_id, $tipo, $uuid]) }}">
+                        <x-utils.links.basic href="{{ route('indicador.proceso', [$indicadorable->indicador->proceso_id, $tipo, $uuid]) }}" class="text-sm">
                             <x-utils.badge
                                 class="bg-sky-50 text-sky-700 hover:underline hover:text-sky-700">
                                 Proceso:&nbsp;<strong>{{ $indicadorable->indicador->proceso->nombre }}</strong>
                             </x-utils.badge>
-                        </a>
-                        <a href="{{ route('indicador.index') }}">
+                        </x-utils.links.basic>
+
+                        <x-utils.links.basic href="{{ route('indicador.index') }}" class="text-sm">
                             <x-utils.badge
                                 class="bg-sky-50 text-sky-700 hover:underline hover:text-sky-700">
                                 Oficina:&nbsp;<strong>
                                     {{ isset($escuela) ? $escuela->nombre : $facultad->nombre }}
                                 </strong>
                             </x-utils.badge>
-                        </a>
+                        </x-utils.links.basic>
                     </div>
                     <ul class="flex flex-wrap gap-2 pt-4 font-semibold">
                         <li>
