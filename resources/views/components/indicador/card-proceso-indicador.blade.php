@@ -1,5 +1,5 @@
 <div
-    class="group bg-white border border-gray-200 px-3 py-3 rounded-lg transition hover:shadow-md">
+    class="group bg-white border border-stone-200 px-3 py-3 rounded-md transition hover:shadow-md">
     <x-utils.links.basic href="{{ $href }}" class="text-sm">
         Proceso de {{ $proceso }}
     </x-utils.links.basic>

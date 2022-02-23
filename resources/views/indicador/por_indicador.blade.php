@@ -1,16 +1,16 @@
 <x-app-layout>
 
-    <div class="space-y-4">
+    <div class="space-y-6">
         <x-utils.card>
             <div class="flex items-start justify-between gap-8 my-2">
                 <div class="flex-1">
-                    <h2 class="font-bold text-lg text-gray-400">
+                    <h2 class="font-bold text-lg text-stone-400">
                         {{ $indicadorable->indicador->cod_ind_inicial }}
                     </h2>
-                    <h2 class="font-bold text-gray-700 max-w-6xl text-2xl leading-6">
+                    <h2 class="font-bold text-stone-700 max-w-6xl text-2xl leading-6">
                         {{ $indicadorable->indicador->objetivo }}
                     </h2>
-                    <p class="flex items-center text-sm mt-4 text-gray-500">
+                    <p class="flex items-center text-sm mt-4 text-stone-500">
                         <svg class="flex-shrink-0 h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
                              stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
@@ -22,9 +22,11 @@
                         </span>
                     </p>
                 </div>
-                <div class="flex flex-col divide-y divide-gray-200 space-y-4">
+                <div class="flex flex-col divide-y divide-stone-200 space-y-4">
                     <div class="flex flex-col space-y-2 font-semibold">
-                        <x-utils.links.basic href="{{ route('indicador.proceso', [$indicadorable->indicador->proceso_id, $tipo, $uuid]) }}" class="text-sm">
+                        <x-utils.links.basic
+                            href="{{ route('indicador.proceso', [$indicadorable->indicador->proceso_id, $tipo, $uuid]) }}"
+                            class="text-sm">
                             <x-utils.badge
                                 class="bg-sky-50 text-sky-700 hover:underline hover:text-sky-700">
                                 Proceso:&nbsp;<strong>{{ $indicadorable->indicador->proceso->nombre }}</strong>
@@ -42,12 +44,12 @@
                     </div>
                     <ul class="flex flex-wrap gap-2 pt-4 font-semibold">
                         <li>
-                            <x-utils.badge class="bg-gray-50 text-gray-600 font-semibold">
+                            <x-utils.badge class="bg-stone-100 text-stone-600 font-semibold">
                                 Medición: {{ $indicadorable->indicador->medicion->nombre }}
                             </x-utils.badge>
                         </li>
                         <li>
-                            <x-utils.badge class="bg-gray-50 text-gray-600 font-semibold">
+                            <x-utils.badge class="bg-stone-100 text-stone-600 font-semibold">
                                 Reporte: {{ $indicadorable->indicador->reporte->nombre }}
                             </x-utils.badge>
                         </li>

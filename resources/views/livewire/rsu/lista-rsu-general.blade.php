@@ -1,28 +1,27 @@
-<x-utils.card>
-    @slot('header')
-        <div class="flex justify-between items-center space-x-2">
-            <div class="pr-4 flex-1">
-                <h1 class="text-xl font-bold text-gray-700">
-                    Responsabilidad Social
-                </h1>
-            </div>
+<div class="space-y-4">
 
-            <div class="inline-flex space-x-2 items-center">
-                <x-utils.forms.select class="w-24" wire:model="semestre_seleccionado">
-                    @forelse($semestres as $semestre)
-                        <option value="{{ $semestre->id }}">{{$semestre->nombre}}</option>
-                    @empty
-                        <option value="0">No hay datos</option>
-                    @endforelse
-                </x-utils.forms.select>
-
-                <x-utils.links.primary class="text-sm" href="{{ route('rsu.create') }}">
-                    <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
-                    Nuevo
-                </x-utils.links.primary>
-            </div>
+    <div class="flex justify-between items-center space-x-2">
+        <div class="pr-4 flex-1">
+            <h1 class="text-xl font-bold text-gray-700">
+                Responsabilidad Social Universitario
+            </h1>
         </div>
-    @endslot
+
+        <div class="inline-flex space-x-2 items-center">
+            <x-utils.forms.select class="w-24" wire:model="semestre_seleccionado">
+                @forelse($semestres as $semestre)
+                    <option value="{{ $semestre->id }}">{{$semestre->nombre}}</option>
+                @empty
+                    <option value="0">No hay datos</option>
+                @endforelse
+            </x-utils.forms.select>
+
+            <x-utils.links.primary class="text-sm" href="{{ route('rsu.create') }}">
+                <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
+                Nuevo
+            </x-utils.links.primary>
+        </div>
+    </div>
 
     <x-utils.tables.table>
         @slot('head')
@@ -62,4 +61,6 @@
         @endslot
     </x-utils.tables.table>
 
-</x-utils.card>
+</div>
+
+

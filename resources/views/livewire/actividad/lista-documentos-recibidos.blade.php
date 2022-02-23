@@ -1,5 +1,6 @@
-<x-utils.card>
-    @slot('header')
+<div class="space-y-4">
+
+    <x-utils.card>
         <div class="flex justify-between items-center space-x-2">
             <div class="pr-4 flex-1">
                 <h1 class="text-xl font-bold text-gray-800">
@@ -26,7 +27,7 @@
                 @endforelse
             </x-utils.forms.select>
         </div>
-    @endslot
+    </x-utils.card>
 
     @if(count($salidas))
         <x-utils.tables.table>
@@ -98,7 +99,7 @@
                                         <div
                                             class="flex items-center justify-end w-full gap-2 whitespace-nowrap">
                                             <x-utils.links.default class="group text-xs" target="_blank"
-                                                href="{{ route('archivos', $documento_recibido->documento->enlace_interno) }}">
+                                                                   href="{{ route('archivos', $documento_recibido->documento->enlace_interno) }}">
                                                 <x-icons.documents class="h-4 w-4" stroke="1.5"/>
                                                 Ver
                                             </x-utils.links.default>
@@ -112,5 +113,5 @@
             </x-slot>
         </x-jet-dialog-modal>
     @endif
-</x-utils.card>
 
+</div>

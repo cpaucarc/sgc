@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <div class="col-span-4 space-y-4">
+        <div class="col-span-4 space-y-8">
 
             <livewire:rsu.encuesta :rsu_id="$rsu->id" :es_responsable="$es_responsable"/>
 

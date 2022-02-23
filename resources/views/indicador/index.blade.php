@@ -5,6 +5,7 @@
     </div>
 
     <div class="grid grid-cols-6 gap-12">
+
         <div class="col-span-2 text-right space-y-4">
             <div>
                 <p class="text-gray-500">Indicadores de</p>
@@ -25,7 +26,7 @@
         <div class="col-span-4 space-y-6">
 
             @if(isset($escuela))
-                <div class="grid grid-cols-2 gap-y-4 gap-x-6">
+                <div class="grid grid-cols-2 gap-y-6 gap-x-8">
                     @foreach($escuela_indicadores as $proceso_id => $cantidad)
                         <x-indicador.card-proceso-indicador
                             :proceso="App\Models\Proceso::getNombreById($proceso_id)"
@@ -47,8 +48,8 @@
                     @endforeach
                 </div>
             @endif
-
         </div>
+
     </div>
 
 </x-app-layout>

@@ -1,19 +1,17 @@
-<x-utils.card>
-    @slot('header')
-        <div class="flex justify-between items-center">
-            <h3 class="font-bold tracking-wide text-gray-400">
-                Participantes
-            </h3>
+<div class="space-y-2">
 
-            @if($es_responsable)
-                <x-utils.buttons.default class="text-xs">
-                    <x-icons.people class="h-4 w-4 mr-1" stroke="1.5"></x-icons.people>
-                    Añadir
-                </x-utils.buttons.default>
-            @endif
-        </div>
-    @endslot
+    <div class="flex justify-between items-center">
+        <h3 class="font-semibold tracking-wide text-gray-400">
+            Participantes
+        </h3>
 
+        @if($es_responsable)
+            <x-utils.buttons.default class="text-xs">
+                <x-icons.people class="h-4 w-4 mr-1" stroke="1.5"></x-icons.people>
+                Añadir
+            </x-utils.buttons.default>
+        @endif
+    </div>
 
     @if($rsu->participantes_count > 0)
         <x-utils.tables.table>
@@ -50,4 +48,4 @@
         <p class="font-bold">No hay participantes registrados</p>
     @endif
 
-</x-utils.card>
+</div>

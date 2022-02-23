@@ -1,7 +1,8 @@
-<x-utils.card>
-    @slot('header')
+<div class="space-y-4">
+
+    <x-utils.card>
         <div class="flex justify-between items-center space-x-2">
-            <div class="pr-4 flex-1">
+            <div class="flex-1">
                 <h1 class="text-xl font-bold text-gray-800">
                     Mis actividades
                 </h1>
@@ -27,11 +28,7 @@
                 @endforelse
             </x-utils.forms.select>
         </div>
-    @endslot
-
-    {{--    <x-utils.dd>--}}
-    {{--        {{$actividades}}--}}
-    {{--    </x-utils.dd>--}}
+    </x-utils.card>
 
     <x-utils.tables.table>
         @slot('head')
@@ -74,4 +71,4 @@
             @endforeach
         @endslot
     </x-utils.tables.table>
-</x-utils.card>
+</div>

@@ -1,18 +1,17 @@
-<x-utils.card>
-    @slot('header')
-        <div class="flex justify-between items-center">
-            <h3 class="font-bold tracking-wide text-gray-400">
-                Encuesta
-            </h3>
+<div class="space-y-2">
 
-            @if($es_responsable)
-                <x-utils.buttons.default wire:click="openModal" class="text-xs">
-                    <x-icons.link class="h-4 w-4 mr-1" stroke="1.5"></x-icons.link>
-                    Generar
-                </x-utils.buttons.default>
-            @endif
-        </div>
-    @endslot
+    <div class="flex justify-between items-center">
+        <h3 class="font-semibold tracking-wide text-gray-400">
+            Encuestas
+        </h3>
+
+        @if($es_responsable)
+            <x-utils.buttons.default wire:click="openModal" class="text-xs">
+                <x-icons.link class="h-4 w-4 mr-1" stroke="1.5"></x-icons.link>
+                Generar
+            </x-utils.buttons.default>
+        @endif
+    </div>
 
     @if($rsu->links_count > 0)
         <x-utils.tables.table>
@@ -27,7 +26,8 @@
                 @foreach($rsu->links as $link)
                     <x-utils.tables.row>
                         <x-utils.tables.body class="font-semibold">
-                            <x-utils.links.basic target="_blank" href="{{ route('encuesta.rsu', $link->uuid) }}" class="text-xs">
+                            <x-utils.links.basic target="_blank" href="{{ route('encuesta.rsu', $link->uuid) }}"
+                                                 class="text-xs">
                                 {{ $link->uuid }}
                             </x-utils.links.basic>
                         </x-utils.tables.body>
@@ -46,7 +46,8 @@
                             {{$link->created_at->format('d-m-Y h:m a') }}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            <x-utils.buttons.default class="active:scale-95" onclick="copyToClipboard('{{ $link->link }}')">
+                            <x-utils.buttons.default class="active:scale-95"
+                                                     onclick="copyToClipboard('{{ $link->link }}')">
                                 <x-icons.clipboard class="h-4 w-4" stroke="1.5"></x-icons.clipboard>
                             </x-utils.buttons.default>
                         </x-utils.tables.body>
@@ -100,4 +101,4 @@
         </script>
     @endpush
 
-</x-utils.card>
+</div>
