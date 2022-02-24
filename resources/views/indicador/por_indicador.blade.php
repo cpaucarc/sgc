@@ -4,7 +4,7 @@
         <x-utils.card>
             <div class="flex items-start justify-between gap-8 my-2">
                 <div class="flex-1">
-                    <h2 class="font-bold text-lg text-stone-400">
+                    <h2 class="font-bold text-lg text-gray-400">
                         {{ $indicadorable->indicador->cod_ind_inicial }}
                     </h2>
                     <h2 class="font-bold text-stone-700 max-w-6xl text-2xl leading-6">
@@ -37,7 +37,7 @@
                             <x-utils.badge
                                 class="bg-sky-50 text-sky-700 hover:underline hover:text-sky-700">
                                 Oficina:&nbsp;<strong>
-                                    {{ isset($escuela) ? $escuela->nombre : $facultad->nombre }}
+                                    {{ $nombre }}
                                 </strong>
                             </x-utils.badge>
                         </x-utils.links.basic>

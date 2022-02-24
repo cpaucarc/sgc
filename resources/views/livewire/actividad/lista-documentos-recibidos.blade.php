@@ -81,18 +81,18 @@
                         @slot('body')
                             @foreach($salida_seleccionada->documentos as $documento_recibido)
                                 <x-utils.tables.row class="p-1">
-                                    <x-utils.tables.body class="text-left text-xs">
-                                        @if(strlen($documento_recibido->documento->nombre) > 70)
-                                            {{ substr($documento_recibido->documento->nombre, 0, 45) }}
+                                    <x-utils.tables.body class="text-left whitespace-nowrap text-xs">
+                                        @if(strlen($documento_recibido->documento->nombre) > 55)
+                                            {{ substr($documento_recibido->documento->nombre, 0, 40) }}
                                             ...{{ substr($documento_recibido->documento->nombre, -15) }}
                                         @else
                                             {{ $documento_recibido->documento->nombre }}
                                         @endif
                                     </x-utils.tables.body>
-                                    <x-utils.tables.body class="text-right text-xs">
+                                    <x-utils.tables.body class="text-right whitespace-nowrap text-xs">
                                         {{ $documento_recibido->documento->entidad->nombre }}
                                     </x-utils.tables.body>
-                                    <x-utils.tables.body class="text-right text-xs">
+                                    <x-utils.tables.body class="text-right whitespace-nowrap text-xs">
                                         {{ $documento_recibido->documento->created_at->diffForHumans() }}
                                     </x-utils.tables.body>
                                     <x-utils.tables.body class="text-right">

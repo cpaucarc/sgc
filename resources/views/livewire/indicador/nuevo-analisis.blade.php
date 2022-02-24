@@ -97,7 +97,7 @@
                                 Guardar estos valores para futuras instancias de este indicador.
                             </label>
                             <x-utils.buttons.default class="text-xs">
-                                <x-icons.load wire:loading wire:target="emitirEvento" class="h-5 w-5 text-gray-400" />
+                                <x-icons.load wire:loading wire:target="emitirEvento" class="h-5 w-5 text-gray-400"/>
                                 {{ __('Ver gráfico') }}
                             </x-utils.buttons.default>
                         </div>

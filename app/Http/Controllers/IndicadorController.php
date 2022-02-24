@@ -89,20 +89,21 @@ class IndicadorController extends Controller
             ->with('indicador:id,objetivo,cod_ind_inicial,formula,proceso_id,frecuencia_medicion_id,frecuencia_reporte_id', 'indicador.medicion', 'indicador.reporte', 'indicador.proceso')
             ->where('indicador_id', $indicador_id);
 
+        $nombre = "";
         if ($tipo == 1) { // 1: escuela
             $escuela = Escuela::where('uuid', $uuid)->first();
-
+            $nombre = $escuela->nombre;
             $indicadorable = $indicadorable->where('indicadorable_id', $escuela->id)
                 ->where('indicadorable_type', "App\\Models\\Escuela")->first();
 
-            return view('indicador.por_indicador', compact('indicadorable', 'escuela', 'tipo', 'uuid'));
-
         } else { // 2: facultad
             $facultad = Facultad::where('uuid', $uuid)->first();
+            $nombre = $facultad->nombre;
             $indicadorable = $indicadorable->where('indicadorable_id', $facultad->id)
                 ->where('indicadorable_type', "App\\Models\\Facultad")->first();
-            return view('indicador.por_indicador', compact('indicadorable', 'facultad', 'tipo', 'uuid'));
         }
+
+        return view('indicador.por_indicador', compact('indicadorable', 'nombre', 'tipo', 'uuid'));
     }
 
 }
