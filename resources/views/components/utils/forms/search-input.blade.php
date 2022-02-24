@@ -1,14 +1,8 @@
 @props(['disabled' => false])
 
-<div class="px-2 bg-white border border-stone-300 text-stone-700 rounded-md">
-    <label class="inline-flex items-center">
-        <x-icons.search stroke="1.55" class="h-5 w-5 text-stone-600 flex-shrink-0"/>
+<label
+    class="px-2 py-1 inline-flex items-center whitespace-nowrap border border-gray-300 text-gray-600 rounded-md bg-stone-50 text-sm">
+    <x-icons.search stroke="1.6" class="h-5 w-5 text-stone-500 flex-shrink-0 mr-2"/>
+    <x-utils.forms.invisible-input type="text" {{ $attributes }}/>
+</label>
 
-        <input type="text" placeholder="Buscar..." autocomplete="off"
-            {{ $disabled ? 'disabled' : '' }}
-            {!! $attributes->merge([
-            'class' => 'text-sm border-none focus:border-transparent focus:ring-0 bg-transparent rounded placeholder-stone-400'
-            ]) !!}>
-
-    </label>
-</div>

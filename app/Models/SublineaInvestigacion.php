@@ -12,4 +12,10 @@ class SublineaInvestigacion extends Model
     protected $table = "sublinea_investigacion";
     public $timestamps = false;
     public $fillable = ['nombre', 'linea_id'];
+
+    public function linea()
+    {
+        return $this->belongsTo(LineaInvestigacion::class, 'linea_id', 'id')
+            ->with('area');
+    }
 }

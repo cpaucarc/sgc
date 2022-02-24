@@ -45,6 +45,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::prefix('investigacion')->controller(InvestigacionController::class)->group(function () {
         Route::get('/', 'index')->name('investigacion.index');
+        Route::get('ver/{uuid}', 'show')->name('investigacion.show');
     });
 
     Route::prefix('indicador')->controller(IndicadorController::class)->group(function () {

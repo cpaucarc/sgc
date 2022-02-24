@@ -12,4 +12,9 @@ class LineaInvestigacion extends Model
     protected $table = "linea_investigacion";
     public $timestamps = false;
     public $fillable = ['nombre', 'area_id'];
+
+    public function area()
+    {
+        return $this->belongsTo(AreaInvestigacion::class, 'area_id', 'id');
+    }
 }

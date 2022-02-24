@@ -13,4 +13,27 @@ class Investigacion extends Model
     public $fillable = ['titulo', 'uuid', 'resumen', 'fecha_publicacion', 'escuela_id', 'sublinea_id', 'estado_id'];
 
     public $dates = ['fecha_publicacion'];
+
+    public function escuela()
+    {
+        return $this->belongsTo(Escuela::class);
+    }
+
+    public function sublinea()
+    {
+        return $this->belongsTo(SublineaInvestigacion::class, 'sublinea_id', 'id')
+            ->with('linea');
+    }
+
+    public function estado()
+    {
+        return $this->belongsTo(Estado::class);
+    }
+
+    public function financiaciones()
+    {
+        return $this->belongsToMany(Financiador::class, 'investigacion_financiacion')
+            ->withPivot(['presupuesto']);
+    }
+
 }
