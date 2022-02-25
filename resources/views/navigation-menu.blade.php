@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-stone-100 border-b border-stone-200">
+<nav x-data="{ open: false }" class="border-b border-gray-800" style="background-color: #24292F">
     <!-- Primary Navigation Menu -->
     <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-14">
@@ -11,10 +11,7 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-jet-nav-link>
+                <div class="hidden sm:-my-px sm:ml-8 sm:flex">
                     <x-jet-nav-link href="{{ route('actividad.index') }}" :active="request()->routeIs('actividad.*')">
                         {{ __('Actividad') }}
                     </x-jet-nav-link>
@@ -23,7 +20,8 @@
                     </x-jet-nav-link>
 
 
-                    <x-jet-nav-link href="{{ route('investigacion.index') }}" :active="request()->routeIs('investigacion.*')">
+                    <x-jet-nav-link href="{{ route('investigacion.index') }}"
+                                    :active="request()->routeIs('investigacion.*')">
                         {{ __('Investigación') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('indicador.index') }}" :active="request()->routeIs('indicador.*')">
@@ -94,7 +92,7 @@
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                 <button
-                                    class="flex text-sm border border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                    class="flex text-sm border border-transparent rounded-full focus:outline-none focus:border-sky-500 transition">
                                     <img class="h-8 w-8 rounded-full object-cover"
                                          src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"/>
                                 </button>

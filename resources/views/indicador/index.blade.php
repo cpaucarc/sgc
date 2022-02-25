@@ -16,7 +16,7 @@
 
             <hr>
 
-            <p class="text-gray-500 text-sm">
+            <p class="text-gray-500 font-semibold text-sm">
                 {{ isset($facultad) ? $facultad->indicadores_count : $escuela->indicadores_count }}
                 indicadores en total
             </p>

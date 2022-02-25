@@ -62,8 +62,8 @@
                         </x-utils.badge>
                     </x-utils.tables.body>
                     <x-utils.tables.body>
-                        <x-utils.links.invisible class="text-xs"
-                                                 href="{{ route('actividad.show', [$actividad->id, $semestre_seleccionado]) }}">
+                        <x-utils.links.invisible
+                            href="{{ route('actividad.show', [$actividad->id, $semestre_seleccionado]) }}">
                             Revisar
                         </x-utils.links.invisible>
                     </x-utils.tables.body>

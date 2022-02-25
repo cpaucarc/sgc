@@ -12,9 +12,6 @@
                     <h1 class="font-bold text-gray-700">
                         Lista de empresas
                     </h1>
-                    <p class="text-sm text-gray-500">
-                        Proveedor:
-                    </p>
                 </div>
                 <x-utils.buttons.close-button wire:click="$set('open', false)"/>
             </x-slot>
@@ -45,7 +42,7 @@
                                 </x-utils.tables.body>
                                 <x-utils.tables.body class="text-right">
                                     <x-utils.buttons.default class="group text-xs"
-                                        wire:click="seleccionarEmpresa({{$empresa->id}}, '{{ $empresa->nombre }}')">
+                                                             wire:click="seleccionarEmpresa({{$empresa->id}}, '{{ $empresa->nombre }}')">
                                         Escoger
                                     </x-utils.buttons.default>
                                 </x-utils.tables.body>

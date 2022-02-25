@@ -59,7 +59,7 @@
                         </x-utils.badge>
                     </x-utils.tables.body>
                     <x-utils.tables.body>
-                        <x-utils.buttons.invisible wire:click="abrirModal({{$prov->id}})" class="text-xs">
+                        <x-utils.buttons.invisible wire:click="abrirModal({{$prov->id}})">
                             Revisar
                         </x-utils.buttons.invisible>
                     </x-utils.tables.body>
@@ -117,12 +117,12 @@
                                                         @endif
                                                     </div>
                                                 </x-utils.tables.body>
-                                                <x-utils.tables.body class="text-right">
+                                                <x-utils.tables.body class="text-right whitespace-nowrap">
                                                     {{ $documento_enviado->documento->created_at->diffForHumans() }}
                                                 </x-utils.tables.body>
                                                 <x-utils.tables.body class="text-right">
                                                     <div
-                                                        class="flex items-center justify-end w-full gap-2 whitespace-nowrap text-xs">
+                                                        class="flex items-center justify-end w-full gap-2 whitespace-nowrap">
                                                         <x-utils.links.default class="group" target="_blank"
                                                                                href="{{ route('archivos', $documento_enviado->documento->enlace_interno) }}">
                                                             <x-icons.documents class="h-4 w-4" stroke="1.5"/>
@@ -157,7 +157,7 @@
                             Esta información será visto por las siguientes entidades:
                         </h2>
                         <ul class="mt-1 flex flex-wrap gap-2">
-                            <li class="bg-gray-100 text-xs rounded-full text-gray-700 font-medium px-3 py-1">
+                            <li class="bg-gray-100 text-sm rounded-full text-gray-700 font-medium px-3 py-1">
                                 {{ $proveedor_seleccionado->responsable->entidad->nombre }}
                             </li>
                         </ul>

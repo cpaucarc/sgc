@@ -6,7 +6,7 @@
         </h3>
 
         @if($es_responsable)
-            <x-utils.buttons.default class="text-xs">
+            <x-utils.buttons.default class="text-sm">
                 <x-icons.people class="h-4 w-4 mr-1" stroke="1.5"></x-icons.people>
                 Añadir
             </x-utils.buttons.default>
@@ -25,7 +25,7 @@
                 @foreach($rsu->participantes as $participante)
                     <x-utils.tables.row>
                         <x-utils.tables.body>
-                            <x-utils.links.basic href="{{ route('rsu.show', [$participante->id]) }}" class="text-xs">
+                            <x-utils.links.basic href="{{ route('rsu.show', [$participante->id]) }}" class="text-sm">
                                 {{ $participante->codigo_participante }}
                             </x-utils.links.basic>
                         </x-utils.tables.body>
@@ -38,7 +38,7 @@
                             {{ $participante->es_estudiante ? 'Estudiante':'Docente' }}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            {{$participante->fecha_incorporacion->format('d-m-Y') }}
+                            {{$participante->fecha_incorporacion->format('d/m/Y') }}
                         </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach

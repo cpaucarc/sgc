@@ -16,7 +16,7 @@
 
             <hr>
 
-            <p class="text-gray-500 text-sm">
+            <p class="text-gray-500 font-semibold text-sm">
                 {{ count($indicadores) }} indicadores en este proceso
             </p>
 

@@ -35,8 +35,8 @@
             @foreach($rsu as $resp_social)
                 <x-utils.tables.row>
                     <x-utils.tables.body class="font-semibold">
-                        <x-utils.links.basic href="{{ route('rsu.show', [$resp_social->uuid]) }}" class="text-xs">
-                            {{ $resp_social->titulo }}
+                        <x-utils.links.basic href="{{ route('rsu.show', [$resp_social->uuid]) }}">
+                            {{substr($resp_social->titulo, 0, 80)}}
                         </x-utils.links.basic>
                     </x-utils.tables.body>
                     <x-utils.tables.body>

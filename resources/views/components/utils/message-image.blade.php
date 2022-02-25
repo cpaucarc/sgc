@@ -1,27 +1,26 @@
-<div class="grid place-items-center">
+<div class="grid place-items-center p-4 border border-stone-200 rounded-md">
 
-    <div class="flex gap-x-4 items-center">
+    <div class="flex flex-col gap-y-2 items-center justify-center">
+
+        @if(isset($image))
+            <img class="w-3/4" src="{{ $image }}" alt="Imagen correspondiente">
+        @endif
 
         @if(isset($title) or isset($description))
-            <div class="w-56">
+            <div class="w-3/4 text-center">
                 @if(isset($title))
-                    <h2 class="font-bold text-lg text-gray-700 leading-snug">
+                    <h2 class="font-bold text-gray-600 leading-snug">
                         {{ $title }}
                     </h2>
                 @endif
                 @if(isset($description))
-                    <h3 class="text-gray-500 text-sm mt-3 leading-snug">
+                    <h3 class="text-gray-500 text-sm mt-1 leading-snug">
                         {{ $description }}
                     </h3>
                 @endif
             </div>
         @endif
 
-        @if(isset($image))
-            <img class="w-48"
-                 src="{{ $image }}"
-                 alt="Imagen correspondiente">
-        @endif
 
     </div>
 

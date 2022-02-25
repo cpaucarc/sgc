@@ -24,7 +24,7 @@
                 <x-utils.tables.row>
                     <x-utils.tables.body>
                         <x-utils.links.basic href="{{ route('investigacion.show', $investigacion->uuid) }}">
-                            {{$investigacion->titulo}}
+                            {{substr($investigacion->titulo, 0, 80)}}
                         </x-utils.links.basic>
                     </x-utils.tables.body>
                     <x-utils.tables.body>{{'S/. '.$investigacion->financiaciones->sum('pivot.presupuesto')}}</x-utils.tables.body>

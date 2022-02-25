@@ -52,7 +52,7 @@
                             </p>
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            <x-utils.buttons.invisible wire:click="abrirModal({{$salida->id}})" class="text-xs">
+                            <x-utils.buttons.invisible wire:click="abrirModal({{$salida->id}})">
                                 Revisar
                             </x-utils.buttons.invisible>
                         </x-utils.tables.body>
@@ -81,7 +81,7 @@
                         @slot('body')
                             @foreach($salida_seleccionada->documentos as $documento_recibido)
                                 <x-utils.tables.row class="p-1">
-                                    <x-utils.tables.body class="text-left whitespace-nowrap text-xs">
+                                    <x-utils.tables.body class="text-left whitespace-nowrap">
                                         @if(strlen($documento_recibido->documento->nombre) > 55)
                                             {{ substr($documento_recibido->documento->nombre, 0, 40) }}
                                             ...{{ substr($documento_recibido->documento->nombre, -15) }}
@@ -89,16 +89,16 @@
                                             {{ $documento_recibido->documento->nombre }}
                                         @endif
                                     </x-utils.tables.body>
-                                    <x-utils.tables.body class="text-right whitespace-nowrap text-xs">
+                                    <x-utils.tables.body class="text-right whitespace-nowrap">
                                         {{ $documento_recibido->documento->entidad->nombre }}
                                     </x-utils.tables.body>
-                                    <x-utils.tables.body class="text-right whitespace-nowrap text-xs">
+                                    <x-utils.tables.body class="text-right whitespace-nowrap">
                                         {{ $documento_recibido->documento->created_at->diffForHumans() }}
                                     </x-utils.tables.body>
                                     <x-utils.tables.body class="text-right">
                                         <div
                                             class="flex items-center justify-end w-full gap-2 whitespace-nowrap">
-                                            <x-utils.links.default class="group text-xs" target="_blank"
+                                            <x-utils.links.default class="group" target="_blank"
                                                                    href="{{ route('archivos', $documento_recibido->documento->enlace_interno) }}">
                                                 <x-icons.documents class="h-4 w-4" stroke="1.5"/>
                                                 Ver

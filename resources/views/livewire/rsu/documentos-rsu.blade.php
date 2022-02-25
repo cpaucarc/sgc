@@ -6,8 +6,8 @@
         </h3>
 
         @if($es_responsable)
-            <x-utils.buttons.default wire:click="openModal" class="text-xs">
-                <x-icons.documents class="h-4 w-4 mr-1" stroke="1.5"></x-icons.documents>
+            <x-utils.buttons.default wire:click="openModal" class="text-sm">
+                <x-icons.documents class="h-5 w-5 mr-1" stroke="1.5"></x-icons.documents>
                 Subir
             </x-utils.buttons.default>
         @endif
@@ -27,7 +27,7 @@
                         <x-utils.tables.body class="font-semibold">
                             <x-utils.links.basic target="_blank"
                                                  href="{{ route('archivos', $documento_enviado->documento->enlace_interno) }}"
-                                                 class="text-xs">
+                                                 class="text-sm">
                                 {{ $documento_enviado->documento->nombre }}
                             </x-utils.links.basic>
                         </x-utils.tables.body>
@@ -35,13 +35,13 @@
                             {{ App\Models\User::getUserNameByID($documento_enviado->documento->user_id)  }}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            {{ $documento_enviado->documento->created_at->format('d-m-Y h:m a') }}
+                            {{ $documento_enviado->documento->created_at->format('d/m/Y h:m a') }}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             @if($documento_enviado->documento->user_id === auth()->user()->id )
-                                <x-utils.buttons.danger class="text-xs"
+                                <x-utils.buttons.danger class="text-sm"
                                                         wire:click="eliminarArchivo({{ $documento_enviado->documento_id }})">
-                                    <x-icons.delete class="h-4 w-4" stroke="1.55"/>
+                                    <x-icons.delete class="h-5 w-5" stroke="1.55"/>
                                 </x-utils.buttons.danger>
                             @else
                                 <span></span>
