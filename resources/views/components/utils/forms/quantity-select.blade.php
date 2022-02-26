@@ -1,5 +1,5 @@
 @props(['disabled' => false])
-<div class="cursor-pointer border border-gray-300 bg-white text-sm text-gray-600 rounded-md px-2 flex items-center">
+<div class="cursor-pointer border border-gray-300 bg-white text-sm text-gray-700 rounded-md px-2 flex items-center">
     <label>Mostrar:
         <select {{ $disabled ? 'disabled' : '' }}
             {!! $attributes->merge(['class' => 'text-sm border-none focus:border-transparent focus:ring-0 bg-transparent w-auto']) !!}>

@@ -156,6 +156,7 @@ class NuevoAnalisis extends Component
 
     public function obtenerResultados()
     {
+        // RSU: 048 - 053
         if ($this->indicadorable->indicador->cod_ind_inicial === "IND-048") {
             $res = Medicion::ind48($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
         } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-049") {
@@ -166,6 +167,15 @@ class NuevoAnalisis extends Component
             $res = Medicion::ind51($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
         } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-052") {
             $res = Medicion::ind52($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
+        } // Investigacion: 044 - 047
+        elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-044") {
+            $res = Medicion::ind44($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-045") {
+            $res = Medicion::ind45($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-046") {
+            $res = Medicion::ind46($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-047") {
+            $res = Medicion::ind47($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
         }
 
 

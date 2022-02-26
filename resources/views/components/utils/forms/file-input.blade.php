@@ -1,7 +1,7 @@
 <input
     {{ $attributes->merge([
         'type' => 'file',
-        'class' => 'text-sm text-gray-500
+        'class' => 'text-sm text-gray-700
                   file:mr-4 file:py-2 file:px-4
                   file:rounded-md file:border-0
                   file:text-sm file:font-bold

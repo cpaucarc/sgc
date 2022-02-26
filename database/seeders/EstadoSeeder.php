@@ -18,7 +18,7 @@ class EstadoSeeder extends Seeder
             //Investigación
             [
                 'nombre' => 'En ejecución',
-                'color' => 'green',
+                'color' => 'amber',
                 'categoria_id' => 1
             ],
             [
@@ -27,8 +27,8 @@ class EstadoSeeder extends Seeder
                 'categoria_id' => 1
             ],
             [
-                'nombre' => 'Concluido',
-                'color' => 'gray',
+                'nombre' => 'Publicado',
+                'color' => 'green',
                 'categoria_id' => 1
             ],
             //Solicitud
