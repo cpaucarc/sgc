@@ -6,12 +6,23 @@
                 <table class="min-w-full divide-y divide-stone-200">
                     @if(isset($head))
                         <thead class="bg-stone-50">
-                        {{$head}}
+                        <tr>
+                            {{$head}}
+                        </tr>
                         </thead>
                     @endif
+
                     <tbody class="bg-white divide-y divide-stone-200">
                     {{ $body }}
                     </tbody>
+
+                    @if(isset($foot))
+                        <tfoot class="text-sm text-gray-600 bg-stone-50/75 hover:bg-stone-100/50 font-bold">
+                        <tr>
+                            {{$foot}}
+                        </tr>
+                        </tfoot>
+                    @endif
                 </table>
             </div>
         </div>

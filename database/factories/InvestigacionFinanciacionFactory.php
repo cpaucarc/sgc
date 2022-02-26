@@ -19,7 +19,9 @@ class InvestigacionFinanciacionFactory extends Factory
         return [
             'presupuesto' => $this->faker->randomFloat(2, 1000, 10000),
             'investigacion_id' => $this->faker->numberBetween(1, 30),
-            'financiador_id' => $this->faker->numberBetween(1, 4)
+            'financiador_id' => $this->faker->numberBetween(1, 4),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

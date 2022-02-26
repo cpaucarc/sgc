@@ -33,7 +33,14 @@ class Investigacion extends Model
     public function financiaciones()
     {
         return $this->belongsToMany(Financiador::class, 'investigacion_financiacion')
-            ->withPivot(['presupuesto']);
+            ->withPivot(['presupuesto'])
+            ->withTimestamps();
+    }
+
+    public function investigadores()
+    {
+        return $this->belongsToMany(Investigador::class, 'investigacion_investigadores')
+            ->withPivot(['es_responsable']);
     }
 
 }

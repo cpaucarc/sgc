@@ -74,7 +74,7 @@
 
         <x-slot name="footer">
             <x-jet-button wire:click="enviarArchivo" wire:target="enviarArchivo, archivo"
-                          wire:loading.class=" cursor-not-allowed" wire:loading.attr="disabled">
+                          wire:loading.class=" cursor-wait" wire:loading.attr="disabled">
                 <x-icons.load wire:loading wire:target="enviarArchivo" class="h-5 w-5"/>
                 {{ __('Enviar Archivo') }}
             </x-jet-button>

@@ -76,7 +76,7 @@
 
     <div class="flex justify-end pt-4">
         <x-jet-button wire:click="guardarRSU" wire:target="guardarRSU"
-                      wire:loading.class="cursor-not-allowed" wire:loading.attr="disabled">
+                      wire:loading.class="cursor-wait" wire:loading.attr="disabled">
             <x-icons.load wire:loading wire:target="guardarRSU" class="h-5 w-5"/>
             {{ __('Registrar RSU') }}
         </x-jet-button>

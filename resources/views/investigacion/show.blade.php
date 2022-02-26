@@ -1,9 +1,9 @@
 <x-app-layout>
 
-    <div class="grid grid-cols-6 gap-16">
+    <div class="grid grid-cols-7 gap-14">
 
-        <div class="col-span-2 divide-y divide-stone-200 divide-dashed space-y-4">
-            <h2 class="text-gray-700 text-lg font-bold leading-tight">{{$investigacion->titulo}}</h2>
+        <div class="col-span-3 divide-y divide-stone-200 divide-dashed space-y-4">
+            <h2 class="text-gray-700 text-xl font-bold leading-tight">{{$investigacion->titulo}}</h2>
 
             <div class="flex-col space-y-1 text-sm pt-4">
                 <h3 class="font-bold text-gray-400">Escuela</h3>
@@ -29,14 +29,16 @@
                 @endif
             </div>
 
-            <div class="pt-8">
-                <livewire:investigacion.lista-presupuestos investigacion_id="{{$investigacion->id}}"/>
+            <div class="bg-white text-stone-700 text-sm rounded-md space-y-2 pt-4">
+                <h3 class="font-bold text-base text-gray-500">Resumen</h3>
+                <p class="leading-8">{{$investigacion->resumen}}</p>
             </div>
+
         </div>
 
-        <div class="col-span-4 space-y-8">
+        <div class="col-span-4 space-y-4 divide-y divide-stone-200 divide-dashed">
 
-            <div class="p-4 bg-stone-100 text-stone-700 text-sm rounded-md">
+            <div class="p-4 bg-stone-100 text-stone-700 text-sm rounded-md pt-4">
                 <table class="text-sm text-stone-700">
                     <tbody>
                     <tr>
@@ -55,18 +57,15 @@
                 </table>
             </div>
 
-            <div class="bg-white text-stone-700 text-sm rounded-md space-y-2">
-                <h3 class="font-bold text-base text-gray-500">Resumen</h3>
-                <p class="leading-8">{{$investigacion->resumen}}</p>
+            <div class="pt-4">
+                <livewire:investigacion.lista-investigacion-participantes investigacion_id="{{$investigacion->id}}"/>
             </div>
-            {{--            <livewire:rsu.encuesta :rsu_id="$rsu->id" :es_responsable="$es_responsable"/>--}}
 
-            {{--            <livewire:rsu.documentos-rsu :rsu_id="$rsu->id" :es_responsable="$es_responsable"/>--}}
-
-            {{--            <livewire:rsu.participantes :rsu_id="$rsu->id" :es_responsable="$es_responsable"/>--}}
+            <div class="pt-4">
+                <livewire:investigacion.lista-presupuestos investigacion_id="{{$investigacion->id}}"/>
+            </div>
 
         </div>
-
 
     </div>
 

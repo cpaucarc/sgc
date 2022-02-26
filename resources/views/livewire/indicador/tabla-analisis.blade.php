@@ -2,7 +2,7 @@
 
     @if(count($indicadorable->analisis) !== 0)
         <div class="flex items-center justify-between mb-4">
-            <p class="ml-1 text-gray-600 text-sm">
+            <p class="ml-1 text-gray-600 font-semibold text-sm">
                 Hay&nbsp;<strong>{{ count($indicadorable->analisis) }}</strong>&nbsp;análisis de este
                 indicador
             </p>

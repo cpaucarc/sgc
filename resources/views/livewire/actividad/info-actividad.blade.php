@@ -41,7 +41,7 @@
         @else
             <div class="flex flex-col items-end w-48 space-y-2">
                 <buttons
-                    class="cursor-not-allowed inline-flex items-center text-green-700 border border-green-200 bg-green-100 rounded-lg text-sm px-3 py-1">
+                    class="cursor-wait inline-flex items-center text-green-700 border border-green-200 bg-green-100 rounded-lg text-sm px-3 py-1">
                     <x-icons.check :stroke="2" class="h-5 w-5 mr-1" />
                     Completado
                 </buttons>

@@ -171,7 +171,7 @@
                 <x-jet-button
                     wire:click="guardarAnalisis"
                     wire:target="guardarAnalisis"
-                    wire:loading.class="cursor-not-allowed"
+                    wire:loading.class="cursor-wait"
                     wire:loading.attr="disabled">
                     <x-icons.load wire:loading wire:target="guardarAnalisis" class="h-5 w-5"/>
                     Guardar
