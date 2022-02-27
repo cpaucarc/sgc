@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EncuestaController;
 use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\InvestigacionController;
@@ -29,6 +30,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::prefix('admin')->controller(AdminController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.index');
+        Route::get('escuelas', 'escuelas')->name('admin.escuelas');
+        Route::get('facultades', 'facultades')->name('admin.facultades');
+    });
 
     Route::prefix('actividad')->controller(ActividadController::class)->group(function () {
         Route::get('/', 'index')->name('actividad.index');

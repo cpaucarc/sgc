@@ -1,6 +1,6 @@
 {{--<img src="{{ asset('images/escudo_unasam.jpg') }}" alt="Escudo de la UNASAM" {{ $attributes }} title="sdvjdn">--}}
 
-<img src="{{ asset('images/unasam/escudo_oficial.webp') }}"
+<img src="{{ asset('images/unasam_escudo.svg') }}"
      alt="Escudo de la UNASAM" {{ $attributes }} title="Inicio">
 {{--<img src="{{ asset('images/unasam/escudo_negativo.webp') }}" alt="Escudo de la UNASAM" {{ $attributes }} title="sdvjdn">--}}
 {{--<img src="{{ asset('images/unasam/escudo_positivo.webp') }}" alt="Escudo de la UNASAM" {{ $attributes }} title="sdvjdn">--}}

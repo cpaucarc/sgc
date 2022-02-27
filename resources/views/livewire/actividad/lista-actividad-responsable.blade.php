@@ -6,7 +6,7 @@
                 <h1 class="text-xl font-bold text-gray-800">
                     Mis actividades
                 </h1>
-                <p class="text-sm text-gray-400">
+                <p class="text-sm text-gray-600">
                     En esta sección usted podrá ver la lista de actividades que le corresponde realizar
                     durante el semestre.
                 </p>
@@ -42,7 +42,7 @@
         @slot('body')
             @foreach($actividades as $actividad)
                 <x-utils.tables.row>
-                    <x-utils.tables.body class="font-semibold">
+                    <x-utils.tables.body class="font-bold">
                         {{ $actividad->actividad->nombre }}
                         <x-utils.badge
                             class="ml-1 text-xs {{

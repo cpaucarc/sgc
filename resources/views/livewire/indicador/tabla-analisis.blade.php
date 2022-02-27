@@ -47,7 +47,7 @@
             @slot('body')
                 @foreach($indicadorable->analisis as $analisis)
                     <x-utils.tables.row>
-                        <x-utils.tables.body class="whitespace-nowrap">
+                        <x-utils.tables.body class="whitespace-nowrap text-xs">
                             {{ $analisis->fecha_medicion_inicio->format('d/m/Y') }}
                             a
                             {{ $analisis->fecha_medicion_fin->format('d/m/Y') }}
@@ -63,7 +63,7 @@
                             </x-utils.tables.body>
                         @endif
                         <x-utils.tables.body class="font-bold">
-                            {{ $analisis->resultado }}
+                            {{ $analisis->resultado }}{{ $analisis->interes ? '%':'' }}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             {{ floatval($analisis->minimo) }}

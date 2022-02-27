@@ -12,6 +12,11 @@ class Escuela extends Model
     public $timestamps = false;
     public $fillable = ['nombre', 'uuid', 'abrev', 'facultad_id'];
 
+    public function facultad()
+    {
+        return $this->belongsTo(Facultad::class)->orderBy('nombre');
+    }
+
     // relacion uno a muchos polimorfica
     public function entidades()
     {

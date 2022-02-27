@@ -1,4 +1,4 @@
-<div class="w-full border border-stone-200 rounded-md">
+<div class="w-full border border-gray-300 rounded-md">
 
     <div class="flex flex-col gap-y-4 items-center w-1/3 text-center mx-auto my-12">
 

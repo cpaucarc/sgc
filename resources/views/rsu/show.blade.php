@@ -54,13 +54,13 @@
 
         <div class="col-span-4 space-y-8 divide-y divide-dashed divide-stone-300">
 
-            <livewire:rsu.encuesta :rsu_id="$rsu->id" :es_responsable="$es_responsable"/>
+            <livewire:rsu.participantes :rsu_id="$rsu->id" :es_responsable="$es_responsable"/>
 
             <div class="pt-4">
                 <livewire:rsu.documentos-rsu :rsu_id="$rsu->id" :es_responsable="$es_responsable"/>
             </div>
             <div class="pt-4">
-                <livewire:rsu.participantes :rsu_id="$rsu->id" :es_responsable="$es_responsable"/>
+                <livewire:rsu.encuesta :rsu_id="$rsu->id" :es_responsable="$es_responsable"/>
             </div>
         </div>
 

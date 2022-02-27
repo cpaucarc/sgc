@@ -178,9 +178,10 @@ class NuevoAnalisis extends Component
             $res = Medicion::ind47($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
         }
 
-
-        $this->interes = $res['interes'];
-        $this->total = $res['total'];
-        $this->resultado = $res['resultado'];
+        if (isset($res)) {
+            $this->interes = $res['interes'];
+            $this->total = $res['total'];
+            $this->resultado = $res['resultado'];
+        }
     }
 }

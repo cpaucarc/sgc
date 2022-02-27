@@ -16,7 +16,6 @@
                               d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
                     </svg>
                     {{ $responsable->actividad->proceso->nombre }}
-
                 </div>
                 <div class="mt-2 items-center text-sm text-gray-500 hidden sm:flex">
                     <svg class="flex-shrink-0 mr-1 h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24"
@@ -42,7 +41,7 @@
             <div class="flex flex-col items-end w-48 space-y-2">
                 <buttons
                     class="cursor-wait inline-flex items-center text-green-700 border border-green-200 bg-green-100 rounded-lg text-sm px-3 py-1">
-                    <x-icons.check :stroke="2" class="h-5 w-5 mr-1" />
+                    <x-icons.check :stroke="2" class="h-5 w-5 mr-1"/>
                     Completado
                 </buttons>
                 <span class="text-xs">

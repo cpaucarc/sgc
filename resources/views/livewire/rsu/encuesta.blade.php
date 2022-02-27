@@ -1,11 +1,11 @@
 <div class="space-y-2">
 
     <div class="flex justify-between items-center">
-        <h3 class="font-semibold tracking-wide text-gray-400">
+        <h3 class="font-bold tracking-wide text-gray-600">
             Encuestas
         </h3>
 
-        @if($es_responsable)
+        @if($es_responsable and $rsu->links_count > 0)
             <x-utils.buttons.default wire:click="openModal" class="text-sm">
                 <x-icons.link class="h-5 w-5 mr-1" stroke="1.5"></x-icons.link>
                 Generar
@@ -56,7 +56,25 @@
             @endslot
         </x-utils.tables.table>
     @else
-        <p class="font-bold">No hay encuestas generadas</p>
+        <div class="border border-gray-300 rounded-md">
+            <x-utils.message-no-items
+                title="Aún no hay encuestas generadas"
+                text="Cree encuestas para medir la satisfacción de los beneficiarios de la RSU.">
+                @slot('icon')
+                    <svg class="text-gray-400" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
+                        <path
+                            d="M3.5 3.75a.25.25 0 01.25-.25h13.5a.25.25 0 01.25.25v10a.75.75 0 001.5 0v-10A1.75 1.75 0 0017.25 2H3.75A1.75 1.75 0 002 3.75v16.5c0 .966.784 1.75 1.75 1.75h7a.75.75 0 000-1.5h-7a.25.25 0 01-.25-.25V3.75z"></path>
+                        <path
+                            d="M6.25 7a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm-.75 4.75a.75.75 0 01.75-.75h4.5a.75.75 0 010 1.5h-4.5a.75.75 0 01-.75-.75zm16.28 4.53a.75.75 0 10-1.06-1.06l-4.97 4.97-1.97-1.97a.75.75 0 10-1.06 1.06l2.5 2.5a.75.75 0 001.06 0l5.5-5.5z"></path>
+                    </svg>
+                @endslot
+                @if($es_responsable)
+                    <x-jet-button wire:click="openModal" class="text-sm">
+                        Crear mi primera encuesta
+                    </x-jet-button>
+                @endif
+            </x-utils.message-no-items>
+        </div>
     @endif
 
     <x-jet-dialog-modal wire:model="open" maxWidth="xl">

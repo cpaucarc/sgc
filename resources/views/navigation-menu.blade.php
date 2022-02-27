@@ -11,7 +11,10 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden sm:-my-px sm:ml-8 sm:flex">
+                <div class="hidden sm:-my-px sm:ml-6 sm:flex">
+                    <x-jet-nav-link href="{{ route('admin.index') }}" :active="request()->routeIs('admin.*')">
+                        {{ __('Administrador') }}
+                    </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('actividad.index') }}" :active="request()->routeIs('actividad.*')">
                         {{ __('Actividad') }}
                     </x-jet-nav-link>
