@@ -1,5 +1,5 @@
 <div>
-    <div class="flex justify-between mb-4 gap-x-2">
+    <div class="flex justify-between items-start mb-4 gap-x-2">
         <x-utils.forms.search-input wire:model.debounce.500ms="search"/>
     </div>
 
@@ -21,24 +21,24 @@
                             </x-utils.links.basic>
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-xs">
-                            {{$entidad->pertenencia ? $entidad->pertenencia->entidadable->nombre : '---'}}
+                            {{$entidad->pertenencia ? $entidad->pertenencia->entidadable->nombre : 'Unasam'}}
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-xs">
                             <a class="hover:underline hover:text-sky-700"
                                href="{{route('admin.entidad.responsable', $entidad->id)}}">
-                                {{$entidad->actividades_count > 0 ? 'de '.$entidad->actividades_count.' actividades' : '---'}}
+                                {{$entidad->actividades_count > 0 ? 'de '.$entidad->actividades_count.' actividades' : 'X'}}
                             </a>
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-xs">
                             <a class="hover:underline hover:text-sky-700"
                                href="{{route('admin.entidad.proveedor', $entidad->id)}}">
-                                {{$entidad->entradas_count > 0 ? 'de '.$entidad->entradas_count.' entradas' : '---'}}
+                                {{$entidad->entradas_count > 0 ? 'de '.$entidad->entradas_count.' entradas' : 'X'}}
                             </a>
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-xs">
                             <a class="hover:underline hover:text-sky-700"
                                href="{{route('admin.entidad.cliente', $entidad->id)}}">
-                                {{$entidad->salidas_count > 0 ? 'de '.$entidad->salidas_count.' salidas' : '---'}}
+                                {{$entidad->salidas_count > 0 ? 'de '.$entidad->salidas_count.' salidas' : 'X'}}
                             </a>
                         </x-utils.tables.body>
                     </x-utils.tables.row>

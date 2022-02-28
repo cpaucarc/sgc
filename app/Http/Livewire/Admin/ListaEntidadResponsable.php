@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Entidad;
+use App\Models\Responsable;
 use Livewire\Component;
 
 class ListaEntidadResponsable extends Component

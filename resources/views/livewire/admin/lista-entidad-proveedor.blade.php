@@ -1,4 +1,4 @@
-@if($entidad and count($entidad->entradas) > 0)
+@if(count($entradas) > 0)
     <div class="divide-y divide-dashed divide-gray-300">
         <div class="mb-2">
             <div class="flex items-center justify-between">
@@ -23,11 +23,11 @@
                     <x-utils.tables.head><span class="sr-only">Acciones</span></x-utils.tables.head>
                 @endslot
                 @slot('body')
-                    @foreach($entidad->entradas as $i => $entrada)
+                    @foreach($entradas as $i => $entrada)
                         <x-utils.tables.row>
                             <x-utils.tables.body>{{$i + 1}}</x-utils.tables.body>
                             <x-utils.tables.body>{{$entrada->entrada->nombre}}</x-utils.tables.body>
-                            <x-utils.tables.body>
+                            <x-utils.tables.body class="whitespace-nowrap">
                                 <h3>{{$entrada->responsable->actividad->nombre}}</h3>
                                 <p class="text-xs">Responsable: {{$entrada->responsable->entidad->nombre}}</p>
                             </x-utils.tables.body>

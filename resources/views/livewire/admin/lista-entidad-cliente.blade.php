@@ -1,16 +1,16 @@
-@if($entidad and count($entidad->salidas) > 0)
+@if(count($salidas) > 0)
     <div class="divide-y divide-dashed divide-gray-300">
         <div class="mb-2">
             <div class="flex items-center justify-between">
                 <h2 class="font-bold text-xl text-gray-600">
-                    Proveedor
+                    Cliente
                 </h2>
                 <x-utils.buttons.default class="text-sm">
                     Agregar
                 </x-utils.buttons.default>
             </div>
             <p class="text-sm text-gray-500">
-                Dentro de su ámbito de correspondiencia, es proveedor de las siguientes actividades:
+                Dentro de su ámbito de correspondiencia, es cliente en las siguientes actividades:
             </p>
         </div>
 
@@ -23,7 +23,7 @@
                     <x-utils.tables.head><span class="sr-only">Acciones</span></x-utils.tables.head>
                 @endslot
                 @slot('body')
-                    @foreach($entidad->salidas as $i => $salida)
+                    @foreach($salidas as $i => $salida)
                         <x-utils.tables.row>
                             <x-utils.tables.body>{{$i + 1}}</x-utils.tables.body>
                             <x-utils.tables.body>{{$salida->salida->nombre}}</x-utils.tables.body>

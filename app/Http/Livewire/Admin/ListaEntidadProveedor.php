@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Entidad;
+use App\Models\Proveedor;
 use Livewire\Component;
 
 class ListaEntidadProveedor extends Component
@@ -16,11 +17,10 @@ class ListaEntidadProveedor extends Component
 
     public function render()
     {
-        $entidad = Entidad::query()
-            ->select('id')
-            ->with('entradas')
-            ->where('id', $this->entidad_id)
-            ->first();
-        return view('livewire.admin.lista-entidad-proveedor', compact('entidad'));
+        $entradas = Proveedor::query()
+            ->with('entrada','responsable')
+            ->where('entidad_id', $this->entidad_id)
+            ->get();
+        return view('livewire.admin.lista-entidad-proveedor', compact('entradas'));
     }
 }

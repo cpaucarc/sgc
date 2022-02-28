@@ -14,8 +14,7 @@ class Responsable extends Model
 
     public function actividad()
     {
-        return $this->belongsTo(Actividad::class)
-            ->with('proceso', 'tipo');
+        return $this->belongsTo(Actividad::class);
     }
 
     public function entidad()

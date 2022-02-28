@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Cliente;
 use App\Models\Entidad;
 use Livewire\Component;
 
@@ -16,11 +17,10 @@ class ListaEntidadCliente extends Component
 
     public function render()
     {
-        $entidad = Entidad::query()
-            ->select('id')
-            ->with('salidas')
-            ->where('id', $this->entidad_id)
-            ->first();
-        return view('livewire.admin.lista-entidad-cliente', compact('entidad'));
+        $salidas = Cliente::query()
+            ->with('salida', 'entidad', 'responsable')
+            ->where('entidad_id', $this->entidad_id)
+            ->get();
+        return view('livewire.admin.lista-entidad-cliente', compact('salidas'));
     }
 }
