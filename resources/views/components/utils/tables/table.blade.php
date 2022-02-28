@@ -12,7 +12,7 @@
                         </thead>
                     @endif
 
-                    <tbody class="bg-white divide-y divide-gray-300">
+                    <tbody class="bg-white divide-y divide-gray-200">
                     {{ $body }}
                     </tbody>
 

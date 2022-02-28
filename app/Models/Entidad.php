@@ -38,7 +38,7 @@ class Entidad extends Model
     public function actividades()
     {
         return $this->belongsToMany(Actividad::class, 'responsables')
-            ->with('proceso', 'tipo');
+            ->withPivot('id')->with('proceso', 'tipo');
     }
 
     // relación uno a muchos polimorfica

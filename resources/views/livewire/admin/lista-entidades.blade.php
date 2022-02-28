@@ -8,7 +8,7 @@
             @slot('head')
                 <x-utils.tables.head>Nombre</x-utils.tables.head>
                 <x-utils.tables.head>Pertenencia</x-utils.tables.head>
-                <x-utils.tables.head>Responsabilidad</x-utils.tables.head>
+                <x-utils.tables.head>Responsable</x-utils.tables.head>
                 <x-utils.tables.head>Proveedor</x-utils.tables.head>
                 <x-utils.tables.head>Cliente</x-utils.tables.head>
             @endslot

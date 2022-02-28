@@ -2,9 +2,10 @@
 
 @error($for)
 <p {{ $attributes->merge(['class' => 'mt-1.5 text-sm text-rose-600 inline-flex items-center']) }}>
-    <svg class="mr-1" viewBox="0 0 16 16" width="14" height="14" fill="currentColor">
+    <svg class="h-5 w-5 mx-1" viewBox="0 0 20 20" fill="currentColor">
         <path fill-rule="evenodd"
-              d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zm-1.763-.707c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM9 11a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"></path>
+              d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+              clip-rule="evenodd"/>
     </svg>
     {{ $message }}
 </p>
