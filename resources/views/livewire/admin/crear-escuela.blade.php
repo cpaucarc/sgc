@@ -3,7 +3,6 @@
         Registrar nuevo
     </x-jet-button>
 
-
     <x-jet-dialog-modal wire:model="open">
         <x-slot name="title">
             <div class="flex justify-end w-full">
@@ -31,8 +30,8 @@
                     <x-jet-label for="facultad" value="Facultad a la que pertenece la escuela"/>
                     <x-utils.forms.select id="facultad" class="w-full" wire:model="facultad">
                         <option value="0">Seleccione...</option>
-                        @foreach($facultades as $facultad)
-                            <option value="{{ $facultad->id }}">{{ $facultad->nombre }}</option>
+                        @foreach($facultades as $fac)
+                            <option value="{{ $fac->id }}">{{ $fac->nombre }}</option>
                         @endforeach
                     </x-utils.forms.select>
                     <x-jet-input-error for="facultad"/>

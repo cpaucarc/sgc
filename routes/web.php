@@ -33,8 +33,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::prefix('admin')->controller(AdminController::class)->group(function () {
         Route::get('/', 'index')->name('admin.index');
-        Route::get('escuelas', 'escuelas')->name('admin.escuelas');
-        Route::get('facultades', 'facultades')->name('admin.facultades');
+        Route::get('escuela', 'escuelas')->name('admin.escuelas');
+        Route::get('facultad', 'facultades')->name('admin.facultades');
+        Route::get('entidad', 'entidades')->name('admin.entidades');
+        Route::get('entidad/responsable/{id}', 'entidad_responsable')->name('admin.entidad.responsable');
+        Route::get('entidad/proveedor/{id}', 'entidad_proveedor')->name('admin.entidad.proveedor');
+        Route::get('entidad/cliente/{id}', 'entidad_cliente')->name('admin.entidad.cliente');
     });
 
     Route::prefix('actividad')->controller(ActividadController::class)->group(function () {
