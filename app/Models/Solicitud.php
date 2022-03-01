@@ -11,4 +11,16 @@ class Solicitud extends Model
 
     protected $table = "solicitudes";
     public $fillable = ['codigo_estudiante', 'tipo_solicitud_id', 'estado_id'];
+
+    public function estado()
+    {
+        return $this->belongsTo(Estado::class)
+            ->with('categoriaEstado');
+    }
+
+    public function documentos()
+    {
+        return $this->hasMany(DocumentoSolicitud::class)
+            ->with('documento', 'requisito');
+    }
 }
