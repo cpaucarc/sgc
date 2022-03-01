@@ -12,4 +12,9 @@ class Estado extends Model
 //    protected $table = "estados";
     public $timestamps = false;
     public $fillable = ['nombre', 'color', 'categoria_id'];
+
+    public function categoriaEstado()
+    {
+        return $this->belongsTo(CategoriaEstado::class);
+    }
 }

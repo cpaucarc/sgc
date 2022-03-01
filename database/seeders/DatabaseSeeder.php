@@ -51,6 +51,10 @@ class DatabaseSeeder extends Seeder
         \App\Models\Jurado::factory(25)->create();
         $this->call(RequisitoSeeder::class);
 
+        //Solicitudes
+        \App\Models\GradoEstudiante::factory(25)->create();
+        \App\Models\Solicitud::factory(5)->create();
+
         // Nivel 2
         $this->call(ConvalidacionSeeder::class);
         $this->call(EntidadSeeder::class);

@@ -48,10 +48,25 @@ class RequisitoSeeder extends Seeder
                 'nombre' => 'Constancia de egresado',
                 'proceso_id' => 12 // 12: Grado Bachiller (Tabla: Procesos)
             ],
-
-            //  Proceso de Titulo Profesional (6)
+            //  Proceso de Titulo Profesional (8)
             [
-                'nombre' => 'Copia del grado de bachiller',
+                'nombre' => 'Copia de diploma de bachiller',
+                'proceso_id' => 5 // 5: Titulo Profesional (Tabla: Procesos)
+            ],
+            [
+                'nombre' => 'Solicitud de inscripción por plan de tesis',
+                'proceso_id' => 5 // 5: Titulo Profesional (Tabla: Procesos)
+            ],
+            [
+                'nombre' => 'Plan de tesis',
+                'proceso_id' => 5 // 5: Titulo Profesional (Tabla: Procesos)
+            ],
+            [
+                'nombre' => 'Constancia de aprobación plan de tesis',
+                'proceso_id' => 5 // 5: Titulo Profesional (Tabla: Procesos)
+            ],
+            [
+                'nombre' => 'Solicitud de designación de jurados',
                 'proceso_id' => 5 // 5: Titulo Profesional (Tabla: Procesos)
             ],
             [
@@ -59,19 +74,11 @@ class RequisitoSeeder extends Seeder
                 'proceso_id' => 5 // 5: Titulo Profesional (Tabla: Procesos)
             ],
             [
-                'nombre' => 'Solicitud de inscripción de proyecto de investigación',
+                'nombre' => 'Constancia de no adeudar',
                 'proceso_id' => 5 // 5: Titulo Profesional (Tabla: Procesos)
             ],
             [
-                'nombre' => 'Acta de revisión del asesor de proyecto de investigación',
-                'proceso_id' => 5 // 5: Titulo Profesional (Tabla: Procesos)
-            ],
-            [
-                'nombre' => 'Acta de revisión del asesor de proyecto de investigación',
-                'proceso_id' => 5 // 5: Titulo Profesional (Tabla: Procesos)
-            ],
-            [
-                'nombre' => 'Solicitud de designación de jurados',
+                'nombre' => 'Certificado de prácticas pre-profesionales',
                 'proceso_id' => 5 // 5: Titulo Profesional (Tabla: Procesos)
             ],
             //  Proceso de Convalidaciones (4)

@@ -4,6 +4,7 @@ use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\EncuestaController;
 use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\ResponsabilidadSocialController;
+use App\Http\Controllers\TituloProfesionalController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
@@ -40,6 +41,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/', 'index')->name('rsu.index');
         Route::get('crear', 'create')->name('rsu.create');
         Route::get('ver/{uuid}', 'show')->name('rsu.show');
+    });
+
+    Route::prefix('tpu')->controller(TituloProfesionalController::class)->group(function () {
+        Route::get('/', 'index')->name('tpu.index');
+        Route::get('solicitud', 'request')->name('tpu.request');
+        Route::get('solicitud/{solicitud}', 'tesis')->name('tpu.tesis');
+        Route::get('solicitud/{solicitud}/{tesis}', 'seeTesis')->name('tpu.seeTesis');
+        Route::get('solicitudes', 'requests')->name('tpu.requests');
     });
 
     Route::prefix('indicador')->controller(IndicadorController::class)->group(function () {
