@@ -1,11 +1,12 @@
-<x-utils.card>
-    @slot('header')
+<div class="space-y-4">
+
+    <x-utils.card>
         <div class="flex justify-between items-center space-x-2">
-            <div class="pr-4 flex-1">
+            <div class="flex-1">
                 <h1 class="text-xl font-bold text-gray-800">
                     Mis actividades
                 </h1>
-                <p class="text-sm text-gray-400">
+                <p class="text-sm text-gray-600">
                     En esta sección usted podrá ver la lista de actividades que le corresponde realizar
                     durante el semestre.
                 </p>
@@ -27,11 +28,7 @@
                 @endforelse
             </x-utils.forms.select>
         </div>
-    @endslot
-
-    {{--    <x-utils.dd>--}}
-    {{--        {{$actividades}}--}}
-    {{--    </x-utils.dd>--}}
+    </x-utils.card>
 
     <x-utils.tables.table>
         @slot('head')
@@ -45,7 +42,7 @@
         @slot('body')
             @foreach($actividades as $actividad)
                 <x-utils.tables.row>
-                    <x-utils.tables.body class="font-semibold">
+                    <x-utils.tables.body class="font-bold">
                         {{ $actividad->actividad->nombre }}
                         <x-utils.badge
                             class="ml-1 text-xs {{
@@ -65,13 +62,13 @@
                         </x-utils.badge>
                     </x-utils.tables.body>
                     <x-utils.tables.body>
-                        <x-utils.links.text-link class="text-gray-500 hover:text-indigo-600"
-                                                 href="{{ route('actividad.show', [$actividad->id, $semestre_seleccionado]) }}">
+                        <x-utils.links.invisible
+                            href="{{ route('actividad.show', [$actividad->id, $semestre_seleccionado]) }}">
                             Revisar
-                        </x-utils.links.text-link>
+                        </x-utils.links.invisible>
                     </x-utils.tables.body>
                 </x-utils.tables.row>
             @endforeach
         @endslot
     </x-utils.tables.table>
-</x-utils.card>
+</div>

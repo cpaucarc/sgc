@@ -1,9 +1,8 @@
 <div>
-    <x-utils.buttons.ghost-button wire:click="openModal"
-                                  class="inline-flex items-center text-xs border-gray-300 active:border-gray-400">
-        <x-icons.open-modal class="w-4 h-4 mr-2" stroke="1.55"/>
+    <x-utils.buttons.default wire:click="openModal" class="text-xs">
+        <x-icons.open-modal class="w-4 h-4 mr-1" stroke="1.5"/>
         Elegir empresa
-    </x-utils.buttons.ghost-button>
+    </x-utils.buttons.default>
 
     @if(!is_null($empresas))
         <x-jet-dialog-modal wire:model="open" maxWidth="4xl">
@@ -13,9 +12,6 @@
                     <h1 class="font-bold text-gray-700">
                         Lista de empresas
                     </h1>
-                    <p class="text-sm text-gray-500">
-                        Proveedor:
-                    </p>
                 </div>
                 <x-utils.buttons.close-button wire:click="$set('open', false)"/>
             </x-slot>
@@ -45,11 +41,10 @@
                                     {{ $empresa->direccion }} | {{ $empresa->ubicacion }}
                                 </x-utils.tables.body>
                                 <x-utils.tables.body class="text-right">
-                                    <x-utils.buttons.ghost-button
-                                        wire:click="seleccionarEmpresa({{$empresa->id}}, '{{ $empresa->nombre }}')"
-                                        class="group hover:text-gray-700 active:border-gray-400 flex items-center text-xs">
+                                    <x-utils.buttons.default class="group text-xs"
+                                                             wire:click="seleccionarEmpresa({{$empresa->id}}, '{{ $empresa->nombre }}')">
                                         Escoger
-                                    </x-utils.buttons.ghost-button>
+                                    </x-utils.buttons.default>
                                 </x-utils.tables.body>
                             </x-utils.tables.row>
                         @endforeach

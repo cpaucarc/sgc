@@ -1,84 +1,82 @@
-<div class="w-full md:w-3/4 lg:w-1/2 mx-auto space-y-6 mb-8">
+<div class="w-full md:w-9/12 lg:w-6/12 mx-auto divide-y divide-stone-200 space-y-6 mb-8">
 
-    <x-utils.card>
-        <x-slot name="header">
-            <h2 class="font-bold text-gray-500 text-sm">
-                Datos generales de la Responsabilidad Social
-            </h2>
-        </x-slot>
+    <div class="flex-col">
+        <h2 class="font-bold text-stone-700 text-xl">
+            Registrar nueva Responsabilidad Social
+        </h2>
+    </div>
 
-        <div class="space-y-4">
-            <div>
-                <x-jet-label for="titulo" value="Título de la RSU"/>
-                <x-jet-input id="titulo" type="text" class="mt-1 block w-full"
-                             wire:model.defer="titulo" autocomplete="off" autofocus/>
-                <x-jet-input-error for="titulo"/>
+    <div class="space-y-4 divide-y divide-dashed divide-stone-200 pt-4">
+        <div>
+            <x-jet-label for="titulo" value="Título de la RSU"/>
+            <x-jet-input id="titulo" type="text" class="mt-1 block w-full"
+                         wire:model.defer="titulo" autocomplete="off" autofocus/>
+            <x-jet-input-error for="titulo"/>
+        </div>
+        <div class="pt-4">
+            <div class="inline-flex items-center space-x-1">
+                <x-jet-label for="descripcion" value="Descripción de la RSU"/>
+                <x-utils.optional-badge/>
             </div>
-            <div>
-                <div class="inline-flex items-center space-x-1">
-                    <x-jet-label for="descripcion" value="Descripción de la RSU"/>
-                    <x-utils.optional-badge/>
-                </div>
-                <x-utils.forms.textarea class="mt-1 block w-full" wire:model.defer="descripcion"
-                                        id="descripcion"/>
-                <x-jet-input-error for="descripcion"></x-jet-input-error>
+            <x-utils.forms.textarea class="mt-1 block w-full" wire:model.defer="descripcion"
+                                    id="descripcion"/>
+            <x-jet-input-error for="descripcion"></x-jet-input-error>
+        </div>
+        <div class="pt-4">
+            <x-jet-label for="lugar" value="Lugar donde se realizó la RSU"/>
+            <x-jet-input id="lugar" type="text" class="mt-1 block w-full"
+                         wire:model.defer="lugar" autocomplete="off"/>
+            <x-jet-input-error for="lugar"/>
+        </div>
+        <div class="flex items-center justify-between gap-6 pt-4">
+            <div class="w-full">
+                <x-jet-label for="fecha_de_inicio" value="Fecha de Inicio"/>
+                <x-jet-input id="fecha_de_inicio" type="date" class="mt-1 w-full"
+                             wire:model.defer="fecha_de_inicio" autocomplete="off"/>
+                <x-jet-input-error for="fecha_de_inicio"/>
             </div>
-            <div>
-                <x-jet-label for="lugar" value="Lugar donde se realizó la RSU"/>
-                <x-jet-input id="lugar" type="text" class="mt-1 block w-full"
-                             wire:model.defer="lugar" autocomplete="off"/>
-                <x-jet-input-error for="lugar"/>
-            </div>
-            <div class="flex items-center justify-between gap-6">
-                <div class="w-full">
-                    <x-jet-label for="fecha_de_inicio" value="Fecha de Inicio"/>
-                    <x-jet-input id="fecha_de_inicio" type="date" class="mt-1 w-full"
-                                 wire:model.defer="fecha_de_inicio" autocomplete="off"/>
-                    <x-jet-input-error for="fecha_de_inicio"/>
-                </div>
-                <div class="w-full">
-                    <x-jet-label for="fecha_de_finalizacion" value="Fecha de Finalización"/>
-                    <x-jet-input id="fecha_de_finalizacion" type="date" class="mt-1 w-full"
-                                 wire:model.defer="fecha_de_finalizacion" autocomplete="off"/>
-                    <x-jet-input-error for="fecha_de_finalizacion"/>
-                </div>
-            </div>
-            <div>
-                <x-jet-label for="escuela" value="Escuela"/>
-                <x-utils.forms.select id="escuela" class="mt-1 block w-full" wire:model.defer="escuela">
-                    <option value="0">Selecciona</option>
-                    @foreach($escuelas as $escuela)
-                        <option value="{{ $escuela->id }}">{{$escuela->nombre}}</option>
-                    @endforeach
-                </x-utils.forms.select>
-                <x-jet-input-error for="escuela"/>
+            <div class="w-full">
+                <x-jet-label for="fecha_de_finalizacion" value="Fecha de Finalización"/>
+                <x-jet-input id="fecha_de_finalizacion" type="date" class="mt-1 w-full"
+                             wire:model.defer="fecha_de_finalizacion" autocomplete="off"/>
+                <x-jet-input-error for="fecha_de_finalizacion"/>
             </div>
         </div>
+        <div class="pt-4">
+            <x-jet-label for="escuela" value="Escuela"/>
+            <x-utils.forms.select id="escuela" class="mt-1 block w-full" wire:model.defer="escuela">
+                <option value="0">Selecciona</option>
+                @foreach($escuelas as $escuela)
+                    <option value="{{ $escuela->id }}">{{$escuela->nombre}}</option>
+                @endforeach
+            </x-utils.forms.select>
+            <x-jet-input-error for="escuela"/>
+        </div>
+    </div>
 
-        <x-slot name="footer">
-            <label class="text-xs text-gray-700 font-semibold inline-flex items-center cursor-pointer block w-full">
-                <x-utils.forms.checkbox wire:model="en_empresa"/>
-                Responsabilidad Social Universitario aplicado a una empresa
-            </label>
+    <div class="pt-4">
+        <label class="text-xs text-gray-700 font-semibold inline-flex items-center cursor-pointer block w-full">
+            <x-utils.forms.checkbox wire:model="en_empresa"/>
+            Responsabilidad Social Universitario aplicado a una empresa
+        </label>
 
-            @if($en_empresa)
-                <div class="mt-2">
-                    <x-jet-label for="empresa" value="Empresa"/>
-                    <div class="flex items-center justify-between gap-x-2">
-                        <x-jet-input id="empresa" type="text" class="mt-1 block w-full bg-gray-50" disabled
-                                     wire:model.defer="empresa_nombre" placeholder="Ninguna empresa seleccionada"/>
-                        <livewire:rsu.seleccionar-empresa/>
-                    </div>
-                    <x-jet-input-error for="empresa_id"/>
+        @if($en_empresa)
+            <div class="mt-2">
+                <x-jet-label for="empresa" value="Empresa"/>
+                <div class="flex items-center justify-between gap-x-2">
+                    <x-jet-input id="empresa" type="text" class="mt-1 block w-full bg-gray-50" disabled
+                                 wire:model.defer="empresa_nombre" placeholder="Ninguna empresa seleccionada"/>
+                    <livewire:rsu.seleccionar-empresa/>
                 </div>
-            @endif
-        </x-slot>
+                <x-jet-input-error for="empresa_id"/>
+            </div>
+        @endif
+    </div>
 
-    </x-utils.card>
 
-    <div class="flex justify-end">
+    <div class="flex justify-end pt-4">
         <x-jet-button wire:click="guardarRSU" wire:target="guardarRSU"
-                      wire:loading.class="cursor-not-allowed" wire:loading.attr="disabled">
+                      wire:loading.class="cursor-wait" wire:loading.attr="disabled">
             <x-icons.load wire:loading wire:target="guardarRSU" class="h-5 w-5"/>
             {{ __('Registrar RSU') }}
         </x-jet-button>

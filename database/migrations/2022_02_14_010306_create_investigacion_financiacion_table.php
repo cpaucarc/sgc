@@ -22,6 +22,8 @@ return new class extends Migration {
             $table->foreignId('financiador_id')->constrained('financiadores')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
+
+            $table->timestamps();
         });
     }
 

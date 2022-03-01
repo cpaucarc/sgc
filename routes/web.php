@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EncuestaController;
 use App\Http\Controllers\IndicadorController;
+use App\Http\Controllers\InvestigacionController;
 use App\Http\Controllers\ResponsabilidadSocialController;
 use App\Http\Controllers\TituloProfesionalController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +32,16 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
+    Route::prefix('admin')->controller(AdminController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.index');
+        Route::get('escuela', 'escuelas')->name('admin.escuelas');
+        Route::get('facultad', 'facultades')->name('admin.facultades');
+        Route::get('entidad', 'entidades')->name('admin.entidades');
+        Route::get('entidad/responsable/{id}', 'entidad_responsable')->name('admin.entidad.responsable');
+        Route::get('entidad/proveedor/{id}', 'entidad_proveedor')->name('admin.entidad.proveedor');
+        Route::get('entidad/cliente/{id}', 'entidad_cliente')->name('admin.entidad.cliente');
+    });
+
     Route::prefix('actividad')->controller(ActividadController::class)->group(function () {
         Route::get('/', 'index')->name('actividad.index');
         Route::get('proveer', 'proveer')->name('actividad.proveer');
@@ -42,7 +54,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('crear', 'create')->name('rsu.create');
         Route::get('ver/{uuid}', 'show')->name('rsu.show');
     });
-
+  
     Route::prefix('tpu')->controller(TituloProfesionalController::class)->group(function () {
         Route::get('/', 'index')->name('tpu.index');
         Route::get('solicitud', 'request')->name('tpu.request');
@@ -50,12 +62,17 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('solicitud/{solicitud}/{tesis}', 'seeTesis')->name('tpu.seeTesis');
         Route::get('solicitudes', 'requests')->name('tpu.requests');
     });
+  
+    Route::prefix('investigacion')->controller(InvestigacionController::class)->group(function () {
+        Route::get('/', 'index')->name('investigacion.index');
+        Route::get('ver/{uuid}', 'show')->name('investigacion.show');
+    });
 
     Route::prefix('indicador')->controller(IndicadorController::class)->group(function () {
         Route::get('/', 'index')->name('indicador.index');
-        Route::get('proceso/{proceso}/{uuid}', 'proceso')->name('indicador.proceso'); //proceso:nombre | uuid:escuela,facultad
+        Route::get('proceso/{proceso_id}/{tipo}/{uuid}', 'proceso')->name('indicador.proceso'); //proceso:id | tipo:1-escuela,2-facultad | uuid:escuela,facultad
+        Route::get('ver/{indicador_id}/{tipo}/{uuid}', 'indicador')->name('indicador.indicador'); //proceso:id | tipo:1-escuela,2-facultad | uuid:escuela,facultad
     });
-
 });
 
 //Para mostrar encuestas

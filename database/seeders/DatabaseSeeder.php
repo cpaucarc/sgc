@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriaEstadoSeeder::class);
         $this->call(ColegioSeeder::class);
         \App\Models\Empresa::factory(50)->create();
-        $this->call(EntradaSeeder::class);
         $this->call(FacultadSeeder::class);
         $this->call(FinanciadorSeeder::class);
         $this->call(FrecuenciaSeeder::class);
@@ -31,7 +30,6 @@ class DatabaseSeeder extends Seeder
         \App\Models\Investigador::factory(50)->create();
         $this->call(OficinaSeeder::class);
         $this->call(ProcesoSeeder::class);
-        $this->call(SalidaSeeder::class);
         $this->call(SemestreSeeder::class);
         $this->call(TipoActividadSeeder::class);
         $this->call(TipoInstitucionSeeder::class);
@@ -44,12 +42,14 @@ class DatabaseSeeder extends Seeder
         $this->call(ActividadSeeder::class);
         $this->call(AreaInvestigacionSeeder::class);
         $this->call(EncuestaPreguntaSeeder::class);
+        $this->call(EntradaSeeder::class);
         $this->call(EscuelaSeeder::class);
         $this->call(EstadoSeeder::class);
         //Factory de GradoEstudiante
         \App\Models\Institucion::factory(25)->create();
         \App\Models\Jurado::factory(25)->create();
         $this->call(RequisitoSeeder::class);
+        $this->call(SalidaSeeder::class);
 
         //Solicitudes
         \App\Models\GradoEstudiante::factory(25)->create();
@@ -67,6 +67,7 @@ class DatabaseSeeder extends Seeder
         // Nivel 3
         \App\Models\ConvalidacionPostulante::factory(75)->create();
         $this->call(EntidadableSeeder::class);
+        $this->call(IndicadorableSeeder::class);
         $this->call(ResponsableSeeder::class);
         \App\Models\RsuParticipante::factory(75)->create();
         $this->call(SublineaInvestigacionSeeder::class);

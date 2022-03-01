@@ -10,6 +10,6 @@ class InvestigacionFinanciacion extends Model
     use HasFactory;
 
     protected $table = "investigacion_financiacion";
-    public $timestamps = false;
+//    public $timestamps = false;
     public $fillable = ['presupuesto', 'investigacion_id', 'financiador_id'];
 }

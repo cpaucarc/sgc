@@ -10,7 +10,7 @@ class Entrada extends Model
     use HasFactory;
 
     public $timestamps = false;
-    public $fillable = ['codigo', 'nombre', 'descripcion'];
+    public $fillable = ['codigo', 'nombre', 'descripcion', 'proceso_id'];
 
     // relacion uno a muchos polimorfica
     public function documentos()

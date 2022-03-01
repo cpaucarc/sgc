@@ -13,6 +13,34 @@ class Entidad extends Model
     public $timestamps = false;
     public $fillable = ['nombre', 'oficina_id'];
 
+    public function oficina()
+    {
+        return $this->belongsTo(Oficina::class);
+    }
+
+    // relación uno a muchos polimorfica
+    public function salidas()
+    {
+//        return $this->belongsToMany(Salida::class, 'clientes');
+        return $this->hasMany(Cliente::class)
+            ->with('responsable', 'salida');
+    }
+
+    // relación uno a muchos polimorfica
+    public function entradas()
+    {
+//        return $this->belongsToMany(Entrada::class, 'proveedores');
+        return $this->hasMany(Proveedor::class)
+            ->with('responsable', 'entrada');
+    }
+
+    // relación uno a muchos polimorfica
+    public function actividades()
+    {
+        return $this->belongsToMany(Actividad::class, 'responsables')
+            ->withPivot('id')->with('proceso', 'tipo');
+    }
+
     // relación uno a muchos polimorfica
     public function usuarios()
     {
@@ -20,15 +48,10 @@ class Entidad extends Model
             ->withPivot('activo');
     }
 
-    // relación muchos a muchos polimorfica
-    public function escuelas()
+    public function pertenencia()
     {
-        return $this->morphedByMany(Escuela::class, 'indicadorable');
+        return $this->hasOne(Entidadable::class)
+            ->with('entidadable');
     }
 
-    // relación muchos a muchos polimorfica
-    public function facultades()
-    {
-        return $this->morphedByMany(Facultad::class, 'indicadorable');
-    }
 }

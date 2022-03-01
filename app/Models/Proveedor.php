@@ -26,6 +26,6 @@ class Proveedor extends Model
     public function responsable()
     {
         return $this->belongsTo(Responsable::class)
-            ->with('entidad');
+            ->with('entidad', 'actividad');
     }
 }

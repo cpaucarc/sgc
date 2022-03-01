@@ -22,4 +22,10 @@ class Cliente extends Model
     {
         return $this->belongsTo(Entidad::class);
     }
+
+    public function responsable()
+    {
+        return $this->belongsTo(Responsable::class)
+            ->with('actividad', 'entidad');
+    }
 }

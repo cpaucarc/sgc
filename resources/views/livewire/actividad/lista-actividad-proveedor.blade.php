@@ -1,5 +1,6 @@
-<x-utils.card>
-    @slot('header')
+<div class="space-y-4">
+
+    <x-utils.card>
         <div class="flex justify-between items-center space-x-2">
             <div class="pr-4 flex-1">
                 <h1 class="text-xl font-bold text-gray-800">
@@ -27,7 +28,7 @@
                 @endforelse
             </x-utils.forms.select>
         </div>
-    @endslot
+    </x-utils.card>
 
     <x-utils.tables.table>
         @slot('head')
@@ -58,10 +59,9 @@
                         </x-utils.badge>
                     </x-utils.tables.body>
                     <x-utils.tables.body>
-                        <x-utils.buttons.text-button wire:click="abrirModal({{$prov->id}})"
-                                                     class="text-gray-500 hover:text-indigo-600">
+                        <x-utils.buttons.invisible wire:click="abrirModal({{$prov->id}})">
                             Revisar
-                        </x-utils.buttons.text-button>
+                        </x-utils.buttons.invisible>
                     </x-utils.tables.body>
                 </x-utils.tables.row>
             @endforeach
@@ -86,15 +86,15 @@
 
                 <div class="space-y-8">
                     <div class="space-y-2">
-                        <h2 class="text-gray-600 text-sm font-bold">Subir archivo:</h2>
+                        <h2 class="text-gray-800 text-sm font-bold">Subir archivo:</h2>
                         <x-utils.forms.file-input class="w-full block" wire:model.defer="archivo"/>
                         <x-jet-input-error for="archivo"></x-jet-input-error>
                     </div>
 
                     <details class="space-y-2">
                         <summary class="flex items-center space-x-2 cursor-pointer">
-                            <h2 class="text-gray-600 text-sm font-bold">Documentos enviados:</h2>
-                            <span class="text-gray-400 hover:text-sky-700 text-sm">[Ver]</span>
+                            <h2 class="text-gray-800 text-sm font-bold">Documentos enviados:</h2>
+                            <span class="text-gray-500 hover:text-sky-700 text-sm">[Ver]</span>
                         </summary>
                         @if(count($documentos) > 0)
                             <div class="table w-full text-gray-700">
@@ -102,34 +102,36 @@
                                     @slot('body')
                                         @foreach($documentos as $documento_enviado)
                                             <x-utils.tables.row class="p-1">
-                                                <x-utils.tables.body class="text-left text-sm">
-                                                    @if(strlen($documento_enviado->documento->nombre) > 60)
-                                                        {{ substr($documento_enviado->documento->nombre, 0, 45) }}
-                                                        ...{{ substr($documento_enviado->documento->nombre, -15) }}
-                                                    @else
-                                                        {{ $documento_enviado->documento->nombre }}
-                                                    @endif
+                                                <x-utils.tables.body class="text-left">
+                                                    <div class="flex items-center gap-x-2">
+                                                        <svg class="text-gray-400" viewBox="0 0 16 16" width="16"
+                                                             height="16" fill="currentColor">
+                                                            <path fill-rule="evenodd"
+                                                                  d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"></path>
+                                                        </svg>
+                                                        @if(strlen($documento_enviado->documento->nombre) > 80)
+                                                            {{ substr($documento_enviado->documento->nombre, 0, 55) }}
+                                                            ...{{ substr($documento_enviado->documento->nombre, -25) }}
+                                                        @else
+                                                            {{ $documento_enviado->documento->nombre }}
+                                                        @endif
+                                                    </div>
                                                 </x-utils.tables.body>
-                                                <x-utils.tables.body class="text-right text-sm">
+                                                <x-utils.tables.body class="text-right whitespace-nowrap">
                                                     {{ $documento_enviado->documento->created_at->diffForHumans() }}
                                                 </x-utils.tables.body>
                                                 <x-utils.tables.body class="text-right">
                                                     <div
                                                         class="flex items-center justify-end w-full gap-2 whitespace-nowrap">
-                                                        <x-utils.links.ghost-link
-                                                            class="group hover:text-sky-700 flex items-center text-xs"
-                                                            target="_blank"
-                                                            href="{{ route('archivos', $documento_enviado->documento->enlace_interno) }}">
-                                                            <x-icons.documents class="h-4 w-4 group-hover:text-sky-600"
-                                                                               stroke="1.25"/>
+                                                        <x-utils.links.default class="group" target="_blank"
+                                                                               href="{{ route('archivos', $documento_enviado->documento->enlace_interno) }}">
+                                                            <x-icons.documents class="h-4 w-4" stroke="1.5"/>
                                                             Ver
-                                                        </x-utils.links.ghost-link>
-                                                        <x-utils.buttons.ghost-button
-                                                            class="group hover:border-rose-600"
-                                                            wire:click="eliminarArchivo({{ $documento_enviado->documento->id }})">
-                                                            <x-icons.delete :stroke="1.25"
-                                                                            class="h-4 w-4 group-hover:text-rose-700"/>
-                                                        </x-utils.buttons.ghost-button>
+                                                        </x-utils.links.default>
+                                                        <x-utils.buttons.danger class="group"
+                                                                                wire:click="eliminarArchivo({{ $documento_enviado->documento->id }})">
+                                                            <x-icons.delete :stroke="1.5" class="h-4 w-4"/>
+                                                        </x-utils.buttons.danger>
                                                     </div>
                                                 </x-utils.tables.body>
                                             </x-utils.tables.row>
@@ -138,24 +140,26 @@
                                 </x-utils.tables.table>
                             </div>
                         @else
-                            <div class="grid place-items-center">
-                                <div class="flex items-center">
-                                    <img src="{{ asset('images/svg/sin_documentos.svg') }}" class="w-24"
-                                         alt="Grafico">
-                                    <p class="font-bold text-gray-600">
-                                        Aún no has enviado ningun documento
-                                    </p>
-                                </div>
-                            </div>
+                            <x-utils.message-no-items
+                                title="Aún no has enviado ningún documento"
+                                text="Es importante proveer los documentos correspondiente para completar las actividades.">
+                                @slot('icon')
+                                    <svg class="text-gray-400" fill="currentColor" viewBox="0 0 24 24" width="24"
+                                         height="24">
+                                        <path fill-rule="evenodd"
+                                              d="M3 3a2 2 0 012-2h9.982a2 2 0 011.414.586l4.018 4.018A2 2 0 0121 7.018V21a2 2 0 01-2 2H4.75a.75.75 0 010-1.5H19a.5.5 0 00.5-.5V8.5h-4a2 2 0 01-2-2v-4H5a.5.5 0 00-.5.5v6.25a.75.75 0 01-1.5 0V3zm12-.5v4a.5.5 0 00.5.5h4a.5.5 0 00-.146-.336l-4.018-4.018A.5.5 0 0015 2.5zm-5.692 12l-2.104-2.236a.75.75 0 111.092-1.028l3.294 3.5a.75.75 0 010 1.028l-3.294 3.5a.75.75 0 11-1.092-1.028L9.308 16H4.09a2.59 2.59 0 00-2.59 2.59v3.16a.75.75 0 01-1.5 0v-3.16a4.09 4.09 0 014.09-4.09h5.218z"></path>
+                                    </svg>
+                                @endslot
+                            </x-utils.message-no-items>
                         @endif
                     </details>
 
                     <div class="space-y-2">
-                        <h2 class="text-gray-600 text-sm font-bold">
+                        <h2 class="text-gray-800 text-sm font-bold">
                             Esta información será visto por las siguientes entidades:
                         </h2>
                         <ul class="mt-1 flex flex-wrap gap-2">
-                            <li class="bg-gray-100 text-xs rounded-full text-gray-700 font-medium px-3 py-1">
+                            <li class="bg-gray-100 text-sm rounded-full text-gray-800 font-medium px-3 py-1">
                                 {{ $proveedor_seleccionado->responsable->entidad->nombre }}
                             </li>
                         </ul>
@@ -172,6 +176,7 @@
                 <x-jet-button
                     wire:click="enviarArchivo"
                     wire:target="enviarArchivo, archivo"
+                    wire:loading.class="cursor-wait"
                     wire:loading.attr="disabled">
                     <x-icons.load class="h-4 w-4" wire:loading wire:target="enviarArchivo"></x-icons.load>
                     {{ __('Guardar') }}
@@ -200,4 +205,4 @@
         </script>
     @endpush
 
-</x-utils.card>
+</div>

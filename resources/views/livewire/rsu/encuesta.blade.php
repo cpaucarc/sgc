@@ -1,18 +1,17 @@
-<x-utils.card>
-    @slot('header')
-        <div class="flex justify-between items-center">
-            <h3 class="font-bold tracking-wide text-gray-400">
-                Encuesta
-            </h3>
+<div class="space-y-2">
 
-            @if($es_responsable)
-                <x-utils.buttons.ghost-button wire:click="openModal" class="text-gray-500 hover:text-gray-700">
-                    <x-icons.link class="h-5 w-5 mr-2" stroke="1.55"></x-icons.link>
-                    Generar
-                </x-utils.buttons.ghost-button>
-            @endif
-        </div>
-    @endslot
+    <div class="flex justify-between items-center">
+        <h3 class="font-bold tracking-wide text-gray-600">
+            Encuestas
+        </h3>
+
+        @if($es_responsable and $rsu->links_count > 0)
+            <x-utils.buttons.default wire:click="openModal" class="text-sm">
+                <x-icons.link class="h-5 w-5 mr-1" stroke="1.5"></x-icons.link>
+                Generar
+            </x-utils.buttons.default>
+        @endif
+    </div>
 
     @if($rsu->links_count > 0)
         <x-utils.tables.table>
@@ -27,38 +26,55 @@
                 @foreach($rsu->links as $link)
                     <x-utils.tables.row>
                         <x-utils.tables.body class="font-semibold">
-                            <a href="{{ route('encuesta.rsu', $link->uuid) }}" target="_blank"
-                               class="hover:text-sky-600 hover:underline line-clamp-1">
+                            <x-utils.links.basic target="_blank" href="{{ route('encuesta.rsu', $link->uuid) }}"
+                                                 class="text-sm">
                                 {{ $link->uuid }}
-                            </a>
+                            </x-utils.links.basic>
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             <x-utils.badge
-                                class="{{$link->fecha_expiracion > now() ? 'bg-green-100 text-green-700':'bg-red-100 text-red-700'}}">
+                                class="text-xs whitespace-nowrap {{$link->fecha_expiracion > now() ? 'bg-green-100 text-green-700':'bg-red-100 text-red-700'}}">
                                 {{$link->fecha_expiracion > now() ?
-                                'Expira en ' . $link->fecha_expiracion->diffForHumans() :
+                                'Expira ' . $link->fecha_expiracion->diffForHumans() :
                                 'Expirado '.$link->fecha_expiracion->diffForHumans()}}
                             </x-utils.badge>
                         </x-utils.tables.body>
-                        <x-utils.tables.body>
-                            {{$link->fecha_expiracion->format('d-m-Y') }}
+                        <x-utils.tables.body class="whitespace-nowrap">
+                            {{$link->fecha_expiracion->format('d/m/Y') }}
+                        </x-utils.tables.body>
+                        <x-utils.tables.body class="whitespace-nowrap">
+                            {{$link->created_at->format('d/m/Y h:m a') }}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            {{$link->created_at->format('d-m-Y h:m a') }}
-                        </x-utils.tables.body>
-                        <x-utils.tables.body>
-                            <x-utils.buttons.ghost-button
-                                class="text-gray-500 hover:text-gray-700 active:border-sky-500 active:text-sky-600"
-                                onclick="copyToClipboard('{{ $link->link }}')">
-                                <x-icons.clipboard class="h-4 w-4" stroke="1.55"></x-icons.clipboard>
-                            </x-utils.buttons.ghost-button>
+                            <x-utils.buttons.default class="active:scale-95"
+                                                     onclick="copyToClipboard('{{ $link->link }}')">
+                                <x-icons.clipboard class="h-5 w-5" stroke="1.5"></x-icons.clipboard>
+                            </x-utils.buttons.default>
                         </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach
             @endslot
         </x-utils.tables.table>
     @else
-        <p class="font-bold">No hay encuestas generadas</p>
+        <div class="border border-gray-300 rounded-md">
+            <x-utils.message-no-items
+                title="Aún no hay encuestas generadas"
+                text="Cree encuestas para medir la satisfacción de los beneficiarios de la RSU.">
+                @slot('icon')
+                    <svg class="text-gray-400" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
+                        <path
+                            d="M3.5 3.75a.25.25 0 01.25-.25h13.5a.25.25 0 01.25.25v10a.75.75 0 001.5 0v-10A1.75 1.75 0 0017.25 2H3.75A1.75 1.75 0 002 3.75v16.5c0 .966.784 1.75 1.75 1.75h7a.75.75 0 000-1.5h-7a.25.25 0 01-.25-.25V3.75z"></path>
+                        <path
+                            d="M6.25 7a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm-.75 4.75a.75.75 0 01.75-.75h4.5a.75.75 0 010 1.5h-4.5a.75.75 0 01-.75-.75zm16.28 4.53a.75.75 0 10-1.06-1.06l-4.97 4.97-1.97-1.97a.75.75 0 10-1.06 1.06l2.5 2.5a.75.75 0 001.06 0l5.5-5.5z"></path>
+                    </svg>
+                @endslot
+                @if($es_responsable)
+                    <x-jet-button wire:click="openModal" class="text-sm">
+                        Crear mi primera encuesta
+                    </x-jet-button>
+                @endif
+            </x-utils.message-no-items>
+        </div>
     @endif
 
     <x-jet-dialog-modal wire:model="open" maxWidth="xl">
@@ -103,4 +119,4 @@
         </script>
     @endpush
 
-</x-utils.card>
+</div>

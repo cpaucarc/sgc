@@ -1,5 +1,6 @@
-<x-utils.card>
-    @slot('header')
+<div class="space-y-4">
+
+    <x-utils.card>
         <div class="flex justify-between items-center space-x-2">
             <div class="pr-4 flex-1">
                 <h1 class="text-xl font-bold text-gray-800">
@@ -26,7 +27,7 @@
                 @endforelse
             </x-utils.forms.select>
         </div>
-    @endslot
+    </x-utils.card>
 
     @if(count($salidas))
         <x-utils.tables.table>
@@ -51,19 +52,28 @@
                             </p>
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            <x-utils.buttons.text-button wire:click="abrirModal({{$salida->id}})"
-                                                         class="text-gray-500 hover:text-indigo-600">
+                            <x-utils.buttons.invisible wire:click="abrirModal({{$salida->id}})">
                                 Revisar
-                            </x-utils.buttons.text-button>
+                            </x-utils.buttons.invisible>
                         </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach
             @endslot
         </x-utils.tables.table>
     @else
-        <p class="font-bold">
-            No se encontró ningun documento
-        </p>
+        <div class="w-full border border-gray-300 rounded-md">
+            <x-utils.message-no-items
+                title="No se encontró ningún documento"
+                text="Aquí podrá encontrar todos los documentos enviados a usted en calidad de cliente de las actividades.">
+                @slot('icon')
+                    <svg class="text-gray-400" fill="currentColor" viewBox="0 0 24 24" width="24"
+                         height="24">
+                        <path fill-rule="evenodd"
+                              d="M3 3a2 2 0 012-2h9.982a2 2 0 011.414.586l4.018 4.018A2 2 0 0121 7.018V21a2 2 0 01-2 2H4.75a.75.75 0 010-1.5H19a.5.5 0 00.5-.5V8.5h-4a2 2 0 01-2-2v-4H5a.5.5 0 00-.5.5v6.25a.75.75 0 01-1.5 0V3zm12-.5v4a.5.5 0 00.5.5h4a.5.5 0 00-.146-.336l-4.018-4.018A.5.5 0 0015 2.5zm-5.692 12l-2.104-2.236a.75.75 0 111.092-1.028l3.294 3.5a.75.75 0 010 1.028l-3.294 3.5a.75.75 0 11-1.092-1.028L9.308 16H4.09a2.59 2.59 0 00-2.59 2.59v3.16a.75.75 0 01-1.5 0v-3.16a4.09 4.09 0 014.09-4.09h5.218z"></path>
+                    </svg>
+                @endslot
+            </x-utils.message-no-items>
+        </div>
     @endif
 
     @if($salida_seleccionada)
@@ -81,31 +91,28 @@
                         @slot('body')
                             @foreach($salida_seleccionada->documentos as $documento_recibido)
                                 <x-utils.tables.row class="p-1">
-                                    <x-utils.tables.body class="text-left text-xs">
-                                        @if(strlen($documento_recibido->documento->nombre) > 70)
-                                            {{ substr($documento_recibido->documento->nombre, 0, 45) }}
+                                    <x-utils.tables.body class="text-left whitespace-nowrap">
+                                        @if(strlen($documento_recibido->documento->nombre) > 55)
+                                            {{ substr($documento_recibido->documento->nombre, 0, 40) }}
                                             ...{{ substr($documento_recibido->documento->nombre, -15) }}
                                         @else
                                             {{ $documento_recibido->documento->nombre }}
                                         @endif
                                     </x-utils.tables.body>
-                                    <x-utils.tables.body class="text-right text-xs">
+                                    <x-utils.tables.body class="text-right whitespace-nowrap">
                                         {{ $documento_recibido->documento->entidad->nombre }}
                                     </x-utils.tables.body>
-                                    <x-utils.tables.body class="text-right text-xs">
+                                    <x-utils.tables.body class="text-right whitespace-nowrap">
                                         {{ $documento_recibido->documento->created_at->diffForHumans() }}
                                     </x-utils.tables.body>
                                     <x-utils.tables.body class="text-right">
                                         <div
                                             class="flex items-center justify-end w-full gap-2 whitespace-nowrap">
-                                            <x-utils.links.ghost-link
-                                                class="group hover:text-sky-700 flex items-center text-xs"
-                                                target="_blank"
-                                                href="{{ route('archivos', $documento_recibido->documento->enlace_interno) }}">
-                                                <x-icons.documents class="h-4 w-4 group-hover:text-sky-600"
-                                                                   stroke="1.25"/>
+                                            <x-utils.links.default class="group" target="_blank"
+                                                                   href="{{ route('archivos', $documento_recibido->documento->enlace_interno) }}">
+                                                <x-icons.documents class="h-4 w-4" stroke="1.5"/>
                                                 Ver
-                                            </x-utils.links.ghost-link>
+                                            </x-utils.links.default>
                                         </div>
                                     </x-utils.tables.body>
                                 </x-utils.tables.row>
@@ -116,5 +123,5 @@
             </x-slot>
         </x-jet-dialog-modal>
     @endif
-</x-utils.card>
 
+</div>

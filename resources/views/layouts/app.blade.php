@@ -20,22 +20,24 @@
     <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
 <body class="font-sans antialiased">
-<x-jet-banner/>
 
-<div class="min-h-screen bg-gray-100">
+
+<div class="min-h-screen bg-white">
+
     @livewire('navigation-menu')
 
     <!-- Page Heading -->
     @if (isset($header))
-        <header class="bg-white shadow">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <header class="bg-stone-100 border border-stone-200">
+            <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
                 {{ $header }}
             </div>
         </header>
 @endif
 
 <!-- Page Content -->
-    <div class="max-w-7xl mx-auto px-4 my-6 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 mb-20">
+        <x-jet-banner/>
         <main>
             {{ $slot }}
         </main>

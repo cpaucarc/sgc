@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('codigo', 5);
             $table->string('nombre');
             $table->text('descripcion')->nullable();
+            $table->foreignId('proceso_id')->constrained('procesos')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
         });
     }
 
