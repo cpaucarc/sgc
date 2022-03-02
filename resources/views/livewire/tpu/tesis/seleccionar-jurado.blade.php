@@ -1,9 +1,9 @@
 <div>
-    <x-utils.buttons.ghost-button wire:click="openModal"
+    <x-utils.buttons.default wire:click="openModal"
                                   class="inline-flex items-center text-xs border-gray-300 active:border-gray-400">
         <x-icons.open-modal class="w-4 h-4 mr-2" stroke="1.55"/>
         Elegir jurado
-    </x-utils.buttons.ghost-button>
+    </x-utils.buttons.default>
 
     @if(!is_null($jurados))
         <x-jet-dialog-modal wire:model="open" maxWidth="4xl">
@@ -45,11 +45,11 @@
                                     {{ $jurado->colegio->nombre}}
                                 </x-utils.tables.body>
                                 <x-utils.tables.body class="text-right">
-                                    <x-utils.buttons.ghost-button
+                                    <x-utils.buttons.default
                                         wire:click="seleccionarJurado({{$jurado->id}}, '{{ $jurado->codigo_docente }}')"
                                         class="group hover:text-gray-700 active:border-gray-400 flex items-center text-xs">
                                         Escoger
-                                    </x-utils.buttons.ghost-button>
+                                    </x-utils.buttons.default>
                                 </x-utils.tables.body>
                             </x-utils.tables.row>
                         @endforeach
