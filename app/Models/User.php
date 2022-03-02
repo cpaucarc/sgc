@@ -20,7 +20,7 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
-    protected $fillable = ['name', 'uuid', 'codigo', 'email', 'password',];
+    protected $fillable = ['name', 'uuid', 'activo', 'codigo', 'email', 'password',];
 
     protected $hidden = ['password', 'remember_token', 'two_factor_recovery_codes', 'two_factor_secret',];
 
@@ -34,7 +34,8 @@ class User extends Authenticatable
             ->withPivot('activo');
     }
 
-    public static function getUserNameById($id){
+    public static function getUserNameById($id)
+    {
         return User::where('id', $id)->pluck('name')->first();
     }
 

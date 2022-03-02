@@ -14,7 +14,6 @@ return new class extends Migration {
     {
         Schema::create('entidad_user', function (Blueprint $table) {
             $table->id();
-            $table->boolean('activo')->default(true);
             $table->foreignId('entidad_id')->constrained('entidades')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
