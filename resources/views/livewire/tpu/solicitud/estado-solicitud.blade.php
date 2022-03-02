@@ -23,14 +23,16 @@
         </div>
         @if(!is_null($solicitud))
             <div class="flex flex-col items-end w-48 space-y-2">
-                <x-utils.buttons.basic-button
-                    class="cursor-not-allowed inline-flex items-center text-{{ $solicitud->estado->color }}-700 border-{{ $solicitud->estado->color }}-200 bg-{{ $solicitud->estado->color }}-100">
+                <buttons
+                    class="cursor-wait inline-flex items-center text-{{ $solicitud->estado->color }}-700 border border-{{ $solicitud->estado->color }}-200 bg-{{ $solicitud->estado->color }}-100 rounded-lg text-sm px-3 py-1">
+                    <x-icons.info :stroke="2" class="h-5 w-5 mr-1"/>
                     {{ $solicitud->estado->nombre }}
-                </x-utils.buttons.basic-button>
+                </buttons>
+
                 <span class="text-xs">Presentado el {{ date('h:m a d M', strtotime($solicitud->created_at)) }}</span>
             </div>
         @else
-            <div class="rounded-lg px-4 py-2 text-gray-500 text-center text-sm">
+            <div class="px-4 py-2 text-gray-500 text-center text-sm">
                 No hay ninguna solicitud
             </div>
         @endif

@@ -8,9 +8,6 @@
                 {{ $requisito->nombre }}
             </div>
         @endforeach
-        <div class="mt-4 border bg-yellow-200 text-yellow-800 text-sm p-2 rounded-lg">
-            La autoridad correspondiente responderá a medida que usted vaya enviando los requisitos.
-        </div>
     @else
         <div class="flex items-center text-sm">
             <span class="bg-lime-200 text-lime-600 mr-2 rounded-full p-1">
@@ -21,4 +18,8 @@
             </span>
         </div>
     @endif
+
+    <x-utils.badge class="bg-yellow-200 text-yellow-800 mt-4">
+        La autoridad correspondiente responderá a medida que usted vaya enviando los requisitos.
+    </x-utils.badge>
 </div>

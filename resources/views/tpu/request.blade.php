@@ -2,7 +2,6 @@
     <x-utils.card class="mb-4">
         <livewire:tpu.solicitud.estado-solicitud/>
     </x-utils.card>
-
     <div class="grid grid-cols-6 gap-4 flex items-start justify-between">
         <x-utils.card class="col-span-4">
             @slot('header')

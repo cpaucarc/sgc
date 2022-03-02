@@ -90,10 +90,10 @@
                                 </x-utils.tables.body>
                                 <x-utils.tables.body>
                                     <div
-                                        class="flex items-center justify-end w-full gap-2 whitespace-nowrap">
-                                        <x-utils.buttons.basic-button wire:click="quitar({{ ($i) }})">
-                                            <x-icons.x class="h-5 w-5 mr-1"></x-icons.x>
-                                        </x-utils.buttons.basic-button>
+                                        class="flex items-center justify-end w-full">
+                                        <x-utils.buttons.danger wire:click="quitar({{ ($i) }})">
+                                            <x-icons.delete class="h-4 w-4 mr-1"></x-icons.delete>
+                                        </x-utils.buttons.danger>
                                     </div>
                                 </x-utils.tables.body>
                             </x-utils.tables.row>

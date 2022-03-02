@@ -6,14 +6,14 @@
                     Estudiantes con grado de título profesional
                 </h1>
                 <div class="relative">
-                    <x-utils.links.link href="{{ route('tpu.requests') }}">
+                    <x-utils.links.primary href="{{ route('tpu.requests') }}">
                         <x-icons.people class="h-5 w-5 mr-1" stroke="1.5"></x-icons.people>
                         Revisar solicitudes
-                    </x-utils.links.link>
-                    <x-utils.links.link href="{{ route('tpu.request') }}">
+                    </x-utils.links.primary>
+                    <x-utils.links.primary href="{{ route('tpu.request') }}">
                         <x-icons.people class="h-5 w-5 mr-1" stroke="1.5"></x-icons.people>
                         Enviar solicitud
-                    </x-utils.links.link>
+                    </x-utils.links.primary>
                 </div>
             </div>
         @endslot

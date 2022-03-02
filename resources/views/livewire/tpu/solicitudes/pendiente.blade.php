@@ -21,10 +21,10 @@
                             Código: {{ $solc->codigo_estudiante }}
                         </h3>
                     </div>
-                    <x-utils.buttons.ghost-button
+                    <x-utils.buttons.invisible
                         wire:click="mostrarModal({{ $solc->id }}, '{{ $solc->codigo_estudiante}}', true)">
                         Revisar
-                    </x-utils.buttons.ghost-button>
+                    </x-utils.buttons.invisible>
                 </div>
             @empty
                 <x-utils.message-image>
@@ -60,10 +60,10 @@
                             {{ $soli->documentos_count }} de 8 requisitos enviados
                         </h3>
                     </div>
-                    <x-utils.buttons.ghost-button
+                    <x-utils.buttons.invisible
                         wire:click="mostrarModal({{ $soli->id }}, '{{ $soli->codigo_estudiante }}', false)">
                         Revisar
-                    </x-utils.buttons.ghost-button>
+                    </x-utils.buttons.invisible>
                 </div>
             @empty
                 <x-utils.message-image>
@@ -98,10 +98,11 @@
                         <h3 class="text-gray-800 text-base font-bold">
                             Lista de requisitos presentados
                         </h3>
-                        <x-utils.buttons.basic-button
-                            class="cursor-not-allowed inline-flex items-center text-yellow-700 border-yellow-200 bg-yellow-100">
-                            Requisitos faltantes
-                        </x-utils.buttons.basic-button>
+                        <buttons
+                            class="cursor-wait inline-flex items-center text-yellow-700 border border-yellow-200 bg-yellow-100 rounded-lg text-sm px-3 py-1">
+                            <x-icons.info :stroke="2" class="h-5 w-5 mr-1"/>
+                            Requisitos faltantantes
+                        </buttons>
                     </div>
                 @endif
                 @if($requisitosCompleto)
@@ -110,10 +111,11 @@
                             Lista de requisitos presentados
                         </h3>
                         <div class="flex flex-col items-end w-48 space-y-2">
-                            <x-utils.buttons.basic-button
-                                class="cursor-not-allowed inline-flex items-center text-{{ $solicitudSeleccionado->estado->color }}-700 border-{{ $solicitudSeleccionado->estado->color }}-200 bg-{{ $solicitudSeleccionado->estado->color }}-100">
+                            <buttons
+                                class="cursor-wait inline-flex items-center text-{{ $solicitudSeleccionado->estado->color }}-700 border border-{{ $solicitudSeleccionado->estado->color }}-200 bg-{{ $solicitudSeleccionado->estado->color }}-100 rounded-lg text-sm px-3 py-1">
+                                <x-icons.info :stroke="2" class="h-5 w-5 mr-1"/>
                                 {{ $solicitudSeleccionado->estado->nombre }}
-                            </x-utils.buttons.basic-button>
+                            </buttons>
                             <span
                                 class="text-xs">Actualizado el {{ date('h:m a d M', strtotime($solicitudSeleccionado->updated_at)) }}</span>
                         </div>
@@ -123,39 +125,33 @@
                     @slot('body')
                         @foreach($solicitudSeleccionado->documentos as $i => $doc)
                             <x-utils.tables.row>
-                                <x-utils.tables.body>
+                                <x-utils.tables.body class="text-xs">
                                     {{ ($i+1) }}
                                 </x-utils.tables.body>
-                                <x-utils.tables.body>
+                                <x-utils.tables.body  class="text-xs">
                                     <a target="_blank" href="{{ route('archivos', $doc->documento->enlace_interno) }}"
                                        class="hover:text-sky-600 hover:underline line-clamp-1">
                                         {{ $doc->requisito->nombre }}
                                     </a>
                                 </x-utils.tables.body>
-                                <x-utils.tables.body>
+                                <x-utils.tables.body  class="text-xs">
                                     {{ $doc->documento->created_at->format('d M Y')}}
                                 </x-utils.tables.body>
                                 <x-utils.tables.body>
-                                    <x-utils.buttons.basic-button
-                                        class="cursor-not-allowed inline-flex items-center text-{{ $doc->estado->color }}-700 border-{{ $doc->estado->color }}-200 bg-{{ $doc->estado->color }}-100 text-xs">
+                                    <buttons
+                                        class="inline-flex items-center text-{{ $doc->estado->color }}-700 border border-{{ $doc->estado->color }}-200 bg-{{ $doc->estado->color }}-100 rounded-lg text-xs px-3 py-1">
                                         {{ $doc->estado->nombre }}
-                                    </x-utils.buttons.basic-button>
+                                    </buttons>
                                 </x-utils.tables.body>
                                 <x-utils.tables.body>
                                     <div
                                         class="flex items-center justify-end w-full gap-2 whitespace-nowrap">
-                                        <x-utils.buttons.ghost-button
-                                            class="group flex items-center text-xs  hover:text-red-600"
-                                            wire:click="denegarDocumentoRequisito({{$doc->id}})">
-                                            <x-icons.x class="h-4 w-4 group-hover:text-red-600"
-                                                       stroke="1.25"></x-icons.x>
-                                        </x-utils.buttons.ghost-button>
-                                        <x-utils.buttons.ghost-button
-                                            class="group flex items-center text-xs  hover:text-blue-600"
-                                            wire:click="aprobarDocumentoRequisito({{$doc->id}})">
-                                            <x-icons.check class="h-4 w-4 group-hover:text-blue-600"
-                                                           stroke="1.25"></x-icons.check>
-                                        </x-utils.buttons.ghost-button>
+                                        <x-utils.buttons.danger wire:click="denegarDocumentoRequisito({{$doc->id}})">
+                                            <x-icons.x class="h-4 w-4 mr-1"></x-icons.x>
+                                        </x-utils.buttons.danger>
+                                         <x-utils.buttons.success wire:click="aprobarDocumentoRequisito({{$doc->id}})">
+                                            <x-icons.check class="h-4 w-4 mr-1"></x-icons.check>
+                                        </x-utils.buttons.success>
                                     </div>
                                 </x-utils.tables.body>
                             </x-utils.tables.row>
@@ -183,11 +179,23 @@
             @endslot
         </x-jet-dialog-modal>
     @endif
-
-    <x-jet-dialog-modal>
-        @slot('title')
-        @endslot
-        @slot('content')
-        @endslot
-    </x-jet-dialog-modal>
+    @push('js')
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Livewire.on('guardado', msg => {
+                Swal.fire({
+                    icon: 'success',
+                    title: '',
+                    text: msg,
+                });
+            });
+            Livewire.on('error', msg => {
+                Swal.fire({
+                    icon: 'error',
+                    title: '',
+                    text: msg,
+                });
+            });
+        </script>
+    @endpush
 </div>

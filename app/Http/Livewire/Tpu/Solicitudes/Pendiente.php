@@ -78,10 +78,16 @@ class Pendiente extends Component
                 $this->solicitudSeleccionado->estado_id = 6;// 6 : Estado Solicitud Aprobado
                 $this->solicitudSeleccionado->save();
 
-                GradoEstudiante::create([
-                    'codigo_estudiante' => $this->solicitanteCodigo,
-                    'grado_academico_id' => 4 // 4 : Titulado
-                ]);
+                $gradoestudiante = GradoEstudiante::query()
+                    ->where('codigo_estudiante', $this->solicitanteCodigo)
+                    ->where('grado_academico_id', 4)
+                    ->get();
+                if (!$gradoestudiante->count()) {
+                    GradoEstudiante::create([
+                        'codigo_estudiante' => $this->solicitanteCodigo,
+                        'grado_academico_id' => 4 // 4 : Titulado
+                    ]);
+                }
             }
         }
         $this->emit('estadoSolicitud');
