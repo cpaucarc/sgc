@@ -12,11 +12,11 @@
                 <h1 class="font-bold text-xl text-black">
                     Salidas
                 </h1>
-                {{--                <livewire:admin.crear-proceso/>--}}
+                <livewire:admin.crear-salida/>
             </div>
 
             <hr/>
-            {{--            <livewire:admin.lista-procesos/>--}}
+            <livewire:admin.lista-salidas/>
         </div>
     </div>
 
