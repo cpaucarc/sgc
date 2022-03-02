@@ -13,4 +13,9 @@ class Sustentacion extends Model
     public $timestamps = false;
     public $fillable = ['fecha_sustentacion', 'tesis_id', 'estado_id'];
 
+    public function estado()
+    {
+        return $this->belongsTo(Estado::class)
+            ->with('categoriaEstado');
+    }
 }

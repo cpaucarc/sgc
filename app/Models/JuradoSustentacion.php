@@ -12,4 +12,16 @@ class JuradoSustentacion extends Model
     protected $table = "jurado_sustentacion";
     public $timestamps = false;
     public $fillable = ['nota_jurado', 'jurado_id', 'sustentacion_id', 'cargo_jurado_id'];
+
+    public function jurado()
+    {
+        return $this->belongsTo(Jurado::class)
+            ->with('colegio');
+    }
+
+    public function cargoJurado()
+    {
+        return $this->belongsTo(CargoJurado::class);
+    }
+
 }

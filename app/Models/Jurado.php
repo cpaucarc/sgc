@@ -12,4 +12,9 @@ class Jurado extends Model
 //    protected $table = "jurados";
     public $timestamps = false;
     public $fillable = ['codigo_colegiatura', 'codigo_docente', 'colegio_id'];
+
+    public function colegio()
+    {
+        return $this->belongsTo(Colegio::class);
+    }
 }
