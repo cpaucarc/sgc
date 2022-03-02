@@ -49,4 +49,19 @@ class AdminController extends Controller
     {
         return view('admin.procesos');
     }
+
+    public function actividades()
+    {
+        return view('admin.actividades');
+    }
+
+    public function entradas()
+    {
+        return view('admin.entradas');
+    }
+
+    public function salidas()
+    {
+        return view('admin.salidas');
+    }
 }

@@ -18,6 +18,16 @@
         <x-utils.links.nav-link href="{{ route('admin.procesos') }}" :active="request()->routeIs('admin.procesos')">
             {{ __('Procesos') }}
         </x-utils.links.nav-link>
+        <x-utils.links.nav-link href="{{ route('admin.actividades') }}"
+                                :active="request()->routeIs('admin.actividades')">
+            {{ __('Actividades') }}
+        </x-utils.links.nav-link>
+        <x-utils.links.nav-link href="{{ route('admin.entradas') }}" :active="request()->routeIs('admin.entradas')">
+            {{ __('Entradas') }}
+        </x-utils.links.nav-link>
+        <x-utils.links.nav-link href="{{ route('admin.salidas') }}" :active="request()->routeIs('admin.salidas')">
+            {{ __('Salidas') }}
+        </x-utils.links.nav-link>
         <x-utils.links.nav-link href="{{ route('admin.entidades') }}" :active="request()->routeIs('admin.entidades')">
             {{ __('Entidades') }}
         </x-utils.links.nav-link>

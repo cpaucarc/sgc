@@ -34,6 +34,4 @@ class CrearProceso extends Component
         $this->reset('open', 'nombre');
         $this->emitTo('admin.lista-procesos', 'render');
     }
-
-
 }
