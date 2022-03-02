@@ -13,8 +13,11 @@
     </div>
 
     <div class="flex flex-col items-start w-full gap-y-1">
-        <p class="ml-3 text-sm text-gray-400 font-semibold tracking-wide">Actividades</p>
+        <p class="ml-3 text-sm text-gray-400 font-semibold tracking-wide">Gestión de procesos</p>
 
+        <x-utils.links.nav-link href="{{ route('admin.procesos') }}" :active="request()->routeIs('admin.procesos')">
+            {{ __('Procesos') }}
+        </x-utils.links.nav-link>
         <x-utils.links.nav-link href="{{ route('admin.entidades') }}" :active="request()->routeIs('admin.entidades')">
             {{ __('Entidades') }}
         </x-utils.links.nav-link>

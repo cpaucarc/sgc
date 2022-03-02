@@ -36,6 +36,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/', 'index')->name('admin.index');
         Route::get('escuela', 'escuelas')->name('admin.escuelas');
         Route::get('facultad', 'facultades')->name('admin.facultades');
+        Route::get('proceso', 'procesos')->name('admin.procesos');
         Route::get('entidad', 'entidades')->name('admin.entidades');
         Route::get('entidad/responsable/{id}', 'entidad_responsable')->name('admin.entidad.responsable');
         Route::get('entidad/proveedor/{id}', 'entidad_proveedor')->name('admin.entidad.proveedor');
@@ -54,7 +55,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('crear', 'create')->name('rsu.create');
         Route::get('ver/{uuid}', 'show')->name('rsu.show');
     });
-  
+
     Route::prefix('tpu')->controller(TituloProfesionalController::class)->group(function () {
         Route::get('/', 'index')->name('tpu.index');
         Route::get('solicitud', 'request')->name('tpu.request');
@@ -62,7 +63,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('solicitud/{solicitud}/{tesis}', 'seeTesis')->name('tpu.seeTesis');
         Route::get('solicitudes', 'requests')->name('tpu.requests');
     });
-  
+
     Route::prefix('investigacion')->controller(InvestigacionController::class)->group(function () {
         Route::get('/', 'index')->name('investigacion.index');
         Route::get('ver/{uuid}', 'show')->name('investigacion.show');

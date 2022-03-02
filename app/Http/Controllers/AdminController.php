@@ -44,4 +44,9 @@ class AdminController extends Controller
         $entidad = Entidad::with('oficina')->findOrFail($id);
         return view('admin.entidad-cliente', compact('entidad'));
     }
+
+    public function procesos()
+    {
+        return view('admin.procesos');
+    }
 }
