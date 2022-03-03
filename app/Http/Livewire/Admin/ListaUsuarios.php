@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 class ListaUsuarios extends Component
 {
     use WithPagination;
+
     public $search = "";
 
     public $listeners = ['render', 'eliminar'];
