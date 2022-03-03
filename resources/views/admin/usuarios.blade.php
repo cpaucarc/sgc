@@ -12,7 +12,7 @@
                 <h1 class="font-bold text-xl text-black">
                     Usuarios
                 </h1>
-                {{--                <livewire:admin.crear-salida/>--}}
+                <livewire:admin.crear-usuario/>
             </div>
 
             <hr/>

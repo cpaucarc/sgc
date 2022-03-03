@@ -34,6 +34,7 @@
                                 <img class="h-6 w-6 rounded-full mr-2" src="{{ $usuario->profile_photo_url }}"
                                      alt="{{ $usuario->name }}">
                                 <p>{{$usuario->name}}</p>
+                                <x-utils.new-item date="{{$usuario->created_at}}"/>
                             </x-utils.links.basic>
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-xs">{{$usuario->codigo}}</x-utils.tables.body>
