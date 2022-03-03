@@ -31,7 +31,7 @@ class User extends Authenticatable
     public function entidades()
     {
         return $this->belongsToMany(Entidad::class, 'entidad_user')
-            ->withPivot('activo');
+            ->withPivot('id');
     }
 
     public static function getUserNameById($id)

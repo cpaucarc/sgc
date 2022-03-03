@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Entidad;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -63,5 +64,15 @@ class AdminController extends Controller
     public function salidas()
     {
         return view('admin.salidas');
+    }
+
+    public function usuarios()
+    {
+        return view('admin.usuarios');
+    }
+
+    public function usuario($uuid)
+    {
+        return view('admin.usuario', compact('uuid'));
     }
 }
