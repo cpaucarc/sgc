@@ -47,7 +47,7 @@ class EntidadesDelUsuario extends Component
     {
         $this->validate();
 
-        $this->usuario->entidades()->attach($this->selected);
+        $this->usuario->entidades()->attach($this->selected, ['created_at' => now(), 'updated_at' => now()]);
 
         $this->reset(['selected', 'open']);
     }
