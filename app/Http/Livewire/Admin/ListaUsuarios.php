@@ -4,14 +4,19 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\User;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ListaUsuarios extends Component
 {
+    use WithPagination;
     public $search = "";
-//    public $proceso, $procesos = 0;
-//    public $salidas = null;
 
     public $listeners = ['render', 'eliminar'];
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
 
     public function render()
     {
@@ -19,7 +24,7 @@ class ListaUsuarios extends Component
             ->where('name', 'like', '%' . $this->search . '%')
             ->orderBy('activo', 'desc')
             ->orderBy('name')
-            ->get();
+            ->paginate(10);
 
         return view('livewire.admin.lista-usuarios', compact('usuarios'));
     }

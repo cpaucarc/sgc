@@ -72,6 +72,10 @@
                 @endforeach
             @endslot
         </x-utils.tables.table>
+
+        <div class="mt-4">
+            {{ $usuarios->links() }}
+        </div>
     @else
         <div class="border border-gray-300 rounded-md">
             <x-utils.message-no-items
