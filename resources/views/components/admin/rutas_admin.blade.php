@@ -33,5 +33,14 @@
         </x-utils.links.nav-link>
     </div>
 
+    <div class="flex flex-col items-start w-full gap-y-1">
+        <p class="ml-3 text-sm text-gray-400 font-semibold tracking-wide">Gestión de usuarios</p>
+
+        <x-utils.links.nav-link href="{{ route('admin.usuarios') }}"
+                                active="{{request()->routeIs('admin.usuario') or request()->routeIs('admin.usuarios')}}">
+            {{ __('Usuarios') }}
+        </x-utils.links.nav-link>
+    </div>
+
 </div>
 

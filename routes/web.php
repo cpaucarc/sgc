@@ -41,6 +41,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('entrada', 'entradas')->name('admin.entradas');
         Route::get('salida', 'salidas')->name('admin.salidas');
         Route::get('entidad', 'entidades')->name('admin.entidades');
+        Route::get('usuario', 'usuarios')->name('admin.usuarios');
+        Route::get('usuario/ver/{uuid}', 'usuario')->name('admin.usuario');
         Route::get('entidad/responsable/{id}', 'entidad_responsable')->name('admin.entidad.responsable');
         Route::get('entidad/proveedor/{id}', 'entidad_proveedor')->name('admin.entidad.proveedor');
         Route::get('entidad/cliente/{id}', 'entidad_cliente')->name('admin.entidad.cliente');
