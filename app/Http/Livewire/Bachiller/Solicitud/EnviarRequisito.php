@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Livewire\Tpu\Solicitud;
+namespace App\Http\Livewire\Bachiller\Solicitud;
 
 use App\Models\Documento;
 use App\Models\DocumentoSolicitud;
 use App\Models\Semestre;
 use App\Models\Solicitud;
-use App\Models\Tesis;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -42,7 +41,7 @@ class EnviarRequisito extends Component
     {
         $this->solicitud = Solicitud::query()
             ->where('codigo_estudiante', Auth::user()->codigo)
-            ->where('tipo_solicitud_id', 3) // 3: Título profesional
+            ->where('tipo_solicitud_id', 1) // 1: Bachiller
             ->first();
 
         $this->semestreActual = Semestre::query()
@@ -57,7 +56,7 @@ class EnviarRequisito extends Component
     {
         $this->requisitos = DB::table('requisitos')
             ->select('id', 'nombre')
-            ->where('proceso_id', 5)  // 5 : Título profesional
+            ->where('proceso_id', 12)  // 12 : Grado Bachiller
             ->whereNotIn('id', function ($query) {
                 $query->select('requisito_id')
                     ->from('documento_solicitud')
@@ -65,16 +64,10 @@ class EnviarRequisito extends Component
                         $query2->select('id')
                             ->from('solicitudes')
                             ->where('codigo_estudiante', Auth::user()->codigo)
-                            ->where('tipo_solicitud_id', 3);// 3 : Titulo profesional
+                            ->where('tipo_solicitud_id', 1);// 1 : Bachiller
                     });
             })
             ->get();
-
-        if ($this->requisitoSeleccionado == 14) { // 14 : proyecto de investifación.
-            $this->goAddTesis = true;
-        } else {
-            $this->goAddTesis = false;
-        }
     }
 
     public function guardarDocumento()
@@ -86,7 +79,7 @@ class EnviarRequisito extends Component
         if (is_null($this->solicitud)) {
             $this->solicitud = Solicitud::create([
                 'codigo_estudiante' => (Auth::user()->codigo),
-                'tipo_solicitud_id' => 3, // 3: Título profesional
+                'tipo_solicitud_id' => 1, // 1: Bachiller
                 'estado_id' => 4,// 4: En evaluación (Categoria => 2:solicitud)
             ]);
             $this->emit('solicitudCreado');
@@ -95,9 +88,9 @@ class EnviarRequisito extends Component
         /*Guardar en Documentos*/
 
         //sgc-fcm\storage\app\public\solicitud\tpu\documento.pdf
-        $rutaCarpeta = '/public/solicitud/tpu';
+        $rutaCarpeta = '/public/solicitud/bachiller';
 
-        //verificar si existe la carpeta storage/app/public/solicitud/tpu, crear si no existe
+        //verificar si existe la carpeta storage/app/public/solicitud/bachiller, crear si no existe
         if (!Storage::exists($rutaCarpeta)) {
             Storage::makeDirectory($rutaCarpeta);
         }
@@ -112,7 +105,7 @@ class EnviarRequisito extends Component
         //Almacenar ruta del archivo
         $documento = Documento::create([
             'nombre' => $nombreFinal,
-            'enlace_interno' => 'solicitud/tpu/' . $nombreFinal,
+            'enlace_interno' => 'solicitud/bachiller/' . $nombreFinal,
             'entidad_id' => $this->entidad->id,
             'semestre_id' => $this->semestreActual->id,
             'user_id' => Auth::user()->id,
@@ -134,34 +127,9 @@ class EnviarRequisito extends Component
         $this->emit('guardado', 'El requisito se envió correctamente.');
     }
 
-    /*public function documentosEnviados()
-    {
-        $this->documentos = DocumentoSolicitud::query()
-            ->with('documento')
-            ->whereHas('solicitud', function ($query) {
-                $query->where('codigo_estudiante', Auth::user()->codigo);
-            })
-            ->whereHas('documento', function ($query) {
-                $query->where('user_id', Auth::user()->id)
-                    ->where('entidad_id', $this->entidad->id)
-                    ->where('semestre_id', $this->semestreActual->id);
-            })
-            ->get();
-    }*/
-
-    public function tesisRegistrado()
-    {
-        $this->tesis = Tesis::query()
-            ->where('codigo_estudiante', Auth::user()->codigo)
-            ->orderBy('id', 'desc')
-            ->first();
-    }
-
     public function render()
     {
         $this->requisitosFaltantes();
-        $this->tesisRegistrado();
-//        $this->documentosEnviados();
-        return view('livewire.tpu.solicitud.enviar-requisito');
+        return view('livewire.bachiller.solicitud.enviar-requisito');
     }
 }

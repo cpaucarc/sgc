@@ -15,7 +15,7 @@ class RequisitoSeeder extends Seeder
     public function run()
     {
         $requisitos = [
-            // Proceso de Grado Bachiller
+            // Proceso de Grado Bachiller (8)
             [
                 'nombre' => 'Certificado de estudios',
                 'proceso_id' => 12 // 12: Grado Bachiller (Tabla: Procesos)

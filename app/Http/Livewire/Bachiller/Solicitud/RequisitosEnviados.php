@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Tpu\Solicitud;
+namespace App\Http\Livewire\Bachiller\Solicitud;
 
 use App\Models\Solicitud;
 use Illuminate\Support\Facades\Auth;
@@ -18,9 +18,9 @@ class RequisitosEnviados extends Component
     {
         $this->solicitud = Solicitud::query()
             ->with('documentos')
-            ->where('tipo_solicitud_id', 3) // 3 : Titulo
+            ->where('tipo_solicitud_id', 1) // 3 : Bachiller
             ->where('codigo_estudiante', Auth::user()->codigo)
             ->first();
-        return view('livewire.tpu.solicitud.requisitos-enviados');
+        return view('livewire.bachiller.solicitud.requisitos-enviados');
     }
 }
