@@ -16,4 +16,9 @@ class Proceso extends Model
     {
         return Proceso::where('id', $id)->pluck('nombre')->first();
     }
+
+    public function actividades()
+    {
+        return $this->hasMany(Actividad::class);
+    }
 }
