@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Tpu\Solicitud;
+namespace App\Http\Livewire\Bachiller\Solicitud;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +17,7 @@ class ListaRequisitos extends Component
     {
         $requisitos = DB::table('requisitos')
             ->select('id', 'nombre')
-            ->where('proceso_id', 5)
+            ->where('proceso_id', 12) // 12: Grado Bachiller
             ->whereNotIn('id', function ($query) {
                 $query->select('requisito_id')
                     ->from('documento_solicitud')
@@ -25,12 +25,11 @@ class ListaRequisitos extends Component
                         $query2->select('id')
                             ->from('solicitudes')
                             ->where('codigo_estudiante', Auth::user()->codigo)
-                            ->where('tipo_solicitud_id', 3); // 1: Título
+                            ->where('tipo_solicitud_id', 1); // 1: Bahicller
                     });
             })
             ->get();
-
-        return view('livewire.tpu.solicitud.lista-requisitos')
+        return view('livewire.bachiller.solicitud.lista-requisitos')
             ->with(compact('requisitos'));
     }
 }

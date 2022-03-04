@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BachillerController;
 use App\Http\Controllers\EncuestaController;
 use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\InvestigacionController;
@@ -54,7 +55,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('crear', 'create')->name('rsu.create');
         Route::get('ver/{uuid}', 'show')->name('rsu.show');
     });
-  
+
     Route::prefix('tpu')->controller(TituloProfesionalController::class)->group(function () {
         Route::get('/', 'index')->name('tpu.index');
         Route::get('solicitud', 'request')->name('tpu.request');
@@ -62,7 +63,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('solicitud/{solicitud}/{tesis}', 'seeTesis')->name('tpu.seeTesis');
         Route::get('solicitudes', 'requests')->name('tpu.requests');
     });
-  
+
+    Route::prefix('bachiller')->controller(BachillerController::class)->group(function () {
+        Route::get('/', 'index')->name('bachiller.index');
+        Route::get('solicitud', 'request')->name('bachiller.request');
+        Route::get('solicitudes', 'requests')->name('bachiller.requests');
+    });
+
     Route::prefix('investigacion')->controller(InvestigacionController::class)->group(function () {
         Route::get('/', 'index')->name('investigacion.index');
         Route::get('ver/{uuid}', 'show')->name('investigacion.show');

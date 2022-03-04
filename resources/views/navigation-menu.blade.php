@@ -21,10 +21,14 @@
                     <x-jet-nav-link href="{{ route('rsu.index') }}" :active="request()->routeIs('rsu.*')">
                         {{ __('Responsabilidad Social') }}
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('bachiller.index') }}" :active="request()->routeIs('bachiller.*')">
+                        {{ __('Bachiller') }}
+                    </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('tpu.index') }}" :active="request()->routeIs('tpu.*')">
                         {{ __('Título Profesional') }}
-                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('investigacion.index') }}" :active="request()->routeIs('investigacion.*')">
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('investigacion.index') }}"
+                                    :active="request()->routeIs('investigacion.*')">
                         {{ __('Investigación') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('indicador.index') }}" :active="request()->routeIs('indicador.*')">

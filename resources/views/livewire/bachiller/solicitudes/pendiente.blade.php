@@ -149,7 +149,7 @@
                                         <x-utils.buttons.danger wire:click="denegarDocumentoRequisito({{$doc->id}})">
                                             <x-icons.x class="h-4 w-4 mr-1"></x-icons.x>
                                         </x-utils.buttons.danger>
-                                         <x-utils.buttons.success wire:click="aprobarDocumentoRequisito({{$doc->id}})">
+                                        <x-utils.buttons.success wire:click="aprobarDocumentoRequisito({{$doc->id}})">
                                             <x-icons.check class="h-4 w-4 mr-1"></x-icons.check>
                                         </x-utils.buttons.success>
                                     </div>
