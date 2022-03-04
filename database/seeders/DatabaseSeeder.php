@@ -36,7 +36,9 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoSolicitudSeeder::class);
         $this->call(TipoTesisSeeder::class);
         $this->call(UnidadMedidaSeeder::class);
-        \App\Models\User::factory(15)->create();
+        $this->call(RoleSeeder::class);
+        $this->call(UserSeeder::class);
+//        \App\Models\User::factory(15)->create();
 
         // Nivel 1
         $this->call(ActividadSeeder::class);

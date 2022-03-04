@@ -6,13 +6,15 @@
             <x-admin.rutas_admin/>
         </div>
 
-        <div class="col-span-3 space-y-4 divide-gray-300 divide-dashed">
-
+        <div class="col-span-3 space-y-6 divide-gray-300 divide-dashed">
             <livewire:admin.info-usuario uuid="{{ $uuid }}"/>
 
             <hr/>
 
-            <livewire:admin.entidades-del-usuario uuid="{{ $uuid }}"/>
+            <div class="grid grid-cols-2 gap-x-8">
+                <livewire:admin.roles-del-usuario uuid="{{ $uuid }}"/>
+                <livewire:admin.entidades-del-usuario uuid="{{ $uuid }}"/>
+            </div>
 
         </div>
     </div>

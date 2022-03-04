@@ -12,24 +12,34 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden sm:-my-px sm:ml-6 sm:flex">
-                    <x-jet-nav-link href="{{ route('admin.index') }}" :active="request()->routeIs('admin.*')">
-                        {{ __('Administrador') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('actividad.index') }}" :active="request()->routeIs('actividad.*')">
-                        {{ __('Actividad') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('rsu.index') }}" :active="request()->routeIs('rsu.*')">
-                        {{ __('Responsabilidad Social') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('tpu.index') }}" :active="request()->routeIs('tpu.*')">
-                        {{ __('Título Profesional') }}
-                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('investigacion.index') }}" :active="request()->routeIs('investigacion.*')">
-                        {{ __('Investigación') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('indicador.index') }}" :active="request()->routeIs('indicador.*')">
-                        {{ __('Indicadores') }}
-                    </x-jet-nav-link>
+                    @if(\Illuminate\Support\Facades\Auth::user()->hasRole('Administrador'))
+                        <x-jet-nav-link href="{{ route('admin.index') }}" :active="request()->routeIs('admin.*')">
+                            {{ __('Administrador') }}
+                        </x-jet-nav-link>
+                    @else
+                        @if(!\Illuminate\Support\Facades\Auth::user()->hasRole('Administrador'))
+                            <x-jet-nav-link href="{{ route('actividad.index') }}"
+                                            :active="request()->routeIs('actividad.*')">
+                                {{ __('Actividad') }}
+                            </x-jet-nav-link>
+                        @endif
+                        <x-jet-nav-link href="{{ route('rsu.index') }}" :active="request()->routeIs('rsu.*')">
+                            {{ __('Responsabilidad Social') }}
+                        </x-jet-nav-link>
+                        <x-jet-nav-link href="{{ route('tpu.index') }}" :active="request()->routeIs('tpu.*')">
+                            {{ __('Título Profesional') }}
+                        </x-jet-nav-link>
+                        <x-jet-nav-link href="{{ route('investigacion.index') }}"
+                                        :active="request()->routeIs('investigacion.*')">
+                            {{ __('Investigación') }}
+                        </x-jet-nav-link>
+                        @if(\Illuminate\Support\Facades\Auth::user()->hasAnyRole(['Dirección de Escuela', 'Departamento Academico', 'Decanatura']))
+                            <x-jet-nav-link href="{{ route('indicador.index') }}"
+                                            :active="request()->routeIs('indicador.*')">
+                                {{ __('Indicadores') }}
+                            </x-jet-nav-link>
+                        @endif
+                    @endif
                 </div>
             </div>
 

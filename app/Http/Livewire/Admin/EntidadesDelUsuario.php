@@ -13,7 +13,7 @@ class EntidadesDelUsuario extends Component
     public $entidades_actuales = [];
     public $entidades = null, $selected = [];
 
-    public $listeners = ['eliminarEntidad'];
+    public $listeners = ['render', 'eliminarEntidad'];
 
     protected $rules = [
         'selected' => 'required|array|min:1',
