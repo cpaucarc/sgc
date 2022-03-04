@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Tpu\Solicitud;
+namespace App\Http\Livewire\Bachiller\Solicitud;
 
 use App\Models\Semestre;
 use App\Models\Solicitud;
@@ -22,7 +22,8 @@ class EstadoSolicitud extends Component
     public function mount()
     {
         $this->numSolicitud = Solicitud::query()
-            ->where('tipo_solicitud_id',3) // 3: Titulo profesional
+            ->where('tipo_solicitud_id', 1) // 1: Bachiller
+            ->distinct('id')
             ->count();
         $this->semestreActual = Semestre::query()
             ->where('fecha_fin', '>=', Carbon::now())
@@ -36,13 +37,13 @@ class EstadoSolicitud extends Component
         $this->solicitud = Solicitud::query()
             ->with('estado')
             ->where('codigo_estudiante', Auth::user()->codigo)
-            ->where('tipo_solicitud_id',3) // 3: Bachiller
+            ->where('tipo_solicitud_id', 1) // 1: Bachiller
             ->first();
     }
 
     public function render()
     {
         $this->obtenerEstado();
-        return view('livewire.tpu.solicitud.estado-solicitud');
+        return view('livewire.bachiller.solicitud.estado-solicitud');
     }
 }

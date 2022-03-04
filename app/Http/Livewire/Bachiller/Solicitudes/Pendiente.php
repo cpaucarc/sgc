@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Livewire\Tpu\Solicitudes;
+namespace App\Http\Livewire\Bachiller\Solicitudes;
 
 use App\Models\DocumentoSolicitud;
 use App\Models\GradoEstudiante;
 use App\Models\Solicitud;
-use App\Models\Tesis;
 use Livewire\Component;
 
 class Pendiente extends Component
@@ -27,7 +26,7 @@ class Pendiente extends Component
     public function obtenerPendientes()
     {
         $this->solicitudes = Solicitud::query()
-            ->where('tipo_solicitud_id',3)// 3 : Titulo profesional
+            ->where('tipo_solicitud_id', 1)// 1 : Bahiller
             ->withCount('documentos')
             ->having('documentos_count', '>', 0)
             ->get();
@@ -46,12 +45,8 @@ class Pendiente extends Component
         $this->requisitosCompleto = $completo;
         $this->solicitudSeleccionado = Solicitud::query()
             ->with('documentos')
-            ->where('tipo_solicitud_id', 3) // 3 : Titulo profesional
+            ->where('tipo_solicitud_id', 1) // 1 : Bachiller
             ->where('id', $id)
-            ->first();
-
-        $this->tesis = Tesis::query()
-            ->where('codigo_estudiante', $this->solicitudSeleccionado->codigo_estudiante)
             ->first();
 
         $this->open = true;
@@ -84,12 +79,13 @@ class Pendiente extends Component
 
                 $gradoestudiante = GradoEstudiante::query()
                     ->where('codigo_estudiante', $this->solicitanteCodigo)
-                    ->where('grado_academico_id', 4) // 4 : Titulado
+                    ->where('grado_academico_id', 3) // 3 : Bachiller
                     ->get();
+
                 if (!$gradoestudiante->count()) {
                     GradoEstudiante::create([
                         'codigo_estudiante' => $this->solicitanteCodigo,
-                        'grado_academico_id' => 4 // 4 : Titulado
+                        'grado_academico_id' => 3 // 3 : Bachiller
                     ]);
                     $this->emit('guardado', 'El estudiante fue ascendido de grado al cumplir todos sus requisitos.');
                 }
@@ -110,7 +106,6 @@ class Pendiente extends Component
         $this->emit('documentoAprobado');
     }
 
-
     public function denegarDocumentoRequisito($documentoSolicitudId)
     {
         //Cambiar estado a aprobado
@@ -123,11 +118,10 @@ class Pendiente extends Component
         $this->emit('documentoAprobado');
     }
 
-
     public function render()
     {
         $this->obtenerPendientes();
         $this->estadoSolicitud();
-        return view('livewire.tpu.solicitudes.pendiente');
+        return view('livewire.bachiller.solicitudes.pendiente');
     }
 }
