@@ -3,6 +3,7 @@
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BachillerController;
+use App\Http\Controllers\ConvalidacionController;
 use App\Http\Controllers\EncuestaController;
 use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\InvestigacionController;
@@ -79,6 +80,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::prefix('investigacion')->controller(InvestigacionController::class)->group(function () {
         Route::get('/', 'index')->name('investigacion.index');
         Route::get('ver/{uuid}', 'show')->name('investigacion.show');
+    });
+
+    Route::prefix('convalidacion')->controller(ConvalidacionController::class)->group(function () {
+        Route::get('/', 'index')->name('convalidacion.index');
     });
 
     Route::prefix('indicador')->controller(IndicadorController::class)->group(function () {

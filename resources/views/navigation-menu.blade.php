@@ -37,6 +37,10 @@
                                         :active="request()->routeIs('investigacion.*')">
                             {{ __('Investigación') }}
                         </x-jet-nav-link>
+                        <x-jet-nav-link href="{{ route('convalidacion.index') }}"
+                                        :active="request()->routeIs('convalidacion.*')">
+                            {{ __('Convalidación') }}
+                        </x-jet-nav-link>
                         @if(\Illuminate\Support\Facades\Auth::user()->hasAnyRole(['Dirección de Escuela', 'Departamento Academico', 'Decanatura']))
                             <x-jet-nav-link href="{{ route('indicador.index') }}"
                                             :active="request()->routeIs('indicador.*')">
