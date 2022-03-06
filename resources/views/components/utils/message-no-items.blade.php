@@ -1,5 +1,5 @@
 <div class="w-full">
-    <div class="flex flex-col gap-y-4 items-center w-1/2 text-center mx-auto my-8">
+    <div class="flex flex-col gap-y-4 items-center w-3/5 text-center mx-auto my-8">
 
         {{ $icon }}
 

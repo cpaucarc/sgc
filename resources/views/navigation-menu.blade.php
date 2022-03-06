@@ -17,7 +17,7 @@
                             {{ __('Administrador') }}
                         </x-jet-nav-link>
                     @else
-                        @if(!\Illuminate\Support\Facades\Auth::user()->hasRole('Administrador'))
+                        @if(!\Illuminate\Support\Facades\Auth::user()->hasAnyRole(['Administrador', 'Estudiante']))
                             <x-jet-nav-link href="{{ route('actividad.index') }}"
                                             :active="request()->routeIs('actividad.*')">
                                 {{ __('Actividad') }}
@@ -40,6 +40,10 @@
                         <x-jet-nav-link href="{{ route('convalidacion.index') }}"
                                         :active="request()->routeIs('convalidacion.*')">
                             {{ __('Convalidación') }}
+                        </x-jet-nav-link>
+                        <x-jet-nav-link href="{{ route('biblioteca.index') }}"
+                                        :active="request()->routeIs('biblioteca.*')">
+                            {{ __('Biblioteca') }}
                         </x-jet-nav-link>
                         @if(\Illuminate\Support\Facades\Auth::user()->hasAnyRole(['Dirección de Escuela', 'Departamento Academico', 'Decanatura']))
                             <x-jet-nav-link href="{{ route('indicador.index') }}"
