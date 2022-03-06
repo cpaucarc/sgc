@@ -114,10 +114,8 @@
         function eliminarRol(nombre) {
 
             let res = confirm(`¿Desea quitar el rol ${nombre} del usuario?\nNota: Se eliminarán las entidades correspondientes`)
-            console.log(res, nombre)
             if (res) {
                 window.livewire.emit('eliminarRol', nombre);
-                alert('eliminado')
             }
         }
     </script>

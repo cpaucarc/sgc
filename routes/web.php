@@ -3,6 +3,7 @@
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BachillerController;
+use App\Http\Controllers\BibliotecaController;
 use App\Http\Controllers\EncuestaController;
 use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\InvestigacionController;
@@ -79,6 +80,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::prefix('investigacion')->controller(InvestigacionController::class)->group(function () {
         Route::get('/', 'index')->name('investigacion.index');
         Route::get('ver/{uuid}', 'show')->name('investigacion.show');
+    });
+
+    Route::prefix('biblioteca')->controller(BibliotecaController::class)->group(function () {
+        Route::get('/', 'index')->name('biblioteca.index');
+        Route::get('registrar/material', 'registrarMaterial')->name('biblioteca.registrar.material');
+        Route::get('registrar/visitante', 'registrarVisitante')->name('biblioteca.registrar.visitante');
     });
 
     Route::prefix('indicador')->controller(IndicadorController::class)->group(function () {

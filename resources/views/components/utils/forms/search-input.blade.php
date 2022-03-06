@@ -1,8 +1,8 @@
 @props(['disabled' => false])
 
 <div>
-    <label for="price" class="block text-sm font-medium text-gray-700">
-        <div class="mt-1 relative rounded-md">
+    <label class="block text-sm font-medium text-gray-700">
+        <div class="relative rounded-md">
             <div class="absolute inset-y-0 left-0 pl-3 mr-2 flex items-center pointer-events-none">
                 <x-icons.search stroke="1.6" class="h-5 w-5 text-gray-500 flex-shrink-0"/>
             </div>

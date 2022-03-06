@@ -1,13 +1,13 @@
 <div class="space-y-6">
 
     <div class="flex justify-between items-center">
-        <x-utils.forms.search-input wire:model.debounce.500ms="search" class="w-56"/>
+        <x-utils.forms.search-input wire:model.debounce.500ms="search"/>
 
         <div class="flex items-center gap-x-2">
             <x-utils.forms.labeled-input title="Desde:" wire:model="inicio" type="date"
-                                         class="cursor-pointer w-32 text-sm"/>
+                                         class="cursor-pointer w-auto"/>
             <x-utils.forms.labeled-input title="Hasta:" wire:model="fin" type="date"
-                                         class="cursor-pointer w-32 text-sm"/>
+                                         class="cursor-pointer w-auto"/>
         </div>
     </div>
 

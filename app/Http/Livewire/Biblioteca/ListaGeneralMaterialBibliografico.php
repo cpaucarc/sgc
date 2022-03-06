@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Http\Livewire\Biblioteca;
+
+use App\Models\Entidadable;
+use App\Models\MaterialBibliografico;
+use App\Models\Semestre;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
+
+class ListaGeneralMaterialBibliografico extends Component
+{
+    public $semestre = 0, $semestres = null;
+    public $facultad_ids = [];
+
+    public function mount($facultad_ids)
+    {
+        $this->semestres = Semestre::query()->orderBy('nombre', 'desc')->get();
+        $this->semestre = $this->semestres->first()->id;
+
+        $this->facultad_ids = $facultad_ids;
+
+    }
+
+    public function render()
+    {
+        $materiales = MaterialBibliografico::query()
+            ->with('semestre:id,nombre', 'facultad:id,abrev')
+            ->where('semestre_id', $this->semestre)
+            ->whereIn('facultad_id', $this->facultad_ids)
+            ->orderBy('id', 'desc')
+            ->get();
+        return view('livewire.biblioteca.lista-general-material-bibliografico', compact('materiales'));
+    }
+}
