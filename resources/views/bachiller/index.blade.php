@@ -17,6 +17,5 @@
                 </div>
             </div>
         @endslot
-
     </x-utils.card>
 </x-app-layout>

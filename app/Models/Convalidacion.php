@@ -10,6 +10,16 @@ class Convalidacion extends Model
     use HasFactory;
 
     protected $table = 'convalidaciones';
-    public $fillable = ['vacantes', 'semestre_id', 'escuela_id'];
-    public $timestamps = false;
+    public $fillable = ['vacantes', 'postulantes', 'convalidados', 'semestre_id', 'escuela_id'];
+
+    public function semestre()
+    {
+        return $this->belongsTo(Semestre::class);
+    }
+
+    public function escuela()
+    {
+        return $this->belongsTo(Escuela::class)
+            ->with('facultad');
+    }
 }
