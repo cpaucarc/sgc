@@ -195,6 +195,13 @@ class NuevoAnalisis extends Component
         } // Bachiller: 58
         elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-058") {
             $res = Medicion::ind58($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
+        } // Titulo Profesional: 59
+        elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-059") {
+            $res = Medicion::ind59($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-060") {
+            $res = Medicion::ind60($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-061") {
+            $res = Medicion::ind61($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
         }
 
         if (isset($res)) {
