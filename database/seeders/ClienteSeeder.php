@@ -1039,6 +1039,368 @@ class ClienteSeeder extends Seeder
                 'salida_id' => 20,
                 'entidad_id' => 8,
             ], // Director de Obstetricia
+
+            //Todo Gestion Calidad
+            [
+                'responsable_id' => 27,
+                'salida_id' => 38,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 27,
+                'salida_id' => 38,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 27,
+                'salida_id' => 38,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 27,
+                'salida_id' => 38,
+                'entidad_id' => 9,
+            ],
+            [
+                'responsable_id' => 27,
+                'salida_id' => 38,
+                'entidad_id' => 19,
+            ],
+            [
+                'responsable_id' => 28,
+                'salida_id' => 38,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 28,
+                'salida_id' => 38,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 28,
+                'salida_id' => 38,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 28,
+                'salida_id' => 38,
+                'entidad_id' => 9,
+            ],
+            [
+                'responsable_id' => 28,
+                'salida_id' => 38,
+                'entidad_id' => 19,
+            ],
+
+            [
+                'responsable_id' => 29,
+                'salida_id' => 21,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 29,
+                'salida_id' => 21,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 29,
+                'salida_id' => 21,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 29,
+                'salida_id' => 21,
+                'entidad_id' => 9,
+            ],
+
+            [
+                'responsable_id' => 30,
+                'salida_id' => 22,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 30,
+                'salida_id' => 22,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 30,
+                'salida_id' => 22,
+                'entidad_id' => 9,
+            ],
+            [
+                'responsable_id' => 31,
+                'salida_id' => 22,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 31,
+                'salida_id' => 22,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 31,
+                'salida_id' => 22,
+                'entidad_id' => 9,
+            ],
+
+            [
+                'responsable_id' => 32,
+                'salida_id' => 23,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 32,
+                'salida_id' => 23,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 32,
+                'salida_id' => 23,
+                'entidad_id' => 9,
+            ],
+            [
+                'responsable_id' => 33,
+                'salida_id' => 23,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 33,
+                'salida_id' => 23,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 33,
+                'salida_id' => 23,
+                'entidad_id' => 9,
+            ],
+
+            [
+                'responsable_id' => 34,
+                'salida_id' => 24,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 34,
+                'salida_id' => 24,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 34,
+                'salida_id' => 24,
+                'entidad_id' => 9,
+            ],
+            [
+                'responsable_id' => 34,
+                'salida_id' => 24,
+                'entidad_id' => 19,
+            ],
+            [
+                'responsable_id' => 34,
+                'salida_id' => 25,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 34,
+                'salida_id' => 25,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 34,
+                'salida_id' => 25,
+                'entidad_id' => 9,
+            ],
+            [
+                'responsable_id' => 34,
+                'salida_id' => 25,
+                'entidad_id' => 19,
+            ],
+            [
+                'responsable_id' => 35,
+                'salida_id' => 24,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 35,
+                'salida_id' => 24,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 35,
+                'salida_id' => 24,
+                'entidad_id' => 9,
+            ],
+            [
+                'responsable_id' => 35,
+                'salida_id' => 24,
+                'entidad_id' => 19,
+            ],
+            [
+                'responsable_id' => 35,
+                'salida_id' => 25,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 35,
+                'salida_id' => 25,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 35,
+                'salida_id' => 25,
+                'entidad_id' => 9,
+            ],
+            [
+                'responsable_id' => 35,
+                'salida_id' => 25,
+                'entidad_id' => 19,
+            ],
+
+            [
+                'responsable_id' => 36,
+                'salida_id' => 26,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 36,
+                'salida_id' => 26,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 36,
+                'salida_id' => 26,
+                'entidad_id' => 9,
+            ],
+
+            [
+                'responsable_id' => 37,
+                'salida_id' => 27,
+                'entidad_id' => 20,
+            ],
+            [
+                'responsable_id' => 38,
+                'salida_id' => 27,
+                'entidad_id' => 20,
+            ],
+
+            [
+                'responsable_id' => 39,
+                'salida_id' => 28,
+                'entidad_id' => 20,
+            ],
+            [
+                'responsable_id' => 40,
+                'salida_id' => 28,
+                'entidad_id' => 20,
+            ],
+
+            [
+                'responsable_id' => 41,
+                'salida_id' => 29,
+                'entidad_id' => 20,
+            ],
+
+            [
+                'responsable_id' => 42,
+                'salida_id' => 30,
+                'entidad_id' => 20,
+            ],
+
+            [
+                'responsable_id' => 43,
+                'salida_id' => 31,
+                'entidad_id' => 20,
+            ],
+            [
+                'responsable_id' => 44,
+                'salida_id' => 31,
+                'entidad_id' => 20,
+            ],
+
+            [
+                'responsable_id' => 45,
+                'salida_id' => 32,
+                'entidad_id' => 21,
+            ],
+            [
+                'responsable_id' => 46,
+                'salida_id' => 32,
+                'entidad_id' => 21,
+            ],
+
+            [
+                'responsable_id' => 47,
+                'salida_id' => 33,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 47,
+                'salida_id' => 33,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 47,
+                'salida_id' => 33,
+                'entidad_id' => 9,
+            ],
+            [
+                'responsable_id' => 47,
+                'salida_id' => 33,
+                'entidad_id' => 19,
+            ],
+
+            [
+                'responsable_id' => 48,
+                'salida_id' => 34,
+                'entidad_id' => 9,
+            ],
+            [
+                'responsable_id' => 48,
+                'salida_id' => 35,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 48,
+                'salida_id' => 35,
+                'entidad_id' => 9,
+            ],
+            [
+                'responsable_id' => 48,
+                'salida_id' => 35,
+                'entidad_id' => 22,
+            ],
+
+            [
+                'responsable_id' => 49,
+                'salida_id' => 36,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 49,
+                'salida_id' => 36,
+                'entidad_id' => 9,
+            ],
+            [
+                'responsable_id' => 49,
+                'salida_id' => 36,
+                'entidad_id' => 22,
+            ],
+
+            [
+                'responsable_id' => 50,
+                'salida_id' => 37,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 50,
+                'salida_id' => 37,
+                'entidad_id' => 9,
+            ],
+            [
+                'responsable_id' => 50,
+                'salida_id' => 37,
+                'entidad_id' => 22,
+            ],
         ];
 
         \App\Models\Cliente::insert($clientes);

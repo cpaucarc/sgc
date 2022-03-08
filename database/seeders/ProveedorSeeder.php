@@ -15,6 +15,7 @@ class ProveedorSeeder extends Seeder
     public function run()
     {
         $proveedores = [
+            /* Todo Enseñanza Aprendizaje */
             /* Actividad 1 */
             // Proveedor 1
             [
@@ -353,6 +354,202 @@ class ProveedorSeeder extends Seeder
                 'entrada_id' => 23
             ], //Dec a DEObs
 
+            /* Todo Gestion de Calidad */
+            [
+                'responsable_id' => 27,
+                'entidad_id' => 1,
+                'entrada_id' => 46
+            ],
+            [
+                'responsable_id' => 28,
+                'entidad_id' => 2,
+                'entrada_id' => 46
+            ],
+            [
+                'responsable_id' => 29,
+                'entidad_id' => 20,
+                'entrada_id' => 24
+            ],
+            [
+                'responsable_id' => 30,
+                'entidad_id' => 19,
+                'entrada_id' => 25
+            ],
+            [
+                'responsable_id' => 31,
+                'entidad_id' => 19,
+                'entrada_id' => 25
+            ],
+            [
+                'responsable_id' => 32,
+                'entidad_id' => 23,
+                'entrada_id' => 26
+            ],
+            [
+                'responsable_id' => 33,
+                'entidad_id' => 24,
+                'entrada_id' => 26
+            ],
+            [
+                'responsable_id' => 34,
+                'entidad_id' => 23,
+                'entrada_id' => 27
+            ],
+            [
+                'responsable_id' => 35,
+                'entidad_id' => 24,
+                'entrada_id' => 27
+            ],
+            [
+                'responsable_id' => 36,
+                'entidad_id' => 19,
+                'entrada_id' => 25
+            ],
+            [
+                'responsable_id' => 36,
+                'entidad_id' => 23,
+                'entrada_id' => 28
+            ],
+            [
+                'responsable_id' => 36,
+                'entidad_id' => 24,
+                'entrada_id' => 28
+            ],
+            [
+                'responsable_id' => 37,
+                'entidad_id' => 23,
+                'entrada_id' => 28
+            ],
+            [
+                'responsable_id' => 37,
+                'entidad_id' => 23,
+                'entrada_id' => 29
+            ],
+            [
+                'responsable_id' => 38,
+                'entidad_id' => 24,
+                'entrada_id' => 28
+            ],
+            [
+                'responsable_id' => 38,
+                'entidad_id' => 24,
+                'entrada_id' => 29
+            ],
+            [
+                'responsable_id' => 39,
+                'entidad_id' => 23,
+                'entrada_id' => 26
+            ],
+            [
+                'responsable_id' => 39,
+                'entidad_id' => 23,
+                'entrada_id' => 30
+            ],
+            [
+                'responsable_id' => 40,
+                'entidad_id' => 24,
+                'entrada_id' => 26
+            ],
+            [
+                'responsable_id' => 40,
+                'entidad_id' => 24,
+                'entrada_id' => 30
+            ],
+            [
+                'responsable_id' => 41,
+                'entidad_id' => 20,
+                'entrada_id' => 31
+            ],
+            [
+                'responsable_id' => 42,
+                'entidad_id' => 20,
+                'entrada_id' => 32
+            ],
+            [
+                'responsable_id' => 42,
+                'entidad_id' => 20,
+                'entrada_id' => 33
+            ],
+            [
+                'responsable_id' => 43,
+                'entidad_id' => 27,
+                'entrada_id' => 34
+            ],
+            [
+                'responsable_id' => 43,
+                'entidad_id' => 27,
+                'entrada_id' => 35
+            ],
+            [
+                'responsable_id' => 44,
+                'entidad_id' => 27,
+                'entrada_id' => 34
+            ],
+            [
+                'responsable_id' => 44,
+                'entidad_id' => 27,
+                'entrada_id' => 35
+            ],
+            [
+                'responsable_id' => 45,
+                'entidad_id' => 21,
+                'entrada_id' => 36
+            ],
+            [
+                'responsable_id' => 46,
+                'entidad_id' => 21,
+                'entrada_id' => 36
+            ],
+            [
+                'responsable_id' => 47,
+                'entidad_id' => 28,
+                'entrada_id' => 37
+            ],
+            [
+                'responsable_id' => 48,
+                'entidad_id' => 9,
+                'entrada_id' => 26
+            ],
+            [
+                'responsable_id' => 48,
+                'entidad_id' => 9,
+                'entrada_id' => 38
+            ],
+            [
+                'responsable_id' => 48,
+                'entidad_id' => 9,
+                'entrada_id' => 39
+            ],
+            [
+                'responsable_id' => 49,
+                'entidad_id' => 9,
+                'entrada_id' => 40
+            ],
+            [
+                'responsable_id' => 49,
+                'entidad_id' => 9,
+                'entrada_id' => 41
+            ],
+            [
+                'responsable_id' => 49,
+                'entidad_id' => 9,
+                'entrada_id' => 42
+            ],
+            [
+                'responsable_id' => 50,
+                'entidad_id' => 9,
+                'entrada_id' => 43
+            ],
+            [
+                'responsable_id' => 50,
+                'entidad_id' => 9,
+                'entrada_id' => 44
+            ],
+            [
+                'responsable_id' => 50,
+                'entidad_id' => 9,
+                'entrada_id' => 45
+            ],
         ];
 
         \App\Models\Proveedor::insert($proveedores);
