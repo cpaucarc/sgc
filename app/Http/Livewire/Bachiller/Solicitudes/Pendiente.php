@@ -85,7 +85,9 @@ class Pendiente extends Component
                 if (!$gradoestudiante->count()) {
                     GradoEstudiante::create([
                         'codigo_estudiante' => $this->solicitanteCodigo,
-                        'grado_academico_id' => 3 // 3 : Bachiller
+                        'grado_academico_id' => 3, // 3 : Bachiller
+                        'created_at' => now(),
+                        'updated_at' => now()
                     ]);
                     $this->emit('guardado', 'El estudiante fue ascendido de grado al cumplir todos sus requisitos.');
                 }

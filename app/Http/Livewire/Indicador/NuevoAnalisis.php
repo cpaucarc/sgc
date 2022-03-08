@@ -192,6 +192,9 @@ class NuevoAnalisis extends Component
             $res = Medicion::ind13($this->entidad->id, $this->inicio, $this->fin);
         } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-014") {
             $res = Medicion::ind14($this->entidad->id, $this->inicio, $this->fin);
+        } // Bachiller: 58
+        elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-058") {
+            $res = Medicion::ind58($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
         }
 
         if (isset($res)) {

@@ -422,4 +422,30 @@ class Medicion extends Model
         return $resultados;
     }
 
+    public static function ind58($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)
+    {
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $q = GradoEstudiante::query()->where('grado_academico_id', 2)
+            ->whereBetween('created_at', [$fecha_inicio, $fecha_fin]);
+
+        if ($es_escuela) {
+            $q = $q->where('escuela_id', $entidad_id);
+        } else {
+            $q = $q->whereIn('escuela_id', function ($query2) use ($entidad_id) {
+                $query2->select('id')->from('escuelas')->where('facultad_id', $entidad_id);
+            });
+        }
+
+        $resultados['interes'] = GradoEstudiante::query()->where('grado_academico_id', 3)
+            ->where(function ($query) use ($fecha_inicio, $fecha_fin, $q) {
+                $query->whereBetween('created_at', [$fecha_inicio, $fecha_fin])
+                    ->orWhereIn('codigo_estudiante', $q->select('codigo_estudiante')->get());
+            })->count();
+
+        $resultados['total'] = $q->count();
+
+        $resultados['resultado'] = $resultados['interes'] == 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
+        return $resultados;
+    }
 }

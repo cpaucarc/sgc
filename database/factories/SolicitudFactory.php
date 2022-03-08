@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\GradoEstudiante;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,8 @@ class SolicitudFactory extends Factory
     public function definition()
     {
         return [
-            'codigo_estudiante' => $this->faker->unique(true)->numerify('###.####.###'),
+//            'codigo_estudiante' => $this->faker->unique(true)->numerify('###.####.###'),
+            'codigo_estudiante' => GradoEstudiante::inRandomOrder()->first()->codigo_estudiante,
             'tipo_solicitud_id' => rand(1, 3),
             'estado_id' => rand(1, 10),
         ];
