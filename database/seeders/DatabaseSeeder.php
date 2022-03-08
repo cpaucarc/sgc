@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Solicitud::factory(5)->create();
 
         // Nivel 2
-        $this->call(ConvalidacionSeeder::class);
+//        $this->call(ConvalidacionSeeder::class);
         $this->call(EntidadSeeder::class);
         \App\Models\EstudianteExterno::factory(50)->create();
         $this->call(IndicadorSeeder::class);
@@ -67,7 +67,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Tesis::factory(50)->create();
 
         // Nivel 3
-        \App\Models\ConvalidacionPostulante::factory(75)->create();
+//        \App\Models\ConvalidacionPostulante::factory(75)->create();
         $this->call(EntidadableSeeder::class);
         $this->call(IndicadorableSeeder::class);
         $this->call(ResponsableSeeder::class);

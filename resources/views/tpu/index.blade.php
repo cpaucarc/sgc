@@ -6,14 +6,17 @@
                     Estudiantes con grado de título profesional
                 </h1>
                 <div class="relative">
-                    <x-utils.links.primary href="{{ route('tpu.requests') }}">
-                        <x-icons.people class="h-5 w-5 mr-1" stroke="1.5"></x-icons.people>
-                        Revisar solicitudes
-                    </x-utils.links.primary>
-                    <x-utils.links.primary href="{{ route('tpu.request') }}">
-                        <x-icons.people class="h-5 w-5 mr-1" stroke="1.5"></x-icons.people>
-                        Enviar solicitud
-                    </x-utils.links.primary>
+                    @if(\Illuminate\Support\Facades\Auth::user()->hasRole('Estudiante'))
+                        <x-utils.links.primary href="{{ route('tpu.request') }}">
+                            <x-icons.people class="h-5 w-5 mr-1" stroke="1.5"></x-icons.people>
+                            Enviar solicitud
+                        </x-utils.links.primary>
+                    @else
+                        <x-utils.links.primary href="{{ route('tpu.requests') }}">
+                            <x-icons.people class="h-5 w-5 mr-1" stroke="1.5"></x-icons.people>
+                            Revisar solicitudes
+                        </x-utils.links.primary>
+                    @endif
                 </div>
             </div>
         @endslot

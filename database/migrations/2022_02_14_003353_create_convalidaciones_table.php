@@ -15,12 +15,15 @@ return new class extends Migration {
         Schema::create('convalidaciones', function (Blueprint $table) {
             $table->id();
             $table->smallInteger('vacantes');
+            $table->smallInteger('postulantes');
+            $table->smallInteger('convalidados');
             $table->foreignId('escuela_id')->constrained('escuelas')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->foreignId('semestre_id')->constrained('semestres')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 

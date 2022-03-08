@@ -16,32 +16,44 @@ class ConvalidacionSeeder extends Seeder
     {
         $convalidacion = [
             [
-                'vacantes' => '9',
+                'vacantes' => '5',
+                'postulantes' => '3',
+                'convalidados' => '3',
                 'semestre_id' => '1',
                 'escuela_id' => '1',
             ],
             [
-                'vacantes' => '8',
+                'vacantes' => '5',
+                'postulantes' => '3',
+                'convalidados' => '3',
+                'semestre_id' => '1',
+                'escuela_id' => '2',
+            ],
+            [
+                'vacantes' => '5',
+                'postulantes' => '3',
+                'convalidados' => '3',
                 'semestre_id' => '2',
                 'escuela_id' => '1',
             ],
             [
                 'vacantes' => '5',
-                'semestre_id' => '3',
-                'escuela_id' => '1',
-            ],
-            [
-                'vacantes' => '6',
-                'semestre_id' => '1',
-                'escuela_id' => '2',
-            ],
-            [
-                'vacantes' => '7',
+                'postulantes' => '3',
+                'convalidados' => '3',
                 'semestre_id' => '2',
                 'escuela_id' => '2',
             ],
             [
-                'vacantes' => '10',
+                'vacantes' => '5',
+                'postulantes' => '3',
+                'convalidados' => '3',
+                'semestre_id' => '3',
+                'escuela_id' => '1',
+            ],
+            [
+                'vacantes' => '5',
+                'postulantes' => '3',
+                'convalidados' => '3',
                 'semestre_id' => '3',
                 'escuela_id' => '2',
             ],
