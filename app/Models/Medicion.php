@@ -6,10 +6,177 @@ use Illuminate\Database\Eloquent\Model;
 
 class Medicion extends Model
 {
-    // es_escuela (boolean) : Saber si es una Escuela o Facultad
-    // entidad_id (integer) : Id de la Escuela o Facultad (depende de si es Escuela o Facultad)
-    // fecha_inicio (date) : Rango de inicio de la medición
-    // fecha_fin (date) : Rango de finalizacion de la medición (generalmente HOY)
+    /*
+    > es_escuela (boolean) : Saber si es una Escuela o Facultad
+    > entidad_id (integer) : Id de la Escuela o Facultad (depende de si es Escuela o Facultad)
+    > fecha_inicio (date) : Rango de inicio de la medición
+    > fecha_fin (date) : Rango de finalizacion de la medición (generalmente HOY)
+    */
+
+    public static function ind09($facultad_id, $fecha_inicio, $fecha_fin)
+    {
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $resultados['resultado'] = MaterialBibliografico::query()
+            ->where('facultad_id', $facultad_id)
+            ->where(function ($query) use ($fecha_inicio, $fecha_fin) {
+                $query->where(function ($q1) use ($fecha_inicio, $fecha_fin) {
+                    $q1->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin])
+                        ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
+                })
+                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
+                        $q2->where('fecha_inicio', '>', $fecha_inicio)
+                            ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
+                    })
+                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
+                        $q2->where('fecha_fin', '<', $fecha_fin)
+                            ->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin]);
+                    });
+            })
+            ->sum('adquirido');
+
+        $resultados['resultado'] = is_null($resultados['resultado']) ? 0 : $resultados['resultado'];
+
+        return $resultados;
+    }
+
+    public static function ind10($facultad_id, $fecha_inicio, $fecha_fin)
+    {
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $resultados['resultado'] = MaterialBibliografico::query()
+            ->where('facultad_id', $facultad_id)
+            ->where(function ($query) use ($fecha_inicio, $fecha_fin) {
+                $query->where(function ($q1) use ($fecha_inicio, $fecha_fin) {
+                    $q1->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin])
+                        ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
+                })
+                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
+                        $q2->where('fecha_inicio', '>', $fecha_inicio)
+                            ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
+                    })
+                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
+                        $q2->where('fecha_fin', '<', $fecha_fin)
+                            ->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin]);
+                    });
+            })
+            ->sum('prestado');
+
+        $resultados['resultado'] = is_null($resultados['resultado']) ? 0 : $resultados['resultado'];
+
+        return $resultados;
+    }
+
+    public static function ind11($facultad_id, $fecha_inicio, $fecha_fin)
+    {
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $resultados['resultado'] = MaterialBibliografico::query()
+            ->where('facultad_id', $facultad_id)
+            ->where(function ($query) use ($fecha_inicio, $fecha_fin) {
+                $query->where(function ($q1) use ($fecha_inicio, $fecha_fin) {
+                    $q1->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin])
+                        ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
+                })
+                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
+                        $q2->where('fecha_inicio', '>', $fecha_inicio)
+                            ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
+                    })
+                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
+                        $q2->where('fecha_fin', '<', $fecha_fin)
+                            ->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin]);
+                    });
+            })
+            ->sum('perdido');
+
+        $resultados['resultado'] = is_null($resultados['resultado']) ? 0 : $resultados['resultado'];
+
+        return $resultados;
+    }
+
+    public static function ind12($escuela_id, $fecha_inicio, $fecha_fin)
+    {
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $resultados['resultado'] = BibliotecaVisitante::query()
+            ->where('escuela_id', $escuela_id)
+            ->where(function ($query) use ($fecha_inicio, $fecha_fin) {
+                $query->where(function ($q1) use ($fecha_inicio, $fecha_fin) {
+                    $q1->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin])
+                        ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
+                })
+                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
+                        $q2->where('fecha_inicio', '>', $fecha_inicio)
+                            ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
+                    })
+                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
+                        $q2->where('fecha_fin', '<', $fecha_fin)
+                            ->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin]);
+                    });
+            })
+            ->sum('visitantes');
+
+        $resultados['resultado'] = is_null($resultados['resultado']) ? 0 : $resultados['resultado'];
+
+        return $resultados;
+    }
+
+    public static function ind13($facultad_id, $fecha_inicio, $fecha_fin)
+    {
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $my_query = MaterialBibliografico::query()
+            ->where('facultad_id', $facultad_id)
+            ->where(function ($query) use ($fecha_inicio, $fecha_fin) {
+                $query->where(function ($q1) use ($fecha_inicio, $fecha_fin) {
+                    $q1->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin])
+                        ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
+                })
+                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
+                        $q2->where('fecha_inicio', '>', $fecha_inicio)
+                            ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
+                    })
+                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
+                        $q2->where('fecha_fin', '<', $fecha_fin)
+                            ->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin]);
+                    });
+            });
+
+        $resultados['interes'] = $my_query->sum('adquirido');
+        $resultados['total'] = $my_query->max('total_libros');
+
+        $resultados['resultado'] = is_null($resultados['interes']) ? 0
+            : (is_null($resultados['total']) ? 0 : round($resultados['interes'] / $resultados['total'] * 100));
+
+        return $resultados;
+    }
+
+    public static function ind14($facultad_id, $fecha_inicio, $fecha_fin)
+    {
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $resultados['resultado'] = MaterialBibliografico::query()
+            ->where('facultad_id', $facultad_id)
+            ->where(function ($query) use ($fecha_inicio, $fecha_fin) {
+                $query->where(function ($q1) use ($fecha_inicio, $fecha_fin) {
+                    $q1->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin])
+                        ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
+                })
+                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
+                        $q2->where('fecha_inicio', '>', $fecha_inicio)
+                            ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
+                    })
+                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
+                        $q2->where('fecha_fin', '<', $fecha_fin)
+                            ->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin]);
+                    });
+            })
+            ->sum('restaurados');
+
+        $resultados['resultado'] = is_null($resultados['resultado']) ? 0 : $resultados['resultado'];
+
+        return $resultados;
+    }
 
     public static function ind44($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)
     {

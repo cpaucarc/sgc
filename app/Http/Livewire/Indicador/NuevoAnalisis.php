@@ -15,7 +15,7 @@ use Livewire\Component;
 class NuevoAnalisis extends Component
 {
     public $open = false;
-    public $tipo;
+    public $tipo, $frecuenciaEnDias = 30;
     public $indicadorable, $entidad, $type;
     public $min, $sat, $sob;
     public $inicio, $fin, $diffInDays, $diffIsOk = true;
@@ -28,8 +28,8 @@ class NuevoAnalisis extends Component
 
     protected $rules = [
         'min' => 'required',
-        'sat' => 'required|gte:min',
-        'sob' => 'required|gte:sat',
+        'sat' => 'required',
+        'sob' => 'required',
         'resultado' => 'required',
     ];
 
@@ -48,12 +48,15 @@ class NuevoAnalisis extends Component
 
         $this->elaborado = Auth::user()->name;
 
+        $this->frecuenciaEnDias = $this->indicadorable->indicador->medicion->tiempo_meses * 30;
         $this->fechasPorDefecto($this->indicadorable->indicador->medicion->nombre);
     }
 
     public function render()
     {
-        $this->obtenerResultados();
+        if ($this->open) {
+            $this->obtenerResultados();
+        }
 
         return view('livewire.indicador.nuevo-analisis');
     }
@@ -105,19 +108,19 @@ class NuevoAnalisis extends Component
     public function comprobarFechas()
     {
         $this->diffInDays = Carbon::parse($this->fin)->diffInDays($this->inicio);
-        $frecuenciaEnDias = $this->indicadorable->indicador->medicion->tiempo_meses * 30;
 
-        if ($frecuenciaEnDias === 180) { //Semestral
+        if ($this->frecuenciaEnDias === 180) { //Semestral
             $this->diffIsOk = !($this->diffInDays > 184 || $this->diffInDays < 150);
-        } elseif ($frecuenciaEnDias === 30) { //Mensual
+        } elseif ($this->frecuenciaEnDias === 30) { //Mensual
             $this->diffIsOk = !($this->diffInDays > 31 || $this->diffInDays < 20);
-        } elseif ($frecuenciaEnDias === 360) { //Anual
+        } elseif ($this->frecuenciaEnDias === 360) { //Anual
             $this->diffIsOk = !($this->diffInDays > 366 || $this->diffInDays < 330);
         }
     }
 
     public function guardarAnalisis()
     {
+        $this->emit('guardado', "Evento click " . $this->inicio . " y " . $this->fin);
         $this->validate();
         AnalisisIndicador::create([
             'fecha_medicion_inicio' => $this->inicio,
@@ -176,6 +179,19 @@ class NuevoAnalisis extends Component
             $res = Medicion::ind46($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
         } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-047") {
             $res = Medicion::ind47($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
+        } // Biblioteca: 09 - 015
+        elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-009") {
+            $res = Medicion::ind09($this->entidad->id, $this->inicio, $this->fin);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-010") {
+            $res = Medicion::ind10($this->entidad->id, $this->inicio, $this->fin);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-011") {
+            $res = Medicion::ind11($this->entidad->id, $this->inicio, $this->fin);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-012") {
+            $res = Medicion::ind12($this->entidad->id, $this->inicio, $this->fin);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-013") {
+            $res = Medicion::ind13($this->entidad->id, $this->inicio, $this->fin);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-014") {
+            $res = Medicion::ind14($this->entidad->id, $this->inicio, $this->fin);
         }
 
         if (isset($res)) {

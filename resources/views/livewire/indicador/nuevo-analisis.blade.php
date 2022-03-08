@@ -2,7 +2,10 @@
     {{--    @if($indicador)--}}
     <x-jet-dialog-modal wire:model="open" maxWidth="4xl">
         <x-slot name="title">
-            <div class="flex justify-end w-full">
+            <div class="flex justify-between w-full py-2">
+                <p class="font-bold text-gray-800 text-sm">
+                    [{{ $indicadorable->indicador->cod_ind_inicial }}] {{ $indicadorable->indicador->objetivo }}
+                </p>
                 <x-utils.buttons.close-button wire:click="$set('open', false)"/>
             </div>
         </x-slot>
@@ -18,18 +21,20 @@
                         Medición&nbsp;<span class="font-bold">{{ $indicadorable->indicador->medicion->nombre }}</span>
                     </div>
 
-                    <div class="flex items-center space-x-2 text-gray-600 text-sm">
-                        <label class="whitespace-nowrap border border-gray-300 px-2 py-1 rounded-lg">
-                            Inicio
-                            <input wire:model="inicio" type="date" class="border-none p-0 w-32 focus:ring-0 text-sm">
-                        </label>
+                    <div class="flex flex-col items-center">
+                        <div class="flex items-center space-x-2 text-gray-600 text-sm">
+                            <label class="whitespace-nowrap border border-gray-300 px-2 py-1 rounded-lg">
+                                Inicio
+                                <input wire:model="inicio" type="date"
+                                       class="border-none p-0 w-32 focus:ring-0 text-sm">
+                            </label>
 
-                        <label class="whitespace-nowrap border border-gray-300 px-2 py-1 rounded-lg">
-                            Fin
-                            <input wire:model="fin" type="date" class="border-none p-0 w-32 focus:ring-0 text-sm">
-                        </label>
-
-                        <p class="text-xs {{ $diffIsOk ? 'text-gray-500' : 'text-red-600 '}}">
+                            <label class="whitespace-nowrap border border-gray-300 px-2 py-1 rounded-lg">
+                                Fin
+                                <input wire:model="fin" type="date" class="border-none p-0 w-32 focus:ring-0 text-sm">
+                            </label>
+                        </div>
+                        <p class="text-sm {{ $diffIsOk ? 'text-green-500' : 'text-rose-600 '}}">
                             (Hay&nbsp;{{ $diffInDays }}&nbsp;dias entre estas estas fechas)
                         </p>
                     </div>
@@ -76,19 +81,19 @@
                             <x-jet-label for="minimo" value="Mínimo"/>
                             <x-jet-input id="minimo" wire:model.debounce.500ms="min" type="number"
                                          class="mt-1 w-full" autocomplete="off"/>
-                            <x-jet-input-error for="minimo"/>
+                            <x-jet-input-error for="min"/>
                         </div>
                         <div class="w-full">
                             <x-jet-label for="satisfactorio" value="Satisfactorio"/>
                             <x-jet-input id="satisfactorio" wire:model.debounce.500ms="sat" type="number"
                                          class="mt-1 w-full" autocomplete="off"/>
-                            <x-jet-input-error for="satisfactorio"/>
+                            <x-jet-input-error for="sat"/>
                         </div>
                         <div class="w-full">
                             <x-jet-label for="sobresaliente" value="Sobresaliente"/>
                             <x-jet-input id="sobresaliente" wire:model.debounce.500ms="sob" type="number"
                                          class="mt-1 w-full" autocomplete="off"/>
-                            <x-jet-input-error for="sobresaliente"/>
+                            <x-jet-input-error for="sob"/>
                         </div>
 
                         <div class="col-span-3 flex justify-between items-center text-gray-600 mt-2">
@@ -167,20 +172,14 @@
         </x-slot>
 
         <x-slot name="footer">
-            @if($diffIsOk)
-                <x-jet-button
-                    wire:click="guardarAnalisis"
-                    wire:target="guardarAnalisis"
-                    wire:loading.class="cursor-wait"
-                    wire:loading.attr="disabled">
-                    <x-icons.load wire:loading wire:target="guardarAnalisis" class="h-5 w-5"/>
-                    Guardar
-                </x-jet-button>
-            @else
-                <x-jet-button disabled>
-                    Guardar
-                </x-jet-button>
-            @endif
+            <x-jet-button
+                wire:click="guardarAnalisis"
+                wire:target="guardarAnalisis"
+                wire:loading.class="cursor-wait"
+                wire:loading.attr="disabled">
+                <x-icons.load wire:loading wire:target="guardarAnalisis" class="h-5 w-5"/>
+                Guardar
+            </x-jet-button>
         </x-slot>
     </x-jet-dialog-modal>
     {{--    @endif--}}
