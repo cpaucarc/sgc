@@ -14,7 +14,7 @@ class RegistrarMaterialBibliografico extends Component
 {
 
     public $inicio, $fin;
-    public $adquirido, $prestado, $perdido, $actualizado, $restaurado, $total;
+    public $adquirido, $prestado, $perdido, $restaurado, $total;
     public $semestre = 0, $semestres = null;
     public $ultimo_registro = null;
     public $facultad = 0, $facultades = null;
@@ -25,7 +25,6 @@ class RegistrarMaterialBibliografico extends Component
         'adquirido' => 'required|integer',
         'prestado' => 'required|integer',
         'perdido' => 'required|integer',
-        'actualizado' => 'required|integer',
         'restaurado' => 'required|integer',
         'total' => 'required|integer',
         'facultad' => 'required|gt:0',
@@ -87,7 +86,6 @@ class RegistrarMaterialBibliografico extends Component
             'adquirido' => $this->adquirido,
             'prestado' => $this->prestado,
             'perdido' => $this->perdido,
-            'actualizados' => $this->actualizado,
             'restaurados' => $this->restaurado,
             'total_libros' => $this->total,
             'semestre_id' => $this->semestre,
