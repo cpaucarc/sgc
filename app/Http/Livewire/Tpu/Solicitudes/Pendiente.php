@@ -27,7 +27,7 @@ class Pendiente extends Component
     public function obtenerPendientes()
     {
         $this->solicitudes = Solicitud::query()
-            ->where('tipo_solicitud_id',3)// 3 : Titulo profesional
+            ->where('tipo_solicitud_id', 3)// 3 : Titulo profesional
             ->withCount('documentos')
             ->having('documentos_count', '>', 0)
             ->get();
@@ -89,7 +89,9 @@ class Pendiente extends Component
                 if (!$gradoestudiante->count()) {
                     GradoEstudiante::create([
                         'codigo_estudiante' => $this->solicitanteCodigo,
-                        'grado_academico_id' => 4 // 4 : Titulado
+                        'grado_academico_id' => 4, // 4 : Titulado
+                        'created_at' => now(),
+                        'updated_at' => now()
                     ]);
                     $this->emit('guardado', 'El estudiante fue ascendido de grado al cumplir todos sus requisitos.');
                 }

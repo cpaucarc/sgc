@@ -19,7 +19,6 @@ return new class extends Migration {
             $table->integer('adquirido')->default(0);
             $table->integer('prestado')->default(0);
             $table->integer('perdido')->default(0);
-            $table->integer('actualizados')->default(0);
             $table->integer('restaurados')->default(0);
             $table->integer('total_libros')->default(0);
             $table->foreignId('semestre_id')->constrained('semestres')

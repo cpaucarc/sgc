@@ -35,7 +35,6 @@
                     <x-utils.tables.head>Adquirido</x-utils.tables.head>
                     <x-utils.tables.head>Prestado</x-utils.tables.head>
                     <x-utils.tables.head>Perdido</x-utils.tables.head>
-                    <x-utils.tables.head>Actualizado</x-utils.tables.head>
                     <x-utils.tables.head>Restaurado</x-utils.tables.head>
                     <x-utils.tables.head>Total Libros</x-utils.tables.head>
                     <x-utils.tables.head>Semestre</x-utils.tables.head>
@@ -49,7 +48,6 @@
                             <x-utils.tables.body>{{ $material->adquirido }}</x-utils.tables.body>
                             <x-utils.tables.body>{{ $material->prestado }}</x-utils.tables.body>
                             <x-utils.tables.body>{{ $material->perdido }}</x-utils.tables.body>
-                            <x-utils.tables.body>{{ $material->actualizados }}</x-utils.tables.body>
                             <x-utils.tables.body>{{ $material->restaurados }}</x-utils.tables.body>
                             <x-utils.tables.body>{{ $material->total_libros }}</x-utils.tables.body>
                             <x-utils.tables.body>{{ $material->semestre->nombre }}</x-utils.tables.body>

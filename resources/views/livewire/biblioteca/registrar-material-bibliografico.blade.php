@@ -96,15 +96,6 @@
         </div>
 
         <div class="pt-4 grid grid-cols-3 items-center">
-            <x-jet-label for="actualizado" value="MB Actualizados"/>
-            <div class="col-span-2">
-                <x-jet-input id="actualizado" type="number" class="mt-1 block w-full"
-                             wire:model.defer="actualizado" autocomplete="off" autofocus/>
-                <x-jet-input-error for="actualizado"/>
-            </div>
-        </div>
-
-        <div class="pt-4 grid grid-cols-3 items-center">
             <x-jet-label for="restaurado" value="MB Restaurados"/>
             <div class="col-span-2">
                 <x-jet-input id="restaurado" type="number" class="mt-1 block w-full"

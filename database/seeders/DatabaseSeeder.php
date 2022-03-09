@@ -54,8 +54,8 @@ class DatabaseSeeder extends Seeder
         $this->call(SalidaSeeder::class);
 
         //Solicitudes
-        \App\Models\GradoEstudiante::factory(25)->create();
-        \App\Models\Solicitud::factory(5)->create();
+        \App\Models\GradoEstudiante::factory(350)->create();
+        \App\Models\Solicitud::factory(300)->create();
 
         // Nivel 2
 //        $this->call(ConvalidacionSeeder::class);

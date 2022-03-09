@@ -10,6 +10,6 @@ class GradoEstudiante extends Model
     use HasFactory;
 
     protected $table = "grado_estudiante";
-    public $timestamps = false;
-    public $fillable = ['codigo_estudiante', 'grado_academico_id'];
+//    public $timestamps = false;
+    public $fillable = ['codigo_estudiante', 'grado_academico_id', 'escuela_id'];
 }
