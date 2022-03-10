@@ -34,7 +34,7 @@ class ListaActividadResponsable extends Component
                     });
             })
             ->orderBy('nombre')->get();
-        $this->proceso_seleccionado = $this->procesos->first()->id;
+        $this->proceso_seleccionado = count($this->procesos) ? $this->procesos->first()->id : 0;
     }
 
     public function render()
