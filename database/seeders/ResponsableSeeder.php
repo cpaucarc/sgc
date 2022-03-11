@@ -218,6 +218,132 @@ class ResponsableSeeder extends Seeder
                 'actividad_id' => 27,
                 'entidad_id' => 9
             ], //id:50
+
+            //Plan de estudios
+            [
+                'actividad_id' => 28,
+                'entidad_id' => 1
+            ], //id:51
+            [
+                'actividad_id' => 28,
+                'entidad_id' => 2
+            ], //id:52
+            [
+                'actividad_id' => 29,
+                'entidad_id' => 19
+            ], //id:53
+            [
+                'actividad_id' => 30,
+                'entidad_id' => 30
+            ], //id:54
+            [
+                'actividad_id' => 31,
+                'entidad_id' => 19
+            ], //id:55
+            [
+                'actividad_id' => 32,
+                'entidad_id' => 30
+            ], //id:56
+            [
+                'actividad_id' => 33,
+                'entidad_id' => 1
+            ], //id:57
+            [
+                'actividad_id' => 33,
+                'entidad_id' => 2
+            ], //id:58
+            [
+                'actividad_id' => 34,
+                'entidad_id' => 30
+            ], //id:59
+            [
+                'actividad_id' => 35,
+                'entidad_id' => 31
+            ], //id:60
+            [
+                'actividad_id' => 36,
+                'entidad_id' => 19
+            ], //id:61
+            [
+                'actividad_id' => 37,
+                'entidad_id' => 31
+            ], //id:62
+            [
+                'actividad_id' => 38,
+                'entidad_id' => 15
+            ], //id:63
+            [
+                'actividad_id' => 39,
+                'entidad_id' => 19
+            ], //id:64
+            [
+                'actividad_id' => 39,
+                'entidad_id' => 29
+            ], //id:65
+            [
+                'actividad_id' => 40,
+                'entidad_id' => 1
+            ], //id:66
+            [
+                'actividad_id' => 40,
+                'entidad_id' => 2
+            ], //id:67
+            [
+                'actividad_id' => 41,
+                'entidad_id' => 1
+            ], //id:68
+            [
+                'actividad_id' => 41,
+                'entidad_id' => 2
+            ], //id:69
+            [
+                'actividad_id' => 42,
+                'entidad_id' => 1
+            ], //id:70
+            [
+                'actividad_id' => 42,
+                'entidad_id' => 2
+            ], //id:71
+            [
+                'actividad_id' => 43,
+                'entidad_id' => 1
+            ], //id:72
+            [
+                'actividad_id' => 43,
+                'entidad_id' => 2
+            ], //id:73
+            [
+                'actividad_id' => 44,
+                'entidad_id' => 1
+            ], //id:74
+            [
+                'actividad_id' => 44,
+                'entidad_id' => 2
+            ], //id:75
+            [
+                'actividad_id' => 45,
+                'entidad_id' => 1
+            ], //id:76
+            [
+                'actividad_id' => 45,
+                'entidad_id' => 2
+            ], //id:77
+            [
+                'actividad_id' => 46,
+                'entidad_id' => 1
+            ], //id:78
+            [
+                'actividad_id' => 46,
+                'entidad_id' => 2
+            ], //id:79
+            [
+                'actividad_id' => 47,
+                'entidad_id' => 1
+            ], //id:80
+            [
+                'actividad_id' => 47,
+                'entidad_id' => 2
+            ], //id:81
         ];
 
         \App\Models\Responsable::insert($responsables);

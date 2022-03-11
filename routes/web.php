@@ -9,6 +9,7 @@ use App\Http\Controllers\BibliotecaController;
 use App\Http\Controllers\EncuestaController;
 use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\InvestigacionController;
+use App\Http\Controllers\PlanEstudiosController;
 use App\Http\Controllers\ResponsabilidadSocialController;
 use App\Http\Controllers\TituloProfesionalController;
 use Illuminate\Support\Facades\Route;

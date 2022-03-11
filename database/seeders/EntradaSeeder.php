@@ -249,6 +249,139 @@ class EntradaSeeder extends Seeder
                 'nombre' => 'Integrantes del Comité de Calidad',
                 'proceso_id' => 11
             ], //id: 46
+
+            // Plan de estudios
+            [
+                'codigo' => 'E24',
+                'nombre' => 'Directiva de diseño del Plan de estudios',
+                'proceso_id' => 10
+            ], //id: 47
+            [
+                'codigo' => 'E25',
+                'nombre' => 'Propuesta de Comisión de Diseño del Plan de Estudios',
+                'proceso_id' => 10
+            ], //id: 48
+            [
+                'codigo' => 'E26',
+                'nombre' => 'Informe de Gestión del Plan de Estudios del periodo anterior',
+                'proceso_id' => 10
+            ], //id: 49
+            [
+                'codigo' => 'E27',
+                'nombre' => 'Modelo de acreditación de SINEACE',
+                'proceso_id' => 10
+            ], //id: 50
+            [
+                'codigo' => 'E28',
+                'nombre' => 'Propuesta de Plan de Diseño del Plan de Estudios',
+                'proceso_id' => 10
+            ], //id: 51
+            [
+                'codigo' => 'E29',
+                'nombre' => 'Plan de Diseño del Plan de Estudios aprobado',
+                'proceso_id' => 10
+            ], //id: 52
+            [
+                'codigo' => 'E30',
+                'nombre' => 'Directiva de actualización del Plan de estudios',
+                'proceso_id' => 10
+            ], //id: 53
+            [
+                'codigo' => 'E31',
+                'nombre' => 'Propuesta de Comisión de Evaluación y Actualización del Plan de Estudios',
+                'proceso_id' => 10
+            ], //id: 54
+            [
+                'codigo' => 'E32',
+                'nombre' => ' Informe de diseño del plan de estudios',
+                'proceso_id' => 10
+            ], //id: 55
+            [
+                'codigo' => 'E33',
+                'nombre' => 'Modelo de acreditación de SINEACE',
+                'proceso_id' => 10
+            ], //id: 56
+            [
+                'codigo' => 'E34',
+                'nombre' => 'Propuesta de Plan de Evaluación y Actualización del Plan de Estudios',
+                'proceso_id' => 10
+            ], //id: 57
+            [
+                'codigo' => 'E35',
+                'nombre' => 'Plan de Evaluación y Actualización del Plan de Estudios',
+                'proceso_id' => 10
+            ], //id: 58
+            [
+                'codigo' => 'E36',
+                'nombre' => 'Propuesta de Plan de Estudios actualizado',
+                'proceso_id' => 10
+            ], //id: 59
+            [
+                'codigo' => 'E37',
+                'nombre' => 'Informe de revisión de Propuesta de Plan de Estudios actualizado',
+                'proceso_id' => 10
+            ], //id: 60
+            [
+                'codigo' => 'E38',
+                'nombre' => 'Plan de Estudios actualizado',
+                'proceso_id' => 10
+            ], //id: 61
+            [
+                'codigo' => 'E39',
+                'nombre' => 'Plan de implementación del PE actualizado aprobado',
+                'proceso_id' => 10
+            ], //id: 62
+            [
+                'codigo' => 'E40',
+                'nombre' => 'Informe de implementación del Plan de Estudios actualizado',
+                'proceso_id' => 10
+            ], //id: 63
+            [
+                'codigo' => 'E41',
+                'nombre' => 'Informe de seguimiento de la implementación del Plan de estudios actualizado',
+                'proceso_id' => 10
+            ], //id: 64
+            [
+                'codigo' => 'E42',
+                'nombre' => 'Acciones de mejora',
+                'proceso_id' => 10
+            ], //id: 65
+            [
+                'codigo' => 'E43',
+                'nombre' => 'Procedimiento medir',
+                'proceso_id' => 10
+            ], //id: 66
+            [
+                'codigo' => 'E44',
+                'nombre' => 'Procedimiento analizar',
+                'proceso_id' => 10
+            ], //id: 67
+            [
+                'codigo' => 'E45',
+                'nombre' => 'Informe de evaluación del proceso de Gestión del Plan de Estudios',
+                'proceso_id' => 10
+            ], //id: 68
+            [
+                'codigo' => 'E46',
+                'nombre' => 'Procedimiento mejorar',
+                'proceso_id' => 10
+            ], //id: 69
+            [
+                'codigo' => 'E47',
+                'nombre' => 'Formato plan de mejora',
+                'proceso_id' => 10
+            ], //id: 70
+            [
+                'codigo' => 'E48',
+                'nombre' => 'Acciones y/o Plan de mejora',
+                'proceso_id' => 10
+            ], //id: 71
+            [
+                'codigo' => 'E49',
+                'nombre' => 'Procedimiento comunicar a interesados',
+                'proceso_id' => 10
+            ], //id: 72
+
         ];
 
         \App\Models\Entrada::insert($entradas);

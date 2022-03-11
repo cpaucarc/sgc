@@ -126,7 +126,19 @@ class EntidadSeeder extends Seeder
             [
                 'nombre' => 'SINEACE',
                 'oficina_id' => 21
-            ] //id:28
+            ], //id:28
+            [
+                'nombre' => 'Consejo Universitario',
+                'oficina_id' => 22
+            ], //id:29
+            [
+                'nombre' => 'Comisión de Diseño del Plan de Estudios',
+                'oficina_id' => 23
+            ], //id:30
+            [
+                'nombre' => 'Comisión de Evaluación y Actualización del Plan de estudios',
+                'oficina_id' => 23
+            ], //id:31
         ];
 
         \App\Models\Entidad::insert($entidades);

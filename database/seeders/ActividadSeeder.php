@@ -153,6 +153,108 @@ class ActividadSeeder extends Seeder
                 'tipo_actividad_id' => 4, // 1:P 2:H 3:V 4:A
                 'proceso_id' => 11,
             ], //id:27
+
+            // Plan de estudios
+            [
+                'nombre' => 'Conformar Comisión de Diseño del Plan de Estudios',
+                'tipo_actividad_id' => 1, // 1:P 2:H 3:V 4:A
+                'proceso_id' => 10,
+            ], //id:28
+            [
+                'nombre' => 'Aprobar Comisión de Diseño del Plan de Estudios',
+                'tipo_actividad_id' => 1, // 1:P 2:H 3:V 4:A
+                'proceso_id' => 10,
+            ], //id:29
+            [
+                'nombre' => 'Elaborar Plan de Diseño del Plan de Estudios',
+                'tipo_actividad_id' => 1, // 1:P 2:H 3:V 4:A
+                'proceso_id' => 10,
+            ], //id:30
+            [
+                'nombre' => 'Aprobar Plan de Diseño del Plan de Estudios',
+                'tipo_actividad_id' => 1, // 1:P 2:H 3:V 4:A
+                'proceso_id' => 10,
+            ], //id:31
+            [
+                'nombre' => 'Ejecutar el Plan de Diseño del Plan de Estudios',
+                'tipo_actividad_id' => 2, // 1:P 2:H 3:V 4:A
+                'proceso_id' => 10,
+            ], //id:32
+            [
+                'nombre' => 'Conformar Comisión de Evaluación y Actualización del Plan de Estudios',
+                'tipo_actividad_id' => 1, // 1:P 2:H 3:V 4:A
+                'proceso_id' => 10,
+            ], //id:33
+            [
+                'nombre' => 'Aprobar Comisión de Evaluación y Actualización del Plan de Estudios',
+                'tipo_actividad_id' => 1, // 1:P 2:H 3:V 4:A
+                'proceso_id' => 10,
+            ], //id:34
+            [
+                'nombre' => 'Elaborar Plan de Evaluación y Actualización del Plan de Estudios',
+                'tipo_actividad_id' => 1, // 1:P 2:H 3:V 4:A
+                'proceso_id' => 10,
+            ], //id:35
+            [
+                'nombre' => 'Aprobar Plan de Evaluación y Actualización del Plan de Estudios',
+                'tipo_actividad_id' => 1, // 1:P 2:H 3:V 4:A
+                'proceso_id' => 10,
+            ], //id:36
+            [
+                'nombre' => 'Ejecutar el Plan de Evaluación y Actualización del Plan de Estudios',
+                'tipo_actividad_id' => 2, // 1:P 2:H 3:V 4:A
+                'proceso_id' => 10,
+            ], //id:37
+            [
+                'nombre' => 'Revisión de la propuesta del Plan de Estudios actualizado',
+                'tipo_actividad_id' => 2, // 1:P 2:H 3:V 4:A
+                'proceso_id' => 10,
+            ], //id:38
+            [
+                'nombre' => 'Aprobación de la propuesta Plan de Estudios actualizado',
+                'tipo_actividad_id' => 2, // 1:P 2:H 3:V 4:A
+                'proceso_id' => 10,
+            ], //id:39
+            [
+                'nombre' => 'Elaboración de plan de implementación de Plan de Estudios actualizado',
+                'tipo_actividad_id' => 1, // 1:P 2:H 3:V 4:A
+                'proceso_id' => 10,
+            ], //id:40
+            [
+                'nombre' => 'Implementar el Plan de Estudios actualizado en la Escuela',
+                'tipo_actividad_id' => 2, // 1:P 2:H 3:V 4:A
+                'proceso_id' => 10,
+            ], //id:41
+            [
+                'nombre' => 'Evaluar la implementación del Plan de Estudios actualizado',
+                'tipo_actividad_id' => 3, // 1:P 2:H 3:V 4:A
+                'proceso_id' => 10,
+            ], //id:42
+            [
+                'nombre' => 'Mejorar la implementación del Plan de Estudios',
+                'tipo_actividad_id' => 3, // 1:P 2:H 3:V 4:A
+                'proceso_id' => 10,
+            ], //id:43
+            [
+                'nombre' => 'Comunicar de resultados de implementación de estudios',
+                'tipo_actividad_id' => 2, // 1:P 2:H 3:V 4:A
+                'proceso_id' => 10,
+            ], //id:44
+            [
+                'nombre' => 'Evaluar proceso de Gestión del Plan de Estudios',
+                'tipo_actividad_id' => 3, // 1:P 2:H 3:V 4:A
+                'proceso_id' => 10,
+            ], //id:45
+            [
+                'nombre' => 'Mejorar proceso de Gestión del Plan de Estudios',
+                'tipo_actividad_id' => 4, // 1:P 2:H 3:V 4:A
+                'proceso_id' => 10,
+            ], //id:46
+            [
+                'nombre' => 'Comunicar a los interesados',
+                'tipo_actividad_id' => 2, // 1:P 2:H 3:V 4:A
+                'proceso_id' => 10,
+            ], //id:47
         ];
 
         \App\Models\Actividad::insert($actividades);

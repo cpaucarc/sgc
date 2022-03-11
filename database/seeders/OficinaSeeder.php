@@ -36,6 +36,8 @@ class OficinaSeeder extends Seeder
             ['nombre' => 'Dirección General de Administración',], //id:19
             ['nombre' => 'Dirección de Abastecimiento y Servicios Auxiliares',], //id:20
             ['nombre' => 'Entidad Evaluadora Externa',], //id:21
+            ['nombre' => 'Consejo Universitario',], //id:22
+            ['nombre' => 'Plan de Estudios',], //id:23
         ];
 
         \App\Models\Oficina::insert($oficinas);
