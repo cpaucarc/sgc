@@ -202,6 +202,20 @@ class NuevoAnalisis extends Component
             $res = Medicion::ind60($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
         } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-061") {
             $res = Medicion::ind61($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
+        } // Gestion de Calidad
+        elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-001") {
+            $res = Medicion::ind01($this->entidad->id, $this->inicio, $this->fin);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-068") {
+            $res = Medicion::ind68($this->entidad->id, $this->inicio, $this->fin);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-070") {
+            $res = Medicion::ind70($this->entidad->id, $this->inicio, $this->fin);
+        } // Convalidaciones
+        elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-024") {
+            $res = Medicion::ind24($this->entidad->id, $this->inicio, $this->fin);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-025") {
+            $res = Medicion::ind25($this->entidad->id, $this->inicio, $this->fin);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-026") {
+            $res = Medicion::ind26($this->entidad->id, $this->inicio, $this->fin);
         }
 
         if (isset($res)) {

@@ -178,6 +178,42 @@ class Medicion extends Model
         return $resultados;
     }
 
+    public static function ind24($escuela_id, $fecha_inicio, $fecha_fin)
+    {
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $cantidad = Convalidacion::query()->where('escuela_id', $escuela_id)
+            ->whereBetween('created_at', [$fecha_inicio, $fecha_fin])
+            ->sum('convalidados');
+
+        $resultados['resultado'] = $cantidad ?? 0;
+        return $resultados;
+    }
+
+    public static function ind25($escuela_id, $fecha_inicio, $fecha_fin)
+    {
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $cantidad = Convalidacion::query()->where('escuela_id', $escuela_id)
+            ->whereBetween('created_at', [$fecha_inicio, $fecha_fin])
+            ->sum('vacantes');
+
+        $resultados['resultado'] = $cantidad ?? 0;
+        return $resultados;
+    }
+
+    public static function ind26($escuela_id, $fecha_inicio, $fecha_fin)
+    {
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $cantidad = Convalidacion::query()->where('escuela_id', $escuela_id)
+            ->whereBetween('created_at', [$fecha_inicio, $fecha_fin])
+            ->sum('postulantes');
+
+        $resultados['resultado'] = $cantidad ?? 0;
+        return $resultados;
+    }
+
     public static function ind44($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)
     {
         $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
@@ -520,6 +556,101 @@ class Medicion extends Model
                     ->where('estado_id', 10)
                     ->whereBetween('fecha_sustentacion', [$fecha_inicio, $fecha_fin]);
             })->count();
+
+        $resultados['resultado'] = $resultados['interes'] == 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
+        return $resultados;
+    }
+
+    public static function ind01($facultad_id, $fecha_inicio, $fecha_fin)
+    {
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $callback = function ($query) use ($facultad_id) {
+            $query->select('id')->from('responsables')
+                ->whereIn('actividad_id', function ($query) {
+                    $query->select('id')->from('actividades')->whereIn('tipo_actividad_id', [1, 2]);
+                })
+                ->whereIn('entidad_id', function ($query2) use ($facultad_id) {
+                    $query2->select('entidad_id')->from('entidadables')
+                        ->where(function ($query2) use ($facultad_id) {
+                            $query2->where('entidadable_type', "App\\Models\\Facultad")->where('entidadable_id', $facultad_id);
+                        })
+                        ->orWhere(function ($query3) use ($facultad_id) {
+                            $query3->where('entidadable_type', "App\\Models\\Escuela")
+                                ->whereIn('entidadable_id', function ($q3) use ($facultad_id) {
+                                    $q3->select('id')->from('escuelas')->where('facultad_id', $facultad_id);
+                                });
+                        });
+                });
+        };
+
+        $q = ActividadCompletado::query()->whereBetween('created_at', [$fecha_inicio, $fecha_fin]);
+
+        $resultados['total'] = Responsable::query()->whereIn('id', $callback)->count();
+
+        $resultados['interes'] = $q->whereIn('responsable_id', $callback)->count();
+
+        $resultados['resultado'] = $resultados['interes'] == 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
+        return $resultados;
+    }
+
+    public static function ind68($facultad_id, $fecha_inicio, $fecha_fin)
+    {
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $q = AnalisisIndicador::query()
+            ->where('cod_ind_final', 'not like', '%68%')
+            ->whereDate('fecha_medicion_inicio', '>=', $fecha_inicio)
+            ->whereDate('fecha_medicion_fin', '<=', $fecha_fin)
+            ->whereIn('indicadorable_id', function ($query) use ($facultad_id) {
+                $query->select('id')->from('indicadorables')
+                    ->where(function ($query2) use ($facultad_id) {
+                        $query2->where('indicadorable_type', "App\\Models\\Facultad")->where('indicadorable_id', $facultad_id);
+                    })
+                    ->orWhere(function ($query3) use ($facultad_id) {
+                        $query3->where('indicadorable_type', "App\\Models\\Escuela")
+                            ->whereIn('indicadorable_id', function ($q3) use ($facultad_id) {
+                                $q3->select('id')->from('escuelas')->where('facultad_id', $facultad_id);
+                            });
+                    });
+            });
+
+        $resultados['total'] = $q->count();
+
+        $resultados['interes'] = $q->whereColumn('resultado', '<=', 'minimo')->count();
+
+        $resultados['resultado'] = $resultados['interes'] == 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
+        return $resultados;
+    }
+
+    public static function ind70($facultad_id, $fecha_inicio, $fecha_fin)
+    {
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $callback = function ($query) use ($facultad_id) {
+            $query->select('id')->from('responsables')
+                ->whereIn('actividad_id', function ($query) {
+                    $query->select('id')->from('actividades')->whereIn('tipo_actividad_id', [4]);
+                })
+                ->whereIn('entidad_id', function ($query2) use ($facultad_id) {
+                    $query2->select('entidad_id')->from('entidadables')
+                        ->where(function ($query2) use ($facultad_id) {
+                            $query2->where('entidadable_type', "App\\Models\\Facultad")->where('entidadable_id', $facultad_id);
+                        })
+                        ->orWhere(function ($query3) use ($facultad_id) {
+                            $query3->where('entidadable_type', "App\\Models\\Escuela")
+                                ->whereIn('entidadable_id', function ($q3) use ($facultad_id) {
+                                    $q3->select('id')->from('escuelas')->where('facultad_id', $facultad_id);
+                                });
+                        });
+                });
+        };
+
+        $q = ActividadCompletado::query()->whereBetween('created_at', [$fecha_inicio, $fecha_fin]);
+
+        $resultados['total'] = Responsable::query()->whereIn('id', $callback)->count();
+
+        $resultados['interes'] = $q->whereIn('responsable_id', $callback)->count();
 
         $resultados['resultado'] = $resultados['interes'] == 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
         return $resultados;

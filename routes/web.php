@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuditoriaController;
 use App\Http\Controllers\BachillerController;
 use App\Http\Controllers\ConvalidacionController;
 use App\Http\Controllers\BibliotecaController;
@@ -86,7 +87,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::prefix('convalidacion')->controller(ConvalidacionController::class)->group(function () {
         Route::get('/', 'index')->name('convalidacion.index');
     });
-  
+
     Route::prefix('biblioteca')->controller(BibliotecaController::class)->group(function () {
         Route::get('/', 'index')->name('biblioteca.index');
         Route::get('registrar/material', 'registrarMaterial')->name('biblioteca.registrar.material');
@@ -97,6 +98,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/', 'index')->name('indicador.index');
         Route::get('proceso/{proceso_id}/{tipo}/{uuid}', 'proceso')->name('indicador.proceso'); //proceso:id | tipo:1-escuela,2-facultad | uuid:escuela,facultad
         Route::get('ver/{indicador_id}/{tipo}/{uuid}', 'indicador')->name('indicador.indicador'); //proceso:id | tipo:1-escuela,2-facultad | uuid:escuela,facultad
+    });
+
+    Route::prefix('auditoria')->controller(AuditoriaController::class)->group(function () {
+        Route::get('/', 'index')->name('auditoria.index');
+        Route::get('crear', 'create')->name('auditoria.create');
     });
 });
 

@@ -20,9 +20,9 @@ class CrearConvalidacion extends Component
     public $convalidados = null;
 
     protected $rules = [
-        'vacantes' => 'required',
-        'postulantes' => 'required',
-        'convalidados' => 'required',
+        'vacantes' => 'required|gte:0',
+        'postulantes' => 'required|gte:0',
+        'convalidados' => 'required|gte:0',
     ];
 
     public function mount()

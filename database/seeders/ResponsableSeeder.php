@@ -120,7 +120,8 @@ class ResponsableSeeder extends Seeder
                 'actividad_id' => 11,
                 'entidad_id' => 2
             ], //id:26
-            //Gestion Calidad
+
+            //Todo Gestion Calidad
             [
                 'actividad_id' => 12,
                 'entidad_id' => 1

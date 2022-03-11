@@ -32,19 +32,19 @@
             <div class="grid grid-cols-3 gap-x-6">
                 <div class="w-full">
                     <x-jet-label for="vacantes" value="Vacantes"/>
-                    <x-jet-input id="vacantes" wire:model.debounce.500ms="vacantes" type="number"
+                    <x-jet-input id="vacantes" min="0" wire:model.debounce.500ms="vacantes" type="number"
                                  class="mt-1 w-full" autocomplete="off" autofocus/>
                     <x-jet-input-error for="vacantes"/>
                 </div>
                 <div class="w-full">
                     <x-jet-label for="postulantes" value="Postulantes"/>
-                    <x-jet-input id="postulantes" wire:model.debounce.500ms="postulantes" type="number"
+                    <x-jet-input id="postulantes" min="0" wire:model.debounce.500ms="postulantes" type="number"
                                  class="mt-1 w-full" autocomplete="off"/>
                     <x-jet-input-error for="postulantes"/>
                 </div>
                 <div class="w-full">
                     <x-jet-label for="convalidados" value="Convalidados"/>
-                    <x-jet-input id="convalidados" wire:model.debounce.500ms="convalidados" type="number"
+                    <x-jet-input id="convalidados" min="0" wire:model.debounce.500ms="convalidados" type="number"
                                  class="mt-1 w-full" autocomplete="off"/>
                     <x-jet-input-error for="convalidados"/>
                 </div>

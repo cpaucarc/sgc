@@ -45,6 +45,12 @@
                                         :active="request()->routeIs('biblioteca.*')">
                             {{ __('Biblioteca') }}
                         </x-jet-nav-link>
+                        @if(\Illuminate\Support\Facades\Auth::user()->hasAnyRole(['Decanatura']))
+                            <x-jet-nav-link href="{{ route('auditoria.index') }}"
+                                            :active="request()->routeIs('auditoria.*')">
+                                {{ __('Auditoria') }}
+                            </x-jet-nav-link>
+                        @endif
                         @if(\Illuminate\Support\Facades\Auth::user()->hasAnyRole(['Dirección de Escuela', 'Departamento Academico', 'Decanatura']))
                             <x-jet-nav-link href="{{ route('indicador.index') }}"
                                             :active="request()->routeIs('indicador.*')">
