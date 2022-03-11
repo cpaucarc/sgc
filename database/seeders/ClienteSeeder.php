@@ -1401,6 +1401,638 @@ class ClienteSeeder extends Seeder
                 'salida_id' => 37,
                 'entidad_id' => 22,
             ],
+            //Todo Plan de Estudios
+            [
+                'responsable_id' => 51,
+                'salida_id' => 39,
+                'entidad_id' => 19,
+            ],
+            [
+                'responsable_id' => 52,
+                'salida_id' => 39,
+                'entidad_id' => 19,
+            ],
+            [
+                'responsable_id' => 53,
+                'salida_id' => 40,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 53,
+                'salida_id' => 40,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 53,
+                'salida_id' => 40,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 53,
+                'salida_id' => 40,
+                'entidad_id' => 3,
+            ],
+            [
+                'responsable_id' => 54,
+                'salida_id' => 41,
+                'entidad_id' => 19,
+            ],
+            [
+                'responsable_id' => 55,
+                'salida_id' => 42,
+                'entidad_id' => 30,
+            ],
+            [
+                'responsable_id' => 56,
+                'salida_id' => 43,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 56,
+                'salida_id' => 43,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 56,
+                'salida_id' => 43,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 57,
+                'salida_id' => 44,
+                'entidad_id' => 19,
+            ],
+            [
+                'responsable_id' => 58,
+                'salida_id' => 44,
+                'entidad_id' => 19,
+            ],
+            [
+                'responsable_id' => 59,
+                'salida_id' => 45,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 59,
+                'salida_id' => 45,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 59,
+                'salida_id' => 45,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 59,
+                'salida_id' => 45,
+                'entidad_id' => 3,
+            ],
+            [
+                'responsable_id' => 60,
+                'salida_id' => 46,
+                'entidad_id' => 19,
+            ],
+            [
+                'responsable_id' => 61,
+                'salida_id' => 47,
+                'entidad_id' => 31,
+            ],//
+            [
+                'responsable_id' => 62,
+                'salida_id' => 48,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 62,
+                'salida_id' => 48,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 62,
+                'salida_id' => 48,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 62,
+                'salida_id' => 49,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 62,
+                'salida_id' => 49,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 62,
+                'salida_id' => 49,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 63,
+                'salida_id' => 50,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 63,
+                'salida_id' => 50,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 63,
+                'salida_id' => 50,
+                'entidad_id' => 8,
+            ],//
+            [
+                'responsable_id' => 64,
+                'salida_id' => 51,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 64,
+                'salida_id' => 51,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 64,
+                'salida_id' => 51,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 64,
+                'salida_id' => 51,
+                'entidad_id' => 13,
+            ],
+            [
+                'responsable_id' => 64,
+                'salida_id' => 51,
+                'entidad_id' => 14,
+            ],
+            [
+                'responsable_id' => 64,
+                'salida_id' => 52,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 64,
+                'salida_id' => 52,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 64,
+                'salida_id' => 52,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 64,
+                'salida_id' => 52,
+                'entidad_id' => 13,
+            ],
+            [
+                'responsable_id' => 64,
+                'salida_id' => 52,
+                'entidad_id' => 14,
+            ],
+            [
+                'responsable_id' => 65,
+                'salida_id' => 51,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 65,
+                'salida_id' => 51,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 65,
+                'salida_id' => 51,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 65,
+                'salida_id' => 51,
+                'entidad_id' => 13,
+            ],
+            [
+                'responsable_id' => 65,
+                'salida_id' => 51,
+                'entidad_id' => 14,
+            ],
+            [
+                'responsable_id' => 65,
+                'salida_id' => 52,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 65,
+                'salida_id' => 52,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 65,
+                'salida_id' => 52,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 65,
+                'salida_id' => 52,
+                'entidad_id' => 13,
+            ],
+            [
+                'responsable_id' => 65,
+                'salida_id' => 52,
+                'entidad_id' => 14,
+            ],//
+            [
+                'responsable_id' => 66,
+                'salida_id' => 53,
+                'entidad_id' => 19,
+            ],
+            [
+                'responsable_id' => 67,
+                'salida_id' => 53,
+                'entidad_id' => 19,
+            ],//
+            [
+                'responsable_id' => 68,
+                'salida_id' => 54,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 68,
+                'salida_id' => 54,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 68,
+                'salida_id' => 54,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 68,
+                'salida_id' => 54,
+                'entidad_id' => 3,
+            ],
+            [
+                'responsable_id' => 68,
+                'salida_id' => 54,
+                'entidad_id' => 15,
+            ],
+            [
+                'responsable_id' => 69,
+                'salida_id' => 54,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 69,
+                'salida_id' => 54,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 69,
+                'salida_id' => 54,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 69,
+                'salida_id' => 54,
+                'entidad_id' => 3,
+            ],
+            [
+                'responsable_id' => 69,
+                'salida_id' => 54,
+                'entidad_id' => 15,
+            ],//
+            [
+                'responsable_id' => 70,
+                'salida_id' => 55,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 70,
+                'salida_id' => 55,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 70,
+                'salida_id' => 55,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 70,
+                'salida_id' => 55,
+                'entidad_id' => 3,
+            ],
+            [
+                'responsable_id' => 71,
+                'salida_id' => 55,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 71,
+                'salida_id' => 55,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 71,
+                'salida_id' => 55,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 71,
+                'salida_id' => 55,
+                'entidad_id' => 3,
+            ],//
+            [
+                'responsable_id' => 72,
+                'salida_id' => 56,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 72,
+                'salida_id' => 56,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 72,
+                'salida_id' => 56,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 72,
+                'salida_id' => 56,
+                'entidad_id' => 3,
+            ],
+            [
+                'responsable_id' => 73,
+                'salida_id' => 56,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 73,
+                'salida_id' => 56,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 73,
+                'salida_id' => 56,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 73,
+                'salida_id' => 56,
+                'entidad_id' => 3,
+            ],//
+            [
+                'responsable_id' => 74,
+                'salida_id' => 57,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 74,
+                'salida_id' => 57,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 74,
+                'salida_id' => 57,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 74,
+                'salida_id' => 57,
+                'entidad_id' => 3,
+            ],
+            [
+                'responsable_id' => 75,
+                'salida_id' => 57,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 75,
+                'salida_id' => 57,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 75,
+                'salida_id' => 57,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 75,
+                'salida_id' => 57,
+                'entidad_id' => 3,
+            ],//
+            [
+                'responsable_id' => 76,
+                'salida_id' => 58,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 76,
+                'salida_id' => 58,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 76,
+                'salida_id' => 58,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 76,
+                'salida_id' => 58,
+                'entidad_id' => 3,
+            ],
+            [
+                'responsable_id' => 76,
+                'salida_id' => 59,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 76,
+                'salida_id' => 59,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 76,
+                'salida_id' => 59,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 76,
+                'salida_id' => 59,
+                'entidad_id' => 3,
+            ],
+            [
+                'responsable_id' => 77,
+                'salida_id' => 58,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 77,
+                'salida_id' => 58,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 77,
+                'salida_id' => 58,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 77,
+                'salida_id' => 58,
+                'entidad_id' => 3,
+            ],
+            [
+                'responsable_id' => 77,
+                'salida_id' => 59,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 77,
+                'salida_id' => 59,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 77,
+                'salida_id' => 59,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 77,
+                'salida_id' => 59,
+                'entidad_id' => 3,
+            ],//
+            [
+                'responsable_id' => 78,
+                'salida_id' => 60,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 78,
+                'salida_id' => 60,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 78,
+                'salida_id' => 60,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 78,
+                'salida_id' => 60,
+                'entidad_id' => 3,
+            ],
+            [
+                'responsable_id' => 79,
+                'salida_id' => 60,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 79,
+                'salida_id' => 60,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 79,
+                'salida_id' => 60,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 79,
+                'salida_id' => 60,
+                'entidad_id' => 3,
+            ],
+            [
+                'responsable_id' => 78,
+                'salida_id' => 61,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 78,
+                'salida_id' => 61,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 78,
+                'salida_id' => 61,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 78,
+                'salida_id' => 61,
+                'entidad_id' => 3,
+            ],
+            [
+                'responsable_id' => 79,
+                'salida_id' => 61,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 79,
+                'salida_id' => 61,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 79,
+                'salida_id' => 61,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 79,
+                'salida_id' => 61,
+                'entidad_id' => 3,
+            ],//
+            [
+                'responsable_id' => 80,
+                'salida_id' => 62,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 80,
+                'salida_id' => 62,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 80,
+                'salida_id' => 62,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 80,
+                'salida_id' => 62,
+                'entidad_id' => 3,
+            ],
+            [
+                'responsable_id' => 80,
+                'salida_id' => 62,
+                'entidad_id' => 15,
+            ],
+            [
+                'responsable_id' => 81,
+                'salida_id' => 62,
+                'entidad_id' => 1,
+            ],
+            [
+                'responsable_id' => 81,
+                'salida_id' => 62,
+                'entidad_id' => 2,
+            ],
+            [
+                'responsable_id' => 81,
+                'salida_id' => 62,
+                'entidad_id' => 8,
+            ],
+            [
+                'responsable_id' => 81,
+                'salida_id' => 62,
+                'entidad_id' => 3,
+            ],
+            [
+                'responsable_id' => 81,
+                'salida_id' => 62,
+                'entidad_id' => 15,
+            ],
+
         ];
 
         \App\Models\Cliente::insert($clientes);

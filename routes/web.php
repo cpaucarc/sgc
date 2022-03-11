@@ -8,6 +8,7 @@ use App\Http\Controllers\BibliotecaController;
 use App\Http\Controllers\EncuestaController;
 use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\InvestigacionController;
+use App\Http\Controllers\PlanEstudiosController;
 use App\Http\Controllers\ResponsabilidadSocialController;
 use App\Http\Controllers\TituloProfesionalController;
 use Illuminate\Support\Facades\Route;
@@ -86,7 +87,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::prefix('convalidacion')->controller(ConvalidacionController::class)->group(function () {
         Route::get('/', 'index')->name('convalidacion.index');
     });
-  
+
     Route::prefix('biblioteca')->controller(BibliotecaController::class)->group(function () {
         Route::get('/', 'index')->name('biblioteca.index');
         Route::get('registrar/material', 'registrarMaterial')->name('biblioteca.registrar.material');

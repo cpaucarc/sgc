@@ -550,6 +550,388 @@ class ProveedorSeeder extends Seeder
                 'entidad_id' => 9,
                 'entrada_id' => 45
             ],
+            /* Todo Plan de Estudios */
+            [
+                'responsable_id' => 51,
+                'entidad_id' => 15,
+                'entrada_id' => 47
+            ],
+            [
+                'responsable_id' => 52,
+                'entidad_id' => 15,
+                'entrada_id' => 47
+            ],
+            [
+                'responsable_id' => 53,
+                'entidad_id' => 1,
+                'entrada_id' => 48
+            ],
+            [
+                'responsable_id' => 53,
+                'entidad_id' => 2,
+                'entrada_id' => 48
+            ],
+            [
+                'responsable_id' => 54,
+                'entidad_id' => 1,
+                'entrada_id' => 49
+            ],
+            [
+                'responsable_id' => 54,
+                'entidad_id' => 2,
+                'entrada_id' => 49
+            ],
+            [
+                'responsable_id' => 54,
+                'entidad_id' => 15,
+                'entrada_id' => 50
+            ],
+            [
+                'responsable_id' => 55,
+                'entidad_id' => 30,
+                'entrada_id' => 51
+            ],
+            [
+                'responsable_id' => 56,
+                'entidad_id' => 1,
+                'entrada_id' => 52
+            ],
+            [
+                'responsable_id' => 56,
+                'entidad_id' => 2,
+                'entrada_id' => 52
+            ],
+            [
+                'responsable_id' => 57,
+                'entidad_id' => 15,
+                'entrada_id' => 53
+            ],
+            [
+                'responsable_id' => 58,
+                'entidad_id' => 15,
+                'entrada_id' => 53
+            ],
+            [
+                'responsable_id' => 59,
+                'entidad_id' => 1,
+                'entrada_id' => 54
+            ],
+            [
+                'responsable_id' => 59,
+                'entidad_id' => 2,
+                'entrada_id' => 54
+            ],
+            [
+                'responsable_id' => 60,
+                'entidad_id' => 1,
+                'entrada_id' => 55
+            ],
+            [
+                'responsable_id' => 60,
+                'entidad_id' => 2,
+                'entrada_id' => 55
+            ],
+            [
+                'responsable_id' => 60,
+                'entidad_id' => 15,
+                'entrada_id' => 50
+            ],
+            [
+                'responsable_id' => 61,
+                'entidad_id' => 31,
+                'entrada_id' => 57
+            ],
+            [
+                'responsable_id' => 62,
+                'entidad_id' => 1,
+                'entrada_id' => 58
+            ],
+            [
+                'responsable_id' => 62,
+                'entidad_id' => 2,
+                'entrada_id' => 58
+            ],
+            [
+                'responsable_id' => 63,
+                'entidad_id' => 1,
+                'entrada_id' => 59
+            ],
+            [
+                'responsable_id' => 63,
+                'entidad_id' => 2,
+                'entrada_id' => 59
+            ],
+            [
+                'responsable_id' => 64,
+                'entidad_id' => 15,
+                'entrada_id' => 59
+            ],
+            [
+                'responsable_id' => 64,
+                'entidad_id' => 15,
+                'entrada_id' => 60
+            ],
+            [
+                'responsable_id' => 65,
+                'entidad_id' => 15,
+                'entrada_id' => 59
+            ],
+            [
+                'responsable_id' => 65,
+                'entidad_id' => 15,
+                'entrada_id' => 60
+            ],
+            [
+                'responsable_id' => 66,
+                'entidad_id' => 1,
+                'entrada_id' => 61
+            ],
+            [
+                'responsable_id' => 66,
+                'entidad_id' => 2,
+                'entrada_id' => 61
+            ],
+            [
+                'responsable_id' => 67,
+                'entidad_id' => 1,
+                'entrada_id' => 61
+            ],
+            [
+                'responsable_id' => 67,
+                'entidad_id' => 2,
+                'entrada_id' => 61
+            ],
+            [
+                'responsable_id' => 68,
+                'entidad_id' => 19,
+                'entrada_id' => 62
+            ],
+            [
+                'responsable_id' => 69,
+                'entidad_id' => 19,
+                'entrada_id' => 62
+            ],
+            [
+                'responsable_id' => 70,
+                'entidad_id' => 1,
+                'entrada_id' => 63
+            ],
+            [
+                'responsable_id' => 70,
+                'entidad_id' => 2,
+                'entrada_id' => 63
+            ],
+            [
+                'responsable_id' => 71,
+                'entidad_id' => 1,
+                'entrada_id' => 63
+            ],
+            [
+                'responsable_id' => 71,
+                'entidad_id' => 2,
+                'entrada_id' => 63
+            ],
+            [
+                'responsable_id' => 72,
+                'entidad_id' => 1,
+                'entrada_id' => 64
+            ],
+            [
+                'responsable_id' => 72,
+                'entidad_id' => 2,
+                'entrada_id' => 64
+            ],
+            [
+                'responsable_id' => 73,
+                'entidad_id' => 1,
+                'entrada_id' => 64
+            ],
+            [
+                'responsable_id' => 73,
+                'entidad_id' => 2,
+                'entrada_id' => 64
+            ],
+            [
+                'responsable_id' => 74,
+                'entidad_id' => 1,
+                'entrada_id' => 65
+            ],
+            [
+                'responsable_id' => 74,
+                'entidad_id' => 2,
+                'entrada_id' => 65
+            ],
+            [
+                'responsable_id' => 75,
+                'entidad_id' => 1,
+                'entrada_id' => 65
+            ],
+            [
+                'responsable_id' => 75,
+                'entidad_id' => 2,
+                'entrada_id' => 65
+            ],//
+            [
+                'responsable_id' => 76,
+                'entidad_id' => 1,
+                'entrada_id' => 52
+            ],
+            [
+                'responsable_id' => 76,
+                'entidad_id' => 1,
+                'entrada_id' => 58
+            ],
+            [
+                'responsable_id' => 77,
+                'entidad_id' => 1,
+                'entrada_id' => 52
+            ],
+            [
+                'responsable_id' => 77,
+                'entidad_id' => 1,
+                'entrada_id' => 58
+            ],
+            [
+                'responsable_id' => 76,
+                'entidad_id' => 2,
+                'entrada_id' => 52
+            ],
+            [
+                'responsable_id' => 76,
+                'entidad_id' => 2,
+                'entrada_id' => 58
+            ],
+            [
+                'responsable_id' => 77,
+                'entidad_id' => 2,
+                'entrada_id' => 52
+            ],
+            [
+                'responsable_id' => 77,
+                'entidad_id' => 2,
+                'entrada_id' => 58
+            ],
+            [
+                'responsable_id' => 76,
+                'entidad_id' => 9,
+                'entrada_id' => 66
+            ],
+            [
+                'responsable_id' => 76,
+                'entidad_id' => 9,
+                'entrada_id' => 67
+            ],
+            [
+                'responsable_id' => 77,
+                'entidad_id' => 9,
+                'entrada_id' => 66
+            ],
+            [
+                'responsable_id' => 77,
+                'entidad_id' => 9,
+                'entrada_id' => 67
+            ],//
+            [
+                'responsable_id' => 78,
+                'entidad_id' => 1,
+                'entrada_id' => 49
+            ],
+            [
+                'responsable_id' => 78,
+                'entidad_id' => 1,
+                'entrada_id' => 68
+            ],
+            [
+                'responsable_id' => 79,
+                'entidad_id' => 1,
+                'entrada_id' => 49
+            ],
+            [
+                'responsable_id' => 79,
+                'entidad_id' => 1,
+                'entrada_id' => 68
+            ],
+            [
+                'responsable_id' => 78,
+                'entidad_id' => 2,
+                'entrada_id' => 49
+            ],
+            [
+                'responsable_id' => 78,
+                'entidad_id' => 2,
+                'entrada_id' => 68
+            ],
+            [
+                'responsable_id' => 79,
+                'entidad_id' => 2,
+                'entrada_id' => 49
+            ],
+            [
+                'responsable_id' => 79,
+                'entidad_id' => 2,
+                'entrada_id' => 68
+            ],
+            [
+                'responsable_id' => 78,
+                'entidad_id' => 9,
+                'entrada_id' => 69
+            ],
+            [
+                'responsable_id' => 78,
+                'entidad_id' => 9,
+                'entrada_id' => 70
+            ],
+            [
+                'responsable_id' => 79,
+                'entidad_id' => 9,
+                'entrada_id' => 69
+            ],
+            [
+                'responsable_id' => 79,
+                'entidad_id' => 9,
+                'entrada_id' => 70
+            ],//
+            [
+                'responsable_id' => 80,
+                'entidad_id' => 1,
+                'entrada_id' => 68
+            ],
+            [
+                'responsable_id' => 81,
+                'entidad_id' => 2,
+                'entrada_id' => 68
+            ],
+            [
+                'responsable_id' => 80,
+                'entidad_id' => 2,
+                'entrada_id' => 68
+            ],
+            [
+                'responsable_id' => 81,
+                'entidad_id' => 2,
+                'entrada_id' => 68
+            ],
+            [
+                'responsable_id' => 80,
+                'entidad_id' => 9,
+                'entrada_id' => 71
+            ],
+            [
+                'responsable_id' => 81,
+                'entidad_id' => 9,
+                'entrada_id' => 71
+            ],
+            [
+                'responsable_id' => 80,
+                'entidad_id' => 9,
+                'entrada_id' => 72
+            ],
+            [
+                'responsable_id' => 81,
+                'entidad_id' => 9,
+                'entrada_id' => 72
+            ],
+
         ];
 
         \App\Models\Proveedor::insert($proveedores);

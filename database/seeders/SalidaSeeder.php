@@ -208,6 +208,128 @@ class SalidaSeeder extends Seeder
                 'nombre' => 'Propuesta de integrantes del Comité de Calidad',
                 'proceso_id' => 11
             ], // id: 38
+
+            // Plan de estudios
+            [
+                'codigo' => 'S19',
+                'nombre' => 'Propuesta de Comisión de Diseño del Plan de Estudios',
+                'proceso_id' => 10
+            ], // id: 39
+            [
+                'codigo' => 'S20',
+                'nombre' => 'Resolución de la Conformación de la Comisión de Diseño del Plan de Estudios',
+                'proceso_id' => 10
+            ], // id: 40
+            [
+                'codigo' => 'S21',
+                'nombre' => 'Propuesta de Plan de Diseño del Plan de Estudios',
+                'proceso_id' => 10
+            ], // id: 41
+            [
+                'codigo' => 'S22',
+                'nombre' => 'Plan de Diseño del Plan de Estudios aprobado',
+                'proceso_id' => 10
+            ], // id: 42
+            [
+                'codigo' => 'S23',
+                'nombre' => 'Informe de diseño del plan de estudios',
+                'proceso_id' => 10
+            ], // id: 43
+            [
+                'codigo' => 'S24',
+                'nombre' => 'Propuesta de Comisión de Evaluación y Actualización del Plan de Estudios',
+                'proceso_id' => 10
+            ], // id: 44
+            [
+                'codigo' => 'S25',
+                'nombre' => 'Resolución de la Conformación de la Comisión de Evaluación y Actualización del Plan de Estudios',
+                'proceso_id' => 10
+            ], // id: 45
+            [
+                'codigo' => 'S26',
+                'nombre' => 'Propuesta de Plan de Evaluación y Actualización del Plan de Estudios',
+                'proceso_id' => 10
+            ], // id: 46
+            [
+                'codigo' => 'S27',
+                'nombre' => 'Plan de Evaluación y Actualización del Plan de Estudios aprobado',
+                'proceso_id' => 10
+            ], // id: 47
+            [
+                'codigo' => 'S28',
+                'nombre' => 'Informe de evaluación de Plan de Estudios',
+                'proceso_id' => 10
+            ], // id: 48
+            [
+                'codigo' => 'S29',
+                'nombre' => 'Propuesta de Plan de Estudios actualizado',
+                'proceso_id' => 10
+            ], // id: 49
+            [
+                'codigo' => 'S30',
+                'nombre' => 'Informe de revisión de Propuesta de Plan de Estudios actualizado',
+                'proceso_id' => 10
+            ], // id: 50
+            [
+                'codigo' => 'S31',
+                'nombre' => 'Resolución de aprobación de Plan de Estudios',
+                'proceso_id' => 10
+            ], // id: 51
+            [
+                'codigo' => 'S32',
+                'nombre' => 'Plan de estudios actualizado aprobado',
+                'proceso_id' => 10
+            ], // id: 52
+            [
+                'codigo' => 'S33',
+                'nombre' => 'Plan de implementación del Plan de Estudios actualizado',
+                'proceso_id' => 10
+            ], // id: 53
+            [
+                'codigo' => 'S34',
+                'nombre' => 'Informe de implementación del Plan de Estudios actualizado',
+                'proceso_id' => 10
+            ], // id: 54
+            [
+                'codigo' => 'S35',
+                'nombre' => 'Informe de seguimiento de la implementación del Plan de estudios actualizado',
+                'proceso_id' => 10
+            ], // id: 55
+            [
+                'codigo' => 'S36',
+                'nombre' => 'Acciones de mejora',
+                'proceso_id' => 10
+            ], // id: 56
+            [
+                'codigo' => 'S37',
+                'nombre' => 'Registro y envío de comunicaciones de los resultados de implementación de estudios',
+                'proceso_id' => 10
+            ], // id: 57
+            [
+                'codigo' => 'S38',
+                'nombre' => 'Resultado de los indicadores',
+                'proceso_id' => 10
+            ], // id: 58
+            [
+                'codigo' => 'S39',
+                'nombre' => 'Informe de evaluación del proceso de Gestión del Plan de Estudios',
+                'proceso_id' => 10
+            ], // id: 59
+            [
+                'codigo' => 'S40',
+                'nombre' => 'Informe de Gestión del Plan de Estudios',
+                'proceso_id' => 10
+            ], // id: 60
+            [
+                'codigo' => 'S41',
+                'nombre' => 'Acciones y/o Plan de mejora',
+                'proceso_id' => 10
+            ], // id: 61
+            [
+                'codigo' => 'S42',
+                'nombre' => 'Registro y envío de comunicaciones',
+                'proceso_id' => 10
+            ], // id: 62
         ];
 
         \App\Models\Salida::insert($salidas);
