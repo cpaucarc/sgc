@@ -37,13 +37,14 @@ class RegistrarAuditoria extends Component
     {
         $this->abc = Auth::user()->entidades()->first()->id;
 
-        $this->facultad_id = Entidadable::query()
-            ->where('entidadable_type', 'App\\Models\\Facultad')
-            ->whereIn('entidad_id', function ($query) {
-                $query->select('id')->from('entidades')->whereIn('id', function ($query2) {
-                    $query2->select('entidad_id')->from('entidad_user')->where('user_id', Auth::user()->id);
-                });
-            })->get()->pluck('entidadable_id');
+        $this->facultad_id = User::facultades_id(Auth::user()->id);
+//        $this->facultad_id = Entidadable::query()
+//            ->where('entidadable_type', 'App\\Models\\Facultad')
+//            ->whereIn('entidad_id', function ($query) {
+//                $query->select('id')->from('entidades')->whereIn('id', function ($query2) {
+//                    $query2->select('entidad_id')->from('entidad_user')->where('user_id', Auth::user()->id);
+//                });
+//            })->get()->pluck('entidadable_id');
         $this->facultades = Facultad::query()->findOrFail($this->facultad_id);
         $this->facultad = count($this->facultades) ? $this->facultades->first()->id : 0;
     }

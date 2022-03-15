@@ -11,7 +11,7 @@
             @if(count($auditorias) > 0)
                 <x-utils.links.primary class="text-sm" href="{{ route('auditoria.create') }}">
                     <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
-                    Nuevo
+                    Registrar
                 </x-utils.links.primary>
             @endif
         </div>
