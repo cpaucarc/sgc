@@ -41,10 +41,12 @@
                                         :active="request()->routeIs('convalidacion.*')">
                             {{ __('Convalidación') }}
                         </x-jet-nav-link>
-                        <x-jet-nav-link href="{{ route('biblioteca.index') }}"
-                                        :active="request()->routeIs('biblioteca.*')">
-                            {{ __('Biblioteca') }}
-                        </x-jet-nav-link>
+                        @if(\Illuminate\Support\Facades\Auth::user()->hasAnyRole(['Decanatura']))
+                            <x-jet-nav-link href="{{ route('biblioteca.index') }}"
+                                            :active="request()->routeIs('biblioteca.*')">
+                                {{ __('Biblioteca') }}
+                            </x-jet-nav-link>
+                        @endif
                         @if(\Illuminate\Support\Facades\Auth::user()->hasAnyRole(['Decanatura']))
                             <x-jet-nav-link href="{{ route('auditoria.index') }}"
                                             :active="request()->routeIs('auditoria.*')">
