@@ -41,6 +41,10 @@
                                         :active="request()->routeIs('convalidacion.*')">
                             {{ __('Convalidación') }}
                         </x-jet-nav-link>
+                        <x-jet-nav-link href="{{ route('convenio.index') }}"
+                                        :active="request()->routeIs('convenio.*')">
+                            {{ __('Convenio') }}
+                        </x-jet-nav-link>
                         <x-jet-nav-link href="{{ route('biblioteca.index') }}"
                                         :active="request()->routeIs('biblioteca.*')">
                             {{ __('Biblioteca') }}
