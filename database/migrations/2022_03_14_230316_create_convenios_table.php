@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -19,6 +18,9 @@ return new class extends Migration
             $table->smallInteger('vigentes');
             $table->smallInteger('culminados');
             $table->foreignId('semestre_id')->constrained('semestres')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->foreignId('facultad_id')->constrained('facultades')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->timestamps();

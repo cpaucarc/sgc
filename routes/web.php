@@ -93,6 +93,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::prefix('convenio')->controller(ConvenioController::class)->group(function () {
         Route::get('/', 'index')->name('convenio.index');
+        Route::get('registrar', 'registrarConvenio')->name('convenio.registrar');
     });
 
     Route::prefix('biblioteca')->controller(BibliotecaController::class)->group(function () {

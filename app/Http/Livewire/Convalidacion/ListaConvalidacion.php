@@ -13,10 +13,6 @@ class ListaConvalidacion extends Component
     public $escuelas = null, $escuela = 0;
     public $facultad_ids = [];
 
-    protected $listeners = [
-        'convalidacionCreado' => 'render',
-    ];
-
     public function mount($facultad_ids)
     {
         $this->facultad_ids = $facultad_ids;

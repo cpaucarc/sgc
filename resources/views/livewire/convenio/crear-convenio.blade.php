@@ -1,56 +1,65 @@
-<div>
-    <x-utils.card>
-        @slot('header')
-            <h3 class="font-bold text-lg text-gray-800">
-                Registrar convenios por semestre
-            </h3>
-        @endslot
-        <div class="space-y-4">
-            <div class="space-y-2">
-                <x-jet-label for="requisitoSeleccionado" value="Semestre académico"/>
-                <x-utils.forms.select class="w-full" wire:model="semestreSeleccionado">
-                    @forelse($semestres as $semestre)
-                        <option value="{{ $semestre->id }}">{{$semestre->nombre}}</option>
-                    @empty
-                        <option value="0">No hay datos</option>
-                    @endforelse
+<div class="w-full md:w-9/12 lg:w-6/12 mx-auto divide-y divide-stone-200 space-y-6 mb-8">
+    <div class="flex-col">
+        <h2 class="font-bold text-stone-700 text-xl">
+            Registrar información sobre Convenios
+        </h2>
+    </div>
+    <div class="space-y-4 divide-y divide-dashed divide-stone-200 pt-4">
+        <div class="flex gap-x-6">
+            @if(count($facultades_id) > 0)
+                <div class="w-full">
+                    <x-jet-label for="facultad" value="Facultad"/>
+                    <x-utils.forms.select id="facultad" class="mt-1 block w-full" wire:model="facultad">
+                        @foreach($facultades as $fac)
+                            <option value="{{ $fac->id }}">{{ $fac->nombre }}</option>
+                        @endforeach
+                    </x-utils.forms.select>
+                    <x-jet-input-error for="facultad"/>
+                </div>
+            @endif
+        </div>
+    </div>
+    <div class="space-y-4 divide-y divide-dashed divide-stone-200 pt-4">
+        <div class="flex gap-x-6">
+            <div class="w-full">
+                <x-jet-label for="semestre" value="Semestre"/>
+                <x-utils.forms.select id="semestre" class="mt-1 block w-full" wire:model.defer="semestre">
+                    <option value="0">Selecciona</option>
+                    @foreach($semestres as $sm)
+                        <option value="{{ $sm->id }}">{{ $sm->nombre }}</option>
+                    @endforeach
                 </x-utils.forms.select>
-                <x-jet-input-error for="semestreSeleccionado"></x-jet-input-error>
+                <x-jet-input-error for="semestre"/>
             </div>
-            {{--Datos para calcular los indicadores--}}
-            <div class="grid grid-cols-3 gap-x-6">
-                <div class="w-full">
-                    <x-jet-label for="realizados" value="Convenios Relizados"/>
-                    <x-jet-input id="realizados" min="0" wire:model.debounce.500ms="realizados" type="number"
-                                 class="mt-1 w-full" autocomplete="off" autofocus/>
-                    <x-jet-input-error for="realizados"/>
-                </div>
-                <div class="w-full">
-                    <x-jet-label for="vigentes" value="Convenios Vigentes"/>
-                    <x-jet-input id="vigentes" min="0" wire:model.debounce.500ms="vigentes" type="number"
-                                 class="mt-1 w-full" autocomplete="off"/>
-                    <x-jet-input-error for="vigentes"/>
-                </div>
-                <div class="w-full">
-                    <x-jet-label for="culminados" value="Convenios Culminados"/>
-                    <x-jet-input id="culminados" min="0" wire:model.debounce.500ms="culminados" type="number"
-                                 class="mt-1 w-full" autocomplete="off"/>
-                    <x-jet-input-error for="culminados"/>
-                </div>
-            </div>
-            <div class="w-full flex justify-end">
-                <x-jet-button
-                    wire:click="guardarConvenio"
-                    wire:target="guardarConvenio"
-                    wire:loading.class="bg-gray-800"
-                    wire:loading.attr="disabled">
-                    <x-icons.load wire:loading wire:target="guardarConvenio" class="h-5 w-5"
-                                  stroke="1.5"></x-icons.load>
-                    {{ __('Guardar') }}
-                </x-jet-button>
+            <div class="w-full">
+                <x-jet-label for="realizados" value="Cantidad Total de Convenios Realizados"/>
+                <x-jet-input id="realizados" type="number" class="mt-1 block w-full"
+                             wire:model.defer="realizados" autocomplete="off" autofocus/>
+                <x-jet-input-error for="realizados"/>
             </div>
         </div>
-    </x-utils.card>
+        <div class="flex gap-x-6 pt-4">
+            <div class="w-full">
+                <x-jet-label for="vigentes" value="Cantidad Total de Convenios Vigentes"/>
+                <x-jet-input id="vigentes" type="number" class="mt-1 block w-full"
+                             wire:model.defer="vigentes" autocomplete="off"/>
+                <x-jet-input-error for="vigentes"/>
+            </div>
+            <div class="w-full">
+                <x-jet-label for="culminados" value="Cantidad Total de Convenios Culminados"/>
+                <x-jet-input id="culminados" type="number" class="mt-1 block w-full"
+                             wire:model.defer="culminados" autocomplete="off"/>
+                <x-jet-input-error for="culminados"/>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-end pt-8">
+        <x-jet-button wire:click="registrar" wire:target="registrar"
+                      wire:loading.class="cursor-wait" wire:loading.attr="disabled">
+            <x-icons.load wire:loading wire:target="registrar" class="h-5 w-5"/>
+            {{ __('Registrar Información') }}
+        </x-jet-button>
+    </div>
 
     @push('js')
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
