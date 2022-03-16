@@ -88,6 +88,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::prefix('convalidacion')->controller(ConvalidacionController::class)->group(function () {
         Route::get('/', 'index')->name('convalidacion.index');
+        Route::get('registrar', 'registrarConvalidacion')->name('convalidacion.registrar');
     });
 
     Route::prefix('convenio')->controller(ConvenioController::class)->group(function () {
