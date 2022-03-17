@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ConvalidacionController extends Controller
+class ConvenioController extends Controller
 {
     public function index()
     {
@@ -16,10 +16,11 @@ class ConvalidacionController extends Controller
             abort(403, 'No tienes los permisos para estar en esta página');
         }
 
-        return view('convalidacion.index', compact('facultad_ids'));
+        return view('convenio.index', compact('facultad_ids'));
     }
-    public function registrarConvalidacion()
+
+    public function registrarConvenio()
     {
-        return view('convalidacion.registrar-convalidacion');
+        return view('convenio.registrar-convenio');
     }
 }

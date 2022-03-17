@@ -3,34 +3,27 @@
 namespace App\Http\Livewire\Convalidacion;
 
 use App\Models\Convalidacion;
+use App\Models\Escuela;
 use App\Models\Semestre;
 use Livewire\Component;
 
 class ListaConvalidacion extends Component
 {
-    public $semestres = null;
-    public $semestreSeleccionado;
-    public $convalidaciones;
+    public $semestres = null, $semestre = 0;
+    public $escuelas = null, $escuela = 0;
+    public $facultad_ids = [];
 
-    protected $listeners = [
-        'convalidacionCreado' => 'render',
-    ];
-
-    public function mount()
+    public function mount($facultad_ids)
     {
-        $this->semestres = Semestre::orderBy('nombre', 'desc')->get();
-        $this->semestreSeleccionado = $this->semestres->first()->id;
+        $this->facultad_ids = $facultad_ids;
+
+        $this->semestres = Semestre::query()->orderBy('nombre', 'desc')->get();
+        $this->semestre = $this->semestres->first()->id;
+
+        $this->escuelas = Escuela::query()->whereIn('facultad_id', $this->facultad_ids)->orderBy('nombre', 'desc')->get();
     }
 
-    public function obtenerConvalidaciones()
-    {
-        $this->convalidaciones = Convalidacion::query()
-            ->with('escuela')
-            ->where('semestre_id', $this->semestreSeleccionado)
-            ->get();
-    }
-
-    public function eliminarConvalidacion($id)
+    public function eliminar($id)
     {
         $convalidacion = Convalidacion::where('id', $id);
         $convalidacion->delete();
@@ -38,7 +31,16 @@ class ListaConvalidacion extends Component
 
     public function render()
     {
-        $this->obtenerConvalidaciones();
-        return view('livewire.convalidacion.lista-convalidacion');
+        $convalidaciones = Convalidacion::query()
+            ->with('semestre:id,nombre', 'escuela:id,nombre,facultad_id', 'escuela.facultad:id,abrev')
+            ->where('semestre_id', $this->semestre);
+
+        if ($this->escuela > 0) {
+            $convalidaciones = $convalidaciones->where('escuela_id', $this->escuela);
+        }
+
+        $convalidaciones = $convalidaciones->orderBy('id', 'desc')->get();
+
+        return view('livewire.convalidacion.lista-convalidacion', compact('convalidaciones'));
     }
 }
