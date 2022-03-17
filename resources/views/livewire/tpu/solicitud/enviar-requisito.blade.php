@@ -23,50 +23,52 @@
                     </x-utils.forms.select>
                     <x-jet-input-error for="requisitoSeleccionado"></x-jet-input-error>
                 </div>
+                @if($goAddTesis)
+                    <x-utils.badge class="border border-dashed w-full">
+                        <div class="space-y-2 p-4">
+                            <div class="grid place-items-center">
+                                <div class="flex items-center">
+                                    @if(!$tesis)
+                                        <img src="{{ asset('images/svg/sin_documentos.svg') }}" class="w-24"
+                                             alt="Grafico">
+                                        <div class="text-sm text-gray-600">
+                                            <p class="font-bold text-gray-600">
+                                                Antes de guardar este requisito es necesario
+                                            </p>
+                                            <a href="{{ route('tpu.tesis', [$solicitud]) }}"
+                                               class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                                <span>Agregar el proyecto de investigación</span>
+                                                <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                                            </a>
+                                            <p class="text-gray-400">Tesis - Sustentación</p>
+                                        </div>
+                                    @else
+                                        <img src="{{ asset('images/svg/solicitudes_completas.svg') }}" class="w-24"
+                                             alt="Grafico">
+                                        <div class="text-sm text-gray-600">
+                                            <p class="font-bold text-gray-600">
+                                                Tesis N° {{$tesis->numero_registro}} registrado con titulo
+                                            </p>
+                                            <a target="_blank" href="{{route('tpu.seeTesis', [$solicitud,$tesis])}}"
+                                               class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                                <span>{{substr($tesis->titulo, 1, 70)}}...</span>
+                                                <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                                            </a>
+                                            <p class="text-gray-400"><span class="font-bold">Año: </span>{{$tesis->anio}}
+                                            </p>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </x-utils.badge>
+                @endif
                 <div class="space-y-2">
                     <x-jet-label for="archivo" value="Subir archivo"/>
                     <x-utils.forms.file-input class="w-full block" wire:model.defer="archivo" id="{{ $randomID }}"/>
                     <x-utils.loading-file wire:loading wire:target="archivo"></x-utils.loading-file>
                     <x-jet-input-error for="archivo"></x-jet-input-error>
                 </div>
-                @if($goAddTesis)
-                    <div class="space-y-2">
-                        <div class="grid place-items-center">
-                            <div class="flex items-center">
-                                @if(!$tesis)
-                                    <img src="{{ asset('images/svg/sin_documentos.svg') }}" class="w-24"
-                                         alt="Grafico">
-                                    <div class="text-sm text-gray-600">
-                                        <p class="font-bold text-gray-600">
-                                            Antes de guardar este requisito es necesario
-                                        </p>
-                                        <a target="_blank" href="{{ route('tpu.tesis', [$solicitud]) }}"
-                                           class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                            <span>Agregar el proyecto de investigación</span>
-                                            <input id="file-upload" name="file-upload" type="file" class="sr-only">
-                                        </a>
-                                        <p class="text-gray-400">Tesis - Sustentación</p>
-                                    </div>
-                                @else
-                                    <img src="{{ asset('images/svg/solicitudes_completas.svg') }}" class="w-24"
-                                         alt="Grafico">
-                                    <div class="text-sm text-gray-600">
-                                        <p class="font-bold text-gray-600">
-                                            Tesis N° {{$tesis->numero_registro}} registrado con titulo
-                                        </p>
-                                        <a target="_blank" href="{{route('tpu.seeTesis', [$solicitud,$tesis])}}"
-                                           class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                            <span>{{substr($tesis->titulo, 1, 70)}}...</span>
-                                            <input id="file-upload" name="file-upload" type="file" class="sr-only">
-                                        </a>
-                                        <p class="text-gray-400"><span class="font-bold">Año: </span>{{$tesis->anio}}
-                                        </p>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                @endif
             </div>
         @endslot
         @slot('footer')

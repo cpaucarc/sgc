@@ -120,7 +120,7 @@ class RegistrarTesis extends Component
         $this->countCJ = 0;
         $this->reset(['numeroRegistro', 'titulo', 'tipoTesisSeleccionado', 'anio', 'fechaSustentacion', 'estadoSustentacion']);
 
-        $this->emitTo('Tpu.Solicitud.EnviarRequisito', 'tesisRegistrado');
+        return redirect()->route('tpu.request');
     }
 
     public function render()
