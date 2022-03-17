@@ -4,7 +4,9 @@ namespace App\Http\Livewire\Bienestar;
 
 use App\Models\Comedor;
 use App\Models\Escuela;
+use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class AgregarAtencionComedor extends Component
@@ -19,7 +21,7 @@ class AgregarAtencionComedor extends Component
     public function mount()
     {
         $this->fecha = now()->format('Y-m');
-        $this->escuelas = Escuela::all();
+        $this->escuelas = Escuela::find(User::escuelas_id(Auth::user()->id));
         $this->escuela = $this->escuelas->first()->id;
     }
 

@@ -100,7 +100,7 @@ class NuevoAnalisis extends Component
         } elseif (strcmp($frecuencia, "anual") === 0) {
             $this->inicio = Carbon::now()->subYear()->startOfYear()->format('Y-m-d');
         }
-        $this->fin = Carbon::now()->format('Y-m-d');
+        $this->fin = Carbon::now()->endOfMonth()->format('Y-m-d');
 
         $this->comprobarFechas();
     }
@@ -159,8 +159,13 @@ class NuevoAnalisis extends Component
 
     public function obtenerResultados()
     {
-        // RSU: 048 - 053
-        if ($this->indicadorable->indicador->cod_ind_inicial === "IND-048") {
+        // Bienestar: 019 - 020
+        if ($this->indicadorable->indicador->cod_ind_inicial === "IND-017") {
+            $res = Medicion::ind17($this->entidad->id, $this->inicio, $this->fin);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-019") {
+            $res = Medicion::ind19($this->entidad->id, $this->inicio, $this->fin);
+        } // RSU: 048 - 053
+        elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-048") {
             $res = Medicion::ind48($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
         } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-049") {
             $res = Medicion::ind49($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
