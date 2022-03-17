@@ -7,6 +7,7 @@ use App\Http\Controllers\BachillerController;
 use App\Http\Controllers\ComedorController;
 use App\Http\Controllers\ConvalidacionController;
 use App\Http\Controllers\BibliotecaController;
+use App\Http\Controllers\ConvenioController;
 use App\Http\Controllers\EncuestaController;
 use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\InvestigacionController;
@@ -88,6 +89,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::prefix('convalidacion')->controller(ConvalidacionController::class)->group(function () {
         Route::get('/', 'index')->name('convalidacion.index');
+        Route::get('registrar', 'registrarConvalidacion')->name('convalidacion.registrar');
+    });
+
+    Route::prefix('convenio')->controller(ConvenioController::class)->group(function () {
+        Route::get('/', 'index')->name('convenio.index');
+        Route::get('registrar', 'registrarConvenio')->name('convenio.registrar');
     });
 
     Route::prefix('biblioteca')->controller(BibliotecaController::class)->group(function () {

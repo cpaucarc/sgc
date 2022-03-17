@@ -41,17 +41,30 @@ class User extends Authenticatable
         return User::where('id', $id)->pluck('name')->first();
     }
 
-    public static function facultades_id($user_id, $entidades_id = null)
+    public static function entidades_id($user_id, $entidades_id = null)
     {
-        $callback = $entidades_id ? $entidades_id : function ($query) use ($user_id) {
+        return $entidades_id ? $entidades_id : function ($query) use ($user_id) {
             $query->select('id')->from('entidades')->whereIn('id', function ($query2) use ($user_id) {
                 $query2->select('entidad_id')->from('entidad_user')->where('user_id', $user_id);
             });
         };
+    }
+
+    public static function facultades_id($user_id, $entidades_id = null)
+    {
+        $callback = self::entidades_id($user_id, $entidades_id = null);
 
         return Entidadable::query()
             ->where('entidadable_type', 'App\\Models\\Facultad')
             ->whereIn('entidad_id', $callback)->get()->pluck('entidadable_id');
     }
 
+    public static function escuelas_id($user_id, $entidades_id = null)
+    {
+        $callback = self::entidades_id($user_id, $entidades_id = null);
+
+        return Entidadable::query()
+            ->where('entidadable_type', 'App\\Models\\Escuela')
+            ->whereIn('entidad_id', $callback)->get()->pluck('entidadable_id');
+    }
 }

@@ -1,7 +1,7 @@
 <div class="w-full md:w-9/12 lg:w-6/12 mx-auto divide-y divide-stone-200 space-y-6 mb-8">
     <div class="flex-col">
         <h2 class="font-bold text-stone-700 text-xl">
-            Registrar información sobre Convalidaciones
+            Registrar información sobre Convenios
         </h2>
     </div>
     <div class="space-y-4 divide-y divide-dashed divide-stone-200 pt-4">
@@ -17,16 +17,6 @@
                     <x-jet-input-error for="facultad"/>
                 </div>
             @endif
-
-            <div class="w-full">
-                <x-jet-label for="escuela" value="Escuela"/>
-                <x-utils.forms.select id="facultad" class="mt-1 block w-full" wire:model="escuela">
-                    @foreach($escuelas as $es)
-                        <option value="{{ $es->id }}">{{ $es->nombre }}</option>
-                    @endforeach
-                </x-utils.forms.select>
-                <x-jet-input-error for="escuela"/>
-            </div>
         </div>
     </div>
     <div class="space-y-4 divide-y divide-dashed divide-stone-200 pt-4">
@@ -42,24 +32,24 @@
                 <x-jet-input-error for="semestre"/>
             </div>
             <div class="w-full">
-                <x-jet-label for="vacantes" value="Cantidad Total de Vacantes"/>
-                <x-jet-input id="vacantes" type="number" class="mt-1 block w-full"
-                             wire:model.defer="vacantes" autocomplete="off" autofocus/>
-                <x-jet-input-error for="vacantes"/>
+                <x-jet-label for="realizados" value="Cantidad Total de Convenios Realizados"/>
+                <x-jet-input id="realizados" type="number" class="mt-1 block w-full"
+                             wire:model.defer="realizados" autocomplete="off" autofocus/>
+                <x-jet-input-error for="realizados"/>
             </div>
         </div>
         <div class="flex gap-x-6 pt-4">
             <div class="w-full">
-                <x-jet-label for="postulantes" value="Cantidad Total de Postulantes"/>
-                <x-jet-input id="postulantes" type="number" class="mt-1 block w-full"
-                             wire:model.defer="postulantes" autocomplete="off"/>
-                <x-jet-input-error for="postulantes"/>
+                <x-jet-label for="vigentes" value="Cantidad Total de Convenios Vigentes"/>
+                <x-jet-input id="vigentes" type="number" class="mt-1 block w-full"
+                             wire:model.defer="vigentes" autocomplete="off"/>
+                <x-jet-input-error for="vigentes"/>
             </div>
             <div class="w-full">
-                <x-jet-label for="convalidados" value="Cantidad Total de Convalidados"/>
-                <x-jet-input id="convalidados" type="number" class="mt-1 block w-full"
-                             wire:model.defer="convalidados" autocomplete="off"/>
-                <x-jet-input-error for="convalidados"/>
+                <x-jet-label for="culminados" value="Cantidad Total de Convenios Culminados"/>
+                <x-jet-input id="culminados" type="number" class="mt-1 block w-full"
+                             wire:model.defer="culminados" autocomplete="off"/>
+                <x-jet-input-error for="culminados"/>
             </div>
         </div>
     </div>

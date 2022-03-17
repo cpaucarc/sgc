@@ -1,10 +1,5 @@
 <x-app-layout>
-    <div class="grid grid-cols-6 gap-x-6">
-        <div class="col-span-3">
-            <livewire:convalidacion.crear-convalidacion/>
-        </div>
-        <div class="col-span-3">
-            <livewire:convalidacion.lista-convalidacion/>
-        </div>
+    <div>
+        <livewire:convalidacion.lista-convalidacion :facultad_ids="$facultad_ids"/>
     </div>
 </x-app-layout>

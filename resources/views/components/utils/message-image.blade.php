@@ -3,11 +3,11 @@
     <div class="flex flex-col gap-y-2 items-center justify-center">
 
         @if(isset($image))
-            <img class="w-1/2" src="{{ $image }}" alt="Imagen correspondiente">
+            <img class="w-2/5" src="{{ $image }}" alt="Imagen correspondiente">
         @endif
 
         @if(isset($title) or isset($description))
-            <div class="w-1/2 text-center">
+            <div class="w-2/5 text-center">
                 @if(isset($title))
                     <h2 class="font-bold text-gray-600 leading-snug">
                         {{ $title }}
