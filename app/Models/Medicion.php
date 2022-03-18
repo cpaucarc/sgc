@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Medicion extends Model
 {
@@ -172,6 +174,39 @@ class Medicion extends Model
                     });
             })
             ->sum('restaurados');
+
+        $resultados['resultado'] = is_null($resultados['resultado']) ? 0 : $resultados['resultado'];
+
+        return $resultados;
+    }
+
+    public static function ind17($escuela_id, $fecha_inicio, $fecha_fin)
+    {
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $comedor = Comedor::query()
+            ->where('escuela_id', $escuela_id)
+            ->whereBetween('mes', [DB::raw('month("' . $fecha_inicio . '")'), DB::raw('month("' . $fecha_fin . '")')])
+            ->whereBetween('anio', [DB::raw('year("' . $fecha_inicio . '")'), DB::raw('year("' . $fecha_fin . '")')]);
+
+        $resultados['interes'] = $comedor->sum('atenciones');
+        $resultados['total'] = $comedor->sum('total');
+
+        $resultados['resultado'] = is_null($resultados['interes']) ? 0
+            : (is_null($resultados['total']) ? 0 : round($resultados['interes'] / $resultados['total'] * 100));
+
+        return $resultados;
+    }
+
+    public static function ind19($escuela_id, $fecha_inicio, $fecha_fin)
+    {
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $resultados['resultado'] = Comedor::query()
+            ->where('escuela_id', $escuela_id)
+            ->whereBetween('mes', [DB::raw('month("' . $fecha_inicio . '")'), DB::raw('month("' . $fecha_fin . '")')])
+            ->whereBetween('anio', [DB::raw('year("' . $fecha_inicio . '")'), DB::raw('year("' . $fecha_fin . '")')])
+            ->sum('atenciones');
 
         $resultados['resultado'] = is_null($resultados['resultado']) ? 0 : $resultados['resultado'];
 

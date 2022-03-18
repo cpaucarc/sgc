@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuditoriaController;
 use App\Http\Controllers\BachillerController;
 use App\Http\Controllers\BolsaTrabajoController;
+use App\Http\Controllers\ComedorController;
 use App\Http\Controllers\ConvalidacionController;
 use App\Http\Controllers\BibliotecaController;
 use App\Http\Controllers\ConvenioController;
@@ -117,6 +118,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::prefix('auditoria')->controller(AuditoriaController::class)->group(function () {
         Route::get('/', 'index')->name('auditoria.index');
         Route::get('crear', 'create')->name('auditoria.create');
+    });
+
+    Route::prefix('bienestar-universitario')->controller(ComedorController::class)->group(function () {
+        Route::get('/', 'index')->name('bienestar.index');
     });
 });
 
