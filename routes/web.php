@@ -4,6 +4,7 @@ use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuditoriaController;
 use App\Http\Controllers\BachillerController;
+use App\Http\Controllers\BolsaTrabajoController;
 use App\Http\Controllers\ComedorController;
 use App\Http\Controllers\ConvalidacionController;
 use App\Http\Controllers\BibliotecaController;
@@ -95,6 +96,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::prefix('convenio')->controller(ConvenioController::class)->group(function () {
         Route::get('/', 'index')->name('convenio.index');
         Route::get('registrar', 'registrarConvenio')->name('convenio.registrar');
+    });
+
+    Route::prefix('btu')->controller(BolsaTrabajoController::class)->group(function () {
+        Route::get('/', 'index')->name('btu.index');
+        Route::get('registrar/postulante', 'registrarPostulante')->name('btu.registrar.postulante');
     });
 
     Route::prefix('biblioteca')->controller(BibliotecaController::class)->group(function () {
