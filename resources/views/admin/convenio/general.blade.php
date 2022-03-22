@@ -1,3 +1,5 @@
 <x-app-layout>
-    Hola
+
+    <livewire:admin.convenio.lista-convenio-general/>
+
 </x-app-layout>
