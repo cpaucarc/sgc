@@ -41,19 +41,21 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::prefix('admin')->controller(AdminController::class)->group(function () {
-        Route::get('/', 'index')->name('admin.index');
-        Route::get('escuela', 'escuelas')->name('admin.escuelas');
-        Route::get('facultad', 'facultades')->name('admin.facultades');
-        Route::get('proceso', 'procesos')->name('admin.procesos');
-        Route::get('actividad', 'actividades')->name('admin.actividades');
-        Route::get('entrada', 'entradas')->name('admin.entradas');
-        Route::get('salida', 'salidas')->name('admin.salidas');
-        Route::get('entidad', 'entidades')->name('admin.entidades');
-        Route::get('usuario', 'usuarios')->name('admin.usuarios');
-        Route::get('usuario/ver/{uuid}', 'usuario')->name('admin.usuario');
-        Route::get('entidad/responsable/{id}', 'entidad_responsable')->name('admin.entidad.responsable');
-        Route::get('entidad/proveedor/{id}', 'entidad_proveedor')->name('admin.entidad.proveedor');
+        Route::get('/', 'index')->name('admin.panel.index');
+        Route::get('escuela', 'escuelas')->name('admin.panel.escuelas');
+        Route::get('facultad', 'facultades')->name('admin.panel.facultades');
+        Route::get('proceso', 'procesos')->name('admin.panel.procesos');
+        Route::get('actividad', 'actividades')->name('admin.panel.actividades');
+        Route::get('entrada', 'entradas')->name('admin.panel.entradas');
+        Route::get('salida', 'salidas')->name('admin.panel.salidas');
+        Route::get('entidad', 'entidades')->name('admin.panel.entidades');
+        Route::get('usuario', 'usuarios')->name('admin.panel.usuarios');
+        Route::get('usuario/ver/{uuid}', 'usuario')->name('admin.panel.usuario');
+        Route::get('entidad/responsable/{id}', 'entidad_responsable')->name('admin.panel.entidad.responsable');
+        Route::get('entidad/proveedor/{id}', 'entidad_proveedor')->name('admin.panel.entidad.proveedor');
         Route::get('entidad/cliente/{id}', 'entidad_cliente')->name('admin.entidad.cliente');
+
+        Route::get('convenio', 'convenio_general')->name('admin.convenio.general');
     });
 
     Route::prefix('actividad')->controller(ActividadController::class)->group(function () {

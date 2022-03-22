@@ -10,7 +10,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return redirect()->route('admin.facultades');
+        return redirect()->route('admin.panel.facultades');
     }
 
     public function escuelas()
@@ -75,4 +75,11 @@ class AdminController extends Controller
     {
         return view('admin.usuario', compact('uuid'));
     }
+
+    /* Convenios */
+    public function convenio_general()
+    {
+        return view('admin.convenio.general');
+    }
+
 }
