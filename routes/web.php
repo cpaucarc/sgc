@@ -62,6 +62,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::prefix('reporte')->controller(ReporteController::class)->group(function () {
         Route::get('convenio', 'convenio')->name('reporte.convenio');
         Route::get('convenio/pdf', 'convenio_reporte')->name('reporte.convenio.pdf');
+        Route::get('rsu', 'rsu')->name('reporte.rsu');
+        Route::get('rsu/pdf', 'rsu_reporte')->name('reporte.rsu.pdf');
     });
 
     Route::prefix('actividad')->controller(ActividadController::class)->group(function () {
