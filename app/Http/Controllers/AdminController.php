@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Convenio;
 use App\Models\Entidad;
+use App\Models\Facultad;
+use App\Models\Semestre;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -74,12 +78,6 @@ class AdminController extends Controller
     public function usuario($uuid)
     {
         return view('admin.usuario', compact('uuid'));
-    }
-
-    /* Convenios */
-    public function convenio_general()
-    {
-        return view('admin.convenio.general');
     }
 
 }

@@ -17,9 +17,9 @@
                                         :active="request()->routeIs('admin.panel.*')">
                             {{ __('Administrador') }}
                         </x-jet-nav-link>
-                        <x-jet-nav-link href="{{ route('admin.convenio.general') }}"
-                                        :active="request()->routeIs('admin.convenio.*')">
-                            {{ __('Convenios') }}
+                        <x-jet-nav-link href="{{ route('reporte.convenio') }}"
+                                        :active="request()->routeIs('reporte.*')">
+                            {{ __('Reportes') }}
                         </x-jet-nav-link>
                     @else
                         @if(!\Illuminate\Support\Facades\Auth::user()->hasAnyRole(['Administrador', 'Estudiante']))

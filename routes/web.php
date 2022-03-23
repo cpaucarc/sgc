@@ -13,6 +13,7 @@ use App\Http\Controllers\EncuestaController;
 use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\InvestigacionController;
 use App\Http\Controllers\PlanEstudiosController;
+use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\ResponsabilidadSocialController;
 use App\Http\Controllers\TituloProfesionalController;
 use Illuminate\Support\Facades\Route;
@@ -55,7 +56,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('entidad/proveedor/{id}', 'entidad_proveedor')->name('admin.panel.entidad.proveedor');
         Route::get('entidad/cliente/{id}', 'entidad_cliente')->name('admin.entidad.cliente');
 
-        Route::get('convenio', 'convenio_general')->name('admin.convenio.general');
+
+    });
+
+    Route::prefix('reporte')->controller(ReporteController::class)->group(function () {
+        Route::get('convenio', 'convenio')->name('reporte.convenio');
+        Route::get('convenio/pdf', 'convenio_reporte')->name('reporte.convenio.pdf');
     });
 
     Route::prefix('actividad')->controller(ActividadController::class)->group(function () {
@@ -136,3 +142,8 @@ Route::prefix('encuestas')->controller(EncuestaController::class)->group(functio
 Route::get('storage/{file}', function ($file) {
     return Storage::response($file);
 })->name('archivos');
+
+// Para mostrar PDF generado con DomPDF
+//Route::get('storage/{file}', function ($file) {
+//    return Storage::response($file);
+//})->name('archivos');

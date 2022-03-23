@@ -16,10 +16,12 @@
         </div>
 
         @if(count($convenios))
-            <x-jet-danger-button class="text-xs">
+            <x-utils.links.danger class="text-xs"
+                                  target="_blank"
+                                  href="{{ route('reporte.convenio.pdf', ['facultad' => $facultad, 'semestre' => $semestre]) }}">
                 <x-icons.document class="h-5 w-5 mr-1"/>
                 PDF
-            </x-jet-danger-button>
+            </x-utils.links.danger>
         @endif
     </div>
 

@@ -267,7 +267,7 @@ class Medicion extends Model
             })->count();
 
             // FIXME OGE: Calcular el numero total de docentes por escuela desde OGE
-            $resultados['total'] = 23; //Enf:23, Obs:21
+            $resultados['total'] = 23; //Enf:23, Obs:21, Total: 44
         } else {
             $resultados['interes'] = $q->whereIn('id', function ($query) use ($entidad_id, $fecha_inicio, $fecha_fin) {
                 $query->select('investigador_id')
@@ -308,7 +308,7 @@ class Medicion extends Model
             })->count();
 
             // FIXME OGE: Calcular el numero total de docentes por escuela desde OGE
-            $resultados['total'] = 193; //Enf:193, Obs:216
+            $resultados['total'] = 193; //Enf:193, Obs:216, Total: 409
         } else {
             $resultados['interes'] = $q->whereIn('id', function ($query) use ($entidad_id, $fecha_inicio, $fecha_fin) {
                 $query->select('investigador_id')
