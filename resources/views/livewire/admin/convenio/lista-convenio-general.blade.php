@@ -48,7 +48,9 @@
                             <x-utils.tables.body>
                                 {{ $conv->facultad->nombre }} - {{$conv->facultad->abrev}}
                             </x-utils.tables.body>
-                            <x-utils.tables.body>{{ $conv->created_at->format('d-m-Y') }}</x-utils.tables.body>
+                            <x-utils.tables.body class="whitespace-nowrap">
+                                {{ $conv->created_at->format('d-m-Y') }}
+                            </x-utils.tables.body>
                         </x-utils.tables.row>
                     @endforeach
                 @endslot
