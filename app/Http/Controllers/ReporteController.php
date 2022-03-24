@@ -60,31 +60,38 @@ class ReporteController extends Controller
 
     public function convalidacion_reporte(Request $request)
     {
+        $facultad = intval($request->input('facultad'));
         $escuela = intval($request->input('escuela'));
         $semestre = intval($request->input('semestre'));
 
-        $convalidaciones = Convalidacion::query()
-            ->with('semestre', 'escuela')
-            ->orderBy('semestre_id', 'desc')
-            ->orderBy(Escuela::select('nombre')->whereColumn('escuelas.id', 'convalidaciones.escuela_id'));
+        $facultades = Facultad::query()->orderBy('nombre')
+            ->select('id', 'nombre')
+            ->with('escuelas.convalidacion.semestre');
 
         if ($escuela > 0) {
-            $convalidaciones = $convalidaciones->where('escuela_id', $escuela);
+            $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela) {
+                $query->where('id', $escuela);
+            }]);
         }
-        if ($semestre > 0) {
-            $convalidaciones = $convalidaciones->where('semestre_id', $semestre);
-        }
-        $convalidaciones = $convalidaciones->get();
 
-        $facultad_nombre = $escuela === 0 ? 'Todos' : Escuela::query()->with('facultad')->first()->facultad->nombre;
-        $escuela_nombre = $escuela === 0 ? 'Todos' : Escuela::query()->where('id', $escuela)->first()->nombre;
+        if ($semestre > 0) {
+            $facultades = $facultades->with(['escuelas.convalidacion' => function ($query) use ($semestre) {
+                $query->where('semestre_id', $semestre);
+            }]);
+        }
+
+        if ($facultad > 0) {
+            $facultades = $facultades->where('id', $facultad);
+        }
+
+        $facultades = $facultades->get();
+
         $semestre_nombre = $semestre === 0 ? 'Todos' : Semestre::query()->where('id', $semestre)->first()->nombre;
 
         $pdf = PDF::loadView('reporte.convalidacion.reporte_principal', [
-            'convalidaciones' => $convalidaciones,
-            'facultad' => $facultad_nombre,
-            'escuela' => $escuela_nombre,
-            'semestre' => $semestre_nombre]);
+            'semestre' => $semestre_nombre,
+            'facultades' => $facultades
+        ]);
         return $pdf->setPaper('a3')->stream();
     }
 

@@ -7,7 +7,7 @@
             @if(count($convalidaciones))
                 <x-utils.links.danger class="text-xs"
                                       target="_blank"
-                                      href="{{ route('reporte.convalidacion.pdf', ['escuela'=>$escuela, 'semestre' => $semestre]) }}">
+                                      href="{{ route('reporte.convalidacion.pdf', ['facultad'=>$facultad,'escuela'=>$escuela, 'semestre' => $semestre]) }}">
                     <x-icons.document class="h-5 w-5 mr-1"/>
                     PDF
                 </x-utils.links.danger>
@@ -21,12 +21,14 @@
                     <option value="{{$fac->id}}">{{$fac->nombre}}</option>
                 @endforeach
             </x-utils.forms.select>
-            <x-utils.forms.select wire:model="escuela">
-                <option value="0">Todas las escuelas</option>
-                @foreach($escuelas as $esc)
-                    <option value="{{$esc->id}}">{{$esc->nombre}}</option>
-                @endforeach
-            </x-utils.forms.select>
+            @if(!is_null($escuelas))
+                <x-utils.forms.select wire:model="escuela">
+                    <option value="0">Todas las escuelas</option>
+                    @foreach($escuelas as $esc)
+                        <option value="{{$esc->id}}">{{$esc->nombre}}</option>
+                    @endforeach
+                </x-utils.forms.select>
+            @endif
             <x-utils.forms.select wire:model="semestre">
                 <option value="0">Todas los semestres</option>
                 @foreach($semestres as $semt)

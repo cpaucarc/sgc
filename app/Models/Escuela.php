@@ -17,6 +17,11 @@ class Escuela extends Model
         return $this->belongsTo(Facultad::class)->orderBy('nombre');
     }
 
+    public function convalidacion()
+    {
+        return $this->hasMany(Convalidacion::class)->orderBy('created_at');
+    }
+
     public function rsu()
     {
         return $this->hasMany(ResponsabilidadSocial::class)->orderBy('fecha_fin');

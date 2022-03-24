@@ -78,37 +78,42 @@
         </tbody>
     </table>
 
-    <p class="font-weight-bold my-0" style="font-size: 13px">Facultad: {{ $facultad }}</p>
-    <p class="font-weight-bold my-0" style="font-size: 13px">Escuela: {{ $escuela }}</p>
     <p class="font-weight-bold mb-4" style="font-size: 13px">Semestre: {{ $semestre }}</p>
 
     {{--  Datos AQUI  --}}
-    <table class="table table-sm table-bordered">
-        <thead>
-        <tr>
-            <th style="padding: 3px 6px">N°</th>
-            <th style="padding: 3px 6px">Semestre</th>
-            <th style="padding: 3px 6px">Vacantes</th>
-            <th style="padding: 3px 6px">Postulantes</th>
-            <th style="padding: 3px 6px">Convalidados</th>
-            <th style="padding: 3px 6px">Escuela</th>
-            <th style="padding: 3px 6px">Creación</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($convalidaciones as $i => $conv)
-            <tr>
-                <td style="padding: 3px 6px">{{ $i + 1 }}</td>
-                <td style="padding: 3px 6px">{{ $conv->semestre->nombre }}</td>
-                <td style="padding: 3px 6px">{{ $conv->vacantes }}</td>
-                <td style="padding: 3px 6px">{{ $conv->postulantes }}</td>
-                <td style="padding: 3px 6px">{{ $conv->convalidados }}</td>
-                <td style="padding: 3px 6px">{{ $conv->escuela->nombre }}</td>
-                <td style="padding: 3px 6px">{{ $conv->created_at->format('d-m-Y') }}</td>
-            </tr>
+    @foreach($facultades as $fac)
+        <p class="font-weight-bold my-2" style="font-size: 16px"> {{strtoupper($fac->nombre) }}</p>
+        @foreach($fac->escuelas as $esc)
+            @if(count($esc->convalidacion))
+                <p class="font-weight-normal my-1" style="font-size: 14px">{{ strtoupper($esc->nombre) }}</p>
+
+                <table class="table table-sm table-bordered">
+                    <thead>
+                    <tr>
+                        <th style="padding: 3px 6px">N°</th>
+                        <th style="padding: 3px 6px">Semestre</th>
+                        <th style="padding: 3px 6px">Vacantes</th>
+                        <th style="padding: 3px 6px">Postulantes</th>
+                        <th style="padding: 3px 6px">Convalidados</th>
+                        <th style="padding: 3px 6px">Creación</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($esc->convalidacion as $i => $conv)
+                        <tr>
+                            <td style="padding: 3px 6px">{{ $i + 1 }}</td>
+                            <td style="padding: 3px 6px">{{ $conv->semestre->nombre }}</td>
+                            <td style="padding: 3px 6px">{{ $conv->vacantes }}</td>
+                            <td style="padding: 3px 6px">{{ $conv->postulantes }}</td>
+                            <td style="padding: 3px 6px">{{ $conv->convalidados }}</td>
+                            <td style="padding: 3px 6px">{{ $conv->created_at->format('d-m-Y') }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            @endif
         @endforeach
-        </tbody>
-    </table>
+    @endforeach
 </main>
 
 </body>

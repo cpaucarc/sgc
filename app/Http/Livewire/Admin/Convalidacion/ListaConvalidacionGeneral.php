@@ -22,23 +22,35 @@ class ListaConvalidacionGeneral extends Component
 
     public function render()
     {
-        $this->escuelas = Escuela::query()
-            ->select('id', 'nombre')
-            ->where('facultad_id', $this->facultad)
-            ->orderBy('nombre')
-            ->get();
         $convalidaciones = Convalidacion::query()
             ->with('semestre', 'escuela')
             ->orderBy('semestre_id', 'desc')
             ->orderBy(Escuela::select('nombre')->whereColumn('escuelas.id', 'convalidaciones.escuela_id'));
 
-        if ($this->escuela > 0) {
-            $convalidaciones = $convalidaciones->where('escuela_id', $this->escuela);
+        if ($this->facultad > 0) {
+            if ($this->escuela > 0) {
+                $convalidaciones = $convalidaciones->where('escuela_id', $this->escuela);
+            } else {
+                $convalidaciones = $convalidaciones->whereIn('escuela_id', function ($query) {
+                    $query->select('id')->from('escuelas')
+                        ->where('facultad_id', $this->facultad);
+                });
+            }
         }
         if ($this->semestre > 0) {
             $convalidaciones = $convalidaciones->where('semestre_id', $this->semestre);
         }
         $convalidaciones = $convalidaciones->get();
         return view('livewire.admin.convalidacion.lista-convalidacion-general', compact('convalidaciones'));
+    }
+
+    public function updatedFacultad($value)
+    {
+        if (intval($value) === 0) {
+            $this->escuelas = null;
+        } else {
+            $this->escuelas = Escuela::query()->where('facultad_id', $value)->orderBy('nombre')->get();
+        }
+        $this->escuela = 0;
     }
 }

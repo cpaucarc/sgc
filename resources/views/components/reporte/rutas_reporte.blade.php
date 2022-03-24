@@ -8,6 +8,10 @@
                                     :active="request()->routeIs('reporte.convenio')">
                 {{ __('Convenio') }}
             </x-utils.links.nav-link>
+            <x-utils.links.nav-link href="{{ route('reporte.convalidacion') }}"
+                                    :active="request()->routeIs('reporte.convalidacion')">
+                {{ __('Convalidacion') }}
+            </x-utils.links.nav-link>
             <x-utils.links.nav-link href="{{ route('reporte.rsu') }}"
                                     :active="request()->routeIs('reporte.rsu')">
                 {{ __('Responsabilidad Social') }}
