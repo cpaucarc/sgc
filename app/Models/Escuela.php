@@ -17,6 +17,11 @@ class Escuela extends Model
         return $this->belongsTo(Facultad::class)->orderBy('nombre');
     }
 
+    public function rsu()
+    {
+        return $this->hasMany(ResponsabilidadSocial::class)->orderBy('fecha_fin');
+    }
+
     // relacion uno a muchos polimorfica
     public function entidades()
     {

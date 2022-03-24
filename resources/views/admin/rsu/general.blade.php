@@ -7,7 +7,7 @@
         </div>
 
         <div class="col-span-3 space-y-4 divide-gray-300 divide-dashed">
-            <livewire:admin.convenio.lista-convenio-general/>
+            <livewire:admin.rsu.lista-rsu-reporte/>
         </div>
 
     </div>

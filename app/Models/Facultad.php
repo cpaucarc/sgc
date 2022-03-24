@@ -13,6 +13,11 @@ class Facultad extends Model
     public $timestamps = false;
     public $fillable = ['nombre', 'uuid', 'abrev', 'direccion'];
 
+    public function escuelas()
+    {
+        return $this->hasMany(Escuela::class);
+    }
+
     // relacion uno a muchos polimorfica
     public function entidades()
     {

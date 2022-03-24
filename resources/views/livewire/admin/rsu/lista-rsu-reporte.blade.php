@@ -7,6 +7,14 @@
                     <option value="{{$fac->id}}">{{$fac->nombre}}</option>
                 @endforeach
             </x-utils.forms.select>
+            @if(!is_null($escuelas))
+                <x-utils.forms.select wire:model="escuela">
+                    <option value="0">Todas las escuelas</option>
+                    @foreach($escuelas as $esc)
+                        <option value="{{$esc->id}}">{{$esc->nombre}}</option>
+                    @endforeach
+                </x-utils.forms.select>
+            @endif
             <x-utils.forms.select wire:model="semestre">
                 <option value="0">Todos los semestres</option>
                 @foreach($semestres as $semt)
@@ -14,11 +22,15 @@
                 @endforeach
             </x-utils.forms.select>
         </div>
-
-        @if(count($convenios))
+        @if(count($rsu))
             <x-utils.links.danger class="text-xs"
                                   target="_blank"
-                                  href="{{ route('reporte.convenio.pdf', ['facultad' => $facultad, 'semestre' => $semestre]) }}">
+                                  {{--                                  href="{{ route('reporte.rsu.pdf', ['facultad' => $facultad, 'semestre' => $semestre]) }}">--}}
+                                  href="{{ route('reporte.rsu.pdf', [
+                                        'semestre' => $semestre,
+                                        'facultad' => $facultad,
+                                        'escuela' => $escuela
+                                    ]) }}">
                 <x-icons.document class="h-5 w-5 mr-1"/>
                 PDF
             </x-utils.links.danger>
@@ -26,35 +38,42 @@
     </div>
 
     <div>
-        @if(count($convenios))
+        @if(count($rsu))
             <x-utils.tables.table>
                 @slot('head')
                     <x-utils.tables.head>N°</x-utils.tables.head>
+                    <x-utils.tables.head>Título</x-utils.tables.head>
                     <x-utils.tables.head>Semestre</x-utils.tables.head>
-                    <x-utils.tables.head>Realizadas</x-utils.tables.head>
-                    <x-utils.tables.head>Vigentes</x-utils.tables.head>
-                    <x-utils.tables.head>Culminadas</x-utils.tables.head>
-                    <x-utils.tables.head>Facultad</x-utils.tables.head>
-                    <x-utils.tables.head>Creación</x-utils.tables.head>
+                    <x-utils.tables.head>Escuela</x-utils.tables.head>
+                    <x-utils.tables.head>Inicio</x-utils.tables.head>
+                    <x-utils.tables.head>Fin</x-utils.tables.head>
                 @endslot
                 @slot('body')
-                    @foreach($convenios as $i => $conv)
+                    @foreach($rsu as $i => $rs)
                         <x-utils.tables.row>
-                            <x-utils.tables.body>{{($i+1)}}</x-utils.tables.body>
-                            <x-utils.tables.body>{{ $conv->semestre->nombre }}</x-utils.tables.body>
-                            <x-utils.tables.body>{{ $conv->realizados }}</x-utils.tables.body>
-                            <x-utils.tables.body>{{ $conv->vigentes }}</x-utils.tables.body>
-                            <x-utils.tables.body>{{ $conv->culminados }}</x-utils.tables.body>
-                            <x-utils.tables.body>
-                                {{ $conv->facultad->nombre }} - {{$conv->facultad->abrev}}
+                            <x-utils.tables.body class="text-xs">{{($i+1)}}</x-utils.tables.body>
+                            <x-utils.tables.body class="text-xs">
+                                <x-utils.links.basic href="{{ route('rsu.show', [$rs->uuid]) }}">
+                                    {{substr($rs->titulo, 0, 55)}}
+                                </x-utils.links.basic>
+                            </x-utils.tables.body>
+                            <x-utils.tables.body class="text-xs">{{ $rs->semestre->nombre }}</x-utils.tables.body>
+                            <x-utils.tables.body class="text-xs">{{ $rs->escuela->nombre }}</x-utils.tables.body>
+                            <x-utils.tables.body class="whitespace-nowrap text-xs">
+                                {{ $rs->fecha_inicio->format('d-m-Y') }}
                             </x-utils.tables.body>
                             <x-utils.tables.body class="whitespace-nowrap text-xs">
-                                {{ $conv->created_at->format('d-m-Y') }}
+                                {{ $rs->fecha_fin->format('d-m-Y') }}
                             </x-utils.tables.body>
                         </x-utils.tables.row>
                     @endforeach
                 @endslot
             </x-utils.tables.table>
+
+            <div class="mt-4">
+                {{ $rsu->links() }}
+            </div>
+
         @else
             <div class="border border-gray-300 rounded-md">
                 <x-utils.message-no-items
@@ -69,5 +88,4 @@
             </div>
         @endif
     </div>
-
 </div>
