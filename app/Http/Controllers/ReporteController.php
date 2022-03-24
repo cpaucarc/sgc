@@ -75,9 +75,16 @@ class ReporteController extends Controller
         }
 
         if ($semestre > 0) {
-            $facultades = $facultades->with(['escuelas.convalidacion' => function ($query) use ($semestre) {
-                $query->where('semestre_id', $semestre);
-            }]);
+            if ($escuela > 0) {
+                $facultades = $facultades->with(['escuelas.convalidacion' => function ($query) use ($semestre, $escuela) {
+                    $query->where('semestre_id', $semestre)
+                        ->where('escuela_id', $escuela);
+                }]);
+            } else {
+                $facultades = $facultades->with(['escuelas.convalidacion' => function ($query) use ($semestre) {
+                    $query->where('semestre_id', $semestre);
+                }]);
+            }
         }
 
         if ($facultad > 0) {
