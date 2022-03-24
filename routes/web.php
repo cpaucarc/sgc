@@ -60,10 +60,17 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
 
     Route::prefix('reporte')->controller(ReporteController::class)->group(function () {
+        /*Todo: Convenio*/
         Route::get('convenio', 'convenio')->name('reporte.convenio');
         Route::get('convenio/pdf', 'convenio_reporte')->name('reporte.convenio.pdf');
+
+        /*Todo: Convalidacion*/
+        Route::get('convalidacion', 'convalidacion')->name('reporte.convalidacion');
+        Route::get('convalidacion/pdf', 'convalidacion_reporte')->name('reporte.convalidacion.pdf');
+
         Route::get('rsu', 'rsu')->name('reporte.rsu');
         Route::get('rsu/pdf', 'rsu_reporte')->name('reporte.rsu.pdf');
+
     });
 
     Route::prefix('actividad')->controller(ActividadController::class)->group(function () {

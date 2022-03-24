@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Convalidacion;
 use App\Models\Convenio;
+use App\Models\Escuela;
 use App\Models\Facultad;
 use App\Models\Semestre;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -15,7 +17,7 @@ class ReporteController extends Controller
 
     }
 
-    /* Convenios */
+    /*Todo: Convenios */
     public function convenio()
     {
         return view('admin.convenio.general');
@@ -46,6 +48,50 @@ class ReporteController extends Controller
             'convenios' => $convenios,
             'facultad' => $facultad_nombre,
             'semestre' => $semestre_nombre]);
+        return $pdf->setPaper('a3')->stream();
+    }
+
+
+    /*Todo: Convalidaciones */
+    public function convalidacion()
+    {
+        return view('admin.convalidacion.general');
+    }
+
+    public function convalidacion_reporte(Request $request)
+    {
+        $facultad = intval($request->input('facultad'));
+        $escuela = intval($request->input('escuela'));
+        $semestre = intval($request->input('semestre'));
+
+        $facultades = Facultad::query()->orderBy('nombre')
+            ->select('id', 'nombre')
+            ->with('escuelas.convalidacion.semestre');
+
+        if ($escuela > 0) {
+            $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela) {
+                $query->where('id', $escuela);
+            }]);
+        }
+
+        if ($semestre > 0) {
+            $facultades = $facultades->with(['escuelas.convalidacion' => function ($query) use ($semestre) {
+                $query->where('semestre_id', $semestre);
+            }]);
+        }
+
+        if ($facultad > 0) {
+            $facultades = $facultades->where('id', $facultad);
+        }
+
+        $facultades = $facultades->get();
+
+        $semestre_nombre = $semestre === 0 ? 'Todos' : Semestre::query()->where('id', $semestre)->first()->nombre;
+
+        $pdf = PDF::loadView('reporte.convalidacion.reporte_principal', [
+            'semestre' => $semestre_nombre,
+            'facultades' => $facultades
+        ]);
         return $pdf->setPaper('a3')->stream();
     }
 
