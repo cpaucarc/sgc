@@ -1,5 +1,20 @@
 <div>
-    <div class="flex items-center justify-between mb-6">
+    <div class="col-span-3 space-y-4 divide-gray-300 divide-dashed mb-6">
+        <div class="flex justify-between items-center">
+            <h1 class="font-bold text-xl text-black">
+                Reporte Responsabilidad Social Universitario
+            </h1>
+            @if(count($rsu))
+                <x-utils.links.danger class="text-xs" target="_blank"
+                                      href="{{ route('reporte.rsu.pdf', [
+                                        'semestre' => $semestre,'facultad' => $facultad,'escuela' => $escuela
+                                    ]) }}">
+                    <x-icons.document class="h-5 w-5 mr-1"/>
+                    PDF
+                </x-utils.links.danger>
+            @endif
+        </div>
+        <hr/>
         <div class="flex items-center gap-x-2">
             <x-utils.forms.select wire:model="facultad">
                 <option value="0">Todas las facultades</option>
@@ -22,19 +37,6 @@
                 @endforeach
             </x-utils.forms.select>
         </div>
-        @if(count($rsu))
-            <x-utils.links.danger class="text-xs"
-                                  target="_blank"
-                                  {{--                                  href="{{ route('reporte.rsu.pdf', ['facultad' => $facultad, 'semestre' => $semestre]) }}">--}}
-                                  href="{{ route('reporte.rsu.pdf', [
-                                        'semestre' => $semestre,
-                                        'facultad' => $facultad,
-                                        'escuela' => $escuela
-                                    ]) }}">
-                <x-icons.document class="h-5 w-5 mr-1"/>
-                PDF
-            </x-utils.links.danger>
-        @endif
     </div>
 
     <div>

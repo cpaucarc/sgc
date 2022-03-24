@@ -23,13 +23,13 @@ class ListaRsuReporte extends Component
         $this->semestres = Semestre::query()->orderBy('nombre', 'desc')->get();
     }
 
-
     public function render()
     {
         $rsu = ResponsabilidadSocial::query()
             ->select("id", "titulo", "uuid", "fecha_inicio", "fecha_fin", "semestre_id", "escuela_id")
             ->with('escuela:id,nombre,facultad_id', 'semestre:id,nombre')
-            ->orderBy('semestre_id', 'desc');
+            ->orderBy('semestre_id', 'desc')
+            ->orderBy(Escuela::select('nombre')->whereColumn('escuelas.id', 'responsabilidad_social.escuela_id'));
 
         if ($this->facultad > 0) {
             if ($this->escuela > 0) {
@@ -52,12 +52,24 @@ class ListaRsuReporte extends Component
 
     public function updatedFacultad($value)
     {
+        $this->resetPage();
+
         if (intval($value) === 0) {
             $this->escuelas = null;
         } else {
             $this->escuelas = Escuela::query()->where('facultad_id', $value)->orderBy('nombre')->get();
         }
         $this->escuela = 0;
+    }
+
+    public function updatedSemestre()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedEscuela()
+    {
+        $this->resetPage();
     }
 
 }

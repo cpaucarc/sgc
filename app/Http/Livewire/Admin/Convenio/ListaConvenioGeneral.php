@@ -6,9 +6,12 @@ use App\Models\Convenio;
 use App\Models\Facultad;
 use App\Models\Semestre;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ListaConvenioGeneral extends Component
 {
+    use WithPagination;
+
     public $facultades = null, $facultad = 0;
     public $semestres = null, $semestre = 0;
 
@@ -31,7 +34,18 @@ class ListaConvenioGeneral extends Component
         if ($this->semestre > 0) {
             $convenios = $convenios->where('semestre_id', $this->semestre);
         }
-        $convenios = $convenios->get();
+        $convenios = $convenios->paginate(20);
+
         return view('livewire.admin.convenio.lista-convenio-general', compact('convenios'));
+    }
+
+    public function updatedSemestre()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFacultad()
+    {
+        $this->resetPage();
     }
 }

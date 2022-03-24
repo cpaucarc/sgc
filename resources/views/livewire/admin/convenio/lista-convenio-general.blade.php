@@ -1,5 +1,19 @@
 <div>
-    <div class="flex items-center justify-between mb-6">
+    <div class="col-span-3 space-y-4 divide-gray-300 divide-dashed mb-6">
+        <div class="flex justify-between items-center">
+            <h1 class="font-bold text-xl text-black">
+                Reporte Convenios
+            </h1>
+            @if(count($convenios))
+                <x-utils.links.danger class="text-xs"
+                                      target="_blank"
+                                      href="{{ route('reporte.convenio.pdf', ['facultad' => $facultad, 'semestre' => $semestre]) }}">
+                    <x-icons.document class="h-5 w-5 mr-1"/>
+                    PDF
+                </x-utils.links.danger>
+            @endif
+        </div>
+        <hr/>
         <div class="flex items-center gap-x-2">
             <x-utils.forms.select wire:model="facultad">
                 <option value="0">Todas las facultades</option>
@@ -14,15 +28,6 @@
                 @endforeach
             </x-utils.forms.select>
         </div>
-
-        @if(count($convenios))
-            <x-utils.links.danger class="text-xs"
-                                  target="_blank"
-                                  href="{{ route('reporte.convenio.pdf', ['facultad' => $facultad, 'semestre' => $semestre]) }}">
-                <x-icons.document class="h-5 w-5 mr-1"/>
-                PDF
-            </x-utils.links.danger>
-        @endif
     </div>
 
     <div>
@@ -40,12 +45,12 @@
                 @slot('body')
                     @foreach($convenios as $i => $conv)
                         <x-utils.tables.row>
-                            <x-utils.tables.body>{{($i+1)}}</x-utils.tables.body>
-                            <x-utils.tables.body>{{ $conv->semestre->nombre }}</x-utils.tables.body>
-                            <x-utils.tables.body>{{ $conv->realizados }}</x-utils.tables.body>
-                            <x-utils.tables.body>{{ $conv->vigentes }}</x-utils.tables.body>
-                            <x-utils.tables.body>{{ $conv->culminados }}</x-utils.tables.body>
-                            <x-utils.tables.body>
+                            <x-utils.tables.body class="text-xs">{{($i+1)}}</x-utils.tables.body>
+                            <x-utils.tables.body class="text-xs">{{ $conv->semestre->nombre }}</x-utils.tables.body>
+                            <x-utils.tables.body class="text-xs">{{ $conv->realizados }}</x-utils.tables.body>
+                            <x-utils.tables.body class="text-xs">{{ $conv->vigentes }}</x-utils.tables.body>
+                            <x-utils.tables.body class="text-xs">{{ $conv->culminados }}</x-utils.tables.body>
+                            <x-utils.tables.body class="text-xs">
                                 {{ $conv->facultad->nombre }} - {{$conv->facultad->abrev}}
                             </x-utils.tables.body>
                             <x-utils.tables.body class="whitespace-nowrap text-xs">
@@ -55,6 +60,10 @@
                     @endforeach
                 @endslot
             </x-utils.tables.table>
+
+            <div class="mt-4">
+                {{ $convenios->links() }}
+            </div>
         @else
             <div class="border border-gray-300 rounded-md">
                 <x-utils.message-no-items

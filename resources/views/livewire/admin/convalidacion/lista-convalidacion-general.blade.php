@@ -1,8 +1,8 @@
 <div>
-    <div class="col-span-3 space-y-4  divide-gray-300 divide-dashed mb-6">
+    <div class="col-span-3 space-y-4 divide-gray-300 divide-dashed mb-6">
         <div class="flex justify-between items-center">
             <h1 class="font-bold text-xl text-black">
-                Reporte convalidaciones
+                Reporte Convalidaciones
             </h1>
             @if(count($convalidaciones))
                 <x-utils.links.danger class="text-xs"
@@ -53,19 +53,24 @@
                 @slot('body')
                     @foreach($convalidaciones as $i => $conv)
                         <x-utils.tables.row>
-                            <x-utils.tables.body>{{($i+1)}}</x-utils.tables.body>
-                            <x-utils.tables.body>{{ $conv->semestre->nombre }}</x-utils.tables.body>
-                            <x-utils.tables.body>{{ $conv->vacantes }}</x-utils.tables.body>
-                            <x-utils.tables.body>{{ $conv->postulantes }}</x-utils.tables.body>
-                            <x-utils.tables.body>{{ $conv->convalidados }}</x-utils.tables.body>
-                            <x-utils.tables.body>
+                            <x-utils.tables.body class="text-xs">{{($i+1)}}</x-utils.tables.body>
+                            <x-utils.tables.body class="text-xs">{{ $conv->semestre->nombre }}</x-utils.tables.body>
+                            <x-utils.tables.body class="text-xs">{{ $conv->vacantes }}</x-utils.tables.body>
+                            <x-utils.tables.body class="text-xs">{{ $conv->postulantes }}</x-utils.tables.body>
+                            <x-utils.tables.body class="text-xs">{{ $conv->convalidados }}</x-utils.tables.body>
+                            <x-utils.tables.body class="text-xs">
                                 {{ $conv->escuela->nombre }} - {{$conv->escuela->abrev}}
                             </x-utils.tables.body>
-                            <x-utils.tables.body>{{ $conv->created_at->format('d-m-Y') }}</x-utils.tables.body>
+                            <x-utils.tables.body
+                                class="text-xs">{{ $conv->created_at->format('d-m-Y') }}</x-utils.tables.body>
                         </x-utils.tables.row>
                     @endforeach
                 @endslot
             </x-utils.tables.table>
+
+            <div class="mt-4">
+                {{ $convalidaciones->links() }}
+            </div>
         @else
             <div class="border border-gray-300 rounded-md">
                 <x-utils.message-no-items

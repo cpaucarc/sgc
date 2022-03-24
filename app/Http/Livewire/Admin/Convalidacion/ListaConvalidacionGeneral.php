@@ -7,9 +7,12 @@ use App\Models\Escuela;
 use App\Models\Facultad;
 use App\Models\Semestre;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ListaConvalidacionGeneral extends Component
 {
+    use WithPagination;
+
     public $facultades = null, $facultad = 0;
     public $escuelas = null, $escuela = 0;
     public $semestres = null, $semestre = 0;
@@ -40,17 +43,30 @@ class ListaConvalidacionGeneral extends Component
         if ($this->semestre > 0) {
             $convalidaciones = $convalidaciones->where('semestre_id', $this->semestre);
         }
-        $convalidaciones = $convalidaciones->get();
+        $convalidaciones = $convalidaciones->paginate(20);
+
         return view('livewire.admin.convalidacion.lista-convalidacion-general', compact('convalidaciones'));
     }
 
     public function updatedFacultad($value)
     {
+        $this->resetPage();
+
         if (intval($value) === 0) {
             $this->escuelas = null;
         } else {
             $this->escuelas = Escuela::query()->where('facultad_id', $value)->orderBy('nombre')->get();
         }
         $this->escuela = 0;
+    }
+
+    public function updatedSemestre()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedEscuela()
+    {
+        $this->resetPage();
     }
 }
