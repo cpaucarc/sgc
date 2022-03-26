@@ -68,8 +68,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('convalidacion', 'convalidacion')->name('reporte.convalidacion');
         Route::get('convalidacion/pdf', 'convalidacion_reporte')->name('reporte.convalidacion.pdf');
 
+        /*Todo: Responsabilidad Social*/
         Route::get('rsu', 'rsu')->name('reporte.rsu');
         Route::get('rsu/pdf', 'rsu_reporte')->name('reporte.rsu.pdf');
+
+        /*Todo: Biblioteca*/
+        Route::get('biblioteca', 'biblioteca')->name('reporte.biblioteca');
+        Route::get('biblioteca/material/pdf', 'biblioteca_reporte_material')->name('reporte.biblioteca.material.pdf');
+        Route::get('biblioteca/visitante/pdf', 'biblioteca_reporte_visitante')->name('reporte.biblioteca.visitante.pdf');
 
     });
 

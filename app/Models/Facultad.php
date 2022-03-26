@@ -30,4 +30,9 @@ class Facultad extends Model
     {
         return $this->morphToMany(Indicador::class, 'indicadorable');
     }
+
+    public function materialBibliografico()
+    {
+        return $this->hasMany(MaterialBibliografico::class)->orderBy('fecha_inicio');
+    }
 }
