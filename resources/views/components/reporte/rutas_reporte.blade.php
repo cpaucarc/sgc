@@ -20,6 +20,10 @@
                                     :active="request()->routeIs('reporte.biblioteca')">
                 {{ __('Biblioteca') }}
             </x-utils.links.nav-link>
+            <x-utils.links.nav-link href="{{ route('reporte.bolsa') }}"
+                                    :active="request()->routeIs('reporte.bolsa')">
+                {{ __('Bolsa de Trabajo') }}
+            </x-utils.links.nav-link>
         </div>
     </div>
 

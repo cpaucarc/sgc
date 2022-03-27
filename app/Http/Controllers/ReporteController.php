@@ -238,5 +238,48 @@ class ReporteController extends Controller
         return $pdf->setPaper('a3')->stream();
     }
 
+    /*Todo: Biblioteca */
+    public function bolsa()
+    {
+        return view('admin.bolsa.general');
+    }
+
+    public function bolsa_reporte(Request $request)
+    {
+
+        $facultad = intval($request->input('facultad'));
+        $semestre = intval($request->input('semestre'));
+        $escuela = intval($request->input('escuela'));
+
+        $facultades = Facultad::query()->orderBy('nombre')
+            ->select('id', 'nombre')
+            ->with('escuelas.bolsaPostulante.semestre');
+
+        if ($escuela > 0) {
+            $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela) {
+                $query->where('id', $escuela);
+            }]);
+        }
+
+        if ($semestre > 0) {
+            $facultades = $facultades->with(['escuelas.bolsaPostulante' => function ($query) use ($semestre) {
+                $query->where('semestre_id', $semestre);
+            }]);
+        }
+
+        if ($facultad > 0) {
+            $facultades = $facultades->where('id', $facultad);
+        }
+
+        $facultades = $facultades->get();
+
+        $semestre_nombre = $semestre === 0 ? 'Todos' : Semestre::query()->where('id', $semestre)->first()->nombre;
+
+        $pdf = PDF::loadView('reporte.bolsa.reporte_bolsa_postulantes', [
+            'semestre' => $semestre_nombre,
+            'facultades' => $facultades
+        ]);
+        return $pdf->setPaper('a3')->stream();
+    }
 
 }
