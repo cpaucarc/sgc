@@ -77,6 +77,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('biblioteca/material/pdf', 'biblioteca_reporte_material')->name('reporte.biblioteca.material.pdf');
         Route::get('biblioteca/visitante/pdf', 'biblioteca_reporte_visitante')->name('reporte.biblioteca.visitante.pdf');
 
+        /*Todo: Bolsa de trabajo*/
+        Route::get('bolsa', 'bolsa')->name('reporte.bolsa');
+        Route::get('bolsa/pdf', 'bolsa_reporte')->name('reporte.bolsa.pdf');
+
     });
 
     Route::prefix('actividad')->controller(ActividadController::class)->group(function () {

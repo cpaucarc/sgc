@@ -32,6 +32,11 @@ class Escuela extends Model
         return $this->hasMany(BibliotecaVisitante::class)->orderBy('fecha_fin');
     }
 
+    public function bolsaPostulante()
+    {
+        return $this->hasMany(BolsaPostulante::class)->orderBy('fecha_fin');
+    }
+
     // relacion uno a muchos polimorfica
     public function entidades()
     {
