@@ -16,6 +16,10 @@
                                     :active="request()->routeIs('reporte.rsu')">
                 {{ __('Responsabilidad Social') }}
             </x-utils.links.nav-link>
+            <x-utils.links.nav-link href="{{ route('reporte.indicador') }}"
+                                    :active="request()->routeIs('reporte.indicador')">
+                {{ __('Indicador') }}
+            </x-utils.links.nav-link>
         </div>
     </div>
 

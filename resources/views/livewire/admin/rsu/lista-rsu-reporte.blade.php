@@ -79,7 +79,7 @@
         @else
             <div class="border border-gray-300 rounded-md">
                 <x-utils.message-no-items
-                    title="Aún no hay ningún registro que mostrar">
+                    title="Aún no hay ningún registro que mostrar.">
                     @slot('icon')
                         <svg class="text-gray-400" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
                             <path

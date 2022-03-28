@@ -30,7 +30,7 @@
                     <x-utils.tables.row>
                         <x-utils.tables.body>
                             <x-utils.links.basic class="flex items-center"
-                                                 href="{{ route('admin.usuario', $usuario->uuid) }}">
+                                                 href="{{ route('admin.panel.usuario', $usuario->uuid) }}">
                                 <img class="h-6 w-6 rounded-full mr-2" src="{{ $usuario->profile_photo_url }}"
                                      alt="{{ $usuario->name }}">
                                 <p>{{$usuario->name}}</p>

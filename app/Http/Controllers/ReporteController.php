@@ -135,21 +135,6 @@ class ReporteController extends Controller
         }
 
         $facultades = $facultades->get();
-//
-//        $convenios = Convenio::query()
-//            ->with('semestre', 'facultad')
-//            ->orderBy('semestre_id', 'desc')
-//            ->orderBy(Facultad::select('nombre')->whereColumn('facultades.id', 'convenios.facultad_id'));
-//
-//        if ($facultad > 0) {
-//            $convenios = $convenios->where('facultad_id', $facultad);
-//        }
-//        if ($semestre > 0) {
-//            $convenios = $convenios->where('semestre_id', $semestre);
-//        }
-//        $convenios = $convenios->get();
-//
-//        $facultad_nombre = $facultad === 0 ? 'Todos' : Facultad::query()->where('id', $facultad)->first()->nombre;
         $semestre_nombre = $semestre === 0 ? 'Todos' : Semestre::query()->where('id', $semestre)->first()->nombre;
 
         $pdf = PDF::loadView('reporte.rsu.reporte_principal', [
@@ -158,10 +143,92 @@ class ReporteController extends Controller
         ]);
         return $pdf->setPaper('a3')->stream();
 
-//        [
-//        'convenios' => $convenios,
-//        'facultad' => $facultad_nombre,
-//        'semestre' => $semestre_nombre]
+    }
+
+    /* RSU */
+    public function indicador()
+    {
+        return view('admin.indicador.general');
+    }
+
+    public function indicador_reporte(Request $request)
+    {
+        $facultad = intval($request->input('facultad'));
+        $semestre = intval($request->input('semestre'));
+        $escuela = intval($request->input('escuela'));
+
+        if ($facultad < 1) {
+            abort(404, 'No existe ningun registro con estos parametros.');
+        }
+
+        try {
+            if ($escuela > 0) {
+                $entidad = Escuela::query()->where('id', $escuela);
+            } else {
+                $entidad = Facultad::query()->where('id', $facultad);
+            }
+
+            $entidad = $entidad->withCount('indicadores')->with('indicadores')
+                ->with(['indicadores.analisis' => function ($query) use ($semestre) {
+                    if ($semestre > 0) {
+                        $query->where('semestre_id', $semestre);
+                    }
+                }])
+                ->first();
+
+            $semestre_nombre = $semestre === 0 ? 'Todos' : Semestre::query()->where('id', $semestre)->first()->nombre;
+            $semestre_count = $semestre === 0 ? Semestre::count() : 1;
+
+            $pdf = PDF::loadView('reporte.indicador.reporte_principal', [
+                'semestre' => $semestre_nombre,
+                'semestre_count' => $semestre_count,
+                'entidad' => $entidad
+            ]);
+            return $pdf->setPaper('a3')->stream();
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
+        }
+    }
+
+    public function indicador_por_indicador(Request $request)
+    {
+        $indicadorable_id = intval($request->input('indicadorable_id'));
+        $facultad = intval($request->input('facultad'));
+        $semestre = intval($request->input('semestre'));
+        $escuela = intval($request->input('escuela'));
+
+        if ($facultad < 1) {
+            abort(404, 'No existe ningun registro con estos parametros.');
+        }
+
+        try {
+//            if ($escuela > 0) {
+//                $entidad = Escuela::query()->where('id', $escuela);
+//            } else {
+//                $entidad = Facultad::query()->where('id', $facultad);
+//            }
+//
+//            $entidad = $entidad->withCount('indicadores')->with('indicadores')
+//                ->with(['indicadores.analisis' => function ($query) use ($semestre) {
+//                    if ($semestre > 0) {
+//                        $query->where('semestre_id', $semestre);
+//                    }
+//                }])
+//                ->first();
+//
+//            $semestre_nombre = $semestre === 0 ? 'Todos' : Semestre::query()->where('id', $semestre)->first()->nombre;
+//            $semestre_count = $semestre === 0 ? Semestre::count() : 1;
+
+            $pdf = PDF::loadView('reporte.indicador.reporte_por_indicador', [
+                'indicadorable_id' => $indicadorable_id,
+                'facultad' => $facultad,
+                'semestre' => $semestre,
+                'escuela' => $escuela,
+            ]);
+            return $pdf->setPaper('a3')->stream();
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
+        }
     }
 
 }

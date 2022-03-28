@@ -68,8 +68,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('convalidacion', 'convalidacion')->name('reporte.convalidacion');
         Route::get('convalidacion/pdf', 'convalidacion_reporte')->name('reporte.convalidacion.pdf');
 
+        /*Todo: RSU */
         Route::get('rsu', 'rsu')->name('reporte.rsu');
         Route::get('rsu/pdf', 'rsu_reporte')->name('reporte.rsu.pdf');
+
+        /*Todo: Indicador */
+        Route::get('indicador', 'indicador')->name('reporte.indicador');
+        Route::get('indicador/pdf', 'indicador_reporte')->name('reporte.indicador.pdf');
+        Route::get('indicador/detalle/pdf', 'indicador_por_indicador')->name('reporte.detalle.pdf');
 
     });
 

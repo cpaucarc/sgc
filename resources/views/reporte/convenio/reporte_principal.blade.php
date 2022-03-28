@@ -31,7 +31,7 @@
         }
 
         main {
-            margin-top: 60px;
+            margin-top: 20px;
             margin-bottom: 0;
             height: auto;
             width: 100%;
@@ -43,7 +43,7 @@
     </style>
 </head>
 
-<body>
+<body class="mt-4">
 
 <header>
     <table style="width: 100%;">

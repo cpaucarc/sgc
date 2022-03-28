@@ -16,7 +16,7 @@
                 @foreach($entidades as $entidad)
                     <x-utils.tables.row>
                         <x-utils.tables.body>
-                            <x-utils.links.basic href="{{route('admin.entidad.responsable', $entidad->id)}}">
+                            <x-utils.links.basic href="{{route('admin.panel.entidad.responsable', $entidad->id)}}">
                                 {{$entidad->nombre}}
                             </x-utils.links.basic>
                         </x-utils.tables.body>
@@ -25,13 +25,13 @@
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-xs">
                             <a class="hover:underline hover:text-sky-700"
-                               href="{{route('admin.entidad.responsable', $entidad->id)}}">
+                               href="{{route('admin.panel.entidad.responsable', $entidad->id)}}">
                                 {{$entidad->actividades_count > 0 ? 'de '.$entidad->actividades_count.' actividades' : 'X'}}
                             </a>
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-xs">
                             <a class="hover:underline hover:text-sky-700"
-                               href="{{route('admin.entidad.proveedor', $entidad->id)}}">
+                               href="{{route('admin.panel.entidad.proveedor', $entidad->id)}}">
                                 {{$entidad->entradas_count > 0 ? 'de '.$entidad->entradas_count.' entradas' : 'X'}}
                             </a>
                         </x-utils.tables.body>
