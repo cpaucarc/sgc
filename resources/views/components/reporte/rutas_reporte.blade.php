@@ -24,6 +24,10 @@
                                     :active="request()->routeIs('reporte.bolsa')">
                 {{ __('Bolsa de Trabajo') }}
             </x-utils.links.nav-link>
+            <x-utils.links.nav-link href="{{ route('reporte.bienestar') }}"
+                                    :active="request()->routeIs('reporte.bienestar')">
+                {{ __('Bienestar Universitario') }}
+            </x-utils.links.nav-link>
         </div>
     </div>
 

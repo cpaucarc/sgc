@@ -81,6 +81,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('bolsa', 'bolsa')->name('reporte.bolsa');
         Route::get('bolsa/pdf', 'bolsa_reporte')->name('reporte.bolsa.pdf');
 
+        /*Todo: Bienestar Universitario*/
+        Route::get('bienestar-universitario', 'bienestar')->name('reporte.bienestar');
+        Route::get('bienestar-universitario/pdf', 'bienestar_reporte')->name('reporte.bienestar.pdf');
+
     });
 
     Route::prefix('actividad')->controller(ActividadController::class)->group(function () {

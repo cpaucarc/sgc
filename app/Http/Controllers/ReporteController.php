@@ -282,4 +282,48 @@ class ReporteController extends Controller
         return $pdf->setPaper('a3')->stream();
     }
 
+    /*Todo: Bienestar Universitario */
+    public function bienestar()
+    {
+        return view('admin.bienestar.general');
+    }
+
+    public function bienestar_reporte(Request $request)
+    {
+
+        $facultad = intval($request->input('facultad'));
+        $escuela = intval($request->input('escuela'));
+        $anio = intval($request->input('anio'));
+
+        $facultades = Facultad::query()->orderBy('nombre')
+            ->select('id', 'nombre')
+            ->with('escuelas.comedor');
+
+        if ($escuela > 0) {
+            $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela) {
+                $query->where('id', $escuela);
+            }]);
+        }
+
+        if ($anio > 0) {
+            $facultades = $facultades->with(['escuelas.comedor' => function ($query) use ($anio) {
+                $query->where('anio', $anio);
+            }]);
+        }
+
+        if ($facultad > 0) {
+            $facultades = $facultades->where('id', $facultad);
+        }
+
+        $facultades = $facultades->get();
+
+        $anio_nombre = $anio === 0 ? 'Todos' : $anio;
+
+        $pdf = PDF::loadView('reporte.bienestar.reporte_atencion_comedor', [
+            'anio' => $anio_nombre,
+            'facultades' => $facultades
+        ]);
+        return $pdf->setPaper('a3')->stream();
+    }
+
 }
