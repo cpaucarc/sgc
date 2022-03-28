@@ -55,8 +55,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('entidad/responsable/{id}', 'entidad_responsable')->name('admin.panel.entidad.responsable');
         Route::get('entidad/proveedor/{id}', 'entidad_proveedor')->name('admin.panel.entidad.proveedor');
         Route::get('entidad/cliente/{id}', 'entidad_cliente')->name('admin.entidad.cliente');
-
-
     });
 
     Route::prefix('reporte')->controller(ReporteController::class)->group(function () {
@@ -68,15 +66,23 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('convalidacion', 'convalidacion')->name('reporte.convalidacion');
         Route::get('convalidacion/pdf', 'convalidacion_reporte')->name('reporte.convalidacion.pdf');
 
-        /*Todo: RSU */
-        Route::get('rsu', 'rsu')->name('reporte.rsu');
-        Route::get('rsu/pdf', 'rsu_reporte')->name('reporte.rsu.pdf');
-
         /*Todo: Indicador */
         Route::get('indicador', 'indicador')->name('reporte.indicador');
         Route::get('indicador/pdf', 'indicador_reporte')->name('reporte.indicador.pdf');
         Route::get('indicador/detalle/pdf', 'indicador_por_indicador')->name('reporte.detalle.pdf');
 
+        /*Todo: Responsabilidad Social*/
+        Route::get('rsu', 'rsu')->name('reporte.rsu');
+        Route::get('rsu/pdf', 'rsu_reporte')->name('reporte.rsu.pdf');
+
+        /*Todo: Biblioteca*/
+        Route::get('biblioteca', 'biblioteca')->name('reporte.biblioteca');
+        Route::get('biblioteca/material/pdf', 'biblioteca_reporte_material')->name('reporte.biblioteca.material.pdf');
+        Route::get('biblioteca/visitante/pdf', 'biblioteca_reporte_visitante')->name('reporte.biblioteca.visitante.pdf');
+
+        /*Todo: Bolsa de trabajo*/
+        Route::get('bolsa', 'bolsa')->name('reporte.bolsa');
+        Route::get('bolsa/pdf', 'bolsa_reporte')->name('reporte.bolsa.pdf');
     });
 
     Route::prefix('actividad')->controller(ActividadController::class)->group(function () {

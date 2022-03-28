@@ -34,4 +34,9 @@ class Facultad extends Model
             ->orderBy('proceso_id')
             ->orderBy('cod_ind_inicial');
     }
+
+    public function materialBibliografico()
+    {
+        return $this->hasMany(MaterialBibliografico::class)->orderBy('fecha_inicio');
+    }
 }
