@@ -21,7 +21,7 @@
             <div class="flex items-center gap-x-2">
                 <x-utils.forms.select wire:model="facultad">
                     @foreach($facultades as $fac)
-                        <option value="{{$fac->id}}">{{$fac->abrev}}</option>
+                        <option value="{{$fac->id}}">{{$fac->nombre}}</option>
                     @endforeach
                 </x-utils.forms.select>
                 @if(!is_null($escuelas))
@@ -79,7 +79,7 @@
                                 </x-utils.tables.body>
                                 <x-utils.tables.body class="whitespace-nowrap flex items-center text-center text-xs">
                                     {{ count($indicador->analisis) }} de {{ (6/$indicador->medicion->tiempo_meses) }}
-{{--                                    @if(count($indicador->analisis))--}}
+                                    {{--                                    @if(count($indicador->analisis))--}}
                                     {{--                                        <a class="text-xs" target="_blank"--}}
                                     {{--                                           href="{{ route('reporte.detalle.pdf', [--}}
                                     {{--                                                    'indicadorable_id' => $indicador->pivot->indicadorable_id,--}}

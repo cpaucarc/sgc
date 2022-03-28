@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Convalidacion;
 use App\Models\Convenio;
 use App\Models\Escuela;
+use App\Models\Estado;
 use App\Models\Facultad;
+use App\Models\Investigacion;
 use App\Models\Semestre;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -145,7 +147,59 @@ class ReporteController extends Controller
 
     }
 
-    /* RSU */
+    /* Investigacion */
+    public function investigacion()
+    {
+        return view('admin.investigacion.general');
+    }
+
+    public function investigacion_reporte(Request $request)
+    {
+        $facultad = intval($request->input('facultad'));
+        $escuela = intval($request->input('escuela'));
+        $estado = intval($request->input('estado'));
+
+//        try {
+
+        $facultades = Facultad::query();
+
+        if ($facultad > 0) {
+            $facultades = $facultades->where('id', $facultad);
+        }
+
+        if ($escuela > 0) {
+            $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela) {
+                $query->where('escuelas.id', '=', $escuela);
+            }]);
+        } else {
+            $facultades = $facultades->with('escuelas');
+        }
+
+        $facultades = $facultades->with(['escuelas.investigaciones' => function ($q2) use ($estado) {
+            if ($estado > 0) {
+                $q2->where('estado_id', $estado);
+            }
+        }]);
+
+        $facultades = $facultades->get();
+
+        $estado_nombre = $estado === 0 ? 'Todos' : Estado::query()->where('id', $estado)->first()->nombre;
+        $facultad_nombre = $facultad === 0 ? 'Todos' : Facultad::where('id', $facultad)->first()->nombre;
+        $escuela_nombre = $escuela === 0 ? 'Todos' : Escuela::where('id', $escuela)->first()->nombre;
+
+        $pdf = PDF::loadView('reporte.investigacion.reporte_principal', [
+            'estado' => $estado_nombre,
+            'facultad' => $facultad_nombre,
+            'escuela' => $escuela_nombre,
+            'facultades' => $facultades
+        ]);
+        return $pdf->setPaper('a3')->stream();
+//        } catch (\Exception $e) {
+//            abort(404, 'Hubo un error inesperado.\\n' . $e);
+//        }
+    }
+
+    /* Indicador */
     public function indicador()
     {
         return view('admin.indicador.general');

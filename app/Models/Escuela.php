@@ -27,6 +27,13 @@ class Escuela extends Model
         return $this->hasMany(ResponsabilidadSocial::class)->orderBy('fecha_fin');
     }
 
+    public function investigaciones()
+    {
+        return $this->hasMany(Investigacion::class)
+            ->with('estado')
+            ->orderBy('estado_id');
+    }
+
     public function bibliotecaVisitante()
     {
         return $this->hasMany(BibliotecaVisitante::class)->orderBy('fecha_fin');
