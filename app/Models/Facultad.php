@@ -18,6 +18,11 @@ class Facultad extends Model
         return $this->hasMany(Escuela::class);
     }
 
+    public function auditorias()
+    {
+        return $this->hasMany(Auditoria::class);
+    }
+
     // relacion uno a muchos polimorfica
     public function entidades()
     {

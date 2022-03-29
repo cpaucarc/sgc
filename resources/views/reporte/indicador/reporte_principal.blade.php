@@ -86,7 +86,7 @@
     {{--        {{ $entidad }}--}}
     {{--    </div>--}}
 
-    <p class="font-weight-bold my-2" style="font-size: 16px"> {{strtoupper($entidad->nombre) }}</p>
+    <p class="font-weight-bold mt-5 mb-3" style="font-size: 16px"> {{strtoupper($entidad->nombre) }}</p>
     <p class="mb-4" style="font-size: 0.8rem;">
         Se encontró un total de {{$entidad->indicadores_count}} indicadores asignados
     </p>

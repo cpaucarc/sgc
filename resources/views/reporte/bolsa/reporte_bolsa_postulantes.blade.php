@@ -81,7 +81,7 @@
     <p class="font-weight-bold mb-4" style="font-size: 15px">Semestre: {{ $semestre }}</p>
 
     @foreach($facultades as $fac)
-        <p class="font-weight-bold my-2" style="font-size: 16px"> {{strtoupper($fac->nombre) }}</p>
+        <p class="font-weight-bold mt-5 mb-3" style="font-size: 16px"> {{strtoupper($fac->nombre) }}</p>
         @foreach($fac->escuelas as $esc)
             @if(count($esc->bolsaPostulante))
                 <p class="font-weight-normal my-1" style="font-size: 14px">{{ strtoupper($esc->nombre) }}</p>

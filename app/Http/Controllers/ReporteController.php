@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Auditoria;
 use App\Models\Convalidacion;
 use App\Models\Convenio;
 use App\Models\Escuela;
@@ -147,6 +148,61 @@ class ReporteController extends Controller
 
     }
 
+    /* Auditoria */
+    public function auditoria()
+    {
+        return view('admin.auditoria.general');
+    }
+
+    public function auditoria_reporte(Request $request)
+    {
+        $facultad = intval($request->input('facultad'));
+        $tipo = intval($request->input('tipo'));
+
+//        try {
+        $facultades = Facultad::query()
+            ->select('id', 'nombre');
+
+        $facultades = $facultades->with(['auditorias' => function ($query) use ($tipo) {
+            $query->withCount('documentos');
+            if ($tipo > -1) {
+                $query->where('es_auditoria_interno', $tipo);
+            }
+        }]);
+//            $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela, $estado) {
+//                if ($escuela > 0) {
+//                    $query->where('id', $escuela);
+//                }
+//                $query->select('id', 'nombre', 'facultad_id')
+//                    ->with(['investigaciones' => function ($q2) use ($estado) {
+//                        $q2->select('id', 'titulo', 'escuela_id', 'estado_id', 'created_at');
+//                        if ($estado > 0) {
+//                            $q2->where('estado_id', $estado);
+//                        }
+//                    }]);
+//                $query->orderBy('nombre');
+//            }]);
+//
+        if ($facultad > 0) {
+            $facultades = $facultades->where('id', $facultad);
+        }
+
+        $facultades = $facultades->orderBy('nombre')->get();
+
+        $facultad_nombre = $facultad === 0 ? 'Todos' : Facultad::where('id', $facultad)->first()->nombre;
+        $tipo_nombre = $tipo === -1 ? 'Todos' : ($tipo === 0 ? 'Auditoria Externa' : 'Auditoria Interna');
+
+        $pdf = PDF::loadView('reporte.auditorias.reporte_principal', [
+            'tipo' => $tipo_nombre,
+            'facultad' => $facultad_nombre,
+            'facultades' => $facultades
+        ]);
+        return $pdf->setPaper('a3')->stream();
+//        } catch (\Exception $e) {
+//            abort(404, 'Hubo un error inesperado.\\n' . $e);
+//        }
+    }
+
     /* Investigacion */
     public function investigacion()
     {
@@ -161,40 +217,40 @@ class ReporteController extends Controller
 
         try {
 
-        $facultades = Facultad::query()->select('id', 'nombre');
+            $facultades = Facultad::query()->select('id', 'nombre');
 
 
-        $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela, $estado) {
-            if ($escuela > 0) {
-                $query->where('id', $escuela);
+            $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela, $estado) {
+                if ($escuela > 0) {
+                    $query->where('id', $escuela);
+                }
+                $query->select('id', 'nombre', 'facultad_id')
+                    ->with(['investigaciones' => function ($q2) use ($estado) {
+                        $q2->select('id', 'titulo', 'escuela_id', 'estado_id', 'created_at');
+                        if ($estado > 0) {
+                            $q2->where('estado_id', $estado);
+                        }
+                    }]);
+                $query->orderBy('nombre');
+            }]);
+
+            if ($facultad > 0) {
+                $facultades = $facultades->where('id', $facultad);
             }
-            $query->select('id', 'nombre', 'facultad_id')
-                ->with(['investigaciones' => function ($q2) use ($estado) {
-                    $q2->select('id', 'titulo', 'escuela_id', 'estado_id', 'created_at');
-                    if ($estado > 0) {
-                        $q2->where('estado_id', $estado);
-                    }
-                }]);
-            $query->orderBy('nombre');
-        }]);
 
-        if ($facultad > 0) {
-            $facultades = $facultades->where('id', $facultad);
-        }
+            $facultades = $facultades->orderBy('nombre')->get();
 
-        $facultades = $facultades->orderBy('nombre')->get();
+            $estado_nombre = $estado === 0 ? 'Todos' : Estado::query()->where('id', $estado)->first()->nombre;
+            $facultad_nombre = $facultad === 0 ? 'Todos' : Facultad::where('id', $facultad)->first()->nombre;
+            $escuela_nombre = $escuela === 0 ? 'Todos' : Escuela::where('id', $escuela)->first()->nombre;
 
-        $estado_nombre = $estado === 0 ? 'Todos' : Estado::query()->where('id', $estado)->first()->nombre;
-        $facultad_nombre = $facultad === 0 ? 'Todos' : Facultad::where('id', $facultad)->first()->nombre;
-        $escuela_nombre = $escuela === 0 ? 'Todos' : Escuela::where('id', $escuela)->first()->nombre;
-
-        $pdf = PDF::loadView('reporte.investigacion.reporte_principal', [
-            'estado' => $estado_nombre,
-            'facultad' => $facultad_nombre,
-            'escuela' => $escuela_nombre,
-            'facultades' => $facultades
-        ]);
-        return $pdf->setPaper('a3')->stream();
+            $pdf = PDF::loadView('reporte.investigacion.reporte_principal', [
+                'estado' => $estado_nombre,
+                'facultad' => $facultad_nombre,
+                'escuela' => $escuela_nombre,
+                'facultades' => $facultades
+            ]);
+            return $pdf->setPaper('a3')->stream();
         } catch (\Exception $e) {
             abort(404, 'Hubo un error inesperado.\\n' . $e);
         }

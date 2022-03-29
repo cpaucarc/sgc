@@ -4,9 +4,19 @@
 
         <div class="px-2 flex flex-col items-start w-full gap-y-1 pt-1">
 
+            <x-utils.links.nav-link href="{{ route('reporte.auditoria') }}"
+                                    :active="request()->routeIs('reporte.auditoria')">
+                {{ __('Auditoria') }}
+            </x-utils.links.nav-link>
+
             <x-utils.links.nav-link href="{{ route('reporte.biblioteca') }}"
                                     :active="request()->routeIs('reporte.biblioteca')">
                 {{ __('Biblioteca') }}
+            </x-utils.links.nav-link>
+
+            <x-utils.links.nav-link href="{{ route('reporte.bienestar') }}"
+                                    :active="request()->routeIs('reporte.bienestar')">
+                {{ __('Bienestar Universitario') }}
             </x-utils.links.nav-link>
 
             <x-utils.links.nav-link href="{{ route('reporte.bolsa') }}" :active="request()->routeIs('reporte.bolsa')">
@@ -35,11 +45,6 @@
 
             <x-utils.links.nav-link href="{{ route('reporte.rsu') }}" :active="request()->routeIs('reporte.rsu')">
                 {{ __('Responsabilidad Social') }}
-            </x-utils.links.nav-link>
-            
-            <x-utils.links.nav-link href="{{ route('reporte.bienestar') }}"
-                                    :active="request()->routeIs('reporte.bienestar')">
-                {{ __('Bienestar Universitario') }}
             </x-utils.links.nav-link>
         </div>
     </div>

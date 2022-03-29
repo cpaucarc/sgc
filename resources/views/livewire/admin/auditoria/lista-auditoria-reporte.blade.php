@@ -2,15 +2,11 @@
     <div class="col-span-3 space-y-4 divide-gray-300 divide-dashed mb-6">
         <div class="flex justify-between items-center">
             <h1 class="font-bold text-xl text-black">
-                Reporte Investigaciones
+                Reporte Auditorias
             </h1>
-            @if( count($investigaciones) )
+            @if( count($auditorias) )
                 <x-utils.links.danger class="text-xs" target="_blank"
-                                      href="{{ route('reporte.investigacion.pdf', [
-                                                                'estado' => $estado,
-                                                                'facultad' => $facultad,
-                                                                'escuela' => $escuela
-                                                            ]) }}">
+                                      href="{{ route('reporte.auditoria.pdf', ['facultad' => $facultad, 'tipo' => $tipo]) }}">
                     <x-icons.document class="h-5 w-5 mr-1"/>
                     PDF
                 </x-utils.links.danger>
@@ -18,64 +14,54 @@
         </div>
         <hr/>
         <div class="flex items-center justify-between">
-            <div class="flex items-center gap-x-2">
-                <x-utils.forms.select wire:model="facultad">
-                    <option value="0">Todas las facultades</option>
-                    @foreach($facultades as $fac)
-                        <option value="{{$fac->id}}">{{$fac->nombre}}</option>
-                    @endforeach
-                </x-utils.forms.select>
-                @if(!is_null($escuelas))
-                    <x-utils.forms.select wire:model="escuela">
-                        <option value="0">Solo de la facultad</option>
-                        @foreach($escuelas as $esc)
-                            <option value="{{$esc->id}}">De {{$esc->nombre}}</option>
-                        @endforeach
-                    </x-utils.forms.select>
-                @endif
-            </div>
+            <x-utils.forms.select wire:model="facultad">
+                <option value="0">Todas las facultades</option>
+                @foreach($facultades as $fac)
+                    <option value="{{$fac->id}}">{{$fac->nombre}}</option>
+                @endforeach
+            </x-utils.forms.select>
 
             <div class="flex items-center gap-x-2">
-                <x-utils.forms.select wire:model="estado">
-                    <option value="0">Todos</option>
-                    <option value="1">En ejecución</option>
-                    <option value="3">Publicado</option>
-                    <option value="2">Denegado</option>
+                <x-utils.forms.select wire:model="tipo">
+                    <option value="-1">Todos</option>
+                    <option value="1">Auditoria Interna</option>
+                    <option value="0">Auditoria Externa</option>
                 </x-utils.forms.select>
             </div>
         </div>
     </div>
 
-    @if( count($investigaciones) )
+    @if( count($auditorias) )
         <h2 class="text-gray-600 text-sm mb-4">
-            Se encontró un total de {{ count($investigaciones) }} investigaciones
+            Se encontró un total de {{ count($auditorias) }} investigaciones
         </h2>
 
         <x-utils.tables.table>
             @slot('head')
                 <x-utils.tables.head>N°</x-utils.tables.head>
-                <x-utils.tables.head>Título</x-utils.tables.head>
-                <x-utils.tables.head>Escuela</x-utils.tables.head>
-                <x-utils.tables.head>Estado</x-utils.tables.head>
-                <x-utils.tables.head>Creación</x-utils.tables.head>
+                <x-utils.tables.head>Tipo de Auditoria</x-utils.tables.head>
+                <x-utils.tables.head>Responsable</x-utils.tables.head>
+                <x-utils.tables.head>Facultad</x-utils.tables.head>
+                <x-utils.tables.head>Adjuntos</x-utils.tables.head>
+                <x-utils.tables.head>Realización</x-utils.tables.head>
             @endslot
             @slot('body')
-                @foreach($investigaciones as $i => $inv)
+                @foreach($auditorias as $i => $aud)
                     <x-utils.tables.row>
                         <x-utils.tables.body class="text-xs">{{($i+1)}}</x-utils.tables.body>
                         <x-utils.tables.body class="text-xs">
-                            {{ $inv->titulo }}
+                            {{ $aud->es_auditoria_interno ? 'Auditoria Interna' : 'Auditoria Externa' }}
                         </x-utils.tables.body>
                         <x-utils.tables.body
-                            class="text-xs">{{ $inv->escuela->nombre }}</x-utils.tables.body>
+                            class="text-xs">{{ $aud->responsable }}</x-utils.tables.body>
                         <x-utils.tables.body class="whitespace-nowrap text-xs">
-                            <x-utils.badge
-                                class="text-xs font-bold bg-{{ $inv->estado->color }}-100 text-{{ $inv->estado->color }}-700">
-                                {{ $inv->estado->nombre }}
-                            </x-utils.badge>
+                            {{ $aud->facultad->nombre }}
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-xs whitespace-nowrap">
-                            {{ $inv->created_at->format('d-m-Y') }}
+                            {{ $aud->documentos_count . ' documentos' }}
+                        </x-utils.tables.body>
+                        <x-utils.tables.body class="text-xs whitespace-nowrap">
+                            {{ $aud->created_at->format('d-m-Y') }}
                         </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach
@@ -85,7 +71,7 @@
     @else
         <div class="border border-gray-300 rounded-md mt-6">
             <x-utils.message-no-items
-                title="No se encontró ninguna investigación.">
+                title="No se encontró ninguna auditoria.">
                 @slot('icon')
                     <svg class="text-gray-400" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
                         <path
@@ -95,5 +81,6 @@
             </x-utils.message-no-items>
         </div>
     @endif
+
 </div>
 </div>

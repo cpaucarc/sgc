@@ -82,7 +82,7 @@
     <p class="font-weight-bold mb-4" style="font-size: 13px">Estado de la investigación: {{ $estado }}</p>
 
     @foreach($facultades as $facultad)
-        <p class="font-weight-bold mb-2" style="font-size: 16px"> {{strtoupper($facultad->nombre) }}</p>
+        <p class="font-weight-bold mt-5 mb-3" style="font-size: 16px"> {{strtoupper($facultad->nombre) }}</p>
         @foreach($facultad->escuelas as $esc)
             @if(count($esc->investigaciones))
                 <div class="mb-4">

@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
-    <title>Laravel</title>
+    <title>Auditorias</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -64,58 +64,56 @@
 </header>
 
 <main>
-
     <table class="mb-0" style="width: 100%">
         <tbody>
         <tr>
             <td style="width: 80%; text-align: left;">
-                <h4 class="font-weight-bold">Convalidaciones</h4>
+                <h4 class="font-weight-bold">Auditorias</h4>
             </td>
             <td style="width: 20%; text-align: right; margin: auto">
-                <p style="font-size: 12px; margin-top: 2px">@php echo now() @endphp</p>
+                <p style="font-size: 12px; margin-top: 2px">{{ now() }}</p>
             </td>
         </tr>
         </tbody>
     </table>
 
-    <p class="font-weight-bold mb-4" style="font-size: 13px">Semestre: {{ $semestre }}</p>
+    <p class="font-weight-bold my-0" style="font-size: 13px">Facultad: {{ $facultad }}</p>
+    <p class="font-weight-bold mb-4" style="font-size: 13px">Tipo de auditoria: {{ $tipo }}</p>
 
-    {{--  Datos AQUI  --}}
-    @foreach($facultades as $fac)
-        <p class="font-weight-bold mt-5 mb-3" style="font-size: 16px"> {{strtoupper($fac->nombre) }}</p>
-        @foreach($fac->escuelas as $esc)
-            @if(count($esc->convalidacion))
-                <p class="font-weight-normal my-1" style="font-size: 14px">{{ strtoupper($esc->nombre) }}</p>
-
-                <table class="table table-sm table-bordered">
-                    <thead>
+    @foreach($facultades as $facultad)
+        <p class="font-weight-bold mt-5 mb-3" style="font-size: 16px">
+            {{strtoupper($facultad->nombre) }}
+            <span class="font-weight-normal"
+                  style="font-size: 0.75rem">{{ '('.count($facultad->auditorias) .' auditorias)' }}</span>
+        </p>
+        @if(count($facultad->auditorias))
+            <table class="table table-sm table-bordered">
+                <thead>
+                <tr>
+                    <th style="padding: 3px 6px; width: 13px;">N°</th>
+                    <th style="padding: 3px 6px; width: 125px;">Tipo de Auditoria</th>
+                    <th style="padding: 3px 6px">Responsable</th>
+                    <th style="padding: 3px 6px; width: 150px;">Documentos Adjuntos</th>
+                    <th style="padding: 3px 6px; width: 135px;">Realización</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($facultad->auditorias as $i => $aud)
                     <tr>
-                        <th style="padding: 3px 6px">N°</th>
-                        <th style="padding: 3px 6px">Semestre</th>
-                        <th style="padding: 3px 6px">Vacantes</th>
-                        <th style="padding: 3px 6px">Postulantes</th>
-                        <th style="padding: 3px 6px">Convalidados</th>
-                        <th style="padding: 3px 6px">Creación</th>
+                        <td style="padding: 3px 6px;">{{ $i + 1 }}</td>
+                        <td style="padding: 3px 6px;">{{ $aud->es_auditoria_interno ? 'Auditoria Interna' : 'Auditoria Externa' }}</td>
+                        <td style="padding: 3px 6px;">{{ $aud->responsable }}</td>
+                        <td style="padding: 3px 6px;">{{ $aud->documentos_count . ' documentos' }}</td>
+                        <td style="padding: 3px 6px;">{{ $aud->created_at->format('d-m-Y h:i:s a') }}</td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($esc->convalidacion as $i => $conv)
-                        <tr>
-                            <td style="padding: 3px 6px">{{ $i + 1 }}</td>
-                            <td style="padding: 3px 6px">{{ $conv->semestre->nombre }}</td>
-                            <td style="padding: 3px 6px">{{ $conv->vacantes }}</td>
-                            <td style="padding: 3px 6px">{{ $conv->postulantes }}</td>
-                            <td style="padding: 3px 6px">{{ $conv->convalidados }}</td>
-                            <td style="padding: 3px 6px">{{ $conv->created_at->format('d-m-Y') }}</td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-            @endif
-        @endforeach
+                @endforeach
+                </tbody>
+            </table>
+        @else
+            <p style="font-size: 0.8rem">No hay ninguna auditoria realizada en la {{$facultad->nombre}}</p>
+        @endif
     @endforeach
 </main>
 
 </body>
-
 </html>
