@@ -27,6 +27,13 @@ class Escuela extends Model
         return $this->hasMany(ResponsabilidadSocial::class)->orderBy('fecha_fin');
     }
 
+    public function investigaciones()
+    {
+        return $this->hasMany(Investigacion::class)
+            ->with('estado')
+            ->orderBy('estado_id');
+    }
+
     public function bibliotecaVisitante()
     {
         return $this->hasMany(BibliotecaVisitante::class)->orderBy('fecha_fin');
@@ -52,6 +59,10 @@ class Escuela extends Model
     // relación muchos a muchos polimorfica
     public function indicadores()
     {
-        return $this->morphToMany(Indicador::class, 'indicadorable');
+        return $this->morphToMany(Indicador::class, 'indicadorable')
+            ->with('proceso')
+            ->with('medicion')
+            ->orderBy('proceso_id')
+            ->orderBy('cod_ind_inicial');
     }
 }

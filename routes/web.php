@@ -55,8 +55,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('entidad/responsable/{id}', 'entidad_responsable')->name('admin.panel.entidad.responsable');
         Route::get('entidad/proveedor/{id}', 'entidad_proveedor')->name('admin.panel.entidad.proveedor');
         Route::get('entidad/cliente/{id}', 'entidad_cliente')->name('admin.entidad.cliente');
-
-
     });
 
     Route::prefix('reporte')->controller(ReporteController::class)->group(function () {
@@ -68,9 +66,18 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('convalidacion', 'convalidacion')->name('reporte.convalidacion');
         Route::get('convalidacion/pdf', 'convalidacion_reporte')->name('reporte.convalidacion.pdf');
 
+        /*Todo: Indicador */
+        Route::get('indicador', 'indicador')->name('reporte.indicador');
+        Route::get('indicador/pdf', 'indicador_reporte')->name('reporte.indicador.pdf');
+        Route::get('indicador/detalle/pdf', 'indicador_por_indicador')->name('reporte.detalle.pdf');
+
         /*Todo: Responsabilidad Social*/
         Route::get('rsu', 'rsu')->name('reporte.rsu');
         Route::get('rsu/pdf', 'rsu_reporte')->name('reporte.rsu.pdf');
+
+        /*Todo: Investigacion */
+        Route::get('investigacion', 'investigacion')->name('reporte.investigacion');
+        Route::get('investigacion/pdf', 'investigacion_reporte')->name('reporte.investigacion.pdf');
 
         /*Todo: Biblioteca*/
         Route::get('biblioteca', 'biblioteca')->name('reporte.biblioteca');
@@ -84,7 +91,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         /*Todo: Bienestar Universitario*/
         Route::get('bienestar-universitario', 'bienestar')->name('reporte.bienestar');
         Route::get('bienestar-universitario/pdf', 'bienestar_reporte')->name('reporte.bienestar.pdf');
-
     });
 
     Route::prefix('actividad')->controller(ActividadController::class)->group(function () {

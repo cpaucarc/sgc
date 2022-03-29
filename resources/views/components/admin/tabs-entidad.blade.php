@@ -5,13 +5,13 @@
 
         {{--        href="{{ route('admin.index') }}" :active="request()->routeIs('admin.*')"--}}
 
-        <x-admin.tab href="{{ route('admin.entidad.responsable', $id) }}"
-                     :active="request()->routeIs('admin.entidad.responsable')">
+        <x-admin.tab href="{{ route('admin.panel.entidad.responsable', $id) }}"
+                     :active="request()->routeIs('admin.panel.entidad.responsable')">
             Responsable de
         </x-admin.tab>
 
-        <x-admin.tab href="{{ route('admin.entidad.proveedor', $id) }}"
-                     :active="request()->routeIs('admin.entidad.proveedor')">
+        <x-admin.tab href="{{ route('admin.panel.entidad.proveedor', $id) }}"
+                     :active="request()->routeIs('admin.panel.entidad.proveedor')">
             Proveedor de
         </x-admin.tab>
 

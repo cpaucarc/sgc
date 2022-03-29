@@ -28,7 +28,11 @@ class Facultad extends Model
     // relación muchos a muchos polimorfica
     public function indicadores()
     {
-        return $this->morphToMany(Indicador::class, 'indicadorable');
+        return $this->morphToMany(Indicador::class, 'indicadorable')
+            ->with('proceso')
+            ->with('medicion')
+            ->orderBy('proceso_id')
+            ->orderBy('cod_ind_inicial');
     }
 
     public function materialBibliografico()

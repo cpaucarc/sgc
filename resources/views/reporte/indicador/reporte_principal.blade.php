@@ -70,7 +70,7 @@
         <tbody>
         <tr>
             <td style="width: 80%; text-align: left;">
-                <h4 class="font-weight-bold">Responsabilidad Social Universitaria</h4>
+                <h4 class="font-weight-bold">Indicadores</h4>
             </td>
             <td style="width: 20%; text-align: right; margin: auto">
                 <p style="font-size: 12px; margin-top: 2px">@php echo now() @endphp</p>
@@ -79,39 +79,49 @@
         </tbody>
     </table>
 
-    <p class="font-weight-bold mb-4" style="font-size: 15px">Semestre: {{ $semestre }}</p>
+    <p class="font-weight-bold mb-4" style="font-size: 15px">
+        Semestre: {{ $semestre }} {{ $semestre_count > 1 ?  '('.$semestre_count . ' semestres)' : ''}}
+    </p>
 
-    @foreach($facultades as $fac)
-        <p class="font-weight-bold my-2" style="font-size: 16px"> {{strtoupper($fac->nombre) }}</p>
-        @foreach($fac->escuelas as $esc)
-            @if(count($esc->rsu))
-                <p class="font-weight-normal my-1" style="font-size: 14px">{{ strtoupper($esc->nombre) }}</p>
-                <table class="table table-sm table-bordered">
-                    <thead>
-                    <tr>
-                        <th style="padding: 3px 6px">N°</th>
-                        <th style="padding: 3px 6px">Título</th>
-                        <th style="padding: 3px 6px">Semestre</th>
-                        <th style="padding: 3px 6px">Fecha Inicio</th>
-                        <th style="padding: 3px 6px">Fecha Fin</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($esc->rsu as $i => $rsu)
-                        <tr>
-                            <td style="padding: 3px 6px">{{ $i + 1 }}</td>
-                            <td style="padding: 3px 6px">{{ $rsu->titulo }}</td>
-                            <td style="padding: 3px 6px">{{ $rsu->semestre->nombre }}</td>
-                            <td style="padding: 3px 6px">{{ $rsu->fecha_inicio->format('d-m-Y') }}</td>
-                            <td style="padding: 3px 6px">{{ $rsu->fecha_fin->format('d-m-Y') }}</td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-            @endif
+    {{--    <div>--}}
+    {{--        {{ $entidad }}--}}
+    {{--    </div>--}}
 
-        @endforeach
-    @endforeach
+    <p class="font-weight-bold my-2" style="font-size: 16px"> {{strtoupper($entidad->nombre) }}</p>
+    <p class="mb-4" style="font-size: 0.8rem;">
+        Se encontró un total de {{$entidad->indicadores_count}} indicadores asignados
+    </p>
+    @if($entidad->indicadores_count)
+        <table class="table table-sm table-bordered">
+            <thead>
+            <tr>
+                <th style="padding: 3px 6px">N°</th>
+                <th style="padding: 3px 6px; width: 50px">Código</th>
+                <th style="padding: 3px 6px">Objetivo</th>
+                <th style="padding: 3px 6px; width: 150px">Proceso</th>
+                <th style="padding: 3px 6px">Medición</th>
+                <th style="padding: 3px 6px">Realizado</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($entidad->indicadores as $i => $indicador)
+                <tr>
+                    <td style="padding: 3px 6px">{{ $i + 1 }}</td>
+                    <td style="padding: 3px 6px">{{ $indicador->cod_ind_inicial }}</td>
+                    <td style="padding: 3px 6px">{{ $indicador->objetivo }}</td>
+                    <td style="padding: 3px 6px">{{ $indicador->proceso->nombre }}</td>
+                    <td style="padding: 3px 6px">{{ $indicador->medicion->nombre }}</td>
+                    <td style="padding: 3px 6px">
+                        {{ count($indicador->analisis) }}
+                        de {{ (6/$indicador->medicion->tiempo_meses)*$semestre_count }}
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    @else
+        <p>Aún no hay ningún registro que mostrar</p>
+    @endif
 
 </main>
 
