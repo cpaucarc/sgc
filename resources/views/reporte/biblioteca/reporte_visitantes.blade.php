@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
-    <title>Laravel</title>
+    <title>Visitantes</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -13,13 +13,12 @@
         }
 
         header {
-            background-color: white;
             border-bottom: 1px solid #DEE2E6;
             position: fixed;
-            top: -65px;
+            top: -60px;
             left: 0;
             right: 0;
-            height: 70px;
+            height: 85px;
         }
 
         footer {
@@ -32,7 +31,7 @@
         }
 
         main {
-            margin-top: 50px;
+            margin-top: 20px;
             margin-bottom: 0;
             height: auto;
             width: 100%;
@@ -44,7 +43,7 @@
     </style>
 </head>
 
-<body>
+<body class="mt-5">
 
 <header>
     <table style="width: 100%;">

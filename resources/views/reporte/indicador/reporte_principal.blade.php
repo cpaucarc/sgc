@@ -13,13 +13,12 @@
         }
 
         header {
-            background-color: white;
             border-bottom: 1px solid #DEE2E6;
             position: fixed;
-            top: -65px;
+            top: -60px;
             left: 0;
             right: 0;
-            height: 70px;
+            height: 85px;
         }
 
         footer {
@@ -44,7 +43,7 @@
     </style>
 </head>
 
-<body class="mt-4">
+<body class="mt-5">
 
 <header>
     <table style="width: 100%;">
@@ -73,7 +72,7 @@
                 <h4 class="font-weight-bold">Indicadores</h4>
             </td>
             <td style="width: 20%; text-align: right; margin: auto">
-                <p style="font-size: 12px; margin-top: 2px">@php echo now() @endphp</p>
+                <p style="font-size: 12px; margin-top: 2px">{{ now() }}</p>
             </td>
         </tr>
         </tbody>
