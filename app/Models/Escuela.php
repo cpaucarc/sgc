@@ -44,6 +44,11 @@ class Escuela extends Model
         return $this->hasMany(BolsaPostulante::class)->orderBy('fecha_fin');
     }
 
+    public function comedor()
+    {
+        return $this->hasMany(Comedor::class)->orderBy('mes');
+    }
+
     // relacion uno a muchos polimorfica
     public function entidades()
     {
