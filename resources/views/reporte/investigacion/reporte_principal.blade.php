@@ -43,7 +43,7 @@
     </style>
 </head>
 
-<body class="mt-4">
+<body class="mt-5">
 
 <header>
     <table style="width: 100%;">
@@ -64,7 +64,6 @@
 </header>
 
 <main>
-
     <table class="mb-0" style="width: 100%">
         <tbody>
         <tr>
@@ -72,7 +71,7 @@
                 <h4 class="font-weight-bold">Investigaciones</h4>
             </td>
             <td style="width: 20%; text-align: right; margin: auto">
-                <p style="font-size: 12px; margin-top: 2px">@php echo now() @endphp</p>
+                <p style="font-size: 12px; margin-top: 2px">{{ now() }}</p>
             </td>
         </tr>
         </tbody>
@@ -82,15 +81,11 @@
     <p class="font-weight-bold my-0" style="font-size: 13px">Escuela: {{ $escuela }}</p>
     <p class="font-weight-bold mb-4" style="font-size: 13px">Estado de la investigación: {{ $estado }}</p>
 
-    {{--    <code>--}}
-    {{--        {{ $facultades }}--}}
-    {{--    </code>--}}
-
     @foreach($facultades as $facultad)
         <p class="font-weight-bold mb-2" style="font-size: 16px"> {{strtoupper($facultad->nombre) }}</p>
         @foreach($facultad->escuelas as $esc)
             @if(count($esc->investigaciones))
-                <div class="my-4">
+                <div class="mb-4">
                     <div class="my-2">
                         <p class="font-weight-normal" style="font-size: 14px">
                             {{ strtoupper($esc->nombre) }}
@@ -123,36 +118,7 @@
             @endif
         @endforeach
     @endforeach
-
-    {{--  Datos AQUI  --}}
-    {{--    <table class="table table-sm table-bordered">--}}
-    {{--        <thead>--}}
-    {{--        <tr>--}}
-    {{--            <th style="padding: 3px 6px">N°</th>--}}
-    {{--            <th style="padding: 3px 6px">Semestre</th>--}}
-    {{--            <th style="padding: 3px 6px">Realizadas</th>--}}
-    {{--            <th style="padding: 3px 6px">Vigentes</th>--}}
-    {{--            <th style="padding: 3px 6px">Culminadas</th>--}}
-    {{--            <th style="padding: 3px 6px">Facultad</th>--}}
-    {{--            <th style="padding: 3px 6px">Creación</th>--}}
-    {{--        </tr>--}}
-    {{--        </thead>--}}
-    {{--        <tbody>--}}
-    {{--        @foreach($convenios as $i => $convenio)--}}
-    {{--            <tr>--}}
-    {{--                <td style="padding: 3px 6px">{{ $i + 1 }}</td>--}}
-    {{--                <td style="padding: 3px 6px">{{ $convenio->semestre->nombre }}</td>--}}
-    {{--                <td style="padding: 3px 6px">{{ $convenio->realizados }}</td>--}}
-    {{--                <td style="padding: 3px 6px">{{ $convenio->vigentes }}</td>--}}
-    {{--                <td style="padding: 3px 6px">{{ $convenio->culminados }}</td>--}}
-    {{--                <td style="padding: 3px 6px">{{ $convenio->facultad->nombre }}</td>--}}
-    {{--                <td style="padding: 3px 6px">{{ $convenio->created_at->format('d-m-Y') }}</td>--}}
-    {{--            </tr>--}}
-    {{--        @endforeach--}}
-    {{--        </tbody>--}}
-    {{--    </table>--}}
 </main>
 
 </body>
-
 </html>

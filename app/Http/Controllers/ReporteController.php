@@ -159,29 +159,30 @@ class ReporteController extends Controller
         $escuela = intval($request->input('escuela'));
         $estado = intval($request->input('estado'));
 
-//        try {
+        try {
 
-        $facultades = Facultad::query();
+        $facultades = Facultad::query()->select('id', 'nombre');
+
+
+        $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela, $estado) {
+            if ($escuela > 0) {
+                $query->where('id', $escuela);
+            }
+            $query->select('id', 'nombre', 'facultad_id')
+                ->with(['investigaciones' => function ($q2) use ($estado) {
+                    $q2->select('id', 'titulo', 'escuela_id', 'estado_id', 'created_at');
+                    if ($estado > 0) {
+                        $q2->where('estado_id', $estado);
+                    }
+                }]);
+            $query->orderBy('nombre');
+        }]);
 
         if ($facultad > 0) {
             $facultades = $facultades->where('id', $facultad);
         }
 
-        if ($escuela > 0) {
-            $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela) {
-                $query->where('escuelas.id', '=', $escuela);
-            }]);
-        } else {
-            $facultades = $facultades->with('escuelas');
-        }
-
-        $facultades = $facultades->with(['escuelas.investigaciones' => function ($q2) use ($estado) {
-            if ($estado > 0) {
-                $q2->where('estado_id', $estado);
-            }
-        }]);
-
-        $facultades = $facultades->get();
+        $facultades = $facultades->orderBy('nombre')->get();
 
         $estado_nombre = $estado === 0 ? 'Todos' : Estado::query()->where('id', $estado)->first()->nombre;
         $facultad_nombre = $facultad === 0 ? 'Todos' : Facultad::where('id', $facultad)->first()->nombre;
@@ -194,9 +195,9 @@ class ReporteController extends Controller
             'facultades' => $facultades
         ]);
         return $pdf->setPaper('a3')->stream();
-//        } catch (\Exception $e) {
-//            abort(404, 'Hubo un error inesperado.\\n' . $e);
-//        }
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
+        }
     }
 
     /* Indicador */
