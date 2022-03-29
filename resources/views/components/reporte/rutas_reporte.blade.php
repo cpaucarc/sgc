@@ -36,7 +36,11 @@
             <x-utils.links.nav-link href="{{ route('reporte.rsu') }}" :active="request()->routeIs('reporte.rsu')">
                 {{ __('Responsabilidad Social') }}
             </x-utils.links.nav-link>
-
+            
+            <x-utils.links.nav-link href="{{ route('reporte.bienestar') }}"
+                                    :active="request()->routeIs('reporte.bienestar')">
+                {{ __('Bienestar Universitario') }}
+            </x-utils.links.nav-link>
         </div>
     </div>
 
