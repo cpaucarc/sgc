@@ -1,4 +1,5 @@
-<div class="absolute -mt-1 pb-2 w-full z-30 max-h-64 overflow-y-scroll shadow bg-white rounded-b-md border border-gray-300">
+<div
+    class="absolute -mt-1 pb-2 w-full z-30 max-h-64 overflow-y-scroll shadow-lg bg-white rounded-b-md border border-gray-300">
     <ul class="text-sm p-0 m-0 overflow-hidden">
         @if(count($facultades))
             @foreach($facultades as $facultad)

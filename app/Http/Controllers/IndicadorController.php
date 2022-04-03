@@ -9,6 +9,7 @@ use App\Models\Facultad;
 use App\Models\Indicador;
 use App\Models\Indicadorable;
 use App\Models\Proceso;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,42 +18,60 @@ class IndicadorController extends Controller
 {
     public function index()
     {
-        $entidades = Auth::user()->entidades->pluck('id');
+        $entidades_autorizadas = Entidad::query()
+            ->whereIn('oficina_id', [1, 5]) // 1:Director de Escuela, 5:Decano
+            ->pluck('id')->toArray();
+        $entidades_del_usuario = Auth::user()->entidades->pluck('id')->toArray();
 
-        // Buscar si pertenece a la oficina: Decano
-        $es_decano = Entidad::where('oficina_id', 5)->whereIn('id', $entidades)->exists();
-
-        if ($es_decano) {
-            // Averiguar de que facultad es decano
-            $facultad_id = Entidadable::select('entidadable_id')
-                ->where('entidadable_type', "App\\Models\\Facultad")
-                ->whereIn('entidad_id', $entidades)
-                ->first()->entidadable_id;
-
-            $facultad = Facultad::select('id', 'uuid', 'nombre', 'abrev')->withCount('indicadores')->where('id', $facultad_id)->first();
-            $facultad_indicadores = $facultad->indicadores->groupBy('proceso_id')->map->count();
-
-            return view('indicador.index', compact('facultad', 'facultad_indicadores'));
-
-        } else {
-            // Buscar si pertenece a la oficina: Director Escuela o Departamento
-            $es_director = Entidad::whereIn('oficina_id', [1, 2])->whereIn('id', $entidades)->exists();
-
-            if (!$es_director) {
-                abort(403);
-            }
-
-            // Averiguar de que escuela es Director de Escuela o Departamento
-            $escuela_id = Entidadable::select('entidadable_id')
-                ->where('entidadable_type', "App\\Models\\Escuela")
-                ->whereIn('entidad_id', $entidades)
-                ->first()->entidadable_id;
-
-            $escuela = Escuela::select('id', 'uuid', 'nombre', 'abrev')->withCount('indicadores')->where('id', $escuela_id)->first();
-            $escuela_indicadores = $escuela->indicadores->groupBy('proceso_id')->map->count();
-
-            return view('indicador.index', compact('escuela', 'escuela_indicadores'));
+        //Si no esta asignado a alguna entidad autorizada, lanzar error 403
+        if (empty(array_intersect($entidades_del_usuario, $entidades_autorizadas))) {
+            abort(403, 'No estas autorizado para estar aquí');
         }
+
+        //Si esta autorizado, buscamos a que escuelas o facultades pertenece
+        $facultades = Facultad::query()
+            ->withCount('indicadores')
+            ->with(['indicadores' => function ($query) {
+                $query->select('indicadores.id', 'proceso_id');
+            }])
+            ->find(User::facultades_id(Auth::user()->id));
+
+        $escuelas = Escuela::query()
+            ->withCount('indicadores')
+            ->with(['indicadores' => function ($query) {
+                $query->select('indicadores.id', 'proceso_id');
+            }])
+            ->find(User::escuelas_id(Auth::user()->id));
+
+        $data = [];
+        foreach ($facultades as $facultad) {
+            $subdata = [];
+            foreach ($facultad->indicadores as $indicador) {
+                if (array_key_exists($indicador->proceso_id, $subdata)) {
+                    $subdata[$indicador->proceso_id]["cantidad"] += 1;
+                } else {
+                    $subdata[$indicador->proceso_id] = ["proceso" => $indicador->proceso->nombre,
+                        "cantidad" => 1];
+                }
+            }
+            $data[] = ["nombre" => $facultad->nombre, "uuid" => $facultad->uuid, "count" => $facultad->indicadores_count, "tipo" => 2, "data" => $subdata];
+        }
+
+        foreach ($escuelas as $escuela) {
+            $subdata = [];
+            foreach ($escuela->indicadores as $indicador) {
+                if (array_key_exists($indicador->proceso_id, $subdata)) {
+                    $subdata[$indicador->proceso_id]["cantidad"] += 1;
+                } else {
+                    $subdata[$indicador->proceso_id] = ["proceso" => $indicador->proceso->nombre,
+                        "cantidad" => 1];
+                }
+            }
+            $data[] = ["nombre" => $escuela->nombre, "uuid" => $escuela->uuid, "count" => $escuela->indicadores_count, "tipo" => 1, "data" => $subdata];
+        }
+
+        return view('indicador.index', compact('data'));
+
     }
 
     public function proceso($proceso_id, $tipo, $uuid)

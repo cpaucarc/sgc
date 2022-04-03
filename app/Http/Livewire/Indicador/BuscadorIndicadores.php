@@ -12,9 +12,8 @@ use Livewire\Component;
 class BuscadorIndicadores extends Component
 {
     public $search = '';
-    public $indicadores = null;
-    public $facultades_id = null;
-    public $escuelas_id = null;
+    public $facultades_id = null, $facultades = [];
+    public $escuelas_id = null, $escuelas = [];
 
     public function mount()
     {
@@ -26,37 +25,37 @@ class BuscadorIndicadores extends Component
     public function resetear()
     {
         $this->search = '';
-        $this->indicadores = null;
+        $this->facultades = [];
+        $this->escuelas = [];
     }
 
     public function updatedSearch()
     {
-        $this->indicadores = Indicador::query()
-            ->where('objetivo', 'like', '%' . str_replace(" ", "%", $this->search) . '%')
-            ->orWhere('cod_ind_inicial', 'like', '%' . str_replace(" ", "%", $this->search) . '%')
-            ->orderBy('cod_ind_inicial')
-            ->limit(5)
-            ->get();
+        if (count($this->escuelas_id)) {
+            $this->escuelas = Escuela::query()
+                ->with(['indicadores' => function ($query) {
+                    return $query->select('indicadores.id', 'objetivo', 'cod_ind_inicial')
+                        ->where('objetivo', 'like', '%' . $this->search . '%')
+                        ->orWhere('cod_ind_inicial', 'like', '%' . $this->search . '%')
+                        ->take(5);
+                }])
+                ->find($this->escuelas_id);
+        }
+
+        if (count($this->facultades_id)) {
+            $this->facultades = Facultad::query()
+                ->with(['indicadores' => function ($query) {
+                    return $query->select('indicadores.id', 'objetivo', 'cod_ind_inicial')
+                        ->where('objetivo', 'like', '%' . $this->search . '%')
+                        ->orWhere('cod_ind_inicial', 'like', '%' . $this->search . '%')
+                        ->take(5);
+                }])
+                ->find($this->facultades_id);
+        }
     }
 
     public function render()
     {
-        $escuelas = Escuela::query()
-            ->with(['indicadores' => function ($query) {
-                return $query->select('indicadores.id', 'objetivo', 'cod_ind_inicial')
-                    ->where('objetivo', 'like', '%' . $this->search . '%')
-                    ->take(5);
-            }])
-            ->find($this->escuelas_id);
-
-        $facultades = Facultad::query()
-            ->with(['indicadores' => function ($query) {
-                return $query->select('objetivo')
-                    ->where('objetivo', 'like', '%' . $this->search . '%')
-                    ->take(5);
-            }])
-            ->find($this->facultades_id);
-
-        return view('livewire.indicador.buscador-indicadores', compact('escuelas', 'facultades'));
+        return view('livewire.indicador.buscador-indicadores');
     }
 }

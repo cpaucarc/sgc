@@ -56,7 +56,7 @@ class User extends Authenticatable
 
         return Entidadable::query()
             ->where('entidadable_type', 'App\\Models\\Facultad')
-            ->whereIn('entidad_id', $callback)->get()->pluck('entidadable_id');
+            ->whereIn('entidad_id', $callback)->pluck('entidadable_id');
     }
 
     public static function escuelas_id($user_id, $entidades_id = null)
@@ -65,6 +65,6 @@ class User extends Authenticatable
 
         return Entidadable::query()
             ->where('entidadable_type', 'App\\Models\\Escuela')
-            ->whereIn('entidad_id', $callback)->get()->pluck('entidadable_id');
+            ->whereIn('entidad_id', $callback)->pluck('entidadable_id');
     }
 }

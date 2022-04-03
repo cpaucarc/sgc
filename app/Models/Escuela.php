@@ -61,7 +61,7 @@ class Escuela extends Model
     {
         return $this->morphToMany(Indicador::class, 'indicadorable')
             ->with('proceso', 'medicion')
-            ->orderBy('proceso_id')
+            ->orderBy(Proceso::select('nombre')->whereColumn('procesos.id', 'indicadores.proceso_id'))
             ->orderBy('cod_ind_inicial');
     }
 }
