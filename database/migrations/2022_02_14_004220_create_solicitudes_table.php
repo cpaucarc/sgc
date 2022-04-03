@@ -14,7 +14,6 @@ return new class extends Migration {
     {
         Schema::create('solicitudes', function (Blueprint $table) {
             $table->id();
-//            $table->string('codigo_estudiante', 15)->unique();//<=>OGE
             $table->string('codigo_estudiante', 15);//<=>OGE
 
             $table->foreignId('tipo_solicitud_id')->constrained('tipo_solicitud')

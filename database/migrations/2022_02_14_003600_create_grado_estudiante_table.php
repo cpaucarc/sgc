@@ -14,12 +14,12 @@ return new class extends Migration {
     {
         Schema::create('grado_estudiante', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo_estudiante', 15)->unique(); // OGE
+            $table->string('codigo_estudiante', 15); // OGE
             $table->foreignId('grado_academico_id')->constrained('grado_academico')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->foreignId('escuela_id')->default(1)->constrained('escuelas') //FIXME Quitar default 1
-                ->cascadeOnUpdate()
+            ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->timestamps();
         });
