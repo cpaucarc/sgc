@@ -60,8 +60,7 @@ class Escuela extends Model
     public function indicadores()
     {
         return $this->morphToMany(Indicador::class, 'indicadorable')
-            ->with('proceso')
-            ->with('medicion')
+            ->with('proceso', 'medicion')
             ->orderBy('proceso_id')
             ->orderBy('cod_ind_inicial');
     }

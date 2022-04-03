@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <div class="flex justify-end mb-6 items-start">
-        <x-utils.forms.search-input/>
+        <livewire:indicador.buscador-indicadores/>
     </div>
 
     <div class="grid grid-cols-6 gap-12">
@@ -17,7 +17,8 @@
             <hr>
 
             <p class="text-gray-500 font-semibold text-sm">
-                {{ isset($facultad) ? $facultad->indicadores_count : $escuela->indicadores_count }}
+                {{ isset($facultad) ? $facultad->indicadores_count
+                                    : $escuela->indicadores_count }}
                 indicadores en total
             </p>
 
