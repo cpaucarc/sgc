@@ -42,25 +42,23 @@
                                         :active="request()->routeIs('investigacion.*')">
                             {{ __('Investigación') }}
                         </x-jet-nav-link>
-                        <x-jet-nav-link href="{{ route('convalidacion.index') }}"
-                                        :active="request()->routeIs('convalidacion.*')">
-                            {{ __('Convalidación') }}
-                        </x-jet-nav-link>
-                        <x-jet-nav-link href="{{ route('convenio.index') }}"
-                                        :active="request()->routeIs('convenio.*')">
-                            {{ __('Convenio') }}
-                        </x-jet-nav-link>
-                        <x-jet-nav-link href="{{route('btu.index')}}"
-                                        :active="request()->routeIs('btu.*')">
-                            {{ __('Bolsa Trabajo') }}
-                        </x-jet-nav-link>
                         @if(\Illuminate\Support\Facades\Auth::user()->hasAnyRole(['Decanatura']))
+                            <x-jet-nav-link href="{{route('btu.index')}}"
+                                            :active="request()->routeIs('btu.*')">
+                                {{ __('Bolsa Trabajo') }}
+                            </x-jet-nav-link>
+                            <x-jet-nav-link href="{{ route('convalidacion.index') }}"
+                                            :active="request()->routeIs('convalidacion.*')">
+                                {{ __('Convalidación') }}
+                            </x-jet-nav-link>
+                            <x-jet-nav-link href="{{ route('convenio.index') }}"
+                                            :active="request()->routeIs('convenio.*')">
+                                {{ __('Convenio') }}
+                            </x-jet-nav-link>
                             <x-jet-nav-link href="{{ route('biblioteca.index') }}"
                                             :active="request()->routeIs('biblioteca.*')">
                                 {{ __('Biblioteca') }}
                             </x-jet-nav-link>
-                        @endif
-                        @if(\Illuminate\Support\Facades\Auth::user()->hasAnyRole(['Decanatura']))
                             <x-jet-nav-link href="{{ route('auditoria.index') }}"
                                             :active="request()->routeIs('auditoria.*')">
                                 {{ __('Auditoria') }}

@@ -12,4 +12,10 @@ class GradoEstudiante extends Model
     protected $table = "grado_estudiante";
 //    public $timestamps = false;
     public $fillable = ['codigo_estudiante', 'grado_academico_id', 'escuela_id'];
+
+    public function escuela()
+    {
+        return $this->belongsTo(Escuela::class);
+    }
+
 }
