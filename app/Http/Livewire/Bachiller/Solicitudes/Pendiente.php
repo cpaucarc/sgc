@@ -16,12 +16,15 @@ class Pendiente extends Component
     public $solicitudSeleccionado = null;
     public $solicitante = null;
 
-    public $tesis = null;
-
     protected $listeners = [
         'documentoAprobado' => 'render',
         'estadoSolicitud' => 'render',
     ];
+
+    public function mount()
+    {
+        $this->obtenerPendientes();
+    }
 
     public function obtenerPendientes()
     {
@@ -48,6 +51,8 @@ class Pendiente extends Component
             ->where('tipo_solicitud_id', 1) // 1 : Bachiller
             ->where('id', $id)
             ->first();
+
+        $this->estadoSolicitud();
 
         $this->open = true;
     }
@@ -122,8 +127,6 @@ class Pendiente extends Component
 
     public function render()
     {
-        $this->obtenerPendientes();
-        $this->estadoSolicitud();
         return view('livewire.bachiller.solicitudes.pendiente');
     }
 }

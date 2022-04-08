@@ -128,14 +128,14 @@
                                 <x-utils.tables.body class="text-xs">
                                     {{ ($i+1) }}
                                 </x-utils.tables.body>
-                                <x-utils.tables.body  class="text-xs">
+                                <x-utils.tables.body class="text-xs">
                                     <a target="_blank" href="{{ route('archivos', $doc->documento->enlace_interno) }}"
                                        class="hover:text-sky-600 hover:underline line-clamp-1">
                                         {{ $doc->requisito->nombre }}
                                     </a>
                                 </x-utils.tables.body>
-                                <x-utils.tables.body  class="text-xs">
-                                    {{ $doc->documento->created_at->format('d M Y')}}
+                                <x-utils.tables.body class="text-xs">
+                                    {{ $doc->documento->updated_at->format('d M Y')}}
                                 </x-utils.tables.body>
                                 <x-utils.tables.body>
                                     <buttons
@@ -158,22 +158,12 @@
                         @endforeach
                     @endslot
                 </x-utils.tables.table>
-                @if($tesis)
-                    <div class="my-4 p-4 border rounded-lg flex flex-col items-center justify-center space-y-4">
-                        <img src="{{ asset('images/svg/solicitudes_completas.svg') }}" class="w-24"
-                             alt="Grafico">
-                        <div class="text-sm text-gray-600">
-                            <p class="font-bold text-gray-600">
-                                Tesis N° {{$tesis->numero_registro}} registrado con titulo
-                            </p>
-                            <a target="_blank" href="{{route('tpu.seeTesis', [$solicitudSeleccionado,$tesis])}}"
-                               class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                <span>{{substr($tesis->titulo, 1, 50)}}...</span>
-                                <input id="file-upload" name="file-upload" type="file" class="sr-only">
-                            </a>
-                            <p class="text-gray-400"><span class="font-bold">Año: </span>2020
-                            </p>
-                        </div>
+                @if($requisitosCompleto)
+                    <div class="mt-4 w-full flex justify-end">
+                        <x-jet-button wire:click="estadoSolicitud()">
+                            <x-icons.quality class="h-4 w-4 mr-1"></x-icons.quality>
+                            Actualizar y Enviar
+                        </x-jet-button>
                     </div>
                 @endif
             @endslot
