@@ -25,7 +25,7 @@
                 {{ __('Procesos') }}
             </x-utils.links.nav-link>
             <x-utils.links.nav-link href="{{ route('admin.panel.actividades') }}"
-                                    :active="request()->routeIs('admin.actividades')">
+                                    :active="request()->routeIs('admin.panel.actividades')">
                 {{ __('Actividades') }}
             </x-utils.links.nav-link>
             <x-utils.links.nav-link href="{{ route('admin.panel.entradas') }}"

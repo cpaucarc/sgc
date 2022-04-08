@@ -37,7 +37,7 @@
     @else
         <div class="border border-gray-300 rounded-md">
             <x-utils.message-no-items
-                title="Aún no hay entradas registrados">
+                title="Aún no hay salidas registrados">
                 @slot('icon')
                     <svg class="text-gray-400" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
                         <path fill-rule="evenodd"

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Actividad;
 
+use App\Models\Cliente;
 use App\Models\Documento;
 use App\Models\DocumentoEnviado;
 use App\Models\Proceso;
@@ -13,18 +14,17 @@ use Livewire\Component;
 class ListaDocumentosRecibidos extends Component
 {
     public $semestres = null;
-    public $semestre_seleccionado = null;
-    public $entidades = [];
+    public $semestre = 0;
     public $procesos = null;
-    public $proceso_seleccionado = null;
+    public $entidades = [];
+    public $proceso = 0;
 
-    public $salida_seleccionada = null;
-    public $open = false;
+    public $salida_seleccionada = null, $open = false;
 
     public function mount()
     {
         $this->semestres = Semestre::orderBy('nombre', 'desc')->get();
-        $this->semestre_seleccionado = $this->semestres->first()->id;
+        $this->semestre = $this->semestres->first()->id;
 
         $this->entidades = Auth::user()->entidades->pluck('id');
 
@@ -34,28 +34,30 @@ class ListaDocumentosRecibidos extends Component
                     ->whereIn('id', function ($query2) {
                         $query2->select('actividad_id')->from('responsables')
                             ->whereIn('id', function ($query3) {
-                                $query3->select('responsable_id')->from('clientes')
-                                    ->whereIn('entidad_id', $this->entidades);
+                                $query3->select('responsable_id')->from('clientes')->whereIn('entidad_id', $this->entidades);
                             });
                     });
             })
             ->orderBy('nombre')->get();
-        $this->proceso_seleccionado = $this->procesos->first()->id;
+        $this->proceso = $this->procesos->first()->id;
     }
 
     public function render()
     {
         $salidas = Salida::query()
-            ->withCount('documentos')
+            ->withCount(['documentos' => function ($query) {
+                $query->whereHas('documento', function ($query2) {
+                    $query2->where('semestre_id', $this->semestre);
+                });
+            }])
             ->whereIn('id', function ($query) {
-                $query->select('salida_id')
-                    ->from('clientes')
-                    ->whereIn('entidad_id', $this->entidades);
-            })
-            ->whereHas('documentos', function ($query) {
-                $query->whereColumn('documentable_id', 'salidas.id')
-                    ->whereHas('documento', function ($q) {
-                        $q->where('semestre_id', $this->semestre_seleccionado);
+                $query->select('salida_id')->from('clientes')
+                    ->whereIn('entidad_id', $this->entidades)
+                    ->whereIn('responsable_id', function ($query2) {
+                        $query2->select('id')->from('responsables')
+                            ->whereIn('actividad_id', function ($query3) {
+                                $query3->select('id')->from('actividades')->where('proceso_id', $this->proceso);
+                            });
                     });
             })
             ->get();
@@ -66,30 +68,36 @@ class ListaDocumentosRecibidos extends Component
     public function abrirModal($salida_id)
     {
         $this->salida_seleccionada = Salida::query()
-            ->with('documentos', 'documentos.documento.entidad')
-            ->whereIn('id', function ($query) {
-                $query->select('salida_id')
-                    ->from('clientes')
-                    ->whereIn('entidad_id', $this->entidades)
-                    ->whereIn('responsable_id', function ($query) {
-                        $query->select('id')
-                            ->from('responsables')
-                            ->whereIn('actividad_id', function ($query) {
-                                $query->select('id')
-                                    ->from('actividades')
-                                    ->where('proceso_id', $this->proceso_seleccionado);
-                            });
-                    });
-            })
-            ->whereHas('documentos', function ($query) {
-                $query->whereColumn('documentable_id', 'salidas.id')
-                    ->whereHas('documento', function ($q) {
-                        $q->where('semestre_id', $this->semestre_seleccionado);
-                    });
-            })
-            ->where('id', $salida_id)
-            ->first();
-
+            ->with(['documentos' => function ($query) {
+                $query->whereHas('documento', function ($query2) {
+                    $query2->where('semestre_id', $this->semestre);
+                });
+            }])
+            ->find($salida_id);
+//            ->with('documentos', 'documentos.documento.entidad')
+//            ->whereIn('id', function ($query) {
+//                $query->select('salida_id')
+//                    ->from('clientes')
+//                    ->whereIn('entidad_id', $this->entidades)
+//                    ->whereIn('responsable_id', function ($query) {
+//                        $query->select('id')
+//                            ->from('responsables')
+//                            ->whereIn('actividad_id', function ($query) {
+//                                $query->select('id')
+//                                    ->from('actividades')
+//                                    ->where('proceso_id', $this->proceso_seleccionado);
+//                            });
+//                    });
+//            })
+//            ->whereHas('documentos', function ($query) {
+//                $query->whereColumn('documentable_id', 'salidas.id')
+//                    ->whereHas('documento', function ($q) {
+//                        $q->where('semestre_id', $this->semestre_seleccionado);
+//                    });
+//            })
+//            ->where('id', $salida_id)
+//            ->first();
+//
         $this->open = true;
     }
 }

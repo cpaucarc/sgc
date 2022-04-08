@@ -17,7 +17,7 @@
                                         :active="request()->routeIs('admin.panel.*')">
                             {{ __('Administrador') }}
                         </x-jet-nav-link>
-                        <x-jet-nav-link href="{{ route('reporte.convenio') }}"
+                        <x-jet-nav-link href="{{ route('reporte.auditoria') }}"
                                         :active="request()->routeIs('reporte.*')">
                             {{ __('Reportes') }}
                         </x-jet-nav-link>

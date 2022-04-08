@@ -11,17 +11,17 @@
                 </p>
             </div>
 
-            <x-utils.forms.select class="w-24" wire:model="semestre_seleccionado">
-                @forelse($semestres as $semestre)
-                    <option value="{{ $semestre->id }}">{{$semestre->nombre}}</option>
+            <x-utils.forms.select wire:model="semestre">
+                @forelse($semestres as $smt)
+                    <option value="{{ $smt->id }}">{{$smt->nombre}}</option>
                 @empty
                     <option value="0">No hay datos</option>
                 @endforelse
             </x-utils.forms.select>
 
-            <x-utils.forms.select wire:model="proceso_seleccionado">
-                @forelse($procesos as $proceso)
-                    <option value="{{ $proceso->id }}">Proceso {{$proceso->nombre}}</option>
+            <x-utils.forms.select wire:model="proceso">
+                @forelse($procesos as $proc)
+                    <option value="{{ $proc->id }}">Proceso {{$proc->nombre}}</option>
                 @empty
                     <option value="0">No hay datos</option>
                 @endforelse
@@ -32,8 +32,9 @@
     @if(count($salidas))
         <x-utils.tables.table>
             @slot('head')
+                <x-utils.tables.head>Código</x-utils.tables.head>
                 <x-utils.tables.head>Salida</x-utils.tables.head>
-                <x-utils.tables.head>Documentos</x-utils.tables.head>
+                <x-utils.tables.head>N° Documentos</x-utils.tables.head>
                 <x-utils.tables.head>
                     <span class=" sr-only">Ver</span>
                 </x-utils.tables.head>
@@ -41,20 +42,30 @@
             @slot('body')
                 @foreach($salidas as $salida)
                     <x-utils.tables.row>
+                        <x-utils.tables.body>
+                            <div
+                                class="w-6 h-6 rounded-full font-semibold text-xs grid place-items-center text-blue-800 bg-blue-100">
+                                {{ $salida->codigo }}
+                            </div>
+                        </x-utils.tables.body>
                         <x-utils.tables.body class="font-semibold">
-                            <h2 class="font-bold">
-                                {{ $salida->nombre }}
-                            </h2>
+                            {{ $salida->nombre }}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            <p class="text-gray-500">
+                            @if($salida->documentos_count)
                                 {{ $salida->documentos_count }} documento(s)
-                            </p>
+                            @else
+                                <x-utils.badge class="bg-rose-100 text-rose-700 text-xs">
+                                    Aún nada
+                                </x-utils.badge>
+                            @endif
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            <x-utils.buttons.invisible wire:click="abrirModal({{$salida->id}})">
-                                Revisar
-                            </x-utils.buttons.invisible>
+                            @if($salida->documentos_count)
+                                <x-utils.buttons.invisible wire:click="abrirModal({{$salida->id}})">
+                                    Revisar
+                                </x-utils.buttons.invisible>
+                            @endif
                         </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach
@@ -79,37 +90,47 @@
     @if($salida_seleccionada)
         <x-jet-dialog-modal wire:model="open" maxWidth="3xl">
             <x-slot name="title">
-                <h1 class="font-bold text-gray-700">
-                    {{ $salida_seleccionada->nombre }}
-                </h1>
+                <div class="flex items-center gap-x-2">
+                    <div
+                        class="w-10 h-10 rounded-full font-semibold text-sm grid place-items-center text-blue-800 bg-blue-100">
+                        {{ $salida_seleccionada->codigo }}
+                    </div>
+                    <h1 class="font-bold text-gray-700">
+                        {{ $salida_seleccionada->nombre }}
+                    </h1>
+                </div>
                 <x-utils.buttons.close-button wire:click="$set('open', false)"/>
             </x-slot>
 
             <x-slot name="content">
+                {{--                {{ $salida_seleccionada }}--}}
                 <div class="space-y-8">
                     <x-utils.tables.table>
+                        @slot('head')
+                            <x-utils.tables.head>Nombre del documento</x-utils.tables.head>
+                            <x-utils.tables.head>Enviado por</x-utils.tables.head>
+                            <x-utils.tables.head>Fecha</x-utils.tables.head>
+                            <x-utils.tables.head>
+                                <span class=" sr-only">Acciones</span>
+                            </x-utils.tables.head>
+                        @endslot
                         @slot('body')
-                            @foreach($salida_seleccionada->documentos as $documento_recibido)
+                            @foreach($salida_seleccionada->documentos as $doc)
                                 <x-utils.tables.row class="p-1">
-                                    <x-utils.tables.body class="text-left whitespace-nowrap">
-                                        @if(strlen($documento_recibido->documento->nombre) > 55)
-                                            {{ substr($documento_recibido->documento->nombre, 0, 40) }}
-                                            ...{{ substr($documento_recibido->documento->nombre, -15) }}
-                                        @else
-                                            {{ $documento_recibido->documento->nombre }}
-                                        @endif
+                                    <x-utils.tables.body class="text-left">
+                                        {{ $doc->documento->nombre }}
+                                    </x-utils.tables.body>
+                                    <x-utils.tables.body>
+                                        {{ $doc->documento->entidad->nombre }}
                                     </x-utils.tables.body>
                                     <x-utils.tables.body class="text-right whitespace-nowrap">
-                                        {{ $documento_recibido->documento->entidad->nombre }}
-                                    </x-utils.tables.body>
-                                    <x-utils.tables.body class="text-right whitespace-nowrap">
-                                        {{ $documento_recibido->documento->created_at->diffForHumans() }}
+                                        {{ $doc->documento->created_at->diffForHumans() }}
                                     </x-utils.tables.body>
                                     <x-utils.tables.body class="text-right">
                                         <div
                                             class="flex items-center justify-end w-full gap-2 whitespace-nowrap">
                                             <x-utils.links.default class="group" target="_blank"
-                                                                   href="{{ route('archivos', $documento_recibido->documento->enlace_interno) }}">
+                                                                   href="{{ route('archivos', $doc->documento->enlace_interno) }}">
                                                 <x-icons.documents class="h-4 w-4" stroke="1.5"/>
                                                 Ver
                                             </x-utils.links.default>

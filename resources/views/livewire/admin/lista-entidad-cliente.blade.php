@@ -47,7 +47,7 @@
     @else
         <div class="border border-gray-300 rounded-md">
             <x-utils.message-no-items
-                title="Sin actividades asignadas"
+                title="Sin salidas asignadas"
                 text="Asigne las actividades en los que debe actuar como cliente.">
                 @slot('icon')
                     <svg class="text-gray-400" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
@@ -57,7 +57,7 @@
                 @endslot
 
                 <x-jet-button wire:click="openModal" class="text-sm">
-                    Asignar actividades
+                    Asignar salidas
                 </x-jet-button>
             </x-utils.message-no-items>
         </div>

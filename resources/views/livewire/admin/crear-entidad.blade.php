@@ -21,7 +21,7 @@
                     <x-jet-input-error for="nombre"/>
                 </div>
                 <div class="w-full">
-                    <x-jet-label for="oficina" value="Oficina a la que pertenece la entidad"/>
+                    <x-jet-label for="oficina" value="Tipo de oficina a la que pertenece"/>
                     <x-utils.forms.select id="oficina" class="w-full" wire:model="oficina">
                         <option value="0">Seleccione...</option>
                         @foreach($oficinas as $of)
