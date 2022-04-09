@@ -128,13 +128,13 @@
                                 <x-utils.tables.body class="text-xs">
                                     {{ ($i+1) }}
                                 </x-utils.tables.body>
-                                <x-utils.tables.body  class="text-xs">
+                                <x-utils.tables.body class="text-xs">
                                     <a target="_blank" href="{{ route('archivos', $doc->documento->enlace_interno) }}"
                                        class="hover:text-sky-600 hover:underline line-clamp-1">
                                         {{ $doc->requisito->nombre }}
                                     </a>
                                 </x-utils.tables.body>
-                                <x-utils.tables.body  class="text-xs">
+                                <x-utils.tables.body class="text-xs">
                                     {{ $doc->documento->created_at->format('d M Y')}}
                                 </x-utils.tables.body>
                                 <x-utils.tables.body>
@@ -149,7 +149,7 @@
                                         <x-utils.buttons.danger wire:click="denegarDocumentoRequisito({{$doc->id}})">
                                             <x-icons.x class="h-4 w-4 mr-1"></x-icons.x>
                                         </x-utils.buttons.danger>
-                                         <x-utils.buttons.success wire:click="aprobarDocumentoRequisito({{$doc->id}})">
+                                        <x-utils.buttons.success wire:click="aprobarDocumentoRequisito({{$doc->id}})">
                                             <x-icons.check class="h-4 w-4 mr-1"></x-icons.check>
                                         </x-utils.buttons.success>
                                     </div>
@@ -158,6 +158,14 @@
                         @endforeach
                     @endslot
                 </x-utils.tables.table>
+                @if($requisitosCompleto)
+                    <div class="my-4 w-full flex justify-end">
+                        <x-jet-button wire:click="estadoSolicitud()">
+                            <x-icons.quality class="h-4 w-4 mr-1"></x-icons.quality>
+                            Actualizar y Enviar
+                        </x-jet-button>
+                    </div>
+                @endif
                 @if($tesis)
                     <div class="my-4 p-4 border rounded-lg flex flex-col items-center justify-center space-y-4">
                         <img src="{{ asset('images/svg/solicitudes_completas.svg') }}" class="w-24"
