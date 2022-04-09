@@ -17,10 +17,13 @@
                             {{ ($i+1) }}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            {{ $documentos->requisito->nombre}}
+                            <x-utils.links.basic href="{{ route('archivos', $documentos->documento->enlace_interno) }}"
+                                                 target="_blank">
+                                {{ $documentos->requisito->nombre}}
+                            </x-utils.links.basic>
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            {{ $documentos->documento->created_at->format('d M Y')}}
+                            {{ $documentos->documento->updated_at->format('d M Y')}}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             <buttons
@@ -29,14 +32,16 @@
                             </buttons>
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            <div
-                                class="flex items-center justify-end w-full gap-2 whitespace-nowrap">
-                                <x-utils.links.default class="group text-xs" target="_blank"
-                                                       href="{{ route('archivos', $documentos->documento->enlace_interno) }}">
-                                    <x-icons.documents class="h-4 w-4" stroke="1.5"/>
-                                    Ver
-                                </x-utils.links.default>
-                            </div>
+                            @if($documentos->estado->nombre ==="Denegado")
+                                <x-utils.buttons.warning
+                                    wire:click="seleccionar('true',{{$documentos->requisito->id}})">
+                                    <x-icons.edit class="h-4 w-4 mr-1"></x-icons.edit>
+                                </x-utils.buttons.warning>
+                            @else
+                                <x-utils.buttons.warning class="cursor-wait">
+                                    <x-icons.edit class="h-4 w-4 mr-1"></x-icons.edit>
+                                </x-utils.buttons.warning>
+                            @endif
                         </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach
@@ -51,4 +56,37 @@
             <x-slot name="image">{{ asset('images/svg/sin_documentos.svg')  }}</x-slot>
         </x-utils.message-image>
     @endif
+
+    <x-jet-dialog-modal wire:model="modal">
+        @slot('title')
+            <h1 class="font-bold text-gray-700">
+                Actualizar requisito
+            </h1>
+            <x-utils.buttons.close-button wire:click="$set('modal', false)"/>
+        @endslot
+        @slot('content')
+            <div class="space-y-6">
+                <div class="space-y-2">
+                    <x-jet-label for="archivo" value="Subir archivo"/>
+                    <x-utils.forms.file-input class="w-full block" wire:model.defer="archivo"/>
+                    <x-utils.loading-file wire:loading wire:target="archivo"></x-utils.loading-file>
+                    <x-jet-input-error for="archivo"></x-jet-input-error>
+                </div>
+            </div>
+        @endslot
+        @slot('footer')
+            <x-jet-secondary-button wire:click="$set('modal', false)">
+                Cerrar
+            </x-jet-secondary-button>
+            <x-jet-button
+                wire:click="actualizarDocumento"
+                wire:target="actualizarDocumento, archivo"
+                wire:loading.class="bg-gray-800"
+                wire:loading.attr="disabled">
+                <x-icons.load wire:loading wire:target="actualizarDocumento" class="h-5 w-5"
+                              stroke="1.5"></x-icons.load>
+                {{ __('Guardar') }}
+            </x-jet-button>
+        @endslot
+    </x-jet-dialog-modal>
 </div>
