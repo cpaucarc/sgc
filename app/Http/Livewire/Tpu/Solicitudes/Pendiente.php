@@ -24,6 +24,11 @@ class Pendiente extends Component
         'estadoSolicitud' => 'render',
     ];
 
+    public function mount()
+    {
+        $this->obtenerPendientes();
+    }
+
     public function obtenerPendientes()
     {
         $this->solicitudes = Solicitud::query()
@@ -53,6 +58,8 @@ class Pendiente extends Component
         $this->tesis = Tesis::query()
             ->where('codigo_estudiante', $this->solicitudSeleccionado->codigo_estudiante)
             ->first();
+
+        $this->estadoSolicitud();
 
         $this->open = true;
     }
@@ -128,8 +135,6 @@ class Pendiente extends Component
 
     public function render()
     {
-        $this->obtenerPendientes();
-        $this->estadoSolicitud();
         return view('livewire.tpu.solicitudes.pendiente');
     }
 }
