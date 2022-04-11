@@ -27,9 +27,9 @@
                 </x-utils.forms.select>
                 @if(!is_null($escuelas))
                     <x-utils.forms.select wire:model="escuela">
-                        <option value="0">Solo de la facultad</option>
+                        <option value="0">Todas las escuelas</option>
                         @foreach($escuelas as $esc)
-                            <option value="{{$esc->id}}">De {{$esc->nombre}}</option>
+                            <option value="{{$esc->id}}">{{$esc->nombre}}</option>
                         @endforeach
                     </x-utils.forms.select>
                 @endif

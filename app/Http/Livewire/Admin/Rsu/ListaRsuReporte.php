@@ -29,7 +29,8 @@ class ListaRsuReporte extends Component
             ->select("id", "titulo", "uuid", "fecha_inicio", "fecha_fin", "semestre_id", "escuela_id")
             ->with('escuela:id,nombre,facultad_id', 'semestre:id,nombre')
             ->orderBy('semestre_id', 'desc')
-            ->orderBy(Escuela::select('nombre')->whereColumn('escuelas.id', 'responsabilidad_social.escuela_id'));
+            ->orderBy(Escuela::select('nombre')->whereColumn('escuelas.id', 'responsabilidad_social.escuela_id'))
+            ->orderBy('titulo');
 
         if ($this->facultad > 0) {
             if ($this->escuela > 0) {

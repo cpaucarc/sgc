@@ -24,7 +24,10 @@ class Escuela extends Model
 
     public function rsu()
     {
-        return $this->hasMany(ResponsabilidadSocial::class)->orderBy('fecha_fin');
+        return $this->hasMany(ResponsabilidadSocial::class)
+            ->orderBy('semestre_id', 'desc')
+            ->orderBy('titulo')
+            ->orderBy('fecha_fin');
     }
 
     public function investigaciones()

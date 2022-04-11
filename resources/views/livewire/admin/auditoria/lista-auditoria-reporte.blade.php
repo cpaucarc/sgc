@@ -33,7 +33,7 @@
 
     @if( count($auditorias) )
         <h2 class="text-gray-600 text-sm mb-4">
-            Se encontró un total de {{ count($auditorias) }} investigaciones
+            Se encontraron un total de {{ count($auditorias) }} auditorias registradas
         </h2>
 
         <x-utils.tables.table>
