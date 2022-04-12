@@ -17,7 +17,7 @@ class AreaInvestigacionSeeder extends Seeder
         $areas = [
             [
                 'nombre' => 'Ciencias Médicas y de la Salud',
-                'facultad_id' => 1
+                'facultad_id' => 8
             ]
         ];
 

@@ -23,7 +23,7 @@ class GradoEstudianteFactory extends Factory
             'grado_academico_id' => rand(1, 7),
             'created_at' => $created_at,
             'updated_at' => $created_at,
-            'escuela_id' => rand(1, 2),
+            'escuela_id' => rand(10, 11),
         ];
     }
 }

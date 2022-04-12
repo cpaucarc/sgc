@@ -16,17 +16,17 @@ class SemestreSeeder extends Seeder
     {
         $semestre = [
             [
-                'nombre' => '2020-II',
+                'nombre' => '2020-2',
                 'fecha_inicio' => '2020-12-01',
                 'fecha_fin' => '2021-05-04',
             ],
             [
-                'nombre' => '2021-I',
+                'nombre' => '2021-1',
                 'fecha_inicio' => '2021-07-01',
                 'fecha_fin' => '2021-12-04',
             ],
             [
-                'nombre' => '2021-II',
+                'nombre' => '2021-2',
                 'fecha_inicio' => '2022-01-01',
                 'fecha_fin' => '2022-05-04',
             ],

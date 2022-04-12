@@ -110,7 +110,7 @@
 
     @endif
 
-    <livewire:indicador.nuevo-analisis indicadorable_id="{{ $indicadorable->id }}"
+    <livewire:indicador.nuevo-analisis indicadorable_id="{{ $indicadorable->id }}" oficina="{{ $oficina }}"
                                        tipo="{{ $tipo }}" uuid="{{$uuid}}"/>
 
     @if($analisis_seleccionado)

@@ -16,6 +16,7 @@ use App\Http\Controllers\PlanEstudiosController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\ResponsabilidadSocialController;
 use App\Http\Controllers\TituloProfesionalController;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
@@ -32,6 +33,20 @@ use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function () {
     return redirect()->route('login');
+});
+
+Route::get('/prueba', function () {
+    $respuesta = Http::withToken('pkf5ZsQkEDuaPgQVwz3mAdszQzPMWRgg6tFHkUkK')
+        ->accept('text/html')
+        ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/04?escuela=13&semestre=2022-0');
+
+    print_r(gettype($respuesta));
+    echo '<br>';
+    print_r(gettype($respuesta->body()));
+    echo '<br>';
+    echo '<br>';
+    $op = intval($respuesta->body()) + 5;
+    return $respuesta . ' | ' . $op;
 });
 
 //Rutas protegidas solo para usuarios autenticados

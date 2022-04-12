@@ -16,8 +16,9 @@ class NuevoAnalisis extends Component
 {
     public $open = false;
     public $tipo, $frecuenciaEnDias = 30;
-    public $indicadorable, $entidad, $type;
+    public $indicadorable, $entidad, $type, $oficina;
     public $min, $sat, $sob;
+    public $semestres = null, $semestre_id = 0, $semestre_nombre = null, $semestre_inicio = null, $semestre_fin = null;
     public $inicio, $fin, $diffInDays, $diffIsOk = true;
     public $interes = null, $total = null, $resultado = null;
     public $elaborado, $revisado, $aprobado;
@@ -33,9 +34,17 @@ class NuevoAnalisis extends Component
         'resultado' => 'required',
     ];
 
-    public function mount($indicadorable_id, $tipo, $uuid)
+    public function mount($indicadorable_id, $oficina, $tipo, $uuid)
     {
-        $this->tipo = $tipo;
+        $this->tipo = $tipo; //Tipo Escuela o Facultad
+        $this->oficina = $oficina;
+
+        $this->semestres = Semestre::query()->orderBy('nombre', 'desc')->get();
+        $this->semestre_id = $this->semestres->first()->id;
+        $this->semestre_nombre = $this->semestres->first()->nombre;
+        $this->semestre_inicio = $this->semestres->first()->fecha_inicio->format('Y-m-d');
+        $this->semestre_fin = $this->semestres->first()->fecha_fin->format('Y-m-d');
+
         $this->indicadorable = Indicadorable::query()
             ->with('indicador', 'indicador.medicion')
             ->findOrFail($indicadorable_id);
@@ -49,7 +58,9 @@ class NuevoAnalisis extends Component
         $this->elaborado = Auth::user()->name;
 
         $this->frecuenciaEnDias = $this->indicadorable->indicador->medicion->tiempo_meses * 30;
+
         $this->fechasPorDefecto($this->indicadorable->indicador->medicion->nombre);
+
     }
 
     public function render()
@@ -69,12 +80,32 @@ class NuevoAnalisis extends Component
 
     public function updatedInicio()
     {
+        $this->semestre_id = 0;
+        $this->semestre_nombre = null;
+        $this->semestre_inicio = null;
+        $this->semestre_fin = null;
         $this->comprobarFechas();
         $this->obtenerResultados();
     }
 
     public function updatedFin()
     {
+        $this->semestre_id = 0;
+        $this->semestre_nombre = null;
+        $this->semestre_inicio = null;
+        $this->semestre_fin = null;
+        $this->comprobarFechas();
+        $this->obtenerResultados();
+    }
+
+    public function updatedSemestreId($value)
+    {
+        $s = Semestre::find($value);
+        $this->semestre_nombre = $s->nombre;
+        $this->semestre_inicio = $s->fecha_inicio->format('Y-m-d');
+        $this->semestre_fin = $s->fecha_fin->format('Y-m-d');
+        $this->inicio = $this->semestre_inicio;
+        $this->fin = $this->semestre_fin;
         $this->comprobarFechas();
         $this->obtenerResultados();
     }
@@ -93,15 +124,16 @@ class NuevoAnalisis extends Component
     public function fechasPorDefecto($frecuencia)
     {
         $frecuencia = strtolower($frecuencia);
+        $this->fin = Carbon::now()->endOfMonth()->format('Y-m-d');
         if (strcmp($frecuencia, "semestral") === 0) {
-            $this->inicio = Carbon::now()->subMonths(5)->startOfMonth()->format('Y-m-d');
+//            $this->inicio = Carbon::now()->subMonths(5)->startOfMonth()->format('Y-m-d');
+            $this->inicio = $this->semestre_inicio;
+            $this->fin = $this->semestre_fin;
         } elseif (strcmp($frecuencia, "mensual") === 0) {
             $this->inicio = Carbon::now()->startOfMonth()->format('Y-m-d');
         } elseif (strcmp($frecuencia, "anual") === 0) {
             $this->inicio = Carbon::now()->subYear()->startOfYear()->format('Y-m-d');
         }
-        $this->fin = Carbon::now()->endOfMonth()->format('Y-m-d');
-
         $this->comprobarFechas();
     }
 
@@ -221,6 +253,17 @@ class NuevoAnalisis extends Component
             $res = Medicion::ind25($this->entidad->id, $this->inicio, $this->fin);
         } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-026") {
             $res = Medicion::ind26($this->entidad->id, $this->inicio, $this->fin);
+        } // Enseñanza y Aprendizaje
+        elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-032") {
+            $res = Medicion::ind32($this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-035") {
+            $res = Medicion::ind35($this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-036") {
+            $res = Medicion::ind36($this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-037") {
+            $res = Medicion::ind37($this->entidad->id, $this->semestre_nombre, $this->inicio, $this->fin);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-038") {
+            $res = Medicion::ind38($this->entidad->id, $this->semestre_nombre);
         }
 
         if (isset($res)) {

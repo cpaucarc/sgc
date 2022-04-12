@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class TablaAnalisis extends Component
 {
-    public $tipo, $uuid;
+    public $oficina, $tipo, $uuid;
     public $indicadorable_id, $indicadorable;
     public $open = false;
     public $openEdit = false, $analisis_seleccionado = null, $modoEdit = false;
@@ -17,9 +17,10 @@ class TablaAnalisis extends Component
 
     protected $listeners = ['renderizarTabla' => 'render'];
 
-    public function mount($indicadorable_id, $tipo, $uuid)
+    public function mount($indicadorable_id, $oficina, $tipo, $uuid)
     {
         $this->indicadorable_id = $indicadorable_id;
+        $this->oficina = $oficina;
         $this->tipo = $tipo;
         $this->uuid = $uuid;
     }

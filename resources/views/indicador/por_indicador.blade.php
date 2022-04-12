@@ -60,6 +60,7 @@
 
         <livewire:indicador.tabla-analisis
             indicadorable_id="{{ $indicadorable->id }}"
+            oficina="{{ $nombre }}"
             tipo="{{ $tipo }}"
             uuid="{{ $uuid }}"
         />

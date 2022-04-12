@@ -23,10 +23,10 @@ class ResponsabilidadSocialFactory extends Factory
             'uuid' => $this->faker->uuid,
             'descripcion' => $this->faker->paragraph(),
             'lugar' => $this->faker->city . ' - ' . $this->faker->state,
-            'fecha_inicio' => $this->faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now'),
-            'fecha_fin' => $this->faker->dateTimeBetween($startDate = '+1 months', $endDate = '+7 months'),
+            'fecha_inicio' => $this->faker->dateTimeBetween('-6 months', 'now'),
+            'fecha_fin' => $this->faker->dateTimeBetween('+1 months', '+7 months'),
             'semestre_id' => $this->faker->numberBetween(1, 3),
-            'escuela_id' => $this->faker->numberBetween(1, 2),
+            'escuela_id' => $this->faker->numberBetween(10, 11),
             'empresa_id' => $enEmpresa ? $this->faker->numberBetween(1, 50) : null,
         ];
     }

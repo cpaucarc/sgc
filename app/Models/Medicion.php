@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class Medicion extends Model
 {
@@ -246,6 +247,123 @@ class Medicion extends Model
             ->sum('postulantes');
 
         $resultados['resultado'] = $cantidad ?? 0;
+        return $resultados;
+    }
+
+    public static function ind32($escuela_id, $semestre)
+    {
+//        X = (N° de estudiantes que lograron competencias)/(Total de estudiantes) x 100
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+            // FIXME 04: Cantidad de estudiantes aprobados en cada curso por escuela. -> esta devolviendo un numero Aleatorio
+            $rsp = Http::withToken('pkf5ZsQkEDuaPgQVwz3mAdszQzPMWRgg6tFHkUkK')
+                ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/04?escuela=' . $escuela_id . '&semestre=' . $semestre);
+
+            $resultados['interes'] = intval($rsp->body());
+            $resultados['total'] = $escuela_id === 10 ? 216 : 193; //Enf:193, Obs:216 // FIXME: OGE - Obtener Num de alumnos (aun no esta inplementado en la API)
+            $resultados['resultado'] = round($resultados['interes'] / $resultados['total'] * 100);;
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+        return $resultados;
+    }
+
+    public static function ind35($escuela_id, $semestre)
+    {
+        //X = (Total docentes con evaluación de cumplimiento)/(Total de docentes evaluados por programa ) x 100
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+            // FIXME 07: Cantidad de docentes con evaluación de cumplimiento por escuela.. -> esta devolviendo un numero Aleatorio
+            $rsp1 = Http::withToken('pkf5ZsQkEDuaPgQVwz3mAdszQzPMWRgg6tFHkUkK')
+                ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/07?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            // FIXME 08: Cantidad de docentes con evaluación de cumplimiento por escuela.. -> esta devolviendo un numero Aleatorio
+            $rsp2 = Http::withToken('pkf5ZsQkEDuaPgQVwz3mAdszQzPMWRgg6tFHkUkK')
+                ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/08?escuela=' . $escuela_id . '&semestre=' . $semestre);
+
+            $resultados['interes'] = intval($rsp1->body());
+            $resultados['total'] = intval($rsp2->body());
+            $resultados['resultado'] = round($resultados['interes'] / $resultados['total'] * 100);;
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+        return $resultados;
+    }
+
+    public static function ind36($escuela_id, $semestre)
+    {
+        // X = (Total satisfechos con e proceso E-A)/(Total de encuestados ) x 100
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+            // FIXME 10: Cantidad de docentes con evaluación de cumplimiento por escuela.. -> esta devolviendo un numero Aleatorio
+            $rsp1 = Http::withToken('pkf5ZsQkEDuaPgQVwz3mAdszQzPMWRgg6tFHkUkK')
+                ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/10?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            // FIXME 09: Cantidad de docentes con evaluación de cumplimiento por escuela.. -> esta devolviendo un numero Aleatorio
+            $rsp2 = Http::withToken('pkf5ZsQkEDuaPgQVwz3mAdszQzPMWRgg6tFHkUkK')
+                ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/09?escuela=' . $escuela_id . '&semestre=' . $semestre);
+
+            $resultados['interes'] = intval($rsp1->body());
+            $resultados['total'] = intval($rsp2->body());
+            $resultados['resultado'] = round($resultados['interes'] / $resultados['total'] * 100);;
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+        return $resultados;
+    }
+
+    public static function ind37($escuela_id, $semestre, $fecha_inicio, $fecha_fin)
+    {
+        // X = (∑ asistencia a clases de docentes por semana)/(Total de claes programadas por semana)
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+            // FIXME 11: Cantidad de docentes que asistieron a clases por escuela. -> esta devolviendo un numero Aleatorio
+            $rsp1 = Http::withToken('pkf5ZsQkEDuaPgQVwz3mAdszQzPMWRgg6tFHkUkK')
+                ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/11?escuela=' . $escuela_id . '&semestre=' . $semestre . '&fecha_inicio=' . $fecha_inicio . '&fecha_fin=' . $fecha_fin);
+            // FIXME 12: Cantidad de clases programadas por escuela. -> esta devolviendo un numero Aleatorio
+            $rsp2 = Http::withToken('pkf5ZsQkEDuaPgQVwz3mAdszQzPMWRgg6tFHkUkK')
+                ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/12?escuela=' . $escuela_id . '&semestre=' . $semestre . '&fecha_inicio=' . $fecha_inicio . '&fecha_fin=' . $fecha_fin);
+
+            $resultados['interes'] = intval($rsp1->body());
+            $resultados['total'] = intval($rsp2->body());
+            $resultados['resultado'] = round($resultados['interes'] / $resultados['total'] * 100);;
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+        return $resultados;
+    }
+
+    public static function ind38($escuela_id, $semestre)
+    {
+        // X = (Total silabos publicados por programa)/(Total de silabos por programa ) x 100
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+            // FIXME 13: Cantidad de sílabos publicados por escuela. -> esta devolviendo un numero Aleatorio
+            $rsp1 = Http::withToken('pkf5ZsQkEDuaPgQVwz3mAdszQzPMWRgg6tFHkUkK')
+                ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/13?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            // FIXME 14: Cantidad de cursos abiertos por escuela. -> esta devolviendo un numero Aleatorio
+            $rsp2 = Http::withToken('pkf5ZsQkEDuaPgQVwz3mAdszQzPMWRgg6tFHkUkK')
+                ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/14?escuela=' . $escuela_id . '&semestre=' . $semestre);
+
+            $resultados['interes'] = intval($rsp1->body());
+            $resultados['total'] = intval($rsp2->body());
+            $resultados['resultado'] = round($resultados['interes'] / $resultados['total'] * 100);;
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
         return $resultados;
     }
 

@@ -21,6 +21,14 @@
                         Medición&nbsp;<span class="font-bold">{{ $indicadorable->indicador->medicion->nombre }}</span>
                     </div>
 
+                    <div>
+                        <x-utils.forms.select wire:model="semestre_id">
+                            @foreach($semestres as $sm)
+                                <option value="{{$sm->id}}">Semestre {{$sm->nombre}}</option>
+                            @endforeach
+                        </x-utils.forms.select>
+                    </div>
+
                     <div class="flex flex-col items-center">
                         <div class="flex items-center space-x-2 text-gray-600 text-sm">
                             <label class="whitespace-nowrap border border-gray-300 px-2 py-1 rounded-lg">
