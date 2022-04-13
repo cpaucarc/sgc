@@ -16,6 +16,39 @@ class Medicion
         > fecha_fin (date) : Rango de finalizacion de la medición (generalmente HOY)
     */
 
+    public static function ind01($facultad_id, $fecha_inicio, $fecha_fin)
+    {
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $callback = function ($query) use ($facultad_id) {
+            $query->select('id')->from('responsables')
+                ->whereIn('actividad_id', function ($query) {
+                    $query->select('id')->from('actividades')->whereIn('tipo_actividad_id', [1, 2]);
+                })
+                ->whereIn('entidad_id', function ($query2) use ($facultad_id) {
+                    $query2->select('entidad_id')->from('entidadables')
+                        ->where(function ($query2) use ($facultad_id) {
+                            $query2->where('entidadable_type', "App\\Models\\Facultad")->where('entidadable_id', $facultad_id);
+                        })
+                        ->orWhere(function ($query3) use ($facultad_id) {
+                            $query3->where('entidadable_type', "App\\Models\\Escuela")
+                                ->whereIn('entidadable_id', function ($q3) use ($facultad_id) {
+                                    $q3->select('id')->from('escuelas')->where('facultad_id', $facultad_id);
+                                });
+                        });
+                });
+        };
+
+        $q = ActividadCompletado::query()->whereBetween('created_at', [$fecha_inicio, $fecha_fin]);
+
+        $resultados['total'] = Responsable::query()->whereIn('id', $callback)->count();
+
+        $resultados['interes'] = $q->whereIn('responsable_id', $callback)->count();
+
+        $resultados['resultado'] = $resultados['total'] == 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
+        return $resultados;
+    }
+
     public static function ind09($facultad_id, $fecha_inicio, $fecha_fin)
     {
         $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
@@ -214,6 +247,39 @@ class Medicion
         return $resultados;
     }
 
+    public static function ind21($escuela_id, $fecha_inicio, $fecha_fin)
+    {
+        // X = (N° de beneficiados por programa)/(Total de postulantes del programa) x 100
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $bolsa = BolsaPostulante::query()
+            ->where('escuela_id', $escuela_id)
+            ->where(function ($query) use ($fecha_inicio, $fecha_fin) {
+                $query->where(function ($query2) use ($fecha_inicio, $fecha_fin) {
+                    $query2->where('fecha_inicio', '>=', $fecha_inicio)
+                        ->where('fecha_fin', '<=', $fecha_fin);
+                })->orWhere(function ($query3) use ($fecha_inicio, $fecha_fin) {
+                    $query3->where('fecha_inicio', '<=', $fecha_inicio)
+                        ->where('fecha_fin', '>=', $fecha_fin);
+                });
+            })
+            ->first();
+
+        if ($bolsa) {
+            $resultados['interes'] = $bolsa->beneficiados;
+            $resultados['total'] = $bolsa->postulantes;
+
+            $resultados['resultado'] = is_null($resultados['interes']) ? 0
+                : (is_null($resultados['total']) ? 0 : round($resultados['interes'] / $resultados['total'] * 100));
+        } else {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+
+        return $resultados;
+    }
+
     public static function ind24($escuela_id, $fecha_inicio, $fecha_fin)
     {
         $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
@@ -250,9 +316,100 @@ class Medicion
         return $resultados;
     }
 
+    public static function ind27($facultad_id, $semestre_id)
+    {
+        // X = N° de convenios realizados por programa
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $convenio = Convenio::query()
+            ->select('realizados')
+            ->where('facultad_id', $facultad_id)
+            ->where('semestre_id', $semestre_id)
+            ->first();
+
+        if ($convenio) {
+            $resultados['resultado'] = $convenio->realizados;
+        } else {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+
+        return $resultados;
+    }
+
+    public static function ind28($facultad_id, $semestre_id)
+    {
+        // X = N° de convenios vigentes por programa
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $convenio = Convenio::query()
+            ->select('vigentes')
+            ->where('facultad_id', $facultad_id)
+            ->where('semestre_id', $semestre_id)
+            ->first();
+
+        if ($convenio) {
+            $resultados['resultado'] = $convenio->vigentes;
+        } else {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+
+        return $resultados;
+    }
+
+    public static function ind29($facultad_id, $semestre_id)
+    {
+        // X = (N° de convenios cumplidos por programa)/(Total de convenios vigentes por programa) x 100
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $convenio = Convenio::query()
+            ->select('culminados', 'realizados')
+            ->where('facultad_id', $facultad_id)
+            ->where('semestre_id', $semestre_id)
+            ->first();
+
+        if ($convenio) {
+            $resultados['interes'] = $convenio->culminados;
+            $resultados['total'] = $convenio->realizados;
+            $resultados['resultado'] = is_null($resultados['interes']) ? 0 :
+                ($resultados['interes'] == 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100));
+        } else {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+
+        return $resultados;
+    }
+
+    public static function ind30($facultad_id, $semestre_id)
+    {
+        // X = N° de convenios culminados por programa de estudios
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        $convenio = Convenio::query()
+            ->select('culminados')
+            ->where('facultad_id', $facultad_id)
+            ->where('semestre_id', $semestre_id)
+            ->first();
+
+        if ($convenio) {
+            $resultados['resultado'] = $convenio->culminados;
+        } else {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+
+        return $resultados;
+    }
+
     public static function ind32($escuela_id, $semestre)
     {
-//        X = (N° de estudiantes que lograron competencias)/(Total de estudiantes) x 100
+        // X = (N° de estudiantes que lograron competencias)/(Total de estudiantes) x 100
         $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
 
         try {
@@ -262,7 +419,7 @@ class Medicion
 
             $resultados['interes'] = intval($rsp->body());
             $resultados['total'] = $escuela_id === 10 ? 216 : 193; //Enf:193, Obs:216 // FIXME: OGE - Obtener Num de alumnos (aun no esta inplementado en la API)
-            $resultados['resultado'] = round($resultados['interes'] / $resultados['total'] * 100);;
+            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
         } catch (\Exception $e) {
             $resultados['interes'] = null;
             $resultados['total'] = null;
@@ -286,7 +443,7 @@ class Medicion
 
             $resultados['interes'] = intval($rsp1->body());
             $resultados['total'] = intval($rsp2->body());
-            $resultados['resultado'] = round($resultados['interes'] / $resultados['total'] * 100);;
+            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
         } catch (\Exception $e) {
             $resultados['interes'] = null;
             $resultados['total'] = null;
@@ -310,7 +467,7 @@ class Medicion
 
             $resultados['interes'] = intval($rsp1->body());
             $resultados['total'] = intval($rsp2->body());
-            $resultados['resultado'] = round($resultados['interes'] / $resultados['total'] * 100);;
+            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
         } catch (\Exception $e) {
             $resultados['interes'] = null;
             $resultados['total'] = null;
@@ -334,7 +491,7 @@ class Medicion
 
             $resultados['interes'] = intval($rsp1->body());
             $resultados['total'] = intval($rsp2->body());
-            $resultados['resultado'] = round($resultados['interes'] / $resultados['total'] * 100);;
+            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
         } catch (\Exception $e) {
             $resultados['interes'] = null;
             $resultados['total'] = null;
@@ -358,7 +515,112 @@ class Medicion
 
             $resultados['interes'] = intval($rsp1->body());
             $resultados['total'] = intval($rsp2->body());
-            $resultados['resultado'] = round($resultados['interes'] / $resultados['total'] * 100);;
+            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+        return $resultados;
+    }
+
+    public static function ind39($escuela_id, $semestre)
+    {
+        //X = N° de estudiantes matriculados por programa de estudios
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+            // FIXME está devolviendo un 404
+            $rsp = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'proceso_matricula/escuela/01?escuela=' . $escuela_id . '&semestre=' . $semestre);
+
+            $resultados['resultado'] = intval($rsp->body());
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+        return $resultados;
+    }
+
+    public static function ind40($escuela_id, $semestre)
+    {
+        //X = N° de estudiantes no matriculados por programa de estudios
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+            // FIXME está devolviendo un 404
+            $rsp = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'proceso_matricula/escuela/02?escuela=' . $escuela_id . '&semestre=' . $semestre);
+
+            $resultados['resultado'] = intval($rsp->body());
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+        return $resultados;
+    }
+
+    public static function ind41($escuela_id, $semestre)
+    {
+        //X = N° de estudiantes con reserva de matricula por programa de estudio
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+            // FIXME está devolviendo un 404
+            $rsp = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'proceso_matricula/escuela/03?escuela=' . $escuela_id . '&semestre=' . $semestre);
+
+            $resultados['resultado'] = intval($rsp->body());
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+        return $resultados;
+    }
+
+    public static function ind42($escuela_id, $semestre)
+    {
+        //X = (N° de estudiantes no matriculados)/(Total de estudiantes matriculados por programa) x 100
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+            // FIXME está devolviendo un 404
+            $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'proceso_matricula/escuela/02?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            // FIXME está devolviendo un 404
+            $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'proceso_matricula/escuela/01?escuela=' . $escuela_id . '&semestre=' . $semestre);
+
+            $resultados['interes'] = intval($rsp1->body());
+            $resultados['total'] = intval($rsp2->body());
+            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+        return $resultados;
+    }
+
+    public static function ind43($escuela_id, $semestre)
+    {
+        //X = (Total usuarios satisfechos por matricula)/(Total de usuarios encuestados por el proceso matricula ) x 100
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+            // FIXME está devolviendo un 404
+            $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'proceso_matricula/escuela/05?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            // FIXME está devolviendo un 404 y en el endpoint menciona que es egresados ¿?
+            $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'proceso_matricula/escuela/06?escuela=' . $escuela_id . '&semestre=' . $semestre);
+
+            $resultados['interes'] = intval($rsp1->body());
+            $resultados['total'] = intval($rsp2->body());
+            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
         } catch (\Exception $e) {
             $resultados['interes'] = null;
             $resultados['total'] = null;
@@ -404,7 +666,7 @@ class Medicion
             // FIXME OGE: Calcular el numero total de docentes por facultad desde OGE
             $resultados['total'] = 44;
         }
-        $resultados['resultado'] = round($resultados['interes'] / $resultados['total'] * 100);
+        $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
         return $resultados;
     }
 
@@ -445,7 +707,7 @@ class Medicion
             // FIXME OGE: Calcular el numero total de docentes por facultad desde OGE
             $resultados['total'] = 409;
         }
-        $resultados['resultado'] = round($resultados['interes'] / $resultados['total'] * 100);
+        $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
         return $resultados;
     }
 
@@ -561,7 +823,7 @@ class Medicion
             // FIXME OGE: Calcular el numero total de docentes por facultad desde OGE
             $resultados['total'] = 44;
         }
-        $resultados['resultado'] = round($resultados['interes'] / $resultados['total'] * 100);
+        $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
         return $resultados;
     }
 
@@ -590,7 +852,7 @@ class Medicion
             // FIXME OGE: Calcular el numero total de estudiantes por escuela desde OGE
             $resultados['total'] = 409;
         }
-        $resultados['resultado'] = round($resultados['interes'] / $resultados['total'] * 100);
+        $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
         return $resultados;
     }
 
@@ -617,16 +879,83 @@ class Medicion
         $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
 
         try {
-            // FIXME 13: Cantidad de sílabos publicados por escuela. -> esta devolviendo un numero Aleatorio
+            // FIXME está devolviendo un 404
             $rsp1 = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/13?escuela=' . $escuela_id . '&semestre=' . $semestre);
-            // FIXME 14: Cantidad de cursos abiertos por escuela. -> esta devolviendo un numero Aleatorio
+                ->get(env('OGE_API') . 'tutoria_consejeria/escuela/02?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            // FIXME está devolviendo un 404
             $rsp2 = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/14?escuela=' . $escuela_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'tutoria_consejeria/escuela/01?escuela=' . $escuela_id . '&semestre=' . $semestre);
 
             $resultados['interes'] = intval($rsp1->body());
             $resultados['total'] = intval($rsp2->body());
-            $resultados['resultado'] = round($resultados['interes'] / $resultados['total'] * 100);;
+            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+        return $resultados;
+    }
+
+    public static function ind55($escuela_id, $semestre)
+    {
+        //X = (N° de estudiantes que asisten a tutoría)/(Total de estudiantes del programa) x 100
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+            // FIXME está devolviendo un 404
+            $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'tutoria_consejeria/escuela/04?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            // FIXME está devolviendo un 404
+            $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'tutoria_consejeria/escuela/03?escuela=' . $escuela_id . '&semestre=' . $semestre);
+
+            $resultados['interes'] = intval($rsp1->body());
+            $resultados['total'] = intval($rsp2->body());
+            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+        return $resultados;
+    }
+
+    public static function ind56($escuela_id, $semestre)
+    {
+        //X = (N° de estudiantes con problemas de aprendizaje)/(Total de estudiantes del programa) x 100
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+            // FIXME está devolviendo un 404
+            $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'tutoria_consejeria/escuela/05?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            // FIXME está devolviendo un 404
+            $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'tutoria_consejeria/escuela/03?escuela=' . $escuela_id . '&semestre=' . $semestre);
+
+            $resultados['interes'] = intval($rsp1->body());
+            $resultados['total'] = intval($rsp2->body());
+            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+        return $resultados;
+    }
+
+    public static function ind57($escuela_id, $semestre)
+    {
+        //X = N° de estudiantes con riesgo académico por programa de estudios
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+            // FIXME está devolviendo un 404
+            $rsp = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'tutoria_consejeria/escuela/06?escuela=' . $escuela_id . '&semestre=' . $semestre);
+
+            $resultados['resultado'] = intval($rsp->body());
         } catch (\Exception $e) {
             $resultados['interes'] = null;
             $resultados['total'] = null;
@@ -734,40 +1063,173 @@ class Medicion
                     ->whereBetween('fecha_sustentacion', [$fecha_inicio, $fecha_fin]);
             })->count();
 
-        $resultados['resultado'] = $resultados['interes'] == 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
+        $resultados['resultado'] = $resultados['total'] == 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
         return $resultados;
     }
 
-    public static function ind01($facultad_id, $fecha_inicio, $fecha_fin)
+    public static function ind62($es_escuela, $entidad_id, $semestre)
     {
+        //X = (N° de docentes cumplimiento de 40 hrs)/(Total de docentes de 40 horas) x 100
         $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
 
-        $callback = function ($query) use ($facultad_id) {
-            $query->select('id')->from('responsables')
-                ->whereIn('actividad_id', function ($query) {
-                    $query->select('id')->from('actividades')->whereIn('tipo_actividad_id', [1, 2]);
-                })
-                ->whereIn('entidad_id', function ($query2) use ($facultad_id) {
-                    $query2->select('entidad_id')->from('entidadables')
-                        ->where(function ($query2) use ($facultad_id) {
-                            $query2->where('entidadable_type', "App\\Models\\Facultad")->where('entidadable_id', $facultad_id);
-                        })
-                        ->orWhere(function ($query3) use ($facultad_id) {
-                            $query3->where('entidadable_type', "App\\Models\\Escuela")
-                                ->whereIn('entidadable_id', function ($q3) use ($facultad_id) {
-                                    $q3->select('id')->from('escuelas')->where('facultad_id', $facultad_id);
-                                });
-                        });
-                });
-        };
+        try {
 
-        $q = ActividadCompletado::query()->whereBetween('created_at', [$fecha_inicio, $fecha_fin]);
+            if ($es_escuela) {
+                // FIXME está trabajando con departamento, no con escuela
+                $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/departamento/04?departamento=' . $entidad_id . '&semestre=' . $semestre);
+                // FIXME está devolviendo un 404
+                $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/departamento/03?departamento=' . $entidad_id . '&semestre=' . $semestre);
+            } else {
+                // FIXME está trabajando con departamento, no con escuela
+                $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/facultad/04?facultad=' . $entidad_id . '&semestre=' . $semestre);
+                // FIXME está devolviendo un 404
+                $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/facultad/03?facultad=' . $entidad_id . '&semestre=' . $semestre);
 
-        $resultados['total'] = Responsable::query()->whereIn('id', $callback)->count();
+            }
 
-        $resultados['interes'] = $q->whereIn('responsable_id', $callback)->count();
+            $resultados['interes'] = intval($rsp1->body());
+            $resultados['total'] = intval($rsp2->body());
+            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+        return $resultados;
+    }
 
-        $resultados['resultado'] = $resultados['interes'] == 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
+    public static function ind63($es_escuela, $entidad_id, $semestre)
+    {
+        //X = (N° de docentes que cumplen con sus labores)/(Total de docentes del programa) x 100
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+
+            if ($es_escuela) {
+                // FIXME está trabajando con departamento, no con escuela
+                $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/departamento/06?departamento=' . $entidad_id . '&semestre=' . $semestre);
+                // FIXME está devolviendo un 404
+                $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/departamento/05?departamento=' . $entidad_id . '&semestre=' . $semestre);
+            } else {
+                // FIXME está trabajando con departamento, no con escuela
+                $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/facultad/06?facultad=' . $entidad_id . '&semestre=' . $semestre);
+                // FIXME está devolviendo un 404
+                $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/facultad/05?facultad=' . $entidad_id . '&semestre=' . $semestre);
+
+            }
+
+            $resultados['interes'] = intval($rsp1->body());
+            $resultados['total'] = intval($rsp2->body());
+            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+        return $resultados;
+    }
+
+    public static function ind65($es_escuela, $entidad_id, $semestre)
+    {
+        //X = (N° de docentes con legajo actualizado)/(Total de docentes por programa) x 100
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+
+            if ($es_escuela) {
+                // FIXME está trabajando con departamento, no con escuela
+                $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/departamento/07?departamento=' . $entidad_id . '&semestre=' . $semestre);
+                // FIXME está devolviendo un 404
+                $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/departamento/05?departamento=' . $entidad_id . '&semestre=' . $semestre);
+            } else {
+                // FIXME está trabajando con departamento, no con escuela
+                $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/facultad/07?facultad=' . $entidad_id . '&semestre=' . $semestre);
+                // FIXME está devolviendo un 404
+                $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/facultad/05?facultad=' . $entidad_id . '&semestre=' . $semestre);
+
+            }
+
+            $resultados['interes'] = intval($rsp1->body());
+            $resultados['total'] = intval($rsp2->body());
+            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+        return $resultados;
+    }
+
+    public static function ind66($es_escuela, $entidad_id, $semestre)
+    {
+        //X = N° de capacitaciones para mejorar las capacidades de los directivos por programa
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+
+            if ($es_escuela) {
+                // FIXME está trabajando con departamento, no con escuela
+                $rsp = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/departamento/08?departamento=' . $entidad_id . '&semestre=' . $semestre);
+
+            } else {
+                // FIXME está trabajando con departamento, no con escuela
+                $rsp = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/facultad/08?facultad=' . $entidad_id . '&semestre=' . $semestre);
+            }
+            $resultados['resultado'] = intval($rsp->body());
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+        return $resultados;
+    }
+
+    public static function ind67($es_escuela, $entidad_id, $semestre)
+    {
+        //X = (N° de estudiantes por programa)/(Total de administrativos por programa)
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+
+            if ($es_escuela) {
+                // FIXME está devolviendo 404
+                $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_matricula/escuela/01?escuela=' . $entidad_id . '&semestre=' . $semestre);
+                // FIXME está devolviendo un 404
+                $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/departamento/10?departamento=' . $entidad_id . '&semestre=' . $semestre);
+            } else {
+                // FIXME está devolviendo 404
+                $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_matricula/facultad/01?facultad=' . $entidad_id . '&semestre=' . $semestre);
+                // FIXME está devolviendo un 404
+                $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/facultad/10?facultad=' . $entidad_id . '&semestre=' . $semestre);
+
+            }
+
+            $resultados['interes'] = intval($rsp1->body());
+            $resultados['total'] = intval($rsp2->body());
+            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
         return $resultados;
     }
 
@@ -796,7 +1258,7 @@ class Medicion
 
         $resultados['interes'] = $q->whereColumn('resultado', '<=', 'minimo')->count();
 
-        $resultados['resultado'] = $resultados['interes'] == 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
+        $resultados['resultado'] = $resultados['total'] == 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
         return $resultados;
     }
 
@@ -829,7 +1291,177 @@ class Medicion
 
         $resultados['interes'] = $q->whereIn('responsable_id', $callback)->count();
 
-        $resultados['resultado'] = $resultados['interes'] == 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
+        $resultados['resultado'] = $resultados['total'] == 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
+        return $resultados;
+    }
+
+    public static function ind74($es_escuela, $entidad_id, $semestre)
+    {
+        //X = (N° de docentes que cumplen con el perfil)/(Total de docentes por programa) x 100
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+
+            if ($es_escuela) {
+                // FIXME está devolviendo 404
+                $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/departamento/11?departamento=' . $entidad_id . '&semestre=' . $semestre);
+                // FIXME está devolviendo un 404
+                $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/departamento/05?departamento=' . $entidad_id . '&semestre=' . $semestre);
+            } else {
+                // FIXME está devolviendo 404
+                $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/facultad/11?facultad=' . $entidad_id . '&semestre=' . $semestre);
+                // FIXME está devolviendo un 404
+                $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/facultad/05?facultad=' . $entidad_id . '&semestre=' . $semestre);
+            }
+
+            $resultados['interes'] = intval($rsp1->body());
+            $resultados['total'] = intval($rsp2->body());
+            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+        return $resultados;
+    }
+
+    public static function ind75($es_escuela, $entidad_id, $semestre)
+    {
+        //X = (N° de docentes capacitados)/(Total de docentes por programa) x 100
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+
+            if ($es_escuela) {
+                // FIXME está devolviendo 404
+                $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/departamento/09?departamento=' . $entidad_id . '&semestre=' . $semestre);
+                // FIXME está devolviendo un 404
+                $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/departamento/05?departamento=' . $entidad_id . '&semestre=' . $semestre);
+            } else {
+                // FIXME está devolviendo 404
+                $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/facultad/09?facultad=' . $entidad_id . '&semestre=' . $semestre);
+                // FIXME está devolviendo un 404
+                $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/facultad/05?facultad=' . $entidad_id . '&semestre=' . $semestre);
+            }
+
+            $resultados['interes'] = intval($rsp1->body());
+            $resultados['total'] = intval($rsp2->body());
+            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+        return $resultados;
+    }
+
+    public static function ind76($es_escuela, $entidad_id, $semestre)
+    {
+        //X = (N° de docentes con evaluación satisfactoria)/(Total de docentes evaluados por programa) x 100
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+
+            if ($es_escuela) {
+                // FIXME está devolviendo 404
+                $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/departamento/12?departamento=' . $entidad_id . '&semestre=' . $semestre);
+                // FIXME está devolviendo un 404
+                $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/departamento/13?departamento=' . $entidad_id . '&semestre=' . $semestre);
+            } else {
+                // FIXME está devolviendo 404
+                $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/facultad/12?facultad=' . $entidad_id . '&semestre=' . $semestre);
+                // FIXME está devolviendo un 404
+                $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/facultad/13?facultad=' . $entidad_id . '&semestre=' . $semestre);
+            }
+
+            $resultados['interes'] = intval($rsp1->body());
+            $resultados['total'] = intval($rsp2->body());
+            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+        return $resultados;
+    }
+
+    public static function ind77($es_escuela, $entidad_id, $semestre)
+    {
+        //X = (N° de docentes ascendidos)/(Total de docentes por ascender por programa) x 100
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+
+            if ($es_escuela) {
+                // FIXME está devolviendo 404
+                $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/departamento/15?departamento=' . $entidad_id . '&semestre=' . $semestre);
+                // FIXME está devolviendo un 404
+                $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/departamento/14?departamento=' . $entidad_id . '&semestre=' . $semestre);
+            } else {
+                // FIXME está devolviendo 404
+                $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/facultad/15?facultad=' . $entidad_id . '&semestre=' . $semestre);
+                // FIXME está devolviendo un 404
+                $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/facultad/14?facultad=' . $entidad_id . '&semestre=' . $semestre);
+            }
+
+            $resultados['interes'] = intval($rsp1->body());
+            $resultados['total'] = intval($rsp2->body());
+            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
+        return $resultados;
+    }
+
+    public static function ind78($es_escuela, $entidad_id, $semestre)
+    {
+        //X = (N° de docentes reconocidos)/(Total de docentes por programa) x 100
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+
+            if ($es_escuela) {
+                // FIXME está devolviendo 404
+                $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/departamento/16?departamento=' . $entidad_id . '&semestre=' . $semestre);
+                // FIXME está devolviendo un 404
+                $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/departamento/05?departamento=' . $entidad_id . '&semestre=' . $semestre);
+            } else {
+                // FIXME está devolviendo 404
+                $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/facultad/16?facultad=' . $entidad_id . '&semestre=' . $semestre);
+                // FIXME está devolviendo un 404
+                $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                    ->get(env('OGE_API') . 'proceso_docente/facultad/05?facultad=' . $entidad_id . '&semestre=' . $semestre);
+            }
+
+            $resultados['interes'] = intval($rsp1->body());
+            $resultados['total'] = intval($rsp2->body());
+            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
+        }
         return $resultados;
     }
 }

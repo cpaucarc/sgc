@@ -267,6 +267,56 @@ class NuevoAnalisis extends Component
         } // Tutoria y Consejeria
         elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-054") {
             $res = Medicion::ind54($this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-055") {
+            $res = Medicion::ind55($this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-056") {
+            $res = Medicion::ind56($this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-057") {
+            $res = Medicion::ind57($this->entidad->id, $this->semestre_nombre);
+        } // Matricula
+        elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-039") {
+            $res = Medicion::ind39($this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-040") {
+            $res = Medicion::ind40($this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-041") {
+            $res = Medicion::ind41($this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-042") {
+            $res = Medicion::ind42($this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-043") {
+            $res = Medicion::ind43($this->entidad->id, $this->semestre_nombre);
+        } // Docente
+        elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-062") {
+            $res = Medicion::ind62($this->tipo == 1, $this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-063") {
+            $res = Medicion::ind63($this->tipo == 1, $this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-065") {
+            $res = Medicion::ind65($this->tipo == 1, $this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-066") {
+            $res = Medicion::ind66($this->tipo == 1, $this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-067") {
+            $res = Medicion::ind67($this->tipo == 1, $this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-074") {
+            $res = Medicion::ind74($this->tipo == 1, $this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-075") {
+            $res = Medicion::ind75($this->tipo == 1, $this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-076") {
+            $res = Medicion::ind76($this->tipo == 1, $this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-077") {
+            $res = Medicion::ind77($this->tipo == 1, $this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-078") {
+            $res = Medicion::ind78($this->tipo == 1, $this->entidad->id, $this->semestre_nombre);
+        } // Bolsa
+        elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-021") {
+            $res = Medicion::ind21($this->entidad->id, $this->inicio, $this->fin);
+        } // Convenio
+        elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-027") {
+            $res = Medicion::ind27($this->entidad->id, $this->semestre_id);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-028") {
+            $res = Medicion::ind28($this->entidad->id, $this->semestre_id);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-029") {
+            $res = Medicion::ind29($this->entidad->id, $this->semestre_id);
+        } elseif ($this->indicadorable->indicador->cod_ind_inicial === "IND-030") {
+            $res = Medicion::ind30($this->entidad->id, $this->semestre_id);
         }
 
         if (isset($res)) {

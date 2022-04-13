@@ -35,15 +35,6 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/prueba', function () {
-    $rsp = env('OGE_API');
-    $escuela_id = 11;
-    $semestre = '2021-2';
-    $rsp1 = Http::withToken(env('OGE_TOKEN'))
-        ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/13?escuela=13&semestre=2022-0');
-    return $rsp1;
-});
-
 //Rutas protegidas solo para usuarios autenticados
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
