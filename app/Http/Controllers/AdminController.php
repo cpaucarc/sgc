@@ -27,6 +27,11 @@ class AdminController extends Controller
         return view('admin.facultades');
     }
 
+    public function semestres()
+    {
+        return view('admin.semestres');
+    }
+
     public function entidades()
     {
         return view('admin.entidades');

@@ -13,6 +13,11 @@
                                     :active="request()->routeIs('admin.panel.escuelas')">
                 {{ __('Escuelas') }}
             </x-utils.links.nav-link>
+
+            <x-utils.links.nav-link href="{{ route('admin.panel.semestres') }}"
+                                    :active="request()->routeIs('admin.panel.semestres')">
+                {{ __('Semestres') }}
+            </x-utils.links.nav-link>
         </div>
     </div>
 

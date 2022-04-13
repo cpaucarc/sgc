@@ -55,6 +55,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/', 'index')->name('admin.panel.index');
         Route::get('escuela', 'escuelas')->name('admin.panel.escuelas');
         Route::get('facultad', 'facultades')->name('admin.panel.facultades');
+        Route::get('semestre', 'semestres')->name('admin.panel.semestres');
         Route::get('proceso', 'procesos')->name('admin.panel.procesos');
         Route::get('actividad', 'actividades')->name('admin.panel.actividades');
         Route::get('entrada', 'entradas')->name('admin.panel.entradas');
