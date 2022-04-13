@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Tpu;
 
 use App\Models\GradoEstudiante;
+use App\Models\Oge;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -11,17 +12,11 @@ class ListaTitulados extends Component
     use WithPagination;
 
     public $escuela;
-    public $alumno_seleccionado = null, $open = false;
+    public $open = false, $datos_estudiante = null;
 
     public function mount($escuela)
     {
         $this->escuela = $escuela;
-    }
-
-    public function seleccionar($codigo)
-    {
-        $this->alumno_seleccionado = $codigo;
-        $this->open = true;
     }
 
     public function render()
@@ -33,5 +28,11 @@ class ListaTitulados extends Component
             ->paginate(20);
 
         return view('livewire.tpu.lista-titulados', compact('titulados'));
+    }
+
+    public function mostrarDatos($dni)
+    {
+        $this->datos_estudiante = Oge::datos($dni);
+        $this->open = true;
     }
 }

@@ -6,7 +6,7 @@
         </h3>
 
         @if($es_responsable and $rsu->participantes_count > 0)
-            <x-utils.buttons.default class="text-sm">
+            <x-utils.buttons.default class="text-sm" wire:click="abrirModal">
                 <x-icons.people class="h-4 w-4 mr-1" stroke="1.5"></x-icons.people>
                 Añadir
             </x-utils.buttons.default>
@@ -25,9 +25,11 @@
                 @foreach($rsu->participantes as $participante)
                     <x-utils.tables.row>
                         <x-utils.tables.body>
-                            <x-utils.links.basic href="{{ route('rsu.show', [$participante->id]) }}" class="text-sm">
+                            <x-utils.buttons.invisible
+                                wire:click="mostrarDatos('{{ $participante->dni_participante }}')"
+                                class="text-sm">
                                 {{ $participante->dni_participante }}
-                            </x-utils.links.basic>
+                            </x-utils.buttons.invisible>
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             <p class="{{ $participante->es_responsable ? 'font-bold':'' }}">
@@ -67,4 +69,38 @@
         </div>
     @endif
 
+    <x-jet-dialog-modal wire:model="open" maxWidth="3xl">
+        <x-slot name="title">
+            <h1 class="font-bold text-gray-700">
+                Datos del participante
+            </h1>
+            <x-utils.buttons.close-button wire:click="$set('open', false)"/>
+        </x-slot>
+
+        <x-slot name="content">
+            @if($datos_participante)
+                <x-utils.oge-datos-basicos dni="{{ $datos_participante['dni'] }}"
+                                           nombres="{{ $datos_participante['nombre_completo'] }}"
+                                           correo="{{ $datos_participante['email'] }}"
+                                           institucional="{{ $datos_participante['correo_institucional'] }}"
+                                           celular="{{ $datos_participante['celular'] }}"
+                />
+            @else
+                <x-utils.oge-no-datos/>
+            @endif
+        </x-slot>
+    </x-jet-dialog-modal>
+
+    <x-jet-dialog-modal wire:model="add" maxWidth="3xl">
+        <x-slot name="title">
+            <h1 class="font-bold text-gray-700">
+                Añadir participantes
+            </h1>
+            <x-utils.buttons.close-button wire:click="$set('open', false)"/>
+        </x-slot>
+
+        <x-slot name="content">
+            En construcción
+        </x-slot>
+    </x-jet-dialog-modal>
 </div>

@@ -20,10 +20,11 @@
                             {{$i+1}}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            <button class="hover:text-blue-600 font-bold"
-                                    wire:click="seleccionar('{{$bachiller->dni_estudiante}}')">
+                            <x-utils.buttons.invisible
+                                wire:click="mostrarDatos('{{ $bachiller->dni_estudiante }}')"
+                                class="text-sm">
                                 {{ $bachiller->dni_estudiante }}
-                            </button>
+                            </x-utils.buttons.invisible>
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             {{ $bachiller->escuela->nombre }}
@@ -56,19 +57,26 @@
         </div>
     @endif
 
+    <x-jet-dialog-modal wire:model="open" maxWidth="3xl">
+        <x-slot name="title">
+            <h1 class="font-bold text-gray-700">
+                Datos del estudiante
+            </h1>
+            <x-utils.buttons.close-button wire:click="$set('open', false)"/>
+        </x-slot>
 
-    @if($alumno_seleccionado)
-        <x-jet-dialog-modal wire:model="open">
-            <x-slot name="title">
-                <div class="flex justify-end w-full">
-                    <x-utils.buttons.close-button wire:click="$set('open', false)"/>
-                </div>
-            </x-slot>
-
-            <x-slot name="content">
-                {{ $alumno_seleccionado }}
-            </x-slot>
-        </x-jet-dialog-modal>
-    @endif
+        <x-slot name="content">
+            @if($datos_estudiante)
+                <x-utils.oge-datos-basicos dni="{{ $datos_estudiante['dni'] }}"
+                                           nombres="{{ $datos_estudiante['nombre_completo'] }}"
+                                           correo="{{ $datos_estudiante['email'] }}"
+                                           institucional="{{ $datos_estudiante['correo_institucional'] }}"
+                                           celular="{{ $datos_estudiante['celular'] }}"
+                />
+            @else
+                <x-utils.oge-no-datos/>
+            @endif
+        </x-slot>
+    </x-jet-dialog-modal>
 
 </div>

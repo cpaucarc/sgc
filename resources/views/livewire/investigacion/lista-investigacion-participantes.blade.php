@@ -25,7 +25,11 @@
                 @foreach($investigacion->investigadores as $investigador)
                     <x-utils.tables.row>
                         <x-utils.tables.body>
-                            {{$investigador->dni_investigador}}
+                            <x-utils.buttons.invisible
+                                wire:click="mostrarDatos('{{ $investigador->dni_investigador }}')"
+                                class="text-sm">
+                                {{ $investigador->dni_investigador }}
+                            </x-utils.buttons.invisible>
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             @if($investigador->es_docente)
@@ -66,51 +70,25 @@
         </div>
     @endif
 
-    {{--    <x-jet-dialog-modal wire:model="open">--}}
+    <x-jet-dialog-modal wire:model="open" maxWidth="3xl">
+        <x-slot name="title">
+            <h1 class="font-bold text-gray-700">
+                Datos del participante
+            </h1>
+            <x-utils.buttons.close-button wire:click="$set('open', false)"/>
+        </x-slot>
 
-    {{--        <x-slot name="title">--}}
-    {{--            <div>--}}
-    {{--                <h1 class="font-bold text-gray-700">--}}
-    {{--                    Añadir nueva fuente de financiación--}}
-    {{--                </h1>--}}
-    {{--            </div>--}}
-    {{--            <x-utils.buttons.close-button wire:click="$set('open', false)"/>--}}
-    {{--        </x-slot>--}}
-
-    {{--        <x-slot name="content">--}}
-    {{--            @if(count($financiadores) > 0)--}}
-    {{--                <div class="space-y-4">--}}
-    {{--                    <div>--}}
-    {{--                        <x-jet-label for="financiador" value="Tipo de financiación"/>--}}
-    {{--                        <x-utils.forms.select id="financiador" wire:model="financiador_seleccionado" class="w-full">--}}
-    {{--                            <option value="0">Seleccione...</option>--}}
-    {{--                            @foreach($financiadores as $financiador)--}}
-    {{--                                <option value="{{$financiador->id}}">{{ $financiador->nombre }}</option>--}}
-    {{--                            @endforeach--}}
-    {{--                        </x-utils.forms.select>--}}
-    {{--                        <x-jet-input-error for="financiador_seleccionado"/>--}}
-    {{--                    </div>--}}
-    {{--                    <div>--}}
-    {{--                        <x-jet-label for="monto" value="Monto"/>--}}
-    {{--                        <x-jet-input id="monto" wire:model="monto" class="w-full" type="number"/>--}}
-    {{--                        <x-jet-input-error for="monto"/>--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--            @endif--}}
-    {{--        </x-slot>--}}
-    {{--        <x-slot name="footer">--}}
-    {{--            <x-jet-secondary-button wire:click="$set('open', false)">--}}
-    {{--                Cerrar--}}
-    {{--            </x-jet-secondary-button>--}}
-
-    {{--            <x-jet-button--}}
-    {{--                wire:click="guardarPresupuesto"--}}
-    {{--                wire:target="guardarPresupuesto"--}}
-    {{--                wire:loading.class="cursor-wait"--}}
-    {{--                wire:loading.attr="disabled">--}}
-    {{--                <x-icons.load class="h-4 w-4" wire:loading wire:target="guardarPresupuesto"></x-icons.load>--}}
-    {{--                {{ __('Guardar') }}--}}
-    {{--            </x-jet-button>--}}
-    {{--        </x-slot>--}}
-    {{--    </x-jet-dialog-modal>--}}
+        <x-slot name="content">
+            @if($datos_participante)
+                <x-utils.oge-datos-basicos dni="{{ $datos_participante['dni'] }}"
+                                           nombres="{{ $datos_participante['nombre_completo'] }}"
+                                           correo="{{ $datos_participante['email'] }}"
+                                           institucional="{{ $datos_participante['correo_institucional'] }}"
+                                           celular="{{ $datos_participante['celular'] }}"
+                />
+            @else
+                <x-utils.oge-no-datos/>
+            @endif
+        </x-slot>
+    </x-jet-dialog-modal>
 </div>

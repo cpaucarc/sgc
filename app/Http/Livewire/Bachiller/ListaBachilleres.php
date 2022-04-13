@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Bachiller;
 
 use App\Models\GradoAcademico;
 use App\Models\GradoEstudiante;
+use App\Models\Oge;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,7 +13,7 @@ class ListaBachilleres extends Component
     use WithPagination;
 
     public $escuela;
-    public $alumno_seleccionado = null, $open = false;
+    public $open = false, $datos_estudiante = null;
 
     public function mount($escuela)
     {
@@ -30,9 +31,9 @@ class ListaBachilleres extends Component
         return view('livewire.bachiller.lista-bachilleres', compact('bachilleres'));
     }
 
-    public function seleccionar($codigo)
+    public function mostrarDatos($dni)
     {
-        $this->alumno_seleccionado = $codigo;
+        $this->datos_estudiante = Oge::datos($dni);
         $this->open = true;
     }
 }
