@@ -36,17 +36,12 @@ Route::get('/', function () {
 });
 
 Route::get('/prueba', function () {
-    $respuesta = Http::withToken('pkf5ZsQkEDuaPgQVwz3mAdszQzPMWRgg6tFHkUkK')
-        ->accept('text/html')
-        ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/04?escuela=13&semestre=2022-0');
-
-    print_r(gettype($respuesta));
-    echo '<br>';
-    print_r(gettype($respuesta->body()));
-    echo '<br>';
-    echo '<br>';
-    $op = intval($respuesta->body()) + 5;
-    return $respuesta . ' | ' . $op;
+    $rsp = env('OGE_API');
+    $escuela_id = 11;
+    $semestre = '2021-2';
+    $rsp1 = Http::withToken(env('OGE_TOKEN'))
+        ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/13?escuela=13&semestre=2022-0');
+    return $rsp1;
 });
 
 //Rutas protegidas solo para usuarios autenticados

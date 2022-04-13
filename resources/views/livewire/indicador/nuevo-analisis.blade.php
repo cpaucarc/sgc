@@ -48,8 +48,14 @@
                     </div>
                 </div>
 
+                <div wire:loading class="pt-4 w-full">
+                    <p class="animate-pulse text-gray-900 w-full">
+                        Cargando datos...
+                    </p>
+                </div>
+
                 {{-- Resultados de medicion --}}
-                <div class="pt-4 space-y-4">
+                <div wire:loading.remove class="pt-4 space-y-4">
                     {{-- Resultados de medicion --}}
                     <div class="grid grid-cols-3 gap-x-6">
                         @if($indicadorable->indicador->titulo_interes)
@@ -110,7 +116,8 @@
                                 Guardar estos valores para futuras instancias de este indicador.
                             </label>
                             <x-utils.buttons.default class="text-xs">
-                                <x-icons.load wire:loading wire:target="emitirEvento" class="h-5 w-5 text-gray-400"/>
+                                <x-icons.load wire:loading wire:target="emitirEvento"
+                                              class="h-5 w-5 text-gray-400"/>
                                 {{ __('Ver gráfico') }}
                             </x-utils.buttons.default>
                         </div>

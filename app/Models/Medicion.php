@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
-class Medicion extends Model
+class Medicion
 {
     /*
-    > es_escuela (boolean) : Saber si es una Escuela o Facultad
-    > entidad_id (integer) : Id de la Escuela o Facultad (depende de si es Escuela o Facultad)
-    > fecha_inicio (date) : Rango de inicio de la medición
-    > fecha_fin (date) : Rango de finalizacion de la medición (generalmente HOY)
+        > es_escuela (boolean) : Saber si es una Escuela o Facultad
+        > entidad_id (integer) : Id de la Escuela o Facultad (depende de si es Escuela o Facultad)
+        > fecha_inicio (date) : Rango de inicio de la medición
+        > fecha_fin (date) : Rango de finalizacion de la medición (generalmente HOY)
     */
 
     public static function ind09($facultad_id, $fecha_inicio, $fecha_fin)
@@ -257,8 +257,8 @@ class Medicion extends Model
 
         try {
             // FIXME 04: Cantidad de estudiantes aprobados en cada curso por escuela. -> esta devolviendo un numero Aleatorio
-            $rsp = Http::withToken('pkf5ZsQkEDuaPgQVwz3mAdszQzPMWRgg6tFHkUkK')
-                ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/04?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            $rsp = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/04?escuela=' . $escuela_id . '&semestre=' . $semestre);
 
             $resultados['interes'] = intval($rsp->body());
             $resultados['total'] = $escuela_id === 10 ? 216 : 193; //Enf:193, Obs:216 // FIXME: OGE - Obtener Num de alumnos (aun no esta inplementado en la API)
@@ -278,11 +278,11 @@ class Medicion extends Model
 
         try {
             // FIXME 07: Cantidad de docentes con evaluación de cumplimiento por escuela.. -> esta devolviendo un numero Aleatorio
-            $rsp1 = Http::withToken('pkf5ZsQkEDuaPgQVwz3mAdszQzPMWRgg6tFHkUkK')
-                ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/07?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/07?escuela=' . $escuela_id . '&semestre=' . $semestre);
             // FIXME 08: Cantidad de docentes con evaluación de cumplimiento por escuela.. -> esta devolviendo un numero Aleatorio
-            $rsp2 = Http::withToken('pkf5ZsQkEDuaPgQVwz3mAdszQzPMWRgg6tFHkUkK')
-                ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/08?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/08?escuela=' . $escuela_id . '&semestre=' . $semestre);
 
             $resultados['interes'] = intval($rsp1->body());
             $resultados['total'] = intval($rsp2->body());
@@ -302,11 +302,11 @@ class Medicion extends Model
 
         try {
             // FIXME 10: Cantidad de docentes con evaluación de cumplimiento por escuela.. -> esta devolviendo un numero Aleatorio
-            $rsp1 = Http::withToken('pkf5ZsQkEDuaPgQVwz3mAdszQzPMWRgg6tFHkUkK')
-                ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/10?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/10?escuela=' . $escuela_id . '&semestre=' . $semestre);
             // FIXME 09: Cantidad de docentes con evaluación de cumplimiento por escuela.. -> esta devolviendo un numero Aleatorio
-            $rsp2 = Http::withToken('pkf5ZsQkEDuaPgQVwz3mAdszQzPMWRgg6tFHkUkK')
-                ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/09?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/09?escuela=' . $escuela_id . '&semestre=' . $semestre);
 
             $resultados['interes'] = intval($rsp1->body());
             $resultados['total'] = intval($rsp2->body());
@@ -326,11 +326,11 @@ class Medicion extends Model
 
         try {
             // FIXME 11: Cantidad de docentes que asistieron a clases por escuela. -> esta devolviendo un numero Aleatorio
-            $rsp1 = Http::withToken('pkf5ZsQkEDuaPgQVwz3mAdszQzPMWRgg6tFHkUkK')
-                ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/11?escuela=' . $escuela_id . '&semestre=' . $semestre . '&fecha_inicio=' . $fecha_inicio . '&fecha_fin=' . $fecha_fin);
+            $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/11?escuela=' . $escuela_id . '&semestre=' . $semestre . '&fecha_inicio=' . $fecha_inicio . '&fecha_fin=' . $fecha_fin);
             // FIXME 12: Cantidad de clases programadas por escuela. -> esta devolviendo un numero Aleatorio
-            $rsp2 = Http::withToken('pkf5ZsQkEDuaPgQVwz3mAdszQzPMWRgg6tFHkUkK')
-                ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/12?escuela=' . $escuela_id . '&semestre=' . $semestre . '&fecha_inicio=' . $fecha_inicio . '&fecha_fin=' . $fecha_fin);
+            $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/12?escuela=' . $escuela_id . '&semestre=' . $semestre . '&fecha_inicio=' . $fecha_inicio . '&fecha_fin=' . $fecha_fin);
 
             $resultados['interes'] = intval($rsp1->body());
             $resultados['total'] = intval($rsp2->body());
@@ -350,11 +350,11 @@ class Medicion extends Model
 
         try {
             // FIXME 13: Cantidad de sílabos publicados por escuela. -> esta devolviendo un numero Aleatorio
-            $rsp1 = Http::withToken('pkf5ZsQkEDuaPgQVwz3mAdszQzPMWRgg6tFHkUkK')
-                ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/13?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/13?escuela=' . $escuela_id . '&semestre=' . $semestre);
             // FIXME 14: Cantidad de cursos abiertos por escuela. -> esta devolviendo un numero Aleatorio
-            $rsp2 = Http::withToken('pkf5ZsQkEDuaPgQVwz3mAdszQzPMWRgg6tFHkUkK')
-                ->get('http://sga.unasam.edu.pe/api/indicadores/ensenianza_aprendizaje/escuela/14?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/14?escuela=' . $escuela_id . '&semestre=' . $semestre);
 
             $resultados['interes'] = intval($rsp1->body());
             $resultados['total'] = intval($rsp2->body());
@@ -607,6 +607,30 @@ class Medicion extends Model
             $resultados['resultado'] = $q->whereIn('escuela_id', function ($query2) use ($entidad_id) {
                 $query2->select('id')->from('escuelas')->where('facultad_id', $entidad_id);
             })->count();
+        }
+        return $resultados;
+    }
+
+    public static function ind54($escuela_id, $semestre)
+    {
+        //X = (N° de docentes que realizan tutoría)/(Total de docentes del programa) x 100
+        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+
+        try {
+            // FIXME 13: Cantidad de sílabos publicados por escuela. -> esta devolviendo un numero Aleatorio
+            $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/13?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            // FIXME 14: Cantidad de cursos abiertos por escuela. -> esta devolviendo un numero Aleatorio
+            $rsp2 = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/14?escuela=' . $escuela_id . '&semestre=' . $semestre);
+
+            $resultados['interes'] = intval($rsp1->body());
+            $resultados['total'] = intval($rsp2->body());
+            $resultados['resultado'] = round($resultados['interes'] / $resultados['total'] * 100);;
+        } catch (\Exception $e) {
+            $resultados['interes'] = null;
+            $resultados['total'] = null;
+            $resultados['resultado'] = null;
         }
         return $resultados;
     }
