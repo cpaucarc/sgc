@@ -11,7 +11,7 @@ class Jurado extends Model
 
 //    protected $table = "jurados";
     public $timestamps = false;
-    public $fillable = ['codigo_colegiatura', 'codigo_docente', 'colegio_id'];
+    public $fillable = ['codigo_colegiatura', 'dni_docente', 'colegio_id'];
 
     public function colegio()
     {

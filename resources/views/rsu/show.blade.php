@@ -59,9 +59,9 @@
             <div class="pt-4">
                 <livewire:rsu.documentos-rsu :rsu_id="$rsu->id" :es_responsable="$es_responsable"/>
             </div>
-            <div class="pt-4">
-                <livewire:rsu.encuesta :rsu_id="$rsu->id" :es_responsable="$es_responsable"/>
-            </div>
+            {{--            <div class="pt-4">--}}
+            {{--                <livewire:rsu.encuesta :rsu_id="$rsu->id" :es_responsable="$es_responsable"/>--}}
+            {{--            </div>--}}
         </div>
 
     </div>

@@ -14,8 +14,8 @@ return new class extends Migration {
     {
         Schema::create('jurados', function (Blueprint $table) {
             $table->id();
-            $table->integer('codigo_colegiatura')->nullable();
-            $table->string('codigo_docente', 15)->unique();//<=>OGE
+            $table->string('codigo_colegiatura', 10)->nullable();
+            $table->string('dni_docente', 8)->unique();//<=>OGE
             $table->foreignId('colegio_id')->constrained('colegios')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();

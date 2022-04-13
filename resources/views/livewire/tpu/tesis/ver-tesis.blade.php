@@ -20,7 +20,7 @@
 
             <div class="flex-col space-y-1 pt-4 text-sm">
                 <h3 class="font-bold text-gray-400">Estudiante</h3>
-                <p class="text-gray-600">{{$tesis->codigo_estudiante}}</p>
+                <p class="text-gray-600">{{$tesis->dni_estudiante}}</p>
             </div>
 
             <div class="flex items-center justify-between pt-4 text-sm">

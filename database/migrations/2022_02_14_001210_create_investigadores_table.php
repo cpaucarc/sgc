@@ -15,7 +15,7 @@ return new class extends Migration {
         Schema::create('investigadores', function (Blueprint $table) {
             $table->id();
             $table->boolean('es_docente')->default(true);
-            $table->string('codigo_investigador', 15)->unique(); //Codigo Docente|Estudiante <=>OGE
+            $table->string('dni_investigador', 8)->unique(); //DNI Docente|Estudiante <=>OGE
         });
     }
 

@@ -86,7 +86,7 @@
                                     {{ $doc['docente_id']}}
                                 </x-utils.tables.body>
                                 <x-utils.tables.body>
-                                    {{ $doc['codigo_docente']}}
+                                    {{ $doc['dni_docente']}}
                                 </x-utils.tables.body>
                                 <x-utils.tables.body>
                                     <div

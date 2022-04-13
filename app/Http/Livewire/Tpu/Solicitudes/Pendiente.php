@@ -56,7 +56,7 @@ class Pendiente extends Component
             ->first();
 
         $this->tesis = Tesis::query()
-            ->where('codigo_estudiante', $this->solicitudSeleccionado->codigo_estudiante)
+            ->where('dni_estudiante', $this->solicitudSeleccionado->dni_estudiante)
             ->first();
 
         $this->estadoSolicitud();
@@ -90,12 +90,12 @@ class Pendiente extends Component
                 $this->solicitudSeleccionado->save();
 
                 $gradoestudiante = GradoEstudiante::query()
-                    ->where('codigo_estudiante', $this->solicitanteCodigo)
+                    ->where('dni_estudiante', $this->solicitanteCodigo)
                     ->where('grado_academico_id', 4) // 4 : Titulado
                     ->get();
                 if (!$gradoestudiante->count()) {
                     GradoEstudiante::create([
-                        'codigo_estudiante' => $this->solicitanteCodigo,
+                        'dni_estudiante' => $this->solicitanteCodigo,
                         'grado_academico_id' => 4, // 4 : Titulado
                         'created_at' => now(),
                         'updated_at' => now()

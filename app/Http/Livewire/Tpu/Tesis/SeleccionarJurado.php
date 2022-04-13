@@ -27,7 +27,7 @@ class SeleccionarJurado extends Component
         $this->jurados = Jurado::query()
             ->with('colegio')
             ->where('codigo_colegiatura', 'like', '%' . $this->search . '%')
-            ->orWhere('codigo_docente', 'like', '%' . $this->search . '%')
+            ->orWhere('dni_docente', 'like', '%' . $this->search . '%')
             ->orderBy('id')
             ->limit(6)
             ->get();
@@ -39,9 +39,9 @@ class SeleccionarJurado extends Component
         $this->open = true;
     }
 
-    public function seleccionarJurado($jurado_id, $codigo_docente)
+    public function seleccionarJurado($jurado_id, $dni_docente)
     {
-        $this->emit('enviarJurado', $jurado_id, $codigo_docente);
+        $this->emit('enviarJurado', $jurado_id, $dni_docente);
         $this->open = false;
     }
 }

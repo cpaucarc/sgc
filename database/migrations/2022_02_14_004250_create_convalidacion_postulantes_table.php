@@ -15,7 +15,7 @@ return new class extends Migration {
         Schema::create('convalidacion_postulantes', function (Blueprint $table) {
             $table->id();
             $table->boolean('es_estudiante_interno');
-            $table->string('codigo_estudiante', 15)->nullable();//<=>OGE
+            $table->string('dni_estudiante', 8)->nullable();//<=>OGE
 
             $table->foreignId('convalidacion_id')->constrained('convalidaciones')
                 ->cascadeOnUpdate()

@@ -16,7 +16,7 @@
     @if($rsu->participantes_count > 0)
         <x-utils.tables.table>
             @slot('head')
-                <x-utils.tables.head>Código</x-utils.tables.head>
+                <x-utils.tables.head>DNI Participante</x-utils.tables.head>
                 <x-utils.tables.head>Cargo</x-utils.tables.head>
                 <x-utils.tables.head>Tipo</x-utils.tables.head>
                 <x-utils.tables.head>Incorporación</x-utils.tables.head>
@@ -26,7 +26,7 @@
                     <x-utils.tables.row>
                         <x-utils.tables.body>
                             <x-utils.links.basic href="{{ route('rsu.show', [$participante->id]) }}" class="text-sm">
-                                {{ $participante->codigo_participante }}
+                                {{ $participante->dni_participante }}
                             </x-utils.links.basic>
                         </x-utils.tables.body>
                         <x-utils.tables.body>

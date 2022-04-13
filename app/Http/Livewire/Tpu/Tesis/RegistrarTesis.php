@@ -75,10 +75,10 @@ class RegistrarTesis extends Component
         unset($this->docente[$i]);
     }
 
-    public function recibirJurado($docente_id, $codigo_docente)
+    public function recibirJurado($docente_id, $dni_docente)
     {
         if (count($this->docente) < 3) {
-            array_push($this->docente, ['docente_id' => $docente_id, 'codigo_docente' => $codigo_docente]);
+            array_push($this->docente, ['docente_id' => $docente_id, 'dni_docente' => $dni_docente]);
         }
     }
 
@@ -91,7 +91,7 @@ class RegistrarTesis extends Component
                 'numero_registro' => $this->numeroRegistro,
                 'titulo' => $this->titulo,
                 'anio' => $this->anio,
-                'codigo_estudiante' => $this->solicitud->codigo_estudiante,
+                'dni_estudiante' => $this->solicitud->dni_estudiante,
                 'escuela_id' => $this->entidad_escuela[0],
                 'asesor_id' => $this->docente[2]['docente_id'],
                 'tipo_tesis_id' => $this->tipoTesisSeleccionado

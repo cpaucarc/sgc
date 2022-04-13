@@ -11,20 +11,18 @@ use Livewire\Component;
 class CrearUsuario extends Component
 {
     public $open = false;
-    public $nombres, $codigo, $correo, $contrasena = "password";
+    public $nombres, $dni, $correo, $contrasena = "password";
 
     protected $rules = [
         'nombres' => 'required|max:250',
-        'codigo' => 'required|max:15|min:5',
+        'dni' => 'required|max:8|min:8',
         'correo' => 'required|email|unique:users,email',
         'contrasena' => 'required|min:4'
     ];
 
     public function render()
     {
-        $response = Http::get('https://jsonplaceholder.typicode.com/users/1');
-
-        return view('livewire.admin.crear-usuario', compact('response'));
+        return view('livewire.admin.crear-usuario');
     }
 
     /* Funciones */
@@ -39,14 +37,14 @@ class CrearUsuario extends Component
         User::create([
             'name' => $this->nombres,
             'uuid' => Str::uuid(),
-            'codigo' => $this->codigo,
+            'dni' => $this->dni,
             'email' => $this->correo,
             'password' => Hash::make($this->contrasena),
             'created_at' => now(),
             'updated_at' => now()
         ]);
 
-        $this->reset('open', 'nombres', 'codigo', 'correo', 'contrasena');
+        $this->reset('open', 'nombres', 'dni', 'correo', 'contrasena');
         $this->emitTo('admin.lista-usuarios', 'render');
     }
 

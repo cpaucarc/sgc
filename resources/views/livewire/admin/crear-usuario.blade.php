@@ -12,18 +12,17 @@
         </x-slot>
 
         <x-slot name="content">
-
             <div class="space-y-6">
                 <div class="w-full">
-                    <x-jet-label for="codigo" value="Código del usuario"/>
+                    <x-jet-label for="dni" value="DNI del usuario"/>
                     <div class="flex gap-x-2">
-                        <x-jet-input id="codigo" autocomplete="off" class="flex-1" type="text"
-                                     wire:model.defer="codigo"/>
+                        <x-jet-input id="dni" autocomplete="off" class="flex-1" type="text"
+                                     wire:model.defer="dni"/>
                         <x-utils.buttons.default class="">
                             <x-icons.search class="w-4 h-4"/>
                         </x-utils.buttons.default>
                     </div>
-                    <x-jet-input-error for="codigo"/>
+                    <x-jet-input-error for="dni"/>
                 </div>
                 <div class="w-full">
                     <x-jet-label for="nombres" value="Apellidos y Nombres del Usuario"/>

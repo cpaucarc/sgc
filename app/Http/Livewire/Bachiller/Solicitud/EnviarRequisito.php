@@ -40,7 +40,7 @@ class EnviarRequisito extends Component
     public function mount()
     {
         $this->solicitud = Solicitud::query()
-            ->where('codigo_estudiante', Auth::user()->codigo)
+            ->where('dni_estudiante', Auth::user()->dni)
             ->where('tipo_solicitud_id', 1) // 1: Bachiller
             ->first();
 
@@ -63,7 +63,7 @@ class EnviarRequisito extends Component
                     ->whereIn('solicitud_id', function ($query2) {
                         $query2->select('id')
                             ->from('solicitudes')
-                            ->where('codigo_estudiante', Auth::user()->codigo)
+                            ->where('dni_estudiante', Auth::user()->dni)
                             ->where('tipo_solicitud_id', 1);// 1 : Bachiller
                     });
             })
@@ -78,7 +78,7 @@ class EnviarRequisito extends Component
         //Si no hay solicitud, se crea (estado 4: En evaluacion)
         if (is_null($this->solicitud)) {
             $this->solicitud = Solicitud::create([
-                'codigo_estudiante' => (Auth::user()->codigo),
+                'dni_estudiante' => (Auth::user()->dni),
                 'tipo_solicitud_id' => 1, // 1: Bachiller
                 'estado_id' => 4,// 4: En evaluación (Categoria => 2:solicitud)
             ]);

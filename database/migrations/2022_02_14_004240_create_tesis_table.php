@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('numero_registro', 10)->unique();
             $table->text('titulo');
             $table->year('anio');
-            $table->string('codigo_estudiante', 15);//<=>OGE
+            $table->string('dni_estudiante', 8);//<=>OGE
 
             $table->foreignId('escuela_id')->constrained('escuelas')
                 ->cascadeOnUpdate()

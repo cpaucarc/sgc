@@ -18,11 +18,11 @@
                             Juan Fernando Pérez del Corral
                         </h2>
                         <h3 class="text-gray-400 group-hover:text-gray-500 text-sm">
-                            Código: {{ $solc->codigo_estudiante }}
+                            Código: {{ $solc->dni_estudiante }}
                         </h3>
                     </div>
                     <x-utils.buttons.invisible
-                        wire:click="mostrarModal({{ $solc->id }}, '{{ $solc->codigo_estudiante}}', true)">
+                        wire:click="mostrarModal({{ $solc->id }}, '{{ $solc->dni_estudiante}}', true)">
                         Revisar
                     </x-utils.buttons.invisible>
                 </div>
@@ -61,7 +61,7 @@
                         </h3>
                     </div>
                     <x-utils.buttons.invisible
-                        wire:click="mostrarModal({{ $soli->id }}, '{{ $soli->codigo_estudiante }}', false)">
+                        wire:click="mostrarModal({{ $soli->id }}, '{{ $soli->dni_estudiante }}', false)">
                         Revisar
                     </x-utils.buttons.invisible>
                 </div>

@@ -11,6 +11,6 @@ class Investigador extends Model
 
     protected $table = "investigadores";
     public $timestamps = false;
-    public $fillable = ['es_docente', 'codigo_investigador'];
+    public $fillable = ['es_docente', 'dni_investigador'];
 
 }

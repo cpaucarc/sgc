@@ -38,7 +38,7 @@
                                     Nombre del docente
                                 </x-utils.tables.body>
                                     <x-utils.tables.body>
-                                        {{ $jurado->codigo_docente }}
+                                        {{ $jurado->dni_docente }}
                                     </x-utils.tables.body>
                                 </x-utils.tables.body>
                                 <x-utils.tables.body>
@@ -46,7 +46,7 @@
                                 </x-utils.tables.body>
                                 <x-utils.tables.body class="text-right">
                                     <x-utils.buttons.default
-                                        wire:click="seleccionarJurado({{$jurado->id}}, '{{ $jurado->codigo_docente }}')"
+                                        wire:click="seleccionarJurado({{$jurado->id}}, '{{ $jurado->dni_docente }}')"
                                         class="group hover:text-gray-700 active:border-gray-400 flex items-center text-xs">
                                         Escoger
                                     </x-utils.buttons.default>

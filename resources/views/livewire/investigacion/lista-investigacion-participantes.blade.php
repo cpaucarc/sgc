@@ -17,7 +17,7 @@
     @if(count($investigacion->investigadores) > 0)
         <x-utils.tables.table>
             @slot('head')
-                <x-utils.tables.head>Financiador</x-utils.tables.head>
+                <x-utils.tables.head>DNI Investigador</x-utils.tables.head>
                 <x-utils.tables.head>Tipo</x-utils.tables.head>
                 <x-utils.tables.head>Cargo</x-utils.tables.head>
             @endslot
@@ -25,7 +25,7 @@
                 @foreach($investigacion->investigadores as $investigador)
                     <x-utils.tables.row>
                         <x-utils.tables.body>
-                            {{$investigador->codigo_investigador}}
+                            {{$investigador->dni_investigador}}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             @if($investigador->es_docente)

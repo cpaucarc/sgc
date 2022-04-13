@@ -983,7 +983,7 @@ class Medicion
             ->whereIn('escuela_id', $escuelas)
             ->where(function ($query) use ($fecha_inicio, $fecha_fin, $q) {
                 $query->whereBetween('created_at', [$fecha_inicio, $fecha_fin])
-                    ->orWhereIn('codigo_estudiante', $q->select('codigo_estudiante')->get());
+                    ->orWhereIn('dni_estudiante', $q->select('dni_estudiante')->get());
             })->count();
 
         $resultados['total'] = $q->count();
@@ -1011,7 +1011,7 @@ class Medicion
             ->whereIn('escuela_id', $escuelas)
             ->where(function ($query) use ($fecha_inicio, $fecha_fin, $q) {
                 $query->whereBetween('created_at', [$fecha_inicio, $fecha_fin])
-                    ->orWhereIn('codigo_estudiante', $q->select('codigo_estudiante')->get());
+                    ->orWhereIn('dni_estudiante', $q->select('dni_estudiante')->get());
             })->count();
 
         $resultados['total'] = $q->count();

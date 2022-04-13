@@ -24,7 +24,7 @@ class ResponsabilidadSocialController extends Controller
 
         $es_responsable = RsuParticipante::query()
             ->where('es_responsable', true)
-            ->where('codigo_participante', Auth::user()->codigo)
+            ->where('dni_participante', Auth::user()->dni)
             ->where('responsabilidad_social_id', $rsu->id)
             ->exists();
 

@@ -19,7 +19,7 @@ class ConvalidacionPostulanteFactory extends Factory
         $esInterno = $this->faker->boolean(65);
         return [
             'es_estudiante_interno' => $esInterno,
-            'codigo_estudiante' => $esInterno ? $this->faker->unique(true)->numerify('###.####.###') : null,
+            'dni_estudiante' => $esInterno ? $this->faker->unique(true)->numerify('########') : null,
             'convalidacion_id' => rand(1, 6),
             'estudiante_externo_id' => $esInterno ? null : rand(1, 50),
             'estado_id' => rand(7,8)

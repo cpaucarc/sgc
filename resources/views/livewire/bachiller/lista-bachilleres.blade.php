@@ -21,8 +21,8 @@
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             <button class="hover:text-blue-600 font-bold"
-                                    wire:click="seleccionar('{{$bachiller->codigo_estudiante}}')">
-                                {{ $bachiller->codigo_estudiante }}
+                                    wire:click="seleccionar('{{$bachiller->dni_estudiante}}')">
+                                {{ $bachiller->dni_estudiante }}
                             </button>
                         </x-utils.tables.body>
                         <x-utils.tables.body>

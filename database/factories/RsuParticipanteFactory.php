@@ -23,7 +23,7 @@ class RsuParticipanteFactory extends Factory
             'fecha_incorporacion' => $this->faker->dateTimeBetween('-6 months', 'now')->format("Y-m-d"),
             'es_responsable' => $esResponsable,
             'es_estudiante' => $esEstudiante,
-            'codigo_participante' => $this->faker->unique(true)->numerify('###.####.###'),
+            'dni_participante' => $this->faker->unique(true)->numerify('########'),
             'responsabilidad_social_id' => rand(1, 50)
         ];
     }

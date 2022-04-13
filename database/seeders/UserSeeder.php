@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Pedro el Administrador',
             'uuid' => Str::uuid(),
-            'codigo' => rand(100, 999) . '.' . rand(1000, 9999) . '.' . rand(100, 999),
+            'dni' => rand(30000000, 89999999),
             'email' => 'prueba@mail.com',
             'email_verified_at' => now(),
             'password' => $password,
@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Peter el Docente',
             'uuid' => Str::uuid(),
-            'codigo' => rand(100, 999) . '.' . rand(1000, 9999) . '.' . rand(100, 999),
+            'dni' => rand(30000000, 89999999),
             'email' => 'docente1@mail.com',
             'email_verified_at' => now(),
             'password' => $password,
@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Arnol el Docente',
             'uuid' => Str::uuid(),
-            'codigo' => rand(100, 999) . '.' . rand(1000, 9999) . '.' . rand(100, 999),
+            'dni' => rand(30000000, 89999999),
             'email' => 'docente2@mail.com',
             'email_verified_at' => now(),
             'password' => $password,
@@ -54,7 +54,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Pepe el Director',
             'uuid' => Str::uuid(),
-            'codigo' => rand(100, 999) . '.' . rand(1000, 9999) . '.' . rand(100, 999),
+            'dni' => rand(30000000, 89999999),
             'email' => 'director1@mail.com',
             'email_verified_at' => now(),
             'password' => $password,
@@ -63,7 +63,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Fidencio el Director',
             'uuid' => Str::uuid(),
-            'codigo' => rand(100, 999) . '.' . rand(1000, 9999) . '.' . rand(100, 999),
+            'dni' => rand(30000000, 89999999),
             'email' => 'director2@mail.com',
             'email_verified_at' => now(),
             'password' => $password,
@@ -74,7 +74,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Carlitos el Enfermero Estudiante',
             'uuid' => Str::uuid(),
-            'codigo' => rand(100, 999) . '.' . rand(1000, 9999) . '.' . rand(100, 999),
+            'dni' => rand(30000000, 89999999),
             'email' => 'estudiante1@mail.com',
             'email_verified_at' => now(),
             'password' => $password,
@@ -83,7 +83,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Emilio el Obstetra Estudiante',
             'uuid' => Str::uuid(),
-            'codigo' => rand(100, 999) . '.' . rand(1000, 9999) . '.' . rand(100, 999),
+            'dni' => rand(30000000, 89999999),
             'email' => 'estudiante2@mail.com',
             'email_verified_at' => now(),
             'password' => $password,
@@ -94,7 +94,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Demitrio el Decano',
             'uuid' => Str::uuid(),
-            'codigo' => rand(100, 999) . '.' . rand(1000, 9999) . '.' . rand(100, 999),
+            'dni' => rand(30000000, 89999999),
             'email' => 'decano1@mail.com',
             'email_verified_at' => now(),
             'password' => $password,

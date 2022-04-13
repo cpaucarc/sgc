@@ -35,7 +35,7 @@ class EstadoSolicitud extends Component
     {
         $this->solicitud = Solicitud::query()
             ->with('estado')
-            ->where('codigo_estudiante', Auth::user()->codigo)
+            ->where('dni_estudiante', Auth::user()->dni)
             ->where('tipo_solicitud_id',3) // 3: Bachiller
             ->first();
     }

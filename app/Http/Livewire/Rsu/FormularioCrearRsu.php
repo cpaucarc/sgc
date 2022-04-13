@@ -122,7 +122,7 @@ class FormularioCrearRsu extends Component
             'fecha_incorporacion' => now()->format('Y-m-d'),
             'es_responsable' => true,
             'es_estudiante' => $oficinas->contains(9), // Tabla Oficinas: 9-Estudiante
-            'codigo_participante' => Auth::user()->codigo,
+            'dni_participante' => Auth::user()->dni,
             'responsabilidad_social_id' => $rsu->id
         ]);
 

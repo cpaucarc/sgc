@@ -19,8 +19,8 @@ class GradoEstudianteFactory extends Factory
         $created_at = $this->faker->dateTimeBetween($startDate = '-2 years', $endDate = 'now');
 
         return [
-            'codigo_estudiante' => $this->faker->unique(true)->numerify('###.####.###'),
-            'grado_academico_id' => rand(1, 7),
+            'dni_estudiante' => $this->faker->unique(true)->numerify('########'),
+            'grado_academico_id' => rand(1, 4),
             'created_at' => $created_at,
             'updated_at' => $created_at,
             'escuela_id' => rand(10, 11),

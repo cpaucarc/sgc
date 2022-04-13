@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->date('fecha_incorporacion');
             $table->boolean('es_responsable')->default(false);
             $table->boolean('es_estudiante');
-            $table->string('codigo_participante', 15);//<=>OGE
+            $table->string('dni_participante', 8);//<=>OGE
             $table->foreignId('responsabilidad_social_id')->constrained('responsabilidad_social')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();

@@ -20,7 +20,7 @@ class InvestigadorFactory extends Factory
 
         return [
             'es_docente' => $esDocente,
-            'codigo_investigador' => $this->faker->unique(true)->numerify('###.####.###'),
+            'dni_investigador' => $this->faker->unique(true)->numerify('########'),
         ];
     }
 }

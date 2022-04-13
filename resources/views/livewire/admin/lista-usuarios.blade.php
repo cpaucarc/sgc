@@ -19,7 +19,7 @@
         <x-utils.tables.table>
             @slot('head')
                 <x-utils.tables.head>Usuario</x-utils.tables.head>
-                <x-utils.tables.head>Código</x-utils.tables.head>
+                <x-utils.tables.head>DNI</x-utils.tables.head>
                 <x-utils.tables.head>Correo</x-utils.tables.head>
                 <x-utils.tables.head>Estado</x-utils.tables.head>
                 <x-utils.tables.head>Creación</x-utils.tables.head>
@@ -37,7 +37,7 @@
                                 <x-utils.new-item date="{{$usuario->created_at}}"/>
                             </x-utils.links.basic>
                         </x-utils.tables.body>
-                        <x-utils.tables.body class="text-xs">{{$usuario->codigo}}</x-utils.tables.body>
+                        <x-utils.tables.body class="text-xs">{{$usuario->dni}}</x-utils.tables.body>
                         <x-utils.tables.body>{{$usuario->email}}</x-utils.tables.body>
                         <x-utils.tables.body>
                             <x-utils.badge

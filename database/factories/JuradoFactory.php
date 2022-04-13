@@ -18,7 +18,7 @@ class JuradoFactory extends Factory
     {
         return [
             'codigo_colegiatura' => $this->faker->unique(true)->numerify('######'),
-            'codigo_docente' => $this->faker->unique(true)->numerify('###.####.###'),
+            'dni_docente' => $this->faker->unique(true)->numerify('########'),
             'colegio_id' => rand(1, 3),
         ];
     }

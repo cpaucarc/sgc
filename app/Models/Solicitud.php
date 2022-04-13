@@ -10,7 +10,7 @@ class Solicitud extends Model
     use HasFactory;
 
     protected $table = "solicitudes";
-    public $fillable = ['codigo_estudiante', 'tipo_solicitud_id', 'estado_id'];
+    public $fillable = ['dni_estudiante', 'tipo_solicitud_id', 'estado_id'];
 
     public function estado()
     {

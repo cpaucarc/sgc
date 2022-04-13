@@ -11,6 +11,6 @@ class RsuParticipante extends Model
 
     protected $table = "rsu_participantes";
     public $timestamps = false;
-    public $fillable = ['fecha_incorporacion', 'es_responsable', 'es_estudiante', 'codigo_participante', 'responsabilidad_social_id'];
+    public $fillable = ['fecha_incorporacion', 'es_responsable', 'es_estudiante', 'dni_participante', 'responsabilidad_social_id'];
     protected $dates = ['fecha_incorporacion',];
 }

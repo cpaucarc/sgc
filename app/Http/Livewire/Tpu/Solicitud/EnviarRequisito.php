@@ -41,7 +41,7 @@ class EnviarRequisito extends Component
     public function mount()
     {
         $this->solicitud = Solicitud::query()
-            ->where('codigo_estudiante', Auth::user()->codigo)
+            ->where('dni_estudiante', Auth::user()->dni)
             ->where('tipo_solicitud_id', 3) // 3: Título profesional
             ->first();
 
@@ -64,7 +64,7 @@ class EnviarRequisito extends Component
                     ->whereIn('solicitud_id', function ($query2) {
                         $query2->select('id')
                             ->from('solicitudes')
-                            ->where('codigo_estudiante', Auth::user()->codigo)
+                            ->where('dni_estudiante', Auth::user()->dni)
                             ->where('tipo_solicitud_id', 3);// 3 : Titulo profesional
                     });
             })
@@ -85,7 +85,7 @@ class EnviarRequisito extends Component
         //Si no hay solicitud, se crea (estado 4: En evaluacion)
         if (is_null($this->solicitud)) {
             $this->solicitud = Solicitud::create([
-                'codigo_estudiante' => (Auth::user()->codigo),
+                'dni_estudiante' => (Auth::user()->dni),
                 'tipo_solicitud_id' => 3, // 3: Título profesional
                 'estado_id' => 4,// 4: En evaluación (Categoria => 2:solicitud)
             ]);
@@ -139,7 +139,7 @@ class EnviarRequisito extends Component
         $this->documentos = DocumentoSolicitud::query()
             ->with('documento')
             ->whereHas('solicitud', function ($query) {
-                $query->where('codigo_estudiante', Auth::user()->codigo);
+                $query->where('dni_estudiante', Auth::user()->dni);
             })
             ->whereHas('documento', function ($query) {
                 $query->where('user_id', Auth::user()->id)
@@ -152,7 +152,7 @@ class EnviarRequisito extends Component
     public function tesisRegistrado()
     {
         $this->tesis = Tesis::query()
-            ->where('codigo_estudiante', Auth::user()->codigo)
+            ->where('dni_estudiante', Auth::user()->dni)
             ->orderBy('id', 'desc')
             ->first();
     }

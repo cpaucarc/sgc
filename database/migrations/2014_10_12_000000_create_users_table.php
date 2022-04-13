@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('uuid', 40);
-            $table->string('codigo')->unique()->nullable();
+            $table->string('dni', 8)->unique()->nullable();
             $table->string('email')->unique();
             $table->boolean('activo')->default(true);
             $table->timestamp('email_verified_at')->nullable();

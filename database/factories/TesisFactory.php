@@ -20,7 +20,7 @@ class TesisFactory extends Factory
             'numero_registro' => $this->faker->unique(true)->numerify('T-######'),
             'titulo' => $this->faker->paragraph(),
             'anio' => $this->faker->numberBetween(2015, 2022),
-            'codigo_estudiante' => $this->faker->unique(true)->numerify('###.####.###'),
+            'dni_estudiante' => $this->faker->unique(true)->numerify('########'),
             'escuela_id' => rand(10, 11),
             'asesor_id' => rand(1, 25),
             'tipo_tesis_id' => $this->faker->numberBetween(1, 2),

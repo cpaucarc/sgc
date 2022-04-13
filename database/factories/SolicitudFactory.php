@@ -18,8 +18,8 @@ class SolicitudFactory extends Factory
     public function definition()
     {
         return [
-//            'codigo_estudiante' => $this->faker->unique(true)->numerify('###.####.###'),
-            'codigo_estudiante' => GradoEstudiante::inRandomOrder()->first()->codigo_estudiante,
+//            'dni_estudiante' => $this->faker->unique(true)->numerify('########'),
+            'dni_estudiante' => GradoEstudiante::inRandomOrder()->first()->dni_estudiante,
             'tipo_solicitud_id' => rand(1, 3),
             'estado_id' => rand(1, 10),
         ];

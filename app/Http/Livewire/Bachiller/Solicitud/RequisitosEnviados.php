@@ -29,7 +29,7 @@ class RequisitosEnviados extends Component
         $this->solicitud = Solicitud::query()
             ->with('documentos')
             ->where('tipo_solicitud_id', 1) // 3 : Bachiller
-            ->where('codigo_estudiante', Auth::user()->codigo)
+            ->where('dni_estudiante', Auth::user()->dni)
             ->first();
         return view('livewire.bachiller.solicitud.requisitos-enviados');
     }

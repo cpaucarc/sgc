@@ -3,7 +3,7 @@
         <x-utils.tables.table>
             @slot('head')
                 <x-utils.tables.head>N°</x-utils.tables.head>
-                <x-utils.tables.head>Código del Estudiante</x-utils.tables.head>
+                <x-utils.tables.head>DNI del Estudiante</x-utils.tables.head>
                 <x-utils.tables.head>Escuela</x-utils.tables.head>
                 <x-utils.tables.head>Fecha de Registro</x-utils.tables.head>
             @endslot
@@ -15,8 +15,8 @@
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             <button class="hover:text-blue-600 font-bold"
-                                    wire:click="seleccionar('{{$titulado->codigo_estudiante}}')">
-                                {{ $titulado->codigo_estudiante }}
+                                    wire:click="seleccionar('{{$titulado->dni_estudiante}}')">
+                                {{ $titulado->dni_estudiante }}
                             </button>
                         </x-utils.tables.body>
                         <x-utils.tables.body>

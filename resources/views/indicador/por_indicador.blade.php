@@ -26,18 +26,18 @@
 
             <div class="flex items-center flex-wrap divide-x divide-gray-200 space-x-4">
                 <div class="flex gap-2 font-semibold">
+                    <x-utils.links.basic href="{{ route('indicador.index') }}" class="text-sm">
+                        <x-utils.badge
+                            class="bg-sky-50 text-sky-700 hover:underline hover:text-sky-700">
+                            Oficina:&nbsp;<strong> {{ $nombre }}  </strong>
+                        </x-utils.badge>
+                    </x-utils.links.basic>
+
                     <x-utils.links.basic class="text-sm"
                                          href="{{ route('indicador.proceso', [$indicadorable->indicador->proceso_id, $tipo, $uuid]) }}">
                         <x-utils.badge
                             class="bg-sky-50 text-sky-700 hover:underline hover:text-sky-700">
                             Proceso:&nbsp;<strong>{{ $indicadorable->indicador->proceso->nombre }}</strong>
-                        </x-utils.badge>
-                    </x-utils.links.basic>
-
-                    <x-utils.links.basic href="{{ route('indicador.index') }}" class="text-sm">
-                        <x-utils.badge
-                            class="bg-sky-50 text-sky-700 hover:underline hover:text-sky-700">
-                            Oficina:&nbsp;<strong> {{ $nombre }}  </strong>
                         </x-utils.badge>
                     </x-utils.links.basic>
                 </div>
