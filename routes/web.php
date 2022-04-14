@@ -61,6 +61,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('entrada', 'entradas')->name('admin.panel.entradas');
         Route::get('salida', 'salidas')->name('admin.panel.salidas');
         Route::get('entidad', 'entidades')->name('admin.panel.entidades');
+        Route::get('indicador', 'indicadores')->name('admin.panel.indicadores');
         Route::get('usuario', 'usuarios')->name('admin.panel.usuarios');
         Route::get('usuario/ver/{uuid}', 'usuario')->name('admin.panel.usuario');
         Route::get('entidad/responsable/{id}', 'entidad_responsable')->name('admin.panel.entidad.responsable');

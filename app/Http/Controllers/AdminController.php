@@ -75,6 +75,11 @@ class AdminController extends Controller
         return view('admin.salidas');
     }
 
+    public function indicadores()
+    {
+        return view('admin.indicadores');
+    }
+
     public function usuarios()
     {
         return view('admin.usuarios');

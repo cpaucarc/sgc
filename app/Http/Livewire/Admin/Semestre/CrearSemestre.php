@@ -35,7 +35,7 @@ class CrearSemestre extends Component
             'fecha_inicio' => $this->fecha_inicio,
             'fecha_fin' => $this->fecha_fin
         ]);
-        $this->emit('guardado', "El semestre académico '.$this->nombre.' fue creado con éxito.");
+        $this->emit('guardado', "El semestre académico " . $this->nombre . " fue creado con éxito.");
         $this->reset('open', 'nombre', 'fecha_inicio', 'fecha_fin');
 
         $this->emitTo('admin.semestre.lista-semestre', 'render');
