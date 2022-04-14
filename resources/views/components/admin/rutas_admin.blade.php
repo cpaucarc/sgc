@@ -13,6 +13,11 @@
                                     :active="request()->routeIs('admin.panel.escuelas')">
                 {{ __('Escuelas') }}
             </x-utils.links.nav-link>
+
+            <x-utils.links.nav-link href="{{ route('admin.panel.semestres') }}"
+                                    :active="request()->routeIs('admin.panel.semestres')">
+                {{ __('Semestres') }}
+            </x-utils.links.nav-link>
         </div>
     </div>
 
@@ -39,6 +44,10 @@
             <x-utils.links.nav-link href="{{ route('admin.panel.entidades') }}"
                                     :active="request()->routeIs('admin.panel.entidades')">
                 {{ __('Entidades') }}
+            </x-utils.links.nav-link>
+            <x-utils.links.nav-link href="{{ route('admin.panel.indicadores') }}"
+                                    :active="request()->routeIs('admin.panel.indicadores')">
+                {{ __('Indicadores') }}
             </x-utils.links.nav-link>
         </div>
     </div>

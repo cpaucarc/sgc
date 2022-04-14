@@ -27,6 +27,11 @@ class AdminController extends Controller
         return view('admin.facultades');
     }
 
+    public function semestres()
+    {
+        return view('admin.semestres');
+    }
+
     public function entidades()
     {
         return view('admin.entidades');
@@ -68,6 +73,11 @@ class AdminController extends Controller
     public function salidas()
     {
         return view('admin.salidas');
+    }
+
+    public function indicadores()
+    {
+        return view('admin.indicadores');
     }
 
     public function usuarios()
