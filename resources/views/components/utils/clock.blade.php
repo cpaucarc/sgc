@@ -1,14 +1,14 @@
-<div class="border border-white px-3 py-2 rounded-md bg-white font-mono bg-opacity-50 backdrop-blur-sm text-gray-800">
+<div class="border border-white px-4 py-2 rounded-md bg-white font-mono bg-opacity-50 backdrop-blur-sm text-gray-800">
     {{-- Hora --}}
     <div>
         <div class="flex justify-center items-end gap-x-0 text-3xl font-bold font-mono">
             <span id="hour"></span>:
             <span id="minute"></span>
-            <span id="second" class="text-lg font-light"></span>
+            <span id="second" class="text-lg ml-1 font-light"></span>
         </div>
     </div>
     {{-- Fecha --}}
-    <div>
+    <div class="mt-1">
         <div class="flex justify-center gap-x-0 text-sm">
             <span id="weekday" class="sr-only"></span>
             <span id="day" class="ml-1"></span>

@@ -1,7 +1,9 @@
 <a href="{{ $to }}"
    target="_blank"
-   class="flex items-center gap-x-2 px-2 py-1 rounded bg-gray-50 text-gray-600 hover:text-sky-600 font-semibold hover:bg-gray-100 hover:underline transition ease-in-out duration-300"
+   class="group flex items-center gap-x-2 px-8 py-4 text-lg rounded font-semibold bg-white text-gray-700 hover:text-white hover:bg-indigo-600 transition ease-in-out duration-300"
    rel="noreferrer nofollow">
-    <img src="{{ $img }}" class="w-8 h-8 flex-shrink-0 object-cover" alt="Icono">
+    @if(isset($img))
+        <img src="{{ $img }}" class="h-8 overflow-hidden flex-shrink-0 object-cover" alt="Icono">
+    @endif
     {{ $slot }}
 </a>
