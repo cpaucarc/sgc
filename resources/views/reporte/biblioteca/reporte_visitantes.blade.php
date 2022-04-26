@@ -90,7 +90,7 @@
                     <tr>
                         <th style="padding: 3px 6px">N°</th>
                         <th style="padding: 3px 6px">Semestre</th>
-                        <th style="padding: 3px 6px">Escuela</th>
+                        <th style="padding: 3px 6px">Programa</th>
                         <th style="padding: 3px 6px">Visitantes</th>
                         <th style="padding: 3px 6px">Fecha Inicio</th>
                         <th style="padding: 3px 6px">Fecha Fin</th>

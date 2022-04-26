@@ -24,7 +24,7 @@
             </x-utils.forms.select>
             @if(!is_null($escuelas))
                 <x-utils.forms.select wire:model="escuela">
-                    <option value="0">Todas las escuelas</option>
+                    <option value="0">Todos los programas académicos</option>
                     @foreach($escuelas as $esc)
                         <option value="{{$esc->id}}">{{$esc->nombre}}</option>
                     @endforeach
@@ -46,7 +46,7 @@
                     <x-utils.tables.head>N°</x-utils.tables.head>
                     <x-utils.tables.head>Título</x-utils.tables.head>
                     <x-utils.tables.head>Semestre</x-utils.tables.head>
-                    <x-utils.tables.head>Escuela</x-utils.tables.head>
+                    <x-utils.tables.head>Programa</x-utils.tables.head>
                     <x-utils.tables.head>Inicio</x-utils.tables.head>
                     <x-utils.tables.head>Fin</x-utils.tables.head>
                 @endslot

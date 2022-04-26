@@ -16,7 +16,7 @@
             @slot('head')
                 <x-utils.tables.head>Título</x-utils.tables.head>
                 <x-utils.tables.head>Presupuesto</x-utils.tables.head>
-                <x-utils.tables.head>Escuela</x-utils.tables.head>
+                <x-utils.tables.head>Programa</x-utils.tables.head>
                 <x-utils.tables.head>Estado</x-utils.tables.head>
                 <x-utils.tables.head>Publicación</x-utils.tables.head>
             @endslot

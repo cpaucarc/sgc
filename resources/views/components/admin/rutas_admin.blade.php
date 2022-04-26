@@ -11,7 +11,7 @@
 
             <x-utils.links.nav-link href="{{ route('admin.panel.escuelas') }}"
                                     :active="request()->routeIs('admin.panel.escuelas')">
-                {{ __('Escuelas') }}
+                {{ __('Programas Académicos') }}
             </x-utils.links.nav-link>
 
             <x-utils.links.nav-link href="{{ route('admin.panel.semestres') }}"

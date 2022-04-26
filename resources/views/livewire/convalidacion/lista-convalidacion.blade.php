@@ -40,7 +40,7 @@
                     <x-utils.tables.head>Vacantes</x-utils.tables.head>
                     <x-utils.tables.head>Postulantes</x-utils.tables.head>
                     <x-utils.tables.head>Convalidados</x-utils.tables.head>
-                    <x-utils.tables.head>Escuela</x-utils.tables.head>
+                    <x-utils.tables.head>Programa</x-utils.tables.head>
                     <x-utils.tables.head>Facultad</x-utils.tables.head>
                     <x-utils.tables.head><span class="sr-only">Acciones</span></x-utils.tables.head>
                 @endslot

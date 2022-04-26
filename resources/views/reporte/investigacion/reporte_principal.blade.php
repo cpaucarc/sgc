@@ -78,7 +78,7 @@
     </table>
 
     <p class="font-weight-bold my-0" style="font-size: 13px">Facultad: {{ $facultad }}</p>
-    <p class="font-weight-bold my-0" style="font-size: 13px">Escuela: {{ $escuela }}</p>
+    <p class="font-weight-bold my-0" style="font-size: 13px">Programa Académico: {{ $escuela }}</p>
     <p class="font-weight-bold mb-4" style="font-size: 13px">Estado de la investigación: {{ $estado }}</p>
 
     @foreach($facultades as $facultad)

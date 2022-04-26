@@ -8,7 +8,7 @@
 
     <div class="my-2 space-y-4">
         <div>
-            <x-jet-label for="escuela" value="Escuela"/>
+            <x-jet-label for="escuela" value="Programa académico"/>
             <x-utils.forms.select id="escuela" type="month" class="w-full" wire:model.defer="escuela">
                 @forelse($escuelas as $esc)
                     <option value="{{ $esc->id }}">{{$esc->nombre}}</option>
