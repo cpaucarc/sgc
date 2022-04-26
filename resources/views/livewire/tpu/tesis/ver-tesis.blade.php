@@ -9,7 +9,7 @@
             </div>
 
             <div class="flex-col space-y-1 pt-4 text-sm">
-                <h3 class="font-bold text-gray-400">Escuela</h3>
+                <h3 class="font-bold text-gray-400">Programa Académico</h3>
                 <p class="text-gray-600">{{$tesis->escuela->nombre}}</p>
             </div>
 

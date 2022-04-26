@@ -35,7 +35,7 @@
                 <x-utils.tables.head>Atenciones</x-utils.tables.head>
                 <x-utils.tables.head>Total Comensales</x-utils.tables.head>
                 <x-utils.tables.head>% Atención</x-utils.tables.head>
-                <x-utils.tables.head>Escuela</x-utils.tables.head>
+                <x-utils.tables.head>Programa</x-utils.tables.head>
             @endslot
             @slot('body')
                 @foreach($comedor as $cmd)

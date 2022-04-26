@@ -21,7 +21,7 @@
             @endif
 
             <div class="w-full">
-                <x-jet-label for="escuela" value="Escuela"/>
+                <x-jet-label for="escuela" value="Programa Académico"/>
                 <x-utils.forms.select id="facultad" class="mt-1 block w-full" wire:model="escuela">
                     @foreach($escuelas as $es)
                         <option value="{{ $es->id }}">{{ $es->nombre }}</option>

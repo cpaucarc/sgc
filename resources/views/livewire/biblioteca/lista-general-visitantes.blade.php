@@ -41,7 +41,7 @@
                     <x-utils.tables.head>Finalización</x-utils.tables.head>
                     <x-utils.tables.head>Visitantes</x-utils.tables.head>
                     <x-utils.tables.head>Semestre</x-utils.tables.head>
-                    <x-utils.tables.head>Escuela</x-utils.tables.head>
+                    <x-utils.tables.head>Programa</x-utils.tables.head>
                     <x-utils.tables.head>Facultad</x-utils.tables.head>
                 @endslot
                 @slot('body')

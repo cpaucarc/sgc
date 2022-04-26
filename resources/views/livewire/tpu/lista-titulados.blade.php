@@ -4,7 +4,7 @@
             @slot('head')
                 <x-utils.tables.head>N°</x-utils.tables.head>
                 <x-utils.tables.head>DNI del Estudiante</x-utils.tables.head>
-                <x-utils.tables.head>Escuela</x-utils.tables.head>
+                <x-utils.tables.head>Programa</x-utils.tables.head>
                 <x-utils.tables.head>Fecha de Registro</x-utils.tables.head>
             @endslot
             @slot('body')

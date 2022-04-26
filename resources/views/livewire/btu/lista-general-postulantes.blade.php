@@ -43,7 +43,7 @@
                     <x-utils.tables.head>Postulantes</x-utils.tables.head>
                     <x-utils.tables.head>Beneficiados</x-utils.tables.head>
                     <x-utils.tables.head>Semestre</x-utils.tables.head>
-                    <x-utils.tables.head>Escuela</x-utils.tables.head>
+                    <x-utils.tables.head>Programa</x-utils.tables.head>
                     <x-utils.tables.head>Facultad</x-utils.tables.head>
                     <x-utils.tables.head>Acciones</x-utils.tables.head>
                 @endslot

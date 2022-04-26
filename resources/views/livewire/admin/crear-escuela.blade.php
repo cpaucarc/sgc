@@ -15,19 +15,19 @@
             <div class="space-y-6">
 
                 <div class="w-full">
-                    <x-jet-label for="nombre" value="Nombre de la escuela"/>
+                    <x-jet-label for="nombre" value="Nombre del Programa Académico"/>
                     <x-jet-input id="nombre" class="w-full" type="text" wire:model.defer="nombre"
                                  placeholder="Ej. Enfermeria"/>
                     <x-jet-input-error for="nombre"/>
                 </div>
                 <div class="w-full">
-                    <x-jet-label for="abrev" value="Abreviatura de la escuela"/>
+                    <x-jet-label for="abrev" value="Abreviatura del Programa Académico"/>
                     <x-jet-input id="abrev" type="text" wire:model.defer="abrev" placeholder="Ej. ENF"/>
                     <br>
                     <x-jet-input-error for="abrev"/>
                 </div>
                 <div class="w-full">
-                    <x-jet-label for="facultad" value="Facultad a la que pertenece la escuela"/>
+                    <x-jet-label for="facultad" value="Facultad a la que pertenece el Programa Académico"/>
                     <x-utils.forms.select id="facultad" class="w-full" wire:model="facultad">
                         <option value="0">Seleccione...</option>
                         @foreach($facultades as $fac)
