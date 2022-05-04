@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="pt-4">
-            <x-jet-label for="escuela" value="Escuela"/>
+            <x-jet-label for="escuela" value="Programa Académico"/>
             <x-utils.forms.select id="escuela" class="mt-1 block w-full" wire:model.defer="escuela">
                 <option value="0">Selecciona</option>
                 @foreach($escuelas as $escuela)

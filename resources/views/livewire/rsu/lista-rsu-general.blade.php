@@ -29,7 +29,7 @@
         <x-utils.tables.table>
             @slot('head')
                 <x-utils.tables.head>Título</x-utils.tables.head>
-                <x-utils.tables.head>Escuela</x-utils.tables.head>
+                <x-utils.tables.head>Programa</x-utils.tables.head>
                 <x-utils.tables.head>Lugar</x-utils.tables.head>
                 <x-utils.tables.head>Empresa</x-utils.tables.head>
                 <x-utils.tables.head>Finalización</x-utils.tables.head>

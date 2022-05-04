@@ -6,7 +6,7 @@
             <h2 class="text-gray-700 text-xl font-bold leading-tight">{{$investigacion->titulo}}</h2>
 
             <div class="flex-col space-y-1 text-sm pt-4">
-                <h3 class="font-bold text-gray-400">Escuela</h3>
+                <h3 class="font-bold text-gray-400">Programa Académico</h3>
                 <p class="text-gray-600">{{$investigacion->escuela->nombre}}</p>
             </div>
 
