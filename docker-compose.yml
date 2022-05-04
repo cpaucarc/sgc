@@ -1,81 +1,38 @@
-version: '3'
-
-networks:
-    laravel:
+version: '3.5'
 
 services:
-    nginx:
-        image: nginx:stable-alpine
-        container_name: nginx
+    laravel-app:
+        build:
+            context: '.'
+            args:
+                uid: ${UID}
+        container_name: laravel-app
         ports:
             - "80:80"
-        volumes:
-            - ./src:/var/www/html
-            - ./nginx/default.conf:/etc/nginx/conf.d
-        depends_on:
-            - php
-            - mysql
-        networks:
-            - laravel
-
-    mysql:
-        image: mysql:5.7.29
-        container_name: mysql
-        restart: unless-stopped
-        tty: true
-        ports:
-            - "3306:3306"
         environment:
-            MYSQL_DATABASE: sgc
-            MYSQL_USER: root
-            MYSQL_PASSWORD:
-            MYSQL_ROOT_PASSWORD:
-            SERVICE_TAGS: dev
-            SERVICE_NAME: mysql
-        networks:
-            - laravel
-
-    php:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        container_name: php
+            - APACHE_RUN_USER=#1000
+            - APACHE_RUN_GROUP=#1000
         volumes:
-            - ./src:/var/www/html
-        ports:
-            - "9000:9000"
+            - .:/var/www/html
         networks:
-            - laravel
+            backend:
+                aliases:
+                    - app
 
-    composer:
-        image: composer:latest
-        container_name: composer
+    mysql-db:
+        image: mysql:5.7.29
+        container_name: mysql-db
         volumes:
-            - ./src:/var/www/html
-        working_dir: /var/www/html
-        depends_on:
-            - php
+            - ./run/var:/var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=securerootpassword
+            - MYSQL_DATABASE=${DB_DATABASE}
+            - MYSQL_USER=${DB_USERNAME}
+            - MYSQL_PASSWORD=${DB_PASSWORD}
         networks:
-            - laravel
-
-    npm:
-        image: node:13.7
-        container_name: npm
-        volumes:
-            - ./src:/var/www/html
-        working_dir: /var/www/html
-        entrypoint: [ 'npm' ]
-
-    artisan:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        container_name: artisan
-        volumes:
-            - ./src:/var/www/html
-        depends_on:
-            - mysql
-        working_dir: /var/www/html
-        entrypoint: [ 'php', '/var/www/html/artisan' ]
-        networks:
-            - laravel
+            backend:
+                aliases:
+                    - mysql-db
+networks:
+    backend:
+        name: backend-network
