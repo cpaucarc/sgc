@@ -64,6 +64,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         /*Todo: Convenio*/
         Route::get('convenio', 'convenio')->name('reporte.convenio');
         Route::get('convenio/pdf', 'convenio_reporte')->name('reporte.convenio.pdf');
+        Route::get('convenio_excel', 'convenio_excel')->name('reporte.convenio.excel');
 
         /*Todo: Convalidacion*/
         Route::get('convalidacion', 'convalidacion')->name('reporte.convalidacion');
@@ -77,6 +78,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         /*Todo: Responsabilidad Social*/
         Route::get('rsu', 'rsu')->name('reporte.rsu');
         Route::get('rsu/pdf', 'rsu_reporte')->name('reporte.rsu.pdf');
+        Route::get('rsu/excel', 'rsu_excel')->name('reporte.rsu.excel');
 
         /*Todo: Investigacion */
         Route::get('investigacion', 'investigacion')->name('reporte.investigacion');
@@ -85,6 +87,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         /*Todo: Auditoria */
         Route::get('auditoria', 'auditoria')->name('reporte.auditoria');
         Route::get('auditoria/pdf', 'auditoria_reporte')->name('reporte.auditoria.pdf');
+        Route::get('auditoria/excel', 'auditoria_excel')->name('reporte.auditoria.excel');
 
         /*Todo: Biblioteca*/
         Route::get('biblioteca', 'biblioteca')->name('reporte.biblioteca');

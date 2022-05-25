@@ -5,11 +5,19 @@
                 Reporte Auditorias
             </h1>
             @if( count($auditorias) )
-                <x-utils.links.danger class="text-xs" target="_blank"
-                                      href="{{ route('reporte.auditoria.pdf', ['facultad' => $facultad, 'tipo' => $tipo]) }}">
-                    <x-icons.document class="h-5 w-5 mr-1"/>
-                    PDF
-                </x-utils.links.danger>
+                <div class="flex items-center gap-x-2">
+                    <x-utils.links.danger class="text-xs" target="_blank"
+                                          href="{{ route('reporte.auditoria.pdf', ['facultad' => $facultad, 'tipo' => $tipo]) }}">
+                        <x-icons.document class="h-5 w-5 mr-1"/>
+                        PDF
+                    </x-utils.links.danger>
+
+                    <x-utils.links.success class="text-xs" target="_blank"
+                                           href="{{ route('reporte.auditoria.excel', ['facultad' => $facultad, 'tipo' => $tipo]) }}">
+                        <x-icons.excel class="h-5 w-5 mr-1"/>
+                        Excel
+                    </x-utils.links.success>
+                </div>
             @endif
         </div>
         <hr/>

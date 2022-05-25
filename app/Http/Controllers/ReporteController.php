@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Auditoria;
-use App\Models\Convalidacion;
+use App\Exports\AuditoriaExport;
+use App\Exports\EscuelaExport;
+use App\Exports\RsuExport;
 use App\Models\Convenio;
 use App\Models\Escuela;
 use App\Models\Estado;
 use App\Models\Facultad;
-use App\Models\Investigacion;
 use App\Models\Semestre;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReporteController extends Controller
 {
     public function index()
     {
-
     }
 
     /*Todo: Convenios */
@@ -54,6 +54,13 @@ class ReporteController extends Controller
         return $pdf->setPaper('a3')->stream();
     }
 
+    //FIXME Aun no funciona
+    public function convenio_excel(Request $request)
+    {
+        $facultad = intval($request->input('facultad'));
+        $semestre = intval($request->input('semestre'));
+        return Excel::download(new EscuelaExport($facultad, $semestre), 'escuelas.xlsx');
+    }
 
     /*Todo: Convalidaciones */
     public function convalidacion()
@@ -145,7 +152,14 @@ class ReporteController extends Controller
             'facultades' => $facultades
         ]);
         return $pdf->setPaper('a3')->stream();
+    }
 
+    public function rsu_excel(Request $request)
+    {
+        $facultad = intval($request->input('facultad'));
+        $semestre = intval($request->input('semestre'));
+        $escuela = intval($request->input('escuela'));
+        return Excel::download(new RsuExport($facultad, $escuela, $semestre), $this->generarNombreReporte('rsu'));
     }
 
     /* Auditoria */
@@ -169,20 +183,7 @@ class ReporteController extends Controller
                 $query->where('es_auditoria_interno', $tipo);
             }
         }]);
-//            $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela, $estado) {
-//                if ($escuela > 0) {
-//                    $query->where('id', $escuela);
-//                }
-//                $query->select('id', 'nombre', 'facultad_id')
-//                    ->with(['investigaciones' => function ($q2) use ($estado) {
-//                        $q2->select('id', 'titulo', 'escuela_id', 'estado_id', 'created_at');
-//                        if ($estado > 0) {
-//                            $q2->where('estado_id', $estado);
-//                        }
-//                    }]);
-//                $query->orderBy('nombre');
-//            }]);
-//
+
         if ($facultad > 0) {
             $facultades = $facultades->where('id', $facultad);
         }
@@ -203,6 +204,13 @@ class ReporteController extends Controller
 //        }
     }
 
+    public function auditoria_excel(Request $request)
+    {
+        $facultad = intval($request->input('facultad'));
+        $tipo = intval($request->input('tipo'));
+        return Excel::download(new AuditoriaExport($facultad, $tipo), $this->generarNombreReporte('auditoria'));
+    }
+
     /* Investigacion */
     public function investigacion()
     {
@@ -216,9 +224,7 @@ class ReporteController extends Controller
         $estado = intval($request->input('estado'));
 
         try {
-
             $facultades = Facultad::query()->select('id', 'nombre');
-
 
             $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela, $estado) {
                 if ($escuela > 0) {
@@ -313,23 +319,6 @@ class ReporteController extends Controller
         }
 
         try {
-//            if ($escuela > 0) {
-//                $entidad = Escuela::query()->where('id', $escuela);
-//            } else {
-//                $entidad = Facultad::query()->where('id', $facultad);
-//            }
-//
-//            $entidad = $entidad->withCount('indicadores')->with('indicadores')
-//                ->with(['indicadores.analisis' => function ($query) use ($semestre) {
-//                    if ($semestre > 0) {
-//                        $query->where('semestre_id', $semestre);
-//                    }
-//                }])
-//                ->first();
-//
-//            $semestre_nombre = $semestre === 0 ? 'Todos' : Semestre::query()->where('id', $semestre)->first()->nombre;
-//            $semestre_count = $semestre === 0 ? Semestre::count() : 1;
-
             $pdf = PDF::loadView('reporte.indicador.reporte_por_indicador', [
                 'indicadorable_id' => $indicadorable_id,
                 'facultad' => $facultad,
@@ -502,6 +491,11 @@ class ReporteController extends Controller
             'facultades' => $facultades
         ]);
         return $pdf->setPaper('a3')->stream();
+    }
+
+    private function generarNombreReporte($tipo)
+    {
+        return 'sgcfcm_' . $tipo . '_' . date("Ymd_his") . '.xlsx';
     }
 
 }

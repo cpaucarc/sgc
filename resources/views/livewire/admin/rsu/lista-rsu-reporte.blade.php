@@ -5,13 +5,19 @@
                 Reporte Responsabilidad Social Universitario
             </h1>
             @if(count($rsu))
-                <x-utils.links.danger class="text-xs" target="_blank"
-                                      href="{{ route('reporte.rsu.pdf', [
-                                        'semestre' => $semestre,'facultad' => $facultad,'escuela' => $escuela
-                                    ]) }}">
-                    <x-icons.document class="h-5 w-5 mr-1"/>
-                    PDF
-                </x-utils.links.danger>
+                <div class="flex items-center gap-x-2">
+                    <x-utils.links.danger class="text-xs" target="_blank"
+                                          href="{{ route('reporte.rsu.pdf', ['semestre' => $semestre,'facultad' => $facultad,'escuela' => $escuela]) }}">
+                        <x-icons.document class="h-5 w-5 mr-1"/>
+                        PDF
+                    </x-utils.links.danger>
+
+                    <x-utils.links.success class="text-xs" target="_blank"
+                                           href="{{ route('reporte.rsu.excel', ['semestre' => $semestre,'facultad' => $facultad,'escuela' => $escuela]) }}">
+                        <x-icons.excel class="h-5 w-5 mr-1"/>
+                        Excel
+                    </x-utils.links.success>
+                </div>
             @endif
         </div>
         <hr/>
