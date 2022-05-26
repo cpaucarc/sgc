@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\AuditoriaExport;
 use App\Exports\EscuelaExport;
+use App\Exports\InvestigacionExport;
 use App\Exports\RsuExport;
 use App\Models\Convenio;
 use App\Models\Escuela;
@@ -260,6 +261,14 @@ class ReporteController extends Controller
         } catch (\Exception $e) {
             abort(404, 'Hubo un error inesperado.\\n' . $e);
         }
+    }
+
+    public function investigacion_excel(Request $request)
+    {
+        $facultad = intval($request->input('facultad'));
+        $escuela = intval($request->input('escuela'));
+        $estado = intval($request->input('estado'));
+        return Excel::download(new InvestigacionExport($facultad, $escuela, $estado), $this->generarNombreReporte('investigacion'));
     }
 
     /* Indicador */

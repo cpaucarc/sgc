@@ -83,6 +83,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         /*Todo: Investigacion */
         Route::get('investigacion', 'investigacion')->name('reporte.investigacion');
         Route::get('investigacion/pdf', 'investigacion_reporte')->name('reporte.investigacion.pdf');
+        Route::get('investigacion/excel', 'investigacion_excel')->name('reporte.investigacion.excel');
 
         /*Todo: Auditoria */
         Route::get('auditoria', 'auditoria')->name('reporte.auditoria');
