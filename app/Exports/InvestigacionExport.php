@@ -92,6 +92,7 @@ class InvestigacionExport implements FromCollection, WithMapping, WithHeadings, 
             ['Facultad', $this->facultad === 0 ? 'Todos' : Facultad::find($this->facultad)->nombre],
             ['Escuela', $this->escuela === 0 ? 'Todos' : Escuela::find($this->escuela)->nombre],
             ['Estado', $this->estado === 0 ? 'Todos' : Estado::find($this->estado)->nombre],
+            ['Fecha', now()->format('d/m/Y h:i:s a')],
             ['', ''],
             ['Título', 'Resumen', 'Estado', 'Fecha de Publicación', 'Escuela', 'Facultad', 'Sublínea de Investigación', 'Línea de Investigación', 'Área de Investigación', 'Monto de Financiación', 'N° de Investigadores', 'Fecha de Registro']
         ];
@@ -105,15 +106,17 @@ class InvestigacionExport implements FromCollection, WithMapping, WithHeadings, 
         return [
             // Style the first row as bold text.
             1 => ['font' => ['bold' => true, 'size' => 18]], // fila 1: Titulo del reporte
-            6 => ['font' => ['bold' => true]], // fila 6: Cabecera de la tabla
+            7 => ['font' => ['bold' => true]], // fila 7: Cabecera de la tabla
 
             // Styling a specific cell by coordinate.
             'A2' => ['font' => ['bold' => true]],
             'A3' => ['font' => ['bold' => true]],
             'A4' => ['font' => ['bold' => true]],
+            'A5' => ['font' => ['bold' => true]],
             'B2' => ['font' => ['italic' => true]],
             'B3' => ['font' => ['italic' => true]],
             'B4' => ['font' => ['italic' => true]],
+            'B5' => ['font' => ['italic' => true]],
 
             // Styling an entire column.
 //            'J' => ['' => ['size' => 16]],

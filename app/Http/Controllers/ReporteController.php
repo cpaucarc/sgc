@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\AuditoriaExport;
 use App\Exports\EscuelaExport;
+use App\Exports\IndicadorExport;
 use App\Exports\InvestigacionExport;
 use App\Exports\RsuExport;
 use App\Models\Convenio;
@@ -58,9 +59,13 @@ class ReporteController extends Controller
     //FIXME Aun no funciona
     public function convenio_excel(Request $request)
     {
-        $facultad = intval($request->input('facultad'));
-        $semestre = intval($request->input('semestre'));
-        return Excel::download(new EscuelaExport($facultad, $semestre), 'escuelas.xlsx');
+        try {
+            $facultad = intval($request->input('facultad'));
+            $semestre = intval($request->input('semestre'));
+            return Excel::download(new EscuelaExport($facultad, $semestre), 'escuelas.xlsx');
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
+        }
     }
 
     /*Todo: Convalidaciones */
@@ -157,10 +162,14 @@ class ReporteController extends Controller
 
     public function rsu_excel(Request $request)
     {
-        $facultad = intval($request->input('facultad'));
-        $semestre = intval($request->input('semestre'));
-        $escuela = intval($request->input('escuela'));
-        return Excel::download(new RsuExport($facultad, $escuela, $semestre), $this->generarNombreReporte('rsu'));
+        try {
+            $facultad = intval($request->input('facultad'));
+            $semestre = intval($request->input('semestre'));
+            $escuela = intval($request->input('escuela'));
+            return Excel::download(new RsuExport($facultad, $escuela, $semestre), $this->generarNombreReporte('rsu'));
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
+        }
     }
 
     /* Auditoria */
@@ -174,42 +183,46 @@ class ReporteController extends Controller
         $facultad = intval($request->input('facultad'));
         $tipo = intval($request->input('tipo'));
 
-//        try {
-        $facultades = Facultad::query()
-            ->select('id', 'nombre');
+        try {
+            $facultades = Facultad::query()
+                ->select('id', 'nombre');
 
-        $facultades = $facultades->with(['auditorias' => function ($query) use ($tipo) {
-            $query->withCount('documentos');
-            if ($tipo > -1) {
-                $query->where('es_auditoria_interno', $tipo);
+            $facultades = $facultades->with(['auditorias' => function ($query) use ($tipo) {
+                $query->withCount('documentos');
+                if ($tipo > -1) {
+                    $query->where('es_auditoria_interno', $tipo);
+                }
+            }]);
+
+            if ($facultad > 0) {
+                $facultades = $facultades->where('id', $facultad);
             }
-        }]);
 
-        if ($facultad > 0) {
-            $facultades = $facultades->where('id', $facultad);
+            $facultades = $facultades->orderBy('nombre')->get();
+
+            $facultad_nombre = $facultad === 0 ? 'Todos' : Facultad::where('id', $facultad)->first()->nombre;
+            $tipo_nombre = $tipo === -1 ? 'Todos' : ($tipo === 0 ? 'Auditoria Externa' : 'Auditoria Interna');
+
+            $pdf = PDF::loadView('reporte.auditorias.reporte_principal', [
+                'tipo' => $tipo_nombre,
+                'facultad' => $facultad_nombre,
+                'facultades' => $facultades
+            ]);
+            return $pdf->setPaper('a3')->stream();
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
         }
-
-        $facultades = $facultades->orderBy('nombre')->get();
-
-        $facultad_nombre = $facultad === 0 ? 'Todos' : Facultad::where('id', $facultad)->first()->nombre;
-        $tipo_nombre = $tipo === -1 ? 'Todos' : ($tipo === 0 ? 'Auditoria Externa' : 'Auditoria Interna');
-
-        $pdf = PDF::loadView('reporte.auditorias.reporte_principal', [
-            'tipo' => $tipo_nombre,
-            'facultad' => $facultad_nombre,
-            'facultades' => $facultades
-        ]);
-        return $pdf->setPaper('a3')->stream();
-//        } catch (\Exception $e) {
-//            abort(404, 'Hubo un error inesperado.\\n' . $e);
-//        }
     }
 
     public function auditoria_excel(Request $request)
     {
-        $facultad = intval($request->input('facultad'));
-        $tipo = intval($request->input('tipo'));
-        return Excel::download(new AuditoriaExport($facultad, $tipo), $this->generarNombreReporte('auditoria'));
+        try {
+            $facultad = intval($request->input('facultad'));
+            $tipo = intval($request->input('tipo'));
+            return Excel::download(new AuditoriaExport($facultad, $tipo), $this->generarNombreReporte('auditoria'));
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
+        }
     }
 
     /* Investigacion */
@@ -265,10 +278,14 @@ class ReporteController extends Controller
 
     public function investigacion_excel(Request $request)
     {
-        $facultad = intval($request->input('facultad'));
-        $escuela = intval($request->input('escuela'));
-        $estado = intval($request->input('estado'));
-        return Excel::download(new InvestigacionExport($facultad, $escuela, $estado), $this->generarNombreReporte('investigacion'));
+        try {
+            $facultad = intval($request->input('facultad'));
+            $escuela = intval($request->input('escuela'));
+            $estado = intval($request->input('estado'));
+            return Excel::download(new InvestigacionExport($facultad, $escuela, $estado), $this->generarNombreReporte('investigacion'));
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
+        }
     }
 
     /* Indicador */
@@ -316,6 +333,19 @@ class ReporteController extends Controller
         }
     }
 
+    public function indicador_excel(Request $request)
+    {
+        try {
+            $facultad = intval($request->input('facultad'));
+            $escuela = intval($request->input('escuela'));
+            $semestre = intval($request->input('semestre'));
+            return Excel::download(new IndicadorExport($facultad, $escuela, $semestre), $this->generarNombreReporte('indicador'));
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
+        }
+    }
+
+    // FIXME: No funciona 😢
     public function indicador_por_indicador(Request $request)
     {
         $indicadorable_id = intval($request->input('indicadorable_id'));
@@ -340,7 +370,7 @@ class ReporteController extends Controller
         }
     }
 
-    /*Todo: Biblioteca */
+    /* Biblioteca */
     public function biblioteca()
     {
         return view('admin.biblioteca.general');

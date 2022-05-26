@@ -5,15 +5,23 @@
                 Reporte Indicadores
             </h1>
             @if(!is_null($entidad) and $entidad->indicadores_count)
-                <x-utils.links.danger class="text-xs" target="_blank"
-                                      href="{{ route('reporte.indicador.pdf', [
+                <div class="flex items-center gap-x-2">
+                    <x-utils.links.danger class="text-xs" target="_blank"
+                                          href="{{ route('reporte.indicador.pdf', [
                                                     'semestre' => $semestre,
                                                     'facultad' => $facultad,
                                                     'escuela' => $escuela
                                                 ]) }}">
-                    <x-icons.document class="h-5 w-5 mr-1"/>
-                    PDF
-                </x-utils.links.danger>
+                        <x-icons.document class="h-5 w-5 mr-1"/>
+                        PDF
+                    </x-utils.links.danger>
+
+                    <x-utils.links.success class="text-xs" target="_blank"
+                                           href="{{ route('reporte.indicador.excel', ['semestre' => $semestre,'facultad' => $facultad,'escuela' => $escuela]) }}">
+                        <x-icons.excel class="h-5 w-5 mr-1"/>
+                        Excel
+                    </x-utils.links.success>
+                </div>
             @endif
         </div>
         <hr/>

@@ -67,6 +67,7 @@ class AuditoriaExport implements FromCollection, WithMapping, WithHeadings, With
             ['Reporte Auditorias'],
             ['Facultad', $this->facultad === 0 ? 'Todos' : Facultad::find($this->facultad)->nombre],
             ['Tipo', $this->tipo === -1 ? 'Todos' : ($this->tipo === 0 ? 'Auditoria Externa' : 'Auditoria Interna')],
+            ['Fecha', now()->format('d/m/Y h:i:s a')],
             ['', ''],
             ['Tipo de Auditoria ', 'Responsable', 'Documentos Adjuntos', 'Realización']
         ];
@@ -80,13 +81,15 @@ class AuditoriaExport implements FromCollection, WithMapping, WithHeadings, With
         return [
             // Style the first row as bold text.
             1 => ['font' => ['bold' => true, 'size' => 18]], // fila 1: Titulo del reporte
-            5 => ['font' => ['bold' => true]], // fila 5: Cabecera de la tabla
+            6 => ['font' => ['bold' => true]], // fila 6: Cabecera de la tabla
 
             // Styling a specific cell by coordinate.
             'A2' => ['font' => ['bold' => true]],
             'A3' => ['font' => ['bold' => true]],
+            'A4' => ['font' => ['bold' => true]],
             'B2' => ['font' => ['italic' => true]],
             'B3' => ['font' => ['italic' => true]],
+            'B4' => ['font' => ['italic' => true]],
 
             // Styling an entire column.
 //            'C' => ['font' => ['size' => 16]],

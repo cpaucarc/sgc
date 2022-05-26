@@ -73,6 +73,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         /*Todo: Indicador */
         Route::get('indicador', 'indicador')->name('reporte.indicador');
         Route::get('indicador/pdf', 'indicador_reporte')->name('reporte.indicador.pdf');
+        Route::get('indicador/excel', 'indicador_excel')->name('reporte.indicador.excel');
         Route::get('indicador/detalle/pdf', 'indicador_por_indicador')->name('reporte.detalle.pdf');
 
         /*Todo: Responsabilidad Social*/

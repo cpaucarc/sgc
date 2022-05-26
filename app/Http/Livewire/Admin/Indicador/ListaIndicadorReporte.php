@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class ListaIndicadorReporte extends Component
 {
-    public $facultades = null, $facultad = 1;
+    public $facultades = null, $facultad = 8;
     public $semestres = null, $semestre = 0;
     public $escuelas = null, $escuela = 0;
 
