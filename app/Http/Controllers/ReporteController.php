@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\AuditoriaExport;
+use App\Exports\ConvalidacionExport;
 use App\Exports\EscuelaExport;
 use App\Exports\IndicadorExport;
 use App\Exports\InvestigacionExport;
@@ -116,6 +117,18 @@ class ReporteController extends Controller
             'facultades' => $facultades
         ]);
         return $pdf->setPaper('a3')->stream();
+    }
+
+    public function convalidacion_excel(Request $request)
+    {
+        try {
+            $facultad = intval($request->input('facultad'));
+            $escuela = intval($request->input('escuela'));
+            $semestre = intval($request->input('semestre'));
+            return Excel::download(new ConvalidacionExport($facultad, $escuela, $semestre), $this->generarNombreReporte('convalidacion'));
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
+        }
     }
 
     /* RSU */

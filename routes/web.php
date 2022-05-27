@@ -69,6 +69,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         /*Todo: Convalidacion*/
         Route::get('convalidacion', 'convalidacion')->name('reporte.convalidacion');
         Route::get('convalidacion/pdf', 'convalidacion_reporte')->name('reporte.convalidacion.pdf');
+        Route::get('convalidacion/excel', 'convalidacion_excel')->name('reporte.convalidacion.excel');
 
         /*Todo: Indicador */
         Route::get('indicador', 'indicador')->name('reporte.indicador');
