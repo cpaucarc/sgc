@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\AuditoriaExport;
+use App\Exports\BolsaExport;
 use App\Exports\ConvalidacionExport;
 use App\Exports\ConvenioExport;
 use App\Exports\EscuelaExport;
@@ -32,33 +33,37 @@ class ReporteController extends Controller
 
     public function convenio_reporte(Request $request)
     {
-        $facultad = intval($request->input('facultad'));
-        $semestre = intval($request->input('semestre'));
+        try {
+            $facultad = intval($request->input('facultad'));
+            $semestre = intval($request->input('semestre'));
 
-        $convenios = Convenio::query()
-            ->with('semestre', 'facultad')
-            ->orderBy('semestre_id', 'desc')
-            ->orderBy(Facultad::select('nombre')->whereColumn('facultades.id', 'convenios.facultad_id'));
+            $convenios = Convenio::query()
+                ->with('semestre', 'facultad')
+                ->orderBy('semestre_id', 'desc')
+                ->orderBy(Facultad::select('nombre')->whereColumn('facultades.id', 'convenios.facultad_id'));
 
-        if ($facultad > 0) {
-            $convenios = $convenios->where('facultad_id', $facultad);
+            if ($facultad > 0) {
+                $convenios = $convenios->where('facultad_id', $facultad);
+            }
+            if ($semestre > 0) {
+                $convenios = $convenios->where('semestre_id', $semestre);
+            }
+            $convenios = $convenios->get();
+
+            $facultad_nombre = $facultad === 0 ? 'Todos' : Facultad::query()->where('id', $facultad)->first()->nombre;
+            $semestre_nombre = $semestre === 0 ? 'Todos' : Semestre::query()->where('id', $semestre)->first()->nombre;
+
+            $pdf = PDF::loadView('reporte.convenio.reporte_principal', [
+                'convenios' => $convenios,
+                'facultad' => $facultad_nombre,
+                'semestre' => $semestre_nombre]);
+            return $pdf->setPaper('a3')->stream();
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
         }
-        if ($semestre > 0) {
-            $convenios = $convenios->where('semestre_id', $semestre);
-        }
-        $convenios = $convenios->get();
-
-        $facultad_nombre = $facultad === 0 ? 'Todos' : Facultad::query()->where('id', $facultad)->first()->nombre;
-        $semestre_nombre = $semestre === 0 ? 'Todos' : Semestre::query()->where('id', $semestre)->first()->nombre;
-
-        $pdf = PDF::loadView('reporte.convenio.reporte_principal', [
-            'convenios' => $convenios,
-            'facultad' => $facultad_nombre,
-            'semestre' => $semestre_nombre]);
-        return $pdf->setPaper('a3')->stream();
     }
 
-        public function convenio_excel(Request $request)
+    public function convenio_excel(Request $request)
     {
         try {
             $facultad = intval($request->input('facultad'));
@@ -465,7 +470,7 @@ class ReporteController extends Controller
         return $pdf->setPaper('a3')->stream();
     }
 
-    /*Todo: Biblioteca */
+    /*Todo: Bolsa de Trabajo */
     public function bolsa()
     {
         return view('admin.bolsa.general');
@@ -473,40 +478,55 @@ class ReporteController extends Controller
 
     public function bolsa_reporte(Request $request)
     {
+        try {
+            $facultad = intval($request->input('facultad'));
+            $semestre = intval($request->input('semestre'));
+            $escuela = intval($request->input('escuela'));
 
-        $facultad = intval($request->input('facultad'));
-        $semestre = intval($request->input('semestre'));
-        $escuela = intval($request->input('escuela'));
+            $facultades = Facultad::query()->orderBy('nombre')
+                ->select('id', 'nombre')
+                ->with('escuelas.bolsaPostulante.semestre');
 
-        $facultades = Facultad::query()->orderBy('nombre')
-            ->select('id', 'nombre')
-            ->with('escuelas.bolsaPostulante.semestre');
+            if ($escuela > 0) {
+                $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela) {
+                    $query->where('id', $escuela);
+                }]);
+            }
 
-        if ($escuela > 0) {
-            $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela) {
-                $query->where('id', $escuela);
-            }]);
+            if ($semestre > 0) {
+                $facultades = $facultades->with(['escuelas.bolsaPostulante' => function ($query) use ($semestre) {
+                    $query->where('semestre_id', $semestre);
+                }]);
+            }
+
+            if ($facultad > 0) {
+                $facultades = $facultades->where('id', $facultad);
+            }
+
+            $facultades = $facultades->get();
+
+            $semestre_nombre = $semestre === 0 ? 'Todos' : Semestre::query()->where('id', $semestre)->first()->nombre;
+
+            $pdf = PDF::loadView('reporte.bolsa.reporte_bolsa_postulantes', [
+                'semestre' => $semestre_nombre,
+                'facultades' => $facultades
+            ]);
+            return $pdf->setPaper('a3')->stream();
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
         }
+    }
 
-        if ($semestre > 0) {
-            $facultades = $facultades->with(['escuelas.bolsaPostulante' => function ($query) use ($semestre) {
-                $query->where('semestre_id', $semestre);
-            }]);
+    public function bolsa_excel(Request $request)
+    {
+        try {
+            $facultad = intval($request->input('facultad'));
+            $semestre = intval($request->input('semestre'));
+            $escuela = intval($request->input('escuela'));
+            return Excel::download(new BolsaExport($facultad, $escuela, $semestre), $this->generarNombreReporte('bolsa_de_trabajo'));
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
         }
-
-        if ($facultad > 0) {
-            $facultades = $facultades->where('id', $facultad);
-        }
-
-        $facultades = $facultades->get();
-
-        $semestre_nombre = $semestre === 0 ? 'Todos' : Semestre::query()->where('id', $semestre)->first()->nombre;
-
-        $pdf = PDF::loadView('reporte.bolsa.reporte_bolsa_postulantes', [
-            'semestre' => $semestre_nombre,
-            'facultades' => $facultades
-        ]);
-        return $pdf->setPaper('a3')->stream();
     }
 
     /*Todo: Bienestar Universitario */

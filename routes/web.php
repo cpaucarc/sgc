@@ -64,7 +64,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         /*Todo: Convenio*/
         Route::get('convenio', 'convenio')->name('reporte.convenio');
         Route::get('convenio/pdf', 'convenio_reporte')->name('reporte.convenio.pdf');
-        Route::get('convenio_excel', 'convenio_excel')->name('reporte.convenio.excel');
+        Route::get('convenio/excel', 'convenio_excel')->name('reporte.convenio.excel');
 
         /*Todo: Convalidacion*/
         Route::get('convalidacion', 'convalidacion')->name('reporte.convalidacion');
@@ -100,6 +100,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         /*Todo: Bolsa de trabajo*/
         Route::get('bolsa', 'bolsa')->name('reporte.bolsa');
         Route::get('bolsa/pdf', 'bolsa_reporte')->name('reporte.bolsa.pdf');
+        Route::get('bolsa/excel', 'bolsa_excel')->name('reporte.bolsa.excel');
 
         /*Todo: Bienestar Universitario*/
         Route::get('bienestar-universitario', 'bienestar')->name('reporte.bienestar');
