@@ -5,30 +5,41 @@
                 Reporte Comedor Universitario
             </h1>
             @if(count($comedor))
-                <x-utils.links.danger class="text-xs" target="_blank"
-                                      href="{{ route('reporte.bienestar.pdf', ['facultad' => $facultad,'escuela' => $escuela,'anio'=>$anio
+                <div class="flex items-center gap-x-2">
+                    <x-utils.links.danger class="text-xs" target="_blank"
+                                          href="{{ route('reporte.bienestar.pdf', ['facultad' => $facultad,'escuela' => $escuela,'anio'=>$anio
                                     ]) }}">
-                    <x-icons.document class="h-5 w-5 mr-1"/>
-                    PDF
-                </x-utils.links.danger>
+                        <x-icons.document class="h-5 w-5 mr-1"/>
+                        PDF
+                    </x-utils.links.danger>
+
+                    <x-utils.links.success class="text-xs" target="_blank"
+                                           href="{{ route('reporte.bienestar.excel', ['facultad' => $facultad,'escuela' => $escuela,'anio'=>$anio]) }}">
+                        <x-icons.excel class="h-5 w-5 mr-1"/>
+                        Excel
+                    </x-utils.links.success>
+                </div>
             @endif
         </div>
         <hr/>
-        <div class="flex items-center gap-x-2">
-            <x-utils.forms.select wire:model="facultad">
-                <option value="0">Todas las facultades</option>
-                @foreach($facultades as $fac)
-                    <option value="{{$fac->id}}">{{$fac->nombre}}</option>
-                @endforeach
-            </x-utils.forms.select>
-            @if(!is_null($escuelas))
-                <x-utils.forms.select wire:model="escuela">
-                    <option value="0">Todos los programas académicos</option>
-                    @foreach($escuelas as $esc)
-                        <option value="{{$esc->id}}">{{$esc->nombre}}</option>
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-x-2">
+                <x-utils.forms.select wire:model="facultad">
+                    <option value="0">Todas las facultades</option>
+                    @foreach($facultades as $fac)
+                        <option value="{{$fac->id}}">{{$fac->nombre}}</option>
                     @endforeach
                 </x-utils.forms.select>
-            @endif
+                @if(!is_null($escuelas))
+                    <x-utils.forms.select wire:model="escuela">
+                        <option value="0">Todos los programas académicos</option>
+                        @foreach($escuelas as $esc)
+                            <option value="{{$esc->id}}">{{$esc->nombre}}</option>
+                        @endforeach
+                    </x-utils.forms.select>
+                @endif
+            </div>
+
             <x-utils.forms.select class="w-36" wire:model="anio">
                 <option value="0">Todos los años</option>
                 <option value="2019">2019</option>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\AuditoriaExport;
+use App\Exports\BienestarExport;
 use App\Exports\BolsaExport;
 use App\Exports\ConvalidacionExport;
 use App\Exports\ConvenioExport;
@@ -537,7 +538,6 @@ class ReporteController extends Controller
 
     public function bienestar_reporte(Request $request)
     {
-
         $facultad = intval($request->input('facultad'));
         $escuela = intval($request->input('escuela'));
         $anio = intval($request->input('anio'));
@@ -571,6 +571,18 @@ class ReporteController extends Controller
             'facultades' => $facultades
         ]);
         return $pdf->setPaper('a3')->stream();
+    }
+
+    public function bienestar_excel(Request $request)
+    {
+        try {
+            $facultad = intval($request->input('facultad'));
+            $escuela = intval($request->input('escuela'));
+            $anio = intval($request->input('anio'));
+            return Excel::download(new BienestarExport($facultad, $escuela, $anio), $this->generarNombreReporte('binestar'));
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
+        }
     }
 
     private function generarNombreReporte($tipo)

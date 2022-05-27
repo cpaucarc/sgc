@@ -13,6 +13,7 @@
                         <x-icons.document class="h-5 w-5 mr-1"/>
                         PDF
                     </x-utils.links.danger>
+
                     <x-utils.links.success class="text-xs" target="_blank"
                                            href="{{ route('reporte.bolsa.excel', ['semestre' => $semestre,'facultad' => $facultad,'escuela' => $escuela]) }}">
                         <x-icons.excel class="h-5 w-5 mr-1"/>

@@ -105,6 +105,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         /*Todo: Bienestar Universitario*/
         Route::get('bienestar-universitario', 'bienestar')->name('reporte.bienestar');
         Route::get('bienestar-universitario/pdf', 'bienestar_reporte')->name('reporte.bienestar.pdf');
+        Route::get('bienestar-universitario/excel', 'bienestar_excel')->name('reporte.bienestar.excel');
     });
 
     Route::prefix('actividad')->controller(ActividadController::class)->group(function () {

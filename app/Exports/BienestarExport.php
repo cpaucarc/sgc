@@ -3,8 +3,7 @@
 namespace App\Exports;
 
 use App\Models\BolsaPostulante;
-use App\Models\Convalidacion;
-use App\Models\Convenio;
+use App\Models\Comedor;
 use App\Models\Escuela;
 use App\Models\Facultad;
 use App\Models\Semestre;
@@ -15,17 +14,18 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class BolsaExport implements FromCollection, WithMapping, WithHeadings, WithStyles
+class BienestarExport implements FromCollection, WithMapping, WithHeadings, WithStyles
 {
     use Exportable;
 
-    private $facultad, $escuela, $semestre;
+    private $facultad, $escuela, $anio;
+    private $meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
-    public function __construct($facultad, $escuela, $semestre)
+    public function __construct($facultad, $escuela, $anio)
     {
         $this->facultad = $facultad;
         $this->escuela = $escuela;
-        $this->semestre = $semestre;
+        $this->anio = $anio;
     }
 
     /*
@@ -33,45 +33,43 @@ class BolsaExport implements FromCollection, WithMapping, WithHeadings, WithStyl
      * */
     public function collection()
     {
-        $bolsas = BolsaPostulante::query()
-            ->with('semestre', 'escuela', 'escuela.facultad');
+        $comds = Comedor::query()
+            ->with('escuela', 'escuela.facultad');
 
-        if ($this->semestre > 0) {
-            $bolsas = $bolsas->where('semestre_id', $this->semestre);
+        if ($this->anio > 0) {
+            $comds = $comds->where('anio', $this->anio);
         }
 
         if ($this->escuela > 0) {
-            $bolsas = $bolsas->where('escuela_id', $this->escuela);
+            $comds = $comds->where('escuela_id', $this->escuela);
         } else {
             if ($this->facultad > 0) {
-                $bolsas = $bolsas->whereIn('escuela_id', function ($q) {
+                $comds = $comds->whereIn('escuela_id', function ($q) {
                     $q->select('id')->from('escuelas')->where('facultad_id', $this->facultad);
                 });
             }
         }
 
-        $bolsas = $bolsas->orderBy(Escuela::select('nombre')->whereColumn('escuelas.id', 'bolsa_postulantes.escuela_id'))
-            ->orderBy(Semestre::select('nombre')->whereColumn('semestres.id', 'bolsa_postulantes.semestre_id'))
-            ->orderBy('fecha_inicio')
+        $comds = $comds->orderBy(Escuela::select('nombre')->whereColumn('escuelas.id', 'comedor.escuela_id'))
+            ->orderBy('anio')
+            ->orderBy('mes')
             ->get();
 
-        return $bolsas;
+        return $comds;
     }
 
     /*
      * Recorremos cada registro recuperado en collection()
      * y definimos los registros para cada fila del excel
      * */
-    public function map($bolsa): array
+    public function map($comedor): array
     {
         return [
-            $bolsa->semestre->nombre,
-            $bolsa->fecha_inicio,
-            $bolsa->fecha_fin,
-            $bolsa->postulantes,
-            $bolsa->beneficiados,
-            $bolsa->escuela->nombre,
-            $bolsa->escuela->facultad->nombre
+            $this->meses[$comedor->mes - 1],
+            $comedor->anio,
+            $comedor->atenciones,
+            $comedor->escuela->nombre,
+            $comedor->escuela->facultad->nombre
         ];
     }
 
@@ -81,13 +79,13 @@ class BolsaExport implements FromCollection, WithMapping, WithHeadings, WithStyl
     public function headings(): array
     {
         return [
-            ['Reporte Bolsa de Trabajo'],
+            ['Reporte Comedor Universitario'],
             ['Facultad', $this->facultad === 0 ? 'Todos' : Facultad::find($this->facultad)->nombre],
-            ['Escuela', $this->escuela === 0 ? 'Todos' : Escuela::find($this->escuela)->nombre],
-            ['Semestre', $this->semestre === 0 ? 'Todos' : Semestre::find($this->semestre)->nombre],
+            ['Programa de Estudios', $this->escuela === 0 ? 'Todos' : Escuela::find($this->escuela)->nombre],
+            ['Año', $this->anio === 0 ? 'Todos' : $this->anio],
             ['Fecha', now()->format('d/m/Y h:i:s a')],
             ['', ''],
-            ['Semestre', 'Fecha de Inicio', 'Fecha de Fin', 'Postulantes', 'Beneficiados', 'Escuela', 'Facultad']
+            ['Mes', 'Año', 'Atenciones', 'Programa de Estudios', 'Facultad']
         ];
     }
 
