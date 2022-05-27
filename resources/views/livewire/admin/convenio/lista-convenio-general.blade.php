@@ -5,16 +5,24 @@
                 Reporte Convenios
             </h1>
             @if(count($convenios))
+                <div class="flex items-center gap-x-2">
                 <x-utils.links.danger class="text-xs"
                                       target="_blank"
                                       href="{{ route('reporte.convenio.pdf', ['facultad' => $facultad, 'semestre' => $semestre]) }}">
                     <x-icons.document class="h-5 w-5 mr-1"/>
                     PDF
                 </x-utils.links.danger>
+
+                <x-utils.links.success class="text-xs" target="_blank"
+                                       href="{{ route('reporte.convenio.excel', ['facultad' => $facultad, 'semestre' => $semestre]) }}">
+                    <x-icons.excel class="h-5 w-5 mr-1"/>
+                    Excel
+                </x-utils.links.success>
+        </div>
             @endif
         </div>
         <hr/>
-        <div class="flex items-center gap-x-2">
+        <div class="flex items-center justify-between">
             <x-utils.forms.select wire:model="facultad">
                 <option value="0">Todas las facultades</option>
                 @foreach($facultades as $fac)

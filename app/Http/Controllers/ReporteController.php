@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\AuditoriaExport;
 use App\Exports\ConvalidacionExport;
+use App\Exports\ConvenioExport;
 use App\Exports\EscuelaExport;
 use App\Exports\IndicadorExport;
 use App\Exports\InvestigacionExport;
@@ -57,13 +58,12 @@ class ReporteController extends Controller
         return $pdf->setPaper('a3')->stream();
     }
 
-    //FIXME Aun no funciona
-    public function convenio_excel(Request $request)
+        public function convenio_excel(Request $request)
     {
         try {
             $facultad = intval($request->input('facultad'));
             $semestre = intval($request->input('semestre'));
-            return Excel::download(new EscuelaExport($facultad, $semestre), 'escuelas.xlsx');
+            return Excel::download(new ConvenioExport($facultad, $semestre), $this->generarNombreReporte('convenio'));
         } catch (\Exception $e) {
             abort(404, 'Hubo un error inesperado.\\n' . $e);
         }
@@ -77,46 +77,50 @@ class ReporteController extends Controller
 
     public function convalidacion_reporte(Request $request)
     {
-        $facultad = intval($request->input('facultad'));
-        $escuela = intval($request->input('escuela'));
-        $semestre = intval($request->input('semestre'));
+        try {
+            $facultad = intval($request->input('facultad'));
+            $escuela = intval($request->input('escuela'));
+            $semestre = intval($request->input('semestre'));
 
-        $facultades = Facultad::query()->orderBy('nombre')
-            ->select('id', 'nombre')
-            ->with('escuelas.convalidacion.semestre');
+            $facultades = Facultad::query()->orderBy('nombre')
+                ->select('id', 'nombre')
+                ->with('escuelas.convalidacion.semestre');
 
-        if ($escuela > 0) {
-            $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela) {
-                $query->where('id', $escuela);
-            }]);
-        }
-
-        if ($semestre > 0) {
             if ($escuela > 0) {
-                $facultades = $facultades->with(['escuelas.convalidacion' => function ($query) use ($semestre, $escuela) {
-                    $query->where('semestre_id', $semestre)
-                        ->where('escuela_id', $escuela);
-                }]);
-            } else {
-                $facultades = $facultades->with(['escuelas.convalidacion' => function ($query) use ($semestre) {
-                    $query->where('semestre_id', $semestre);
+                $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela) {
+                    $query->where('id', $escuela);
                 }]);
             }
+
+            if ($semestre > 0) {
+                if ($escuela > 0) {
+                    $facultades = $facultades->with(['escuelas.convalidacion' => function ($query) use ($semestre, $escuela) {
+                        $query->where('semestre_id', $semestre)
+                            ->where('escuela_id', $escuela);
+                    }]);
+                } else {
+                    $facultades = $facultades->with(['escuelas.convalidacion' => function ($query) use ($semestre) {
+                        $query->where('semestre_id', $semestre);
+                    }]);
+                }
+            }
+
+            if ($facultad > 0) {
+                $facultades = $facultades->where('id', $facultad);
+            }
+
+            $facultades = $facultades->get();
+
+            $semestre_nombre = $semestre === 0 ? 'Todos' : Semestre::query()->where('id', $semestre)->first()->nombre;
+
+            $pdf = PDF::loadView('reporte.convalidacion.reporte_principal', [
+                'semestre' => $semestre_nombre,
+                'facultades' => $facultades
+            ]);
+            return $pdf->setPaper('a3')->stream();
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
         }
-
-        if ($facultad > 0) {
-            $facultades = $facultades->where('id', $facultad);
-        }
-
-        $facultades = $facultades->get();
-
-        $semestre_nombre = $semestre === 0 ? 'Todos' : Semestre::query()->where('id', $semestre)->first()->nombre;
-
-        $pdf = PDF::loadView('reporte.convalidacion.reporte_principal', [
-            'semestre' => $semestre_nombre,
-            'facultades' => $facultades
-        ]);
-        return $pdf->setPaper('a3')->stream();
     }
 
     public function convalidacion_excel(Request $request)
@@ -139,38 +143,42 @@ class ReporteController extends Controller
 
     public function rsu_reporte(Request $request)
     {
-        $facultad = intval($request->input('facultad'));
-        $semestre = intval($request->input('semestre'));
-        $escuela = intval($request->input('escuela'));
+        try {
+            $facultad = intval($request->input('facultad'));
+            $semestre = intval($request->input('semestre'));
+            $escuela = intval($request->input('escuela'));
 
-        $facultades = Facultad::query()->orderBy('nombre')
-            ->select('id', 'nombre')
-            ->with('escuelas.rsu.semestre');
+            $facultades = Facultad::query()->orderBy('nombre')
+                ->select('id', 'nombre')
+                ->with('escuelas.rsu.semestre');
 
-        if ($escuela > 0) {
-            $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela) {
-                $query->where('id', $escuela);
-            }]);
+            if ($escuela > 0) {
+                $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela) {
+                    $query->where('id', $escuela);
+                }]);
+            }
+
+            if ($semestre > 0) {
+                $facultades = $facultades->with(['escuelas.rsu' => function ($query) use ($semestre) {
+                    $query->where('semestre_id', $semestre);
+                }]);
+            }
+
+            if ($facultad > 0) {
+                $facultades = $facultades->where('id', $facultad);
+            }
+
+            $facultades = $facultades->get();
+            $semestre_nombre = $semestre === 0 ? 'Todos' : Semestre::query()->where('id', $semestre)->first()->nombre;
+
+            $pdf = PDF::loadView('reporte.rsu.reporte_principal', [
+                'semestre' => $semestre_nombre,
+                'facultades' => $facultades
+            ]);
+            return $pdf->setPaper('a3')->stream();
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
         }
-
-        if ($semestre > 0) {
-            $facultades = $facultades->with(['escuelas.rsu' => function ($query) use ($semestre) {
-                $query->where('semestre_id', $semestre);
-            }]);
-        }
-
-        if ($facultad > 0) {
-            $facultades = $facultades->where('id', $facultad);
-        }
-
-        $facultades = $facultades->get();
-        $semestre_nombre = $semestre === 0 ? 'Todos' : Semestre::query()->where('id', $semestre)->first()->nombre;
-
-        $pdf = PDF::loadView('reporte.rsu.reporte_principal', [
-            'semestre' => $semestre_nombre,
-            'facultades' => $facultades
-        ]);
-        return $pdf->setPaper('a3')->stream();
     }
 
     public function rsu_excel(Request $request)
