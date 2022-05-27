@@ -2,9 +2,9 @@
 
 namespace App\Exports;
 
+use App\Models\BibliotecaVisitante;
 use App\Models\Escuela;
 use App\Models\Facultad;
-use App\Models\ResponsabilidadSocial;
 use App\Models\Semestre;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -13,7 +13,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class RsuExport implements FromCollection, WithMapping, WithHeadings, WithStyles
+class VisitanteExport implements FromCollection, WithMapping, WithHeadings, WithStyles
 {
     use Exportable;
 
@@ -31,51 +31,44 @@ class RsuExport implements FromCollection, WithMapping, WithHeadings, WithStyles
      * */
     public function collection()
     {
-        $rsus = ResponsabilidadSocial::query()
-            ->with('semestre', 'empresa', 'escuela', 'escuela.facultad')
-            ->withCount('participantes');
+        $visitantes = BibliotecaVisitante::query()
+            ->with('semestre', 'escuela', 'escuela.facultad');
 
         if ($this->semestre > 0) {
-            $rsus = $rsus->where('semestre_id', $this->semestre);
+            $visitantes = $visitantes->where('semestre_id', $this->semestre);
         }
 
-        if ($this->escuela > 0) { // hay facultad y escuela
-            $rsus = $rsus->where('escuela_id', $this->escuela);
+        if ($this->escuela > 0) {
+            $visitantes = $visitantes->where('escuela_id', $this->escuela);
         } else {
-            if ($this->facultad > 0) { // solo hay facultad
-                $rsus = $rsus->whereIn('escuela_id', function ($query) {
-                    $query->select('id')->from('escuelas')->where('facultad_id', $this->facultad);
+            if ($this->facultad > 0) {
+                $visitantes = $visitantes->whereIn('escuela_id', function ($q) {
+                    $q->select('id')->from('escuelas')->where('facultad_id', $this->facultad);
                 });
             }
         }
 
-        $rsus = $rsus
-            ->orderBy(Escuela::select('nombre')->whereColumn('escuelas.id', 'responsabilidad_social.escuela_id'))
-            ->orderBy(Semestre::select('nombre')->whereColumn('semestres.id', 'responsabilidad_social.semestre_id'))
-            ->orderBy('titulo')
+        $visitantes = $visitantes->orderBy(Escuela::select('nombre')->whereColumn('escuelas.id', 'biblioteca_visitantes.escuela_id'))
+            ->orderBy(Semestre::select('nombre')->whereColumn('semestres.id', 'biblioteca_visitantes.semestre_id'))
+            ->orderBy('fecha_inicio')
             ->get();
 
-        return $rsus;
+        return $visitantes;
     }
 
     /*
      * Recorremos cada registro recuperado en collection()
      * y definimos los registros para cada fila del excel
      * */
-    public function map($rsu): array
+    public function map($visitante): array
     {
         return [
-            $rsu->titulo,
-            $rsu->descripcion,
-            $rsu->semestre->nombre,
-            $rsu->escuela->nombre,
-            $rsu->escuela->facultad->nombre,
-            $rsu->participantes_count > 0 ? $rsu->participantes_count : '0',
-            $rsu->lugar,
-            $rsu->empresa ? $rsu->empresa->nombre : 'Ninguno',
-            $rsu->fecha_inicio->format('d/m/Y'),
-            $rsu->fecha_fin->format('d/m/Y'),
-            $rsu->created_at->format('d/m/Y h:i a'),
+            $visitante->semestre->nombre,
+            $visitante->fecha_inicio->format('d/m/Y'),
+            $visitante->fecha_fin->format('d/m/Y'),
+            $visitante->visitantes,
+            $visitante->escuela->nombre,
+            $visitante->escuela->facultad->nombre
         ];
     }
 
@@ -85,13 +78,13 @@ class RsuExport implements FromCollection, WithMapping, WithHeadings, WithStyles
     public function headings(): array
     {
         return [
-            ['Reporte Responsabilidad Social'],
+            ['Reporte Visitantes de la Biblioteca'],
             ['Facultad', $this->facultad === 0 ? 'Todos' : Facultad::find($this->facultad)->nombre],
             ['Programa de Estudios', $this->escuela === 0 ? 'Todos' : Escuela::find($this->escuela)->nombre],
             ['Semestre', $this->semestre === 0 ? 'Todos' : Semestre::find($this->semestre)->nombre],
             ['Fecha', now()->format('d/m/Y h:i:s a')],
             ['', ''],
-            ['Título', 'Descripción', 'Semestre', 'Programa de Estudios', 'Facultad', 'Participantes', 'Lugar', 'Empresa', 'Fecha de Inicio', 'Fecha de Fin', 'Fecha de Registro']
+            ['Semestre', 'Fecha de Inicio', 'Fecha de Fin', 'Visitantes', 'Programa de Estudios', 'Facultad']
         ];
     }
 
@@ -114,9 +107,6 @@ class RsuExport implements FromCollection, WithMapping, WithHeadings, WithStyles
             'B3' => ['font' => ['italic' => true]],
             'B4' => ['font' => ['italic' => true]],
             'B5' => ['font' => ['italic' => true]],
-
-            // Styling an entire column.
-//            'C' => ['font' => ['size' => 16]],
         ];
     }
 }

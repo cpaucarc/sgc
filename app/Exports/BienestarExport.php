@@ -2,11 +2,9 @@
 
 namespace App\Exports;
 
-use App\Models\BolsaPostulante;
 use App\Models\Comedor;
 use App\Models\Escuela;
 use App\Models\Facultad;
-use App\Models\Semestre;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;

@@ -10,7 +10,9 @@ use App\Exports\ConvenioExport;
 use App\Exports\EscuelaExport;
 use App\Exports\IndicadorExport;
 use App\Exports\InvestigacionExport;
+use App\Exports\MaterialExport;
 use App\Exports\RsuExport;
+use App\Exports\VisitanteExport;
 use App\Models\Convenio;
 use App\Models\Escuela;
 use App\Models\Estado;
@@ -405,70 +407,102 @@ class ReporteController extends Controller
 
     public function biblioteca_reporte_material(Request $request)
     {
-        $facultad = intval($request->input('facultad'));
-        $semestre = intval($request->input('semestre'));
+        try {
+            $facultad = intval($request->input('facultad'));
+            $semestre = intval($request->input('semestre'));
 
-        $facultades = Facultad::query()->orderBy('nombre')
-            ->select('id', 'nombre')
-            ->with('materialBibliografico');
+            $facultades = Facultad::query()->orderBy('nombre')
+                ->select('id', 'nombre')
+                ->with('materialBibliografico');
 
-        if ($facultad > 0) {
-            $facultades = $facultades->where('id', $facultad);
+            if ($facultad > 0) {
+                $facultades = $facultades->where('id', $facultad);
+            }
+
+            if ($semestre > 0) {
+                $facultades = $facultades->with(['materialBibliografico' => function ($query) use ($semestre) {
+                    $query->where('semestre_id', $semestre);
+                }]);
+            }
+
+            $facultades = $facultades->get();
+
+            $semestre_nombre = $semestre === 0 ? 'Todos' : Semestre::query()->where('id', $semestre)->first()->nombre;
+
+            $pdf = PDF::loadView('reporte.biblioteca.reporte_material', [
+                'semestre' => $semestre_nombre,
+                'facultades' => $facultades
+            ]);
+            return $pdf->setPaper('a3')->stream();
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
         }
+    }
 
-        if ($semestre > 0) {
-            $facultades = $facultades->with(['materialBibliografico' => function ($query) use ($semestre) {
-                $query->where('semestre_id', $semestre);
-            }]);
+    public function biblioteca_excel_material(Request $request)
+    {
+        try {
+            $facultad = intval($request->input('facultad'));
+            $semestre = intval($request->input('semestre'));
+
+            return Excel::download(new MaterialExport($facultad, $semestre), $this->generarNombreReporte('biblioteca_material'));
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
         }
-
-        $facultades = $facultades->get();
-
-        $semestre_nombre = $semestre === 0 ? 'Todos' : Semestre::query()->where('id', $semestre)->first()->nombre;
-
-        $pdf = PDF::loadView('reporte.biblioteca.reporte_material', [
-            'semestre' => $semestre_nombre,
-            'facultades' => $facultades
-        ]);
-        return $pdf->setPaper('a3')->stream();
     }
 
     public function biblioteca_reporte_visitante(Request $request)
     {
+        try {
+            $facultad = intval($request->input('facultad'));
+            $semestre = intval($request->input('semestre'));
+            $escuela = intval($request->input('escuela'));
 
-        $facultad = intval($request->input('facultad'));
-        $semestre = intval($request->input('semestre'));
-        $escuela = intval($request->input('escuela'));
+            $facultades = Facultad::query()->orderBy('nombre')
+                ->select('id', 'nombre')
+                ->with('escuelas.bibliotecaVisitante.semestre');
 
-        $facultades = Facultad::query()->orderBy('nombre')
-            ->select('id', 'nombre')
-            ->with('escuelas.bibliotecaVisitante.semestre');
+            if ($escuela > 0) {
+                $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela) {
+                    $query->where('id', $escuela);
+                }]);
+            }
 
-        if ($escuela > 0) {
-            $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela) {
-                $query->where('id', $escuela);
-            }]);
+            if ($semestre > 0) {
+                $facultades = $facultades->with(['escuelas.rsu' => function ($query) use ($semestre) {
+                    $query->where('semestre_id', $semestre);
+                }]);
+            }
+
+            if ($facultad > 0) {
+                $facultades = $facultades->where('id', $facultad);
+            }
+
+            $facultades = $facultades->get();
+
+            $semestre_nombre = $semestre === 0 ? 'Todos' : Semestre::query()->where('id', $semestre)->first()->nombre;
+
+            $pdf = PDF::loadView('reporte.biblioteca.reporte_visitantes', [
+                'semestre' => $semestre_nombre,
+                'facultades' => $facultades
+            ]);
+            return $pdf->setPaper('a3')->stream();
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
         }
+    }
 
-        if ($semestre > 0) {
-            $facultades = $facultades->with(['escuelas.rsu' => function ($query) use ($semestre) {
-                $query->where('semestre_id', $semestre);
-            }]);
+    public function biblioteca_excel_visitante(Request $request)
+    {
+        try {
+            $facultad = intval($request->input('facultad'));
+            $semestre = intval($request->input('semestre'));
+            $escuela = intval($request->input('escuela'));
+
+            return Excel::download(new VisitanteExport($facultad, $escuela, $semestre), $this->generarNombreReporte('biblioteca_visitante'));
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
         }
-
-        if ($facultad > 0) {
-            $facultades = $facultades->where('id', $facultad);
-        }
-
-        $facultades = $facultades->get();
-
-        $semestre_nombre = $semestre === 0 ? 'Todos' : Semestre::query()->where('id', $semestre)->first()->nombre;
-
-        $pdf = PDF::loadView('reporte.biblioteca.reporte_visitantes', [
-            'semestre' => $semestre_nombre,
-            'facultades' => $facultades
-        ]);
-        return $pdf->setPaper('a3')->stream();
     }
 
     /*Todo: Bolsa de Trabajo */
@@ -538,39 +572,43 @@ class ReporteController extends Controller
 
     public function bienestar_reporte(Request $request)
     {
-        $facultad = intval($request->input('facultad'));
-        $escuela = intval($request->input('escuela'));
-        $anio = intval($request->input('anio'));
+        try {
+            $facultad = intval($request->input('facultad'));
+            $escuela = intval($request->input('escuela'));
+            $anio = intval($request->input('anio'));
 
-        $facultades = Facultad::query()->orderBy('nombre')
-            ->select('id', 'nombre')
-            ->with('escuelas.comedor');
+            $facultades = Facultad::query()->orderBy('nombre')
+                ->select('id', 'nombre')
+                ->with('escuelas.comedor');
 
-        if ($escuela > 0) {
-            $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela) {
-                $query->where('id', $escuela);
-            }]);
+            if ($escuela > 0) {
+                $facultades = $facultades->with(['escuelas' => function ($query) use ($escuela) {
+                    $query->where('id', $escuela);
+                }]);
+            }
+
+            if ($anio > 0) {
+                $facultades = $facultades->with(['escuelas.comedor' => function ($query) use ($anio) {
+                    $query->where('anio', $anio);
+                }]);
+            }
+
+            if ($facultad > 0) {
+                $facultades = $facultades->where('id', $facultad);
+            }
+
+            $facultades = $facultades->get();
+
+            $anio_nombre = $anio === 0 ? 'Todos' : $anio;
+
+            $pdf = PDF::loadView('reporte.bienestar.reporte_atencion_comedor', [
+                'anio' => $anio_nombre,
+                'facultades' => $facultades
+            ]);
+            return $pdf->setPaper('a3')->stream();
+        } catch (\Exception $e) {
+            abort(404, 'Hubo un error inesperado.\\n' . $e);
         }
-
-        if ($anio > 0) {
-            $facultades = $facultades->with(['escuelas.comedor' => function ($query) use ($anio) {
-                $query->where('anio', $anio);
-            }]);
-        }
-
-        if ($facultad > 0) {
-            $facultades = $facultades->where('id', $facultad);
-        }
-
-        $facultades = $facultades->get();
-
-        $anio_nombre = $anio === 0 ? 'Todos' : $anio;
-
-        $pdf = PDF::loadView('reporte.bienestar.reporte_atencion_comedor', [
-            'anio' => $anio_nombre,
-            'facultades' => $facultades
-        ]);
-        return $pdf->setPaper('a3')->stream();
     }
 
     public function bienestar_excel(Request $request)

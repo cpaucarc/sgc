@@ -80,11 +80,11 @@ class ConvalidacionExport implements FromCollection, WithMapping, WithHeadings, 
         return [
             ['Reporte Convalidaciones'],
             ['Facultad', $this->facultad === 0 ? 'Todos' : Facultad::find($this->facultad)->nombre],
-            ['Escuela', $this->escuela === 0 ? 'Todos' : Escuela::find($this->escuela)->nombre],
+            ['Programa de Estudios', $this->escuela === 0 ? 'Todos' : Escuela::find($this->escuela)->nombre],
             ['Semestre', $this->semestre === 0 ? 'Todos' : Semestre::find($this->semestre)->nombre],
             ['Fecha', now()->format('d/m/Y h:i:s a')],
             ['', ''],
-            ['Semestre', 'Vacantes', 'Postulantes', 'Convalidados', 'Escuela', 'Facultad', 'Fecha de Registro']
+            ['Semestre', 'Vacantes', 'Postulantes', 'Convalidados', 'Programa de Estudios', 'Facultad', 'Fecha de Registro']
         ];
     }
 
@@ -107,9 +107,6 @@ class ConvalidacionExport implements FromCollection, WithMapping, WithHeadings, 
             'B3' => ['font' => ['italic' => true]],
             'B4' => ['font' => ['italic' => true]],
             'B5' => ['font' => ['italic' => true]],
-
-            // Styling an entire column.
-//            'C' => ['font' => ['size' => 16]],
         ];
     }
 }

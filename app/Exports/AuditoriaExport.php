@@ -3,7 +3,6 @@
 namespace App\Exports;
 
 use App\Models\Auditoria;
-use App\Models\Escuela;
 use App\Models\Facultad;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -90,9 +89,6 @@ class AuditoriaExport implements FromCollection, WithMapping, WithHeadings, With
             'B2' => ['font' => ['italic' => true]],
             'B3' => ['font' => ['italic' => true]],
             'B4' => ['font' => ['italic' => true]],
-
-            // Styling an entire column.
-//            'C' => ['font' => ['size' => 16]],
         ];
     }
 }

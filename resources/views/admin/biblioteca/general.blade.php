@@ -6,8 +6,11 @@
             <x-reporte.rutas_reporte/>
         </div>
 
-        <div class="col-span-3 space-y-6 divide-gray-300 divide-dashed">
+        <div class="col-span-3 space-y-8 divide-gray-300 divide-dotted">
             <livewire:admin.biblioteca.lista-material-bibliografico/>
+
+            <hr>
+
             <livewire:admin.biblioteca.lista-visitantes/>
         </div>
     </div>

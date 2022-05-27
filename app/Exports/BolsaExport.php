@@ -3,8 +3,6 @@
 namespace App\Exports;
 
 use App\Models\BolsaPostulante;
-use App\Models\Convalidacion;
-use App\Models\Convenio;
 use App\Models\Escuela;
 use App\Models\Facultad;
 use App\Models\Semestre;
@@ -83,11 +81,11 @@ class BolsaExport implements FromCollection, WithMapping, WithHeadings, WithStyl
         return [
             ['Reporte Bolsa de Trabajo'],
             ['Facultad', $this->facultad === 0 ? 'Todos' : Facultad::find($this->facultad)->nombre],
-            ['Escuela', $this->escuela === 0 ? 'Todos' : Escuela::find($this->escuela)->nombre],
+            ['Programa de Estudios', $this->escuela === 0 ? 'Todos' : Escuela::find($this->escuela)->nombre],
             ['Semestre', $this->semestre === 0 ? 'Todos' : Semestre::find($this->semestre)->nombre],
             ['Fecha', now()->format('d/m/Y h:i:s a')],
             ['', ''],
-            ['Semestre', 'Fecha de Inicio', 'Fecha de Fin', 'Postulantes', 'Beneficiados', 'Escuela', 'Facultad']
+            ['Semestre', 'Fecha de Inicio', 'Fecha de Fin', 'Postulantes', 'Beneficiados', 'Programa de Estudios', 'Facultad']
         ];
     }
 

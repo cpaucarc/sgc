@@ -6,8 +6,6 @@ use App\Models\Escuela;
 use App\Models\Estado;
 use App\Models\Facultad;
 use App\Models\Investigacion;
-use App\Models\ResponsabilidadSocial;
-use App\Models\Semestre;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -90,11 +88,11 @@ class InvestigacionExport implements FromCollection, WithMapping, WithHeadings, 
         return [
             ['Reporte Investigaciones'],
             ['Facultad', $this->facultad === 0 ? 'Todos' : Facultad::find($this->facultad)->nombre],
-            ['Escuela', $this->escuela === 0 ? 'Todos' : Escuela::find($this->escuela)->nombre],
+            ['Programa de Estudios', $this->escuela === 0 ? 'Todos' : Escuela::find($this->escuela)->nombre],
             ['Estado', $this->estado === 0 ? 'Todos' : Estado::find($this->estado)->nombre],
             ['Fecha', now()->format('d/m/Y h:i:s a')],
             ['', ''],
-            ['Título', 'Resumen', 'Estado', 'Fecha de Publicación', 'Escuela', 'Facultad', 'Sublínea de Investigación', 'Línea de Investigación', 'Área de Investigación', 'Monto de Financiación', 'N° de Investigadores', 'Fecha de Registro']
+            ['Título', 'Resumen', 'Estado', 'Fecha de Publicación', 'Programa de Estudios', 'Facultad', 'Sublínea de Investigación', 'Línea de Investigación', 'Área de Investigación', 'Monto de Financiación', 'N° de Investigadores', 'Fecha de Registro']
         ];
     }
 
@@ -117,9 +115,6 @@ class InvestigacionExport implements FromCollection, WithMapping, WithHeadings, 
             'B3' => ['font' => ['italic' => true]],
             'B4' => ['font' => ['italic' => true]],
             'B5' => ['font' => ['italic' => true]],
-
-            // Styling an entire column.
-//            'J' => ['' => ['size' => 16]],
         ];
     }
 }

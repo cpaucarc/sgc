@@ -2,8 +2,8 @@
 
 namespace App\Exports;
 
-use App\Models\Convenio;
 use App\Models\Facultad;
+use App\Models\MaterialBibliografico;
 use App\Models\Semestre;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ConvenioExport implements FromCollection, WithMapping, WithHeadings, WithStyles
+class MaterialExport implements FromCollection, WithMapping, WithHeadings, WithStyles
 {
     use Exportable;
 
@@ -29,37 +29,41 @@ class ConvenioExport implements FromCollection, WithMapping, WithHeadings, WithS
      * */
     public function collection()
     {
-        $convenios = Convenio::query()
+        $materiales = MaterialBibliografico::query()
             ->with('semestre', 'facultad');
 
         if ($this->semestre > 0) {
-            $convenios = $convenios->where('semestre_id', $this->semestre);
+            $materiales = $materiales->where('semestre_id', $this->semestre);
         }
 
         if ($this->facultad > 0) {
-            $convenios = $convenios->where('facultad_id', $this->facultad);
+            $materiales = $materiales->where('facultad_id', $this->facultad);
         }
 
-        $convenios = $convenios->orderBy(Facultad::select('nombre')->whereColumn('facultades.id', 'convenios.facultad_id'))
-            ->orderBy(Semestre::select('nombre')->whereColumn('semestres.id', 'convenios.semestre_id'))
+        $materiales = $materiales->orderBy(Facultad::select('nombre')->whereColumn('facultades.id', 'material_bibliografico.facultad_id'))
+            ->orderBy(Semestre::select('nombre')->whereColumn('semestres.id', 'material_bibliografico.semestre_id'))
+            ->orderBy('fecha_inicio')
             ->get();
 
-        return $convenios;
+        return $materiales;
     }
 
     /*
      * Recorremos cada registro recuperado en collection()
      * y definimos los registros para cada fila del excel
      * */
-    public function map($convenio): array
+    public function map($material): array
     {
         return [
-            $convenio->semestre->nombre,
-            $convenio->realizados,
-            $convenio->vigentes,
-            $convenio->culminados,
-            $convenio->facultad->nombre,
-            $convenio->created_at->format('d/m/Y h:i a'),
+            $material->semestre->nombre,
+            $material->fecha_inicio->format('d/m/Y'),
+            $material->fecha_fin->format('d/m/Y'),
+            $material->adquirido,
+            $material->prestado,
+            $material->perdido,
+            $material->restaurados,
+            $material->total_libros,
+            $material->facultad->nombre
         ];
     }
 
@@ -69,12 +73,12 @@ class ConvenioExport implements FromCollection, WithMapping, WithHeadings, WithS
     public function headings(): array
     {
         return [
-            ['Reporte Convenios'],
+            ['Reporte Material Bibliográfico'],
             ['Facultad', $this->facultad === 0 ? 'Todos' : Facultad::find($this->facultad)->nombre],
             ['Semestre', $this->semestre === 0 ? 'Todos' : Semestre::find($this->semestre)->nombre],
             ['Fecha', now()->format('d/m/Y h:i:s a')],
             ['', ''],
-            ['Semestre', 'Realizados', 'Vigentes', 'Culminados', 'Facultad', 'Fecha de Registro']
+            ['Semestre', 'Fecha de Inicio', 'Fecha de Fin', 'Adquirido', 'Prestado', 'Perdido', 'Restaurado', 'Total de Libros', 'Facultad']
         ];
     }
 

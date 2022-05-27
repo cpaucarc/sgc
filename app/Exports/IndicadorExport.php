@@ -4,9 +4,6 @@ namespace App\Exports;
 
 use App\Models\Escuela;
 use App\Models\Facultad;
-use App\Models\Indicador;
-use App\Models\Proceso;
-use App\Models\ResponsabilidadSocial;
 use App\Models\Semestre;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -81,7 +78,7 @@ class IndicadorExport implements FromCollection, WithMapping, WithHeadings, With
     {
         return [
             ['Reporte Indicadores'],
-            [($this->escuela === 0 ? 'Facultad' : 'Escuela'),
+            [($this->escuela === 0 ? 'Facultad' : 'Programa de Estudios'),
                 ($this->escuela === 0 ? Facultad::find($this->facultad)->nombre : Escuela::find($this->escuela)->nombre)
             ],
             ['Semestre', $this->semestre === 0 ? 'Todos' : Semestre::find($this->semestre)->nombre],
@@ -108,9 +105,6 @@ class IndicadorExport implements FromCollection, WithMapping, WithHeadings, With
             'B2' => ['font' => ['italic' => true]],
             'B3' => ['font' => ['italic' => true]],
             'B4' => ['font' => ['italic' => true]],
-
-            // Styling an entire column.
-//            'C' => ['font' => ['size' => 16]],
         ];
     }
 }

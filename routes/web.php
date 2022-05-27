@@ -95,7 +95,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         /*Todo: Biblioteca*/
         Route::get('biblioteca', 'biblioteca')->name('reporte.biblioteca');
         Route::get('biblioteca/material/pdf', 'biblioteca_reporte_material')->name('reporte.biblioteca.material.pdf');
+        Route::get('biblioteca/material/excel', 'biblioteca_excel_material')->name('reporte.biblioteca.material.excel');
         Route::get('biblioteca/visitante/pdf', 'biblioteca_reporte_visitante')->name('reporte.biblioteca.visitante.pdf');
+        Route::get('biblioteca/visitante/excel', 'biblioteca_excel_visitante')->name('reporte.biblioteca.visitante.excel');
 
         /*Todo: Bolsa de trabajo*/
         Route::get('bolsa', 'bolsa')->name('reporte.bolsa');
