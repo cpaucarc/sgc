@@ -14,8 +14,11 @@ return new class extends Migration {
     {
         Schema::create('solicitudes', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid',40);
             $table->string('dni_estudiante', 8);//<=>OGE
-
+            $table->foreignId('escuela_id')->constrained('escuelas')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->foreignId('tipo_solicitud_id')->constrained('tipo_solicitud')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();

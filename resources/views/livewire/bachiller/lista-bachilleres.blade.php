@@ -1,10 +1,5 @@
 <div>
 
-    {{--    <br>--}}
-    {{--    <x-utils.dd>--}}
-    {{--        {{ $bachilleres }}--}}
-    {{--    </x-utils.dd>--}}
-
     @if(count($bachilleres))
         <x-utils.tables.table>
             @slot('head')
