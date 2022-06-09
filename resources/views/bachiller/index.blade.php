@@ -1,56 +1,40 @@
 <x-app-layout>
 
-    <div class="w-3/4 mx-auto">
-        <div class="flex items-center justify-between mb-4">
-            <h1 class="font-bold text-xl text-gray-800">
-                Estudiantes con grado de bachiller
-            </h1>
-            <div class="relative">
-                <x-utils.links.primary href="{{ route('bachiller.requests') }}">
-                    <x-icons.people class="h-5 w-5 mr-1" stroke="1.5"></x-icons.people>
-                    Revisar solicitudes
-                </x-utils.links.primary>
+    <div class="grid grid-cols-6 gap-12 pt-8">
+        <div class="col-span-2 space-y-4">
+            <div class="space-y-8 divide-gray-300 divide-dashed">
+                <div class="text-right">
+                    <p class="text-gray-500">Estudiantes de la</p>
+                    <h1 class="font-bold text-2xl text-gray-700">
+                        @if($escuela)
+                            escuela {{$escuela->nombre}}
+                        @else
+                            facultad de {{$facultad->nombre}}
+                        @endif
+                    </h1>
+                    <p class="text-gray-500">con grado de bachiller</p>
+                    <p class="text-gray-500 font-semibold text-sm mt-4">{{ $bachilleres }} bachilleres en total</p>
+                </div>
+                <hr>
+                <div class="space-y-6">
+                    <x-bachiller.card-solicitudes
+                        estado="incompletas"
+                        :cantidad="$incompletas"
+                        href="{{ route('bachiller.solicitudes.incompletas') }}"
+                    />
+                    <x-bachiller.card-solicitudes
+                        estado="completas"
+                        :cantidad="$completas"
+                        href="{{ route('bachiller.solicitudes.completas') }}"
+                    />
+                </div>
+
             </div>
         </div>
-            <br>
-            <x-utils.dd>
-                Bachilleres: {{ $bachilleres->count() }}
-                <br>
-                Solicitudes Incompletas: {{$solicitudesIncompletas->count()}}
-                <br>
-                Solicitudes Completas: {{$solicitudesCompletas}}
-                <br>
-                Facultad: {{$facultades}}
-                <br>
-                Escuelas: {{$escuelas}}
-            </x-utils.dd>
-{{--        <livewire:bachiller.lista-bachilleres :escuela="$escuela_id"/>--}}
+
+        <div class="col-span-4 space-y-6">
+            <livewire:bachiller.lista-bachilleres :escuela="$escuela" :facultad="$facultad"/>
+        </div>
     </div>
 
-
-{{--    <div class="space-y-8 divide-y divide-gray-300 divide-dashed">
-            <div class="grid grid-cols-6 gap-12 pt-8">
-                <div class="col-span-2 text-right space-y-4">
-                    <div>
-                        <p class="text-gray-500">Estudiantes de</p>
-                        <h1 class="font-bold text-2xl text-gray-700">
-                            {{$ent['nombre']}}
-                        </h1>
-                    </div>
-                    <p class="text-gray-500 font-semibold text-sm">{{ $ent['count'] }} indicadores en total</p>
-                </div>
-
-                <div class="col-span-4 space-y-6">
-                    <div class="grid grid-cols-2 gap-y-6 gap-x-8">
-                        @foreach($ent["data"] as $id => $proc)
-                            <x-indicador.card-proceso-indicador
-                                :proceso="$proc['proceso']"
-                                :cantidad="$proc['cantidad']"
-                                href="{{ route('indicador.proceso', [$id, $ent['tipo'], $ent['uuid']]) }}"
-                            />
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-    </div>--}}
 </x-app-layout>
