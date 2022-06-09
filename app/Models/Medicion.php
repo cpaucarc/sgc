@@ -3,21 +3,11 @@
 namespace App\Models;
 
 use App\Lib\MedicionHelper;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class Medicion
 {
-    public static function getResultados($interes = null, $total = null, $resultado = null)
-    {
-        if (is_null($interes) || is_null($total)) {
-            return array('interes' => null, 'total' => null, 'resultado' => is_null($resultado) ? 0 : $resultado);
-        }
-
-        return array('interes' => $interes, 'total' => $total, 'resultado' => $total == 0 ? 0 : round($interes / $total * 100));
-    }
 
     /* IND 01 - Gestion de la Calidad
      * Objetivo: Medir el porcentaje de avance mensual de las actividades programadas en el plan de trabajo.
@@ -54,7 +44,7 @@ class Medicion
             ->whereIn('responsable_id', $callback)
             ->count();
 
-        return Medicion::getResultados($interes, $total);
+        return MedicionHelper::getArrayResultados($interes, $total);
     }
 
     /* IND 09 - Biblioteca
@@ -69,7 +59,7 @@ class Medicion
         $resultado = MedicionHelper::medicionMatBibliografico($facultad_id, $fecha_inicio, $fecha_fin)
             ->sum('adquirido');
 
-        return Medicion::getResultados(null, null, $resultado);
+        return MedicionHelper::getArrayResultados(null, null, $resultado);
     }
 
     /* IND 10 - Biblioteca
@@ -84,7 +74,7 @@ class Medicion
         $resultado = MedicionHelper::medicionMatBibliografico($facultad_id, $fecha_inicio, $fecha_fin)
             ->sum('prestado');
 
-        return Medicion::getResultados(null, null, $resultado);
+        return MedicionHelper::getArrayResultados(null, null, $resultado);
     }
 
     /* IND 11 - Biblioteca
@@ -99,7 +89,7 @@ class Medicion
         $resultado = MedicionHelper::medicionMatBibliografico($facultad_id, $fecha_inicio, $fecha_fin)
             ->sum('perdido');
 
-        return Medicion::getResultados(null, null, $resultado);
+        return MedicionHelper::getArrayResultados(null, null, $resultado);
     }
 
     public static function ind12($escuela_id, $fecha_inicio, $fecha_fin)
@@ -171,7 +161,7 @@ class Medicion
         $resultado = MedicionHelper::medicionMatBibliografico($facultad_id, $fecha_inicio, $fecha_fin)
             ->sum('restaurados');
 
-        return Medicion::getResultados(null, null, $resultado);
+        return MedicionHelper::getArrayResultados(null, null, $resultado);
     }
 
     public static function ind17($escuela_id, $fecha_inicio, $fecha_fin)
