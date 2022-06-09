@@ -92,11 +92,16 @@ class Medicion
         return MedicionHelper::getArrayResultados(null, null, $resultado);
     }
 
+    /* IND 12 - Biblioteca
+     * Objetivo: Saber la cantidad de visitantes a la biblioteca de la universidad.
+     * Formula: X = N° de visitantes a la biblioteca por programa de estudios
+     * Interes: -
+     * Total: -
+     * Resultado: N° Visitantes a la Biblioteca
+     * */
     public static function ind12($escuela_id, $fecha_inicio, $fecha_fin)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
-        $resultados['resultado'] = BibliotecaVisitante::query()
+        $resultado = BibliotecaVisitante::query()
             ->where('escuela_id', $escuela_id)
             ->where(function ($query) use ($fecha_inicio, $fecha_fin) {
                 $query->where(function ($q1) use ($fecha_inicio, $fecha_fin) {
@@ -114,9 +119,7 @@ class Medicion
             })
             ->sum('visitantes');
 
-        $resultados['resultado'] = is_null($resultados['resultado']) ? 0 : $resultados['resultado'];
-
-        return $resultados;
+        return MedicionHelper::getArrayResultados(null, null, $resultado);
     }
 
     /* IND 13 - Biblioteca
