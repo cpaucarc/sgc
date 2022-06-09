@@ -13,7 +13,7 @@ class Medicion
     public static function getResultados($interes = null, $total = null, $resultado = null)
     {
         if (is_null($interes) || is_null($total)) {
-            return array('interes' => null, 'total' => null, 'resultado' => $resultado);
+            return array('interes' => null, 'total' => null, 'resultado' => is_null($resultado) ? 0 : $resultado);
         }
 
         return array('interes' => $interes, 'total' => $total, 'resultado' => $total == 0 ? 0 : round($interes / $total * 100));
@@ -68,7 +68,6 @@ class Medicion
     {
         $resultado = MedicionHelper::medicionMatBibliografico($facultad_id, $fecha_inicio, $fecha_fin)
             ->sum('adquirido');
-        $resultado = is_null($resultado) ? 0 : $resultado;
 
         return Medicion::getResultados(null, null, $resultado);
     }
@@ -84,7 +83,6 @@ class Medicion
     {
         $resultado = MedicionHelper::medicionMatBibliografico($facultad_id, $fecha_inicio, $fecha_fin)
             ->sum('prestado');
-        $resultado = is_null($resultado) ? 0 : $resultado;
 
         return Medicion::getResultados(null, null, $resultado);
     }
@@ -100,7 +98,6 @@ class Medicion
     {
         $resultado = MedicionHelper::medicionMatBibliografico($facultad_id, $fecha_inicio, $fecha_fin)
             ->sum('perdido');
-        $resultado = is_null($resultado) ? 0 : $resultado;
 
         return Medicion::getResultados(null, null, $resultado);
     }
@@ -162,31 +159,19 @@ class Medicion
         return $resultados;
     }
 
+    /* IND 14 - Biblioteca
+     * Objetivo: Saber la cantidad de material bibliográfico restaurado.
+     * Formula: X = Total de material bibliográfico restaurado
+     * Interes: -
+     * Total: -
+     * Resultado: N° Material Bibliográfico Restaurado
+     * */
     public static function ind14($facultad_id, $fecha_inicio, $fecha_fin)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
-        $resultados['resultado'] = MaterialBibliografico::query()
-            ->where('facultad_id', $facultad_id)
-            ->where(function ($query) use ($fecha_inicio, $fecha_fin) {
-                $query->where(function ($q1) use ($fecha_inicio, $fecha_fin) {
-                    $q1->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin])
-                        ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
-                })
-                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
-                        $q2->where('fecha_inicio', '>', $fecha_inicio)
-                            ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
-                    })
-                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
-                        $q2->where('fecha_fin', '<', $fecha_fin)
-                            ->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin]);
-                    });
-            })
+        $resultado = MedicionHelper::medicionMatBibliografico($facultad_id, $fecha_inicio, $fecha_fin)
             ->sum('restaurados');
 
-        $resultados['resultado'] = is_null($resultados['resultado']) ? 0 : $resultados['resultado'];
-
-        return $resultados;
+        return Medicion::getResultados(null, null, $resultado);
     }
 
     public static function ind17($escuela_id, $fecha_inicio, $fecha_fin)
