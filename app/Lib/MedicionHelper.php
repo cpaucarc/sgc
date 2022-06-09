@@ -2,7 +2,9 @@
 
 namespace App\Lib;
 
+use App\Models\Comedor;
 use App\Models\MaterialBibliografico;
+use Illuminate\Support\Facades\DB;
 
 class MedicionHelper
 {
@@ -40,4 +42,15 @@ class MedicionHelper
                     });
             });
     }
+
+    /* Sirve en Medicion.php para calcular IND 17, 19
+     * */
+    public static function medicionComedor($escuela_id, $fecha_inicio, $fecha_fin)
+    {
+        return Comedor::query()
+            ->where('escuela_id', $escuela_id)
+            ->whereBetween('mes', [DB::raw('month("' . $fecha_inicio . '")'), DB::raw('month("' . $fecha_fin . '")')])
+            ->whereBetween('anio', [DB::raw('year("' . $fecha_inicio . '")'), DB::raw('year("' . $fecha_fin . '")')]);
+    }
+
 }
