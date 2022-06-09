@@ -154,22 +154,21 @@ class Medicion
         return MedicionHelper::getArrayResultados(null, null, $resultado);
     }
 
+    /* IND 17 - Bienestar Universitario
+     * Objetivo: Medir el porcentaje de comersales atendidos del total de comesales.
+     * Formula: X = (N° de comensales atendidos por programa)/(Total de comensales por programa) x 100
+     * Interes: N° Comensales Atendidos
+     * Total: N° Total de Comensales
+     * Resultado: Interes / Total * 100
+     * */
     public static function ind17($escuela_id, $fecha_inicio, $fecha_fin)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+        $comedor = MedicionHelper::medicionComedor($escuela_id, $fecha_inicio, $fecha_fin)
+            ->first(array(DB::raw('SUM(atenciones) as sum_atenciones'), DB::raw('SUM(total) as sum_total')));
+        $interes = $comedor->sum_atenciones;
+        $total = $comedor->sum_total;
 
-        $comedor = Comedor::query()
-            ->where('escuela_id', $escuela_id)
-            ->whereBetween('mes', [DB::raw('month("' . $fecha_inicio . '")'), DB::raw('month("' . $fecha_fin . '")')])
-            ->whereBetween('anio', [DB::raw('year("' . $fecha_inicio . '")'), DB::raw('year("' . $fecha_fin . '")')]);
-
-        $resultados['interes'] = $comedor->sum('atenciones');
-        $resultados['total'] = $comedor->sum('total');
-
-        $resultados['resultado'] = is_null($resultados['interes']) ? 0
-            : (is_null($resultados['total']) ? 0 : round($resultados['interes'] / $resultados['total'] * 100));
-
-        return $resultados;
+        return MedicionHelper::getArrayResultados($interes, $total);
     }
 
     public static function ind19($escuela_id, $fecha_inicio, $fecha_fin)
