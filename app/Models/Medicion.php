@@ -9,21 +9,32 @@ use Illuminate\Support\Facades\Http;
 
 class Medicion
 {
-    /*
-        > es_escuela (boolean) : Saber si es una Escuela o Facultad
-        > entidad_id (integer) : Id de la Escuela o Facultad (depende de si es Escuela o Facultad)
-        > fecha_inicio (date) : Rango de inicio de la medición
-        > fecha_fin (date) : Rango de finalizacion de la medición (generalmente HOY)
-    */
+    public static function getResultados($interes = null, $total = null, $resultado = null)
+    {
+        if (is_null($interes) || is_null($total)) {
+            return array('interes' => null, 'total' => null, 'resultado' => $resultado);
+        }
 
+        return array(
+            'interes' => $interes,
+            'total' => $total,
+            'resultado' => $total == 0 ? 0 : round($interes / $total * 200)
+        );
+    }
+
+    /* IND 01 - Gestion de la Calidad
+     * Objetivo: Medir el porcentaje de avance mensual de las actividades programadas en el plan de trabajo.
+     * Formula: X = (N° de actividades cumplidas)/(Total de actividades programadas) x 100
+     * Interes: N° actividades cumplidas
+     * Total: N° actividades programadas
+     * Resultado: Interes / Total * 100
+     * */
     public static function ind01($facultad_id, $fecha_inicio, $fecha_fin)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
         $callback = function ($query) use ($facultad_id) {
             $query->select('id')->from('responsables')
                 ->whereIn('actividad_id', function ($query) {
-                    $query->select('id')->from('actividades')->whereIn('tipo_actividad_id', [1, 2]);
+                    $query->select('id')->from('actividades')->whereIn('tipo_actividad_id', [1, 2]); // 1:Planficar, 2:Hacer
                 })
                 ->whereIn('entidad_id', function ($query2) use ($facultad_id) {
                     $query2->select('entidad_id')->from('entidadables')
@@ -39,14 +50,14 @@ class Medicion
                 });
         };
 
-        $q = ActividadCompletado::query()->whereBetween('created_at', [$fecha_inicio, $fecha_fin]);
+        $total = Responsable::query()->whereIn('id', $callback)->count();
 
-        $resultados['total'] = Responsable::query()->whereIn('id', $callback)->count();
+        $interes = ActividadCompletado::query()
+            ->whereBetween('created_at', [$fecha_inicio, $fecha_fin])
+            ->whereIn('responsable_id', $callback)
+            ->count();
 
-        $resultados['interes'] = $q->whereIn('responsable_id', $callback)->count();
-
-        $resultados['resultado'] = $resultados['total'] == 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
-        return $resultados;
+        return Medicion::getResultados($interes, $total);
     }
 
     public static function ind09($facultad_id, $fecha_inicio, $fecha_fin)
@@ -416,9 +427,13 @@ class Medicion
             // FIXME 04: Cantidad de estudiantes aprobados en cada curso por escuela. -> esta devolviendo un numero Aleatorio
             $rsp = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/04?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            // Cantidad de estudiantes matriculados por escuela
+            $rsp1 = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'proceso_matricula/escuela/01?escuela=' . $escuela_id . '&semestre=' . $semestre);
 
             $resultados['interes'] = intval($rsp->body());
-            $resultados['total'] = $escuela_id === 10 ? 216 : 193; //Enf:193, Obs:216 // FIXME: OGE - Obtener Num de alumnos (aun no esta inplementado en la API)
+
+            $resultados['total'] = intval($rsp1->body());
             $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
         } catch (\Exception $e) {
             $resultados['interes'] = null;
