@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Lib\MedicionHelper;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -15,11 +16,7 @@ class Medicion
             return array('interes' => null, 'total' => null, 'resultado' => $resultado);
         }
 
-        return array(
-            'interes' => $interes,
-            'total' => $total,
-            'resultado' => $total == 0 ? 0 : round($interes / $total * 200)
-        );
+        return array('interes' => $interes, 'total' => $total, 'resultado' => $total == 0 ? 0 : round($interes / $total * 100));
     }
 
     /* IND 01 - Gestion de la Calidad
@@ -60,85 +57,52 @@ class Medicion
         return Medicion::getResultados($interes, $total);
     }
 
+    /* IND 09 - Biblioteca
+     * Objetivo: Conocer la cantidad de material bibliográfico adquirido.
+     * Formula: X = N° de material bibliografico adquirido
+     * Interes: -
+     * Total: -
+     * Resultado: N° Material Bibliográfico Adquirido
+     * */
     public static function ind09($facultad_id, $fecha_inicio, $fecha_fin)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
-        $resultados['resultado'] = MaterialBibliografico::query()
-            ->where('facultad_id', $facultad_id)
-            ->where(function ($query) use ($fecha_inicio, $fecha_fin) {
-                $query->where(function ($q1) use ($fecha_inicio, $fecha_fin) {
-                    $q1->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin])
-                        ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
-                })
-                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
-                        $q2->where('fecha_inicio', '>', $fecha_inicio)
-                            ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
-                    })
-                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
-                        $q2->where('fecha_fin', '<', $fecha_fin)
-                            ->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin]);
-                    });
-            })
+        $resultado = MedicionHelper::medicionMatBibliografico($facultad_id, $fecha_inicio, $fecha_fin)
             ->sum('adquirido');
+        $resultado = is_null($resultado) ? 0 : $resultado;
 
-        $resultados['resultado'] = is_null($resultados['resultado']) ? 0 : $resultados['resultado'];
-
-        return $resultados;
+        return Medicion::getResultados(null, null, $resultado);
     }
 
+    /* IND 10 - Biblioteca
+     * Objetivo: Conocer la cantidad de material bibliográfico prestado.
+     * Formula: X = Total de material bibliográfico prestado
+     * Interes: -
+     * Total: -
+     * Resultado: N° Material Bibliográfico Prestado
+     * */
     public static function ind10($facultad_id, $fecha_inicio, $fecha_fin)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
-        $resultados['resultado'] = MaterialBibliografico::query()
-            ->where('facultad_id', $facultad_id)
-            ->where(function ($query) use ($fecha_inicio, $fecha_fin) {
-                $query->where(function ($q1) use ($fecha_inicio, $fecha_fin) {
-                    $q1->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin])
-                        ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
-                })
-                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
-                        $q2->where('fecha_inicio', '>', $fecha_inicio)
-                            ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
-                    })
-                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
-                        $q2->where('fecha_fin', '<', $fecha_fin)
-                            ->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin]);
-                    });
-            })
+        $resultado = MedicionHelper::medicionMatBibliografico($facultad_id, $fecha_inicio, $fecha_fin)
             ->sum('prestado');
+        $resultado = is_null($resultado) ? 0 : $resultado;
 
-        $resultados['resultado'] = is_null($resultados['resultado']) ? 0 : $resultados['resultado'];
-
-        return $resultados;
+        return Medicion::getResultados(null, null, $resultado);
     }
 
+    /* IND 11 - Biblioteca
+     * Objetivo: Conocer la cantidad de material bibliográfico perdido.
+     * Formula: X = Total de material bibliográfico prestado
+     * Interes: -
+     * Total: -
+     * Resultado: N° Material Bibliográfico Perdido
+     * */
     public static function ind11($facultad_id, $fecha_inicio, $fecha_fin)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
-        $resultados['resultado'] = MaterialBibliografico::query()
-            ->where('facultad_id', $facultad_id)
-            ->where(function ($query) use ($fecha_inicio, $fecha_fin) {
-                $query->where(function ($q1) use ($fecha_inicio, $fecha_fin) {
-                    $q1->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin])
-                        ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
-                })
-                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
-                        $q2->where('fecha_inicio', '>', $fecha_inicio)
-                            ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
-                    })
-                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
-                        $q2->where('fecha_fin', '<', $fecha_fin)
-                            ->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin]);
-                    });
-            })
+        $resultado = MedicionHelper::medicionMatBibliografico($facultad_id, $fecha_inicio, $fecha_fin)
             ->sum('perdido');
+        $resultado = is_null($resultado) ? 0 : $resultado;
 
-        $resultados['resultado'] = is_null($resultados['resultado']) ? 0 : $resultados['resultado'];
-
-        return $resultados;
+        return Medicion::getResultados(null, null, $resultado);
     }
 
     public static function ind12($escuela_id, $fecha_inicio, $fecha_fin)
