@@ -611,12 +611,10 @@ class Medicion
         $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
 
         try {
-            // FIXME está devolviendo un 404
             $rsp1 = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'proceso_matricula/escuela/05?escuela=' . $escuela_id . '&semestre=' . $semestre);
-            // FIXME está devolviendo un 404 y en el endpoint menciona que es egresados ¿?
             $rsp2 = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_matricula/escuela/06?escuela=' . $escuela_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'proceso_matricula/escuela/04?escuela=' . $escuela_id . '&semestre=' . $semestre);
 
             $resultados['interes'] = intval($rsp1->body());
             $resultados['total'] = intval($rsp2->body());
