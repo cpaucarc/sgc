@@ -119,34 +119,21 @@ class Medicion
         return $resultados;
     }
 
+    /* IND 13 - Biblioteca
+     * Objetivo: Conocer el porcentaje de libros actualizados por programa de estudios.
+     * Formula: X = (N° de libros adquiridos)/(Total de libros en colección) x100
+     * Interes: N° Libros Adquiridos
+     * Total: Total Libros En Colección
+     * Resultado: Interes / Total * 100
+     * */
     public static function ind13($facultad_id, $fecha_inicio, $fecha_fin)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+        $callback = MedicionHelper::medicionMatBibliografico($facultad_id, $fecha_inicio, $fecha_fin);
 
-        $my_query = MaterialBibliografico::query()
-            ->where('facultad_id', $facultad_id)
-            ->where(function ($query) use ($fecha_inicio, $fecha_fin) {
-                $query->where(function ($q1) use ($fecha_inicio, $fecha_fin) {
-                    $q1->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin])
-                        ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
-                })
-                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
-                        $q2->where('fecha_inicio', '>', $fecha_inicio)
-                            ->whereBetween('fecha_fin', [$fecha_inicio, $fecha_fin]);
-                    })
-                    ->orWhere(function ($q2) use ($fecha_inicio, $fecha_fin) {
-                        $q2->where('fecha_fin', '<', $fecha_fin)
-                            ->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin]);
-                    });
-            });
+        $interes = $callback->sum('adquirido');
+        $total = $callback->max('total_libros');
 
-        $resultados['interes'] = $my_query->sum('adquirido');
-        $resultados['total'] = $my_query->max('total_libros');
-
-        $resultados['resultado'] = is_null($resultados['interes']) ? 0
-            : (is_null($resultados['total']) ? 0 : round($resultados['interes'] / $resultados['total'] * 100));
-
-        return $resultados;
+        return MedicionHelper::getArrayResultados($interes, $total);
     }
 
     /* IND 14 - Biblioteca
