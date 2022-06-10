@@ -263,26 +263,23 @@ class Medicion
         return MedicionHelper::getArrayResultados($interes, $total);
     }
 
+    /* IND 27 - Convenios
+     * Objetivo: Conocer la cantidad de convenios realizados.
+     * Formula: X = N° de convenios realizados por programa
+     * */
     public static function ind27($facultad_id, $semestre_id)
     {
-        // X = N° de convenios realizados por programa
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
         $convenio = Convenio::query()
             ->select('realizados')
             ->where('facultad_id', $facultad_id)
             ->where('semestre_id', $semestre_id)
             ->first();
 
-        if ($convenio) {
-            $resultados['resultado'] = $convenio->realizados;
-        } else {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+        if (!$convenio) {
+            return null;
         }
 
-        return $resultados;
+        return MedicionHelper::getArrayResultados(null, null, $convenio->realizados);
     }
 
     public static function ind28($facultad_id, $semestre_id)
