@@ -573,11 +573,6 @@ class IndicadorableSeeder extends Seeder
             //Indicador 56
             [
                 'indicador_id' => 56,
-                'indicadorable_type' => 'App\\Models\\Facultad',
-                'indicadorable_id' => 8
-            ],
-            [
-                'indicador_id' => 56,
                 'indicadorable_type' => 'App\\Models\\Escuela',
                 'indicadorable_id' => 11
             ],
@@ -587,11 +582,6 @@ class IndicadorableSeeder extends Seeder
                 'indicadorable_id' => 10
             ],
             //Indicador 57
-            [
-                'indicador_id' => 57,
-                'indicadorable_type' => 'App\\Models\\Facultad',
-                'indicadorable_id' => 8
-            ],
             [
                 'indicador_id' => 57,
                 'indicadorable_type' => 'App\\Models\\Escuela',
@@ -727,6 +717,38 @@ class IndicadorableSeeder extends Seeder
             ],
             [
                 'indicador_id' => 65,
+                'indicadorable_type' => 'App\\Models\\Escuela',
+                'indicadorable_id' => 10
+            ],
+            //Indicador 66
+            [
+                'indicador_id' => 66,
+                'indicadorable_type' => 'App\\Models\\Facultad',
+                'indicadorable_id' => 8
+            ],
+            [
+                'indicador_id' => 66,
+                'indicadorable_type' => 'App\\Models\\Escuela',
+                'indicadorable_id' => 11
+            ],
+            [
+                'indicador_id' => 66,
+                'indicadorable_type' => 'App\\Models\\Escuela',
+                'indicadorable_id' => 10
+            ],
+            //Indicador 67
+            [
+                'indicador_id' => 67,
+                'indicadorable_type' => 'App\\Models\\Facultad',
+                'indicadorable_id' => 8
+            ],
+            [
+                'indicador_id' => 67,
+                'indicadorable_type' => 'App\\Models\\Escuela',
+                'indicadorable_id' => 11
+            ],
+            [
+                'indicador_id' => 67,
                 'indicadorable_type' => 'App\\Models\\Escuela',
                 'indicadorable_id' => 10
             ]
