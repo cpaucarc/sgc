@@ -3,6 +3,7 @@
 namespace App\Lib;
 
 use App\Models\Comedor;
+use App\Models\Convenio;
 use App\Models\MaterialBibliografico;
 use Illuminate\Support\Facades\DB;
 
@@ -51,6 +52,15 @@ class MedicionHelper
             ->where('escuela_id', $escuela_id)
             ->whereBetween('mes', [DB::raw('month("' . $fecha_inicio . '")'), DB::raw('month("' . $fecha_fin . '")')])
             ->whereBetween('anio', [DB::raw('year("' . $fecha_inicio . '")'), DB::raw('year("' . $fecha_fin . '")')]);
+    }
+
+    public static function medicionConvenio($facultad_id, $semestre_id, $selects = ['*'])
+    {
+        return Convenio::query()
+            ->select($selects)
+            ->where('facultad_id', $facultad_id)
+            ->where('semestre_id', $semestre_id)
+            ->first();
     }
 
 }

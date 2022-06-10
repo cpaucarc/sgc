@@ -269,11 +269,7 @@ class Medicion
      * */
     public static function ind27($facultad_id, $semestre_id)
     {
-        $convenio = Convenio::query()
-            ->select('realizados')
-            ->where('facultad_id', $facultad_id)
-            ->where('semestre_id', $semestre_id)
-            ->first();
+        $convenio = MedicionHelper::medicionConvenio($facultad_id, $semestre_id, ['realizados']);
 
         if (!$convenio) {
             return null;
@@ -282,73 +278,52 @@ class Medicion
         return MedicionHelper::getArrayResultados(null, null, $convenio->realizados);
     }
 
+    /* IND 28 - Convenios
+     * Objetivo: Conocer la cantidad de convenios vigentes.
+     * Formula: X = N° de convenios vigentes por programa
+     * */
     public static function ind28($facultad_id, $semestre_id)
     {
-        // X = N° de convenios vigentes por programa
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+        $convenio = MedicionHelper::medicionConvenio($facultad_id, $semestre_id, ['vigentes']);
 
-        $convenio = Convenio::query()
-            ->select('vigentes')
-            ->where('facultad_id', $facultad_id)
-            ->where('semestre_id', $semestre_id)
-            ->first();
-
-        if ($convenio) {
-            $resultados['resultado'] = $convenio->vigentes;
-        } else {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+        if (!$convenio) {
+            return null;
         }
 
-        return $resultados;
+        return MedicionHelper::getArrayResultados(null, null, $convenio->vigentes);
     }
 
+    /* IND 29 - Convenios
+     * Objetivo: Medir el grado de cumplimiento de los convenios.
+     * Formula: X = (N° de convenios cumplidos por programa)/(Total de convenios vigentes por programa) x 100
+     * */
     public static function ind29($facultad_id, $semestre_id)
     {
-        // X = (N° de convenios cumplidos por programa)/(Total de convenios vigentes por programa) x 100
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+        $convenio = MedicionHelper::medicionConvenio($facultad_id, $semestre_id, ['culminados', 'vigentes']);
 
-        $convenio = Convenio::query()
-            ->select('culminados', 'realizados')
-            ->where('facultad_id', $facultad_id)
-            ->where('semestre_id', $semestre_id)
-            ->first();
-
-        if ($convenio) {
-            $resultados['interes'] = $convenio->culminados;
-            $resultados['total'] = $convenio->realizados;
-            $resultados['resultado'] = is_null($resultados['interes']) ? 0 :
-                ($resultados['interes'] == 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100));
-        } else {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+        if (!$convenio) {
+            return null;
         }
 
-        return $resultados;
+        $interes = $convenio->culminados;
+        $total = $convenio->vigentes;
+
+        return MedicionHelper::getArrayResultados($interes, $total);
     }
 
+    /* IND 30 - Convenios
+     * Objetivo: Conocer el número de convenios terminados o cancelados por programa de estudios.
+     * Formula: X = N° de convenios culminados por programa de estudios
+     * */
     public static function ind30($facultad_id, $semestre_id)
     {
-        // X = N° de convenios culminados por programa de estudios
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+        $convenio = MedicionHelper::medicionConvenio($facultad_id, $semestre_id, ['culminados']);
 
-        $convenio = Convenio::query()
-            ->select('culminados')
-            ->where('facultad_id', $facultad_id)
-            ->where('semestre_id', $semestre_id)
-            ->first();
-
-        if ($convenio) {
-            $resultados['resultado'] = $convenio->culminados;
-        } else {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+        if (!$convenio) {
+            return null;
         }
 
-        return $resultados;
+        return MedicionHelper::getArrayResultados(null, null, $convenio->culminados);
     }
 
     public static function ind32($escuela_id, $semestre)
