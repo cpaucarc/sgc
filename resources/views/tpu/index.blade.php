@@ -17,13 +17,13 @@
                         title="Solicitudes incompletas"
                         :cantidad="$incompletas"
                         nombre="solicitudes"
-                        href="#"
+                        href="{{ route('tpu.solicitudes.incompletas') }}"
                     />
                     <x-bachiller.card-solicitudes
                         title="Solicitudes completas"
                         :cantidad="$completas"
                         nombre="solicitudes"
-                        href="#"
+                        href="{{ route('tpu.solicitudes.completas') }}"
                     />
                 </div>
                 <hr>
