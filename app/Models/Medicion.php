@@ -577,52 +577,26 @@ class Medicion
         return MedicionHelper::getArrayResultados(null, null, $resultado);
     }
 
-    public static function ind48($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)
+    /* IND 48 - Resp Social
+     * Objetivo: Conocer el número de estudiantes que participan en proyectos de responsabilidad social.
+     * Formula: X = N° de estudiantes que realizan RSU por programa
+     * */
+    public static function ind48($es_escuela, $entidad_id, $semestre_id)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+        $resultado = MedicionHelper::cantidadParticipantesRSU($es_escuela, true, $entidad_id, $semestre_id);
 
-        $q = RsuParticipante::query()->where('es_estudiante', true);
-
-        if ($es_escuela) {
-            $resultados['resultado'] = $q->whereIn('responsabilidad_social_id', function ($query) use ($entidad_id, $fecha_inicio, $fecha_fin) {
-                $query->select('id')->from('responsabilidad_social')
-                    ->where('escuela_id', $entidad_id)
-                    ->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin]);
-            })->count();
-        } else {
-            $resultados['resultado'] = $q->whereIn('responsabilidad_social_id', function ($query) use ($entidad_id, $fecha_inicio, $fecha_fin) {
-                $query->select('id')->from('responsabilidad_social')
-                    ->whereIn('escuela_id', function ($query2) use ($entidad_id) {
-                        $query2->select('id')->from('escuelas')->where('facultad_id', $entidad_id);
-                    })
-                    ->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin]);
-            })->count();
-        }
-        return $resultados;
+        return MedicionHelper::getArrayResultados(null, null, $resultado);
     }
 
-    public static function ind49($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)
+    /* IND 49 - Resp Social
+     * Objetivo: Conocer el número de docentes que participan en proyectos de responsabilidad social.
+     * Formula: X = N° de docentes que realizan RSU por programa
+     * */
+    public static function ind49($es_escuela, $entidad_id, $semestre_id)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+        $resultado = MedicionHelper::cantidadParticipantesRSU($es_escuela, false, $entidad_id, $semestre_id);
 
-        $q = RsuParticipante::query()->where('es_estudiante', false);
-
-        if ($es_escuela) {
-            $resultados['resultado'] = $q->whereIn('responsabilidad_social_id', function ($query) use ($entidad_id, $fecha_inicio, $fecha_fin) {
-                $query->select('id')->from('responsabilidad_social')
-                    ->where('escuela_id', $entidad_id)
-                    ->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin]);
-            })->count();
-        } else {
-            $resultados['resultado'] = $q->whereIn('responsabilidad_social_id', function ($query) use ($entidad_id, $fecha_inicio, $fecha_fin) {
-                $query->select('id')->from('responsabilidad_social')
-                    ->whereIn('escuela_id', function ($query2) use ($entidad_id) {
-                        $query2->select('id')->from('escuelas')->where('facultad_id', $entidad_id);
-                    })
-                    ->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin]);
-            })->count();
-        }
-        return $resultados;
+        return MedicionHelper::getArrayResultados(null, null, $resultado);
     }
 
     public static function ind50($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)

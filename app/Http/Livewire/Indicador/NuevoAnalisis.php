@@ -81,20 +81,12 @@ class NuevoAnalisis extends Component
 
     public function updatedInicio()
     {
-        $this->semestre_id = 0;
-//        $this->semestre_nombre = null;
-//        $this->semestre_inicio = null;
-//        $this->semestre_fin = null;
         $this->comprobarFechas();
         $this->obtenerResultados();
     }
 
     public function updatedFin()
     {
-        $this->semestre_id = 0;
-//        $this->semestre_nombre = null;
-//        $this->semestre_inicio = null;
-//        $this->semestre_fin = null;
         $this->comprobarFechas();
         $this->obtenerResultados();
     }
@@ -208,9 +200,9 @@ class NuevoAnalisis extends Component
             $res = Medicion::ind19($this->entidad->id, $this->inicio, $this->fin);
         } // RSU: 048 - 053
         elseif ($codigo_inicial === "IND-048") {
-            $res = Medicion::ind48($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
+            $res = Medicion::ind48($this->tipo == 1, $this->entidad->id, $this->semestre_id);
         } elseif ($codigo_inicial === "IND-049") {
-            $res = Medicion::ind49($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
+            $res = Medicion::ind49($this->tipo == 1, $this->entidad->id, $this->semestre_id);
         } elseif ($codigo_inicial === "IND-050") {
             $res = Medicion::ind50($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
         } elseif ($codigo_inicial === "IND-051") {

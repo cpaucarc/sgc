@@ -7,6 +7,7 @@ use App\Models\Convenio;
 use App\Models\Escuela;
 use App\Models\Investigador;
 use App\Models\MaterialBibliografico;
+use App\Models\RsuParticipante;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
@@ -128,11 +129,8 @@ class MedicionHelper
     public static function cantidadInvestigadores($es_escuela, $es_docente, $entidad_id, $fecha_inicio, $fecha_fin)
     {
         try {
-            if ($es_escuela) {
-                $escuelas = array($entidad_id);
-            } else {
-                $escuelas = Escuela::query()->where('facultad_id', $entidad_id)->pluck('id');
-            }
+            $escuelas = $es_escuela ? array($entidad_id)
+                : Escuela::query()->where('facultad_id', $entidad_id)->pluck('id');
 
             return Investigador::query()->where('es_docente', $es_docente)
                 ->whereIn('id', function ($query) use ($entidad_id, $fecha_inicio, $fecha_fin, $escuelas) {
@@ -147,6 +145,26 @@ class MedicionHelper
         } catch (\Exception $e) {
             return 0;
         }
+    }
+
+    /*
+     * $es_escuela : Boolean -> indicar si se medirá solo de la escuela o de una facultad
+     * $es_estudiante : Boolean -> indicar si se medirá participantes del tipo estudiantes o no (true: estudiantes, false: docentes)
+     * $entidad_id : Integer -> es el ID de la escuela o facultad (si $es_escuela es true, el ID será de la escuela, caso contrario, será de la facultad)
+     * $semestre_id : Integer -> es el ID del semestre que del cual se va a medir los participantes
+     * */
+    public static function cantidadParticipantesRSU($es_escuela, $es_estudiante, $entidad_id, $semestre_id)
+    {
+        $escuelas = $es_escuela ? array($entidad_id)
+            : Escuela::query()->where('facultad_id', $entidad_id)->pluck('id');
+
+        return RsuParticipante::query()
+            ->where('es_estudiante', $es_estudiante)
+            ->whereIn('responsabilidad_social_id', function ($query) use ($entidad_id, $semestre_id, $escuelas) {
+                $query->select('id')->from('responsabilidad_social')
+                    ->whereIn('escuela_id', $escuelas)
+                    ->where('semestre_id', $semestre_id);
+            })->count();
     }
 
 }
