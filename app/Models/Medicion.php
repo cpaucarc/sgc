@@ -395,28 +395,26 @@ class Medicion
         }
     }
 
+    /* IND 37 - Enseñanza-Aprendizaje
+     * Objetivo: Conocer el porcentaje de asistencia a clase de los docentes por semana.
+     * Formula: X = (∑ asistencia a clases de docentes por semana)/(Total de claes programadas por semana)
+     * */
     public static function ind37($escuela_id, $semestre, $fecha_inicio, $fecha_fin)
     {
-        // X = (∑ asistencia a clases de docentes por semana)/(Total de claes programadas por semana)
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
         try {
-            // FIXME 11: Cantidad de docentes que asistieron a clases por escuela. -> esta devolviendo un numero Aleatorio
-            $rsp1 = Http::withToken(env('OGE_TOKEN'))
+            $asistencia = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/11?escuela=' . $escuela_id . '&semestre=' . $semestre . '&fecha_inicio=' . $fecha_inicio . '&fecha_fin=' . $fecha_fin);
-            // FIXME 12: Cantidad de clases programadas por escuela. -> esta devolviendo un numero Aleatorio
-            $rsp2 = Http::withToken(env('OGE_TOKEN'))
+
+            $programada = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/12?escuela=' . $escuela_id . '&semestre=' . $semestre . '&fecha_inicio=' . $fecha_inicio . '&fecha_fin=' . $fecha_fin);
 
-            $resultados['interes'] = intval($rsp1->body());
-            $resultados['total'] = intval($rsp2->body());
-            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
+            $interes = intval($asistencia->body());
+            $total = intval($programada->body());
+
+            return MedicionHelper::getArrayResultados($interes, $total);
         } catch (\Exception $e) {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+            return null;
         }
-        return $resultados;
     }
 
     public static function ind38($escuela_id, $semestre)
