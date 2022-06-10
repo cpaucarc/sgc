@@ -16,11 +16,13 @@
                     <x-bachiller.card-solicitudes
                         title="Solicitudes incompletas"
                         :cantidad="$incompletas"
+                        nombre="solicitudes"
                         href="#"
                     />
                     <x-bachiller.card-solicitudes
                         title="Solicitudes completas"
                         :cantidad="$completas"
+                        nombre="solicitudes"
                         href="#"
                     />
                 </div>
@@ -29,6 +31,7 @@
                     <x-bachiller.card-solicitudes
                         title="Proyectos de investigación"
                         :cantidad="$incompletas"
+                        nombre="proyectos"
                         href="#"
                     />
                 </div>

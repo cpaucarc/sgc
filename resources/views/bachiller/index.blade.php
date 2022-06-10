@@ -16,11 +16,13 @@
                     <x-bachiller.card-solicitudes
                         title="Solicitudes incompletas"
                         :cantidad="$incompletas"
+                        nombre="solicitudes"
                         href="{{ route('bachiller.solicitudes.incompletas') }}"
                     />
                     <x-bachiller.card-solicitudes
                         title="Solicitudes completas"
                         :cantidad="$completas"
+                        nombre="solicitudes"
                         href="{{ route('bachiller.solicitudes.completas') }}"
                     />
                 </div>
