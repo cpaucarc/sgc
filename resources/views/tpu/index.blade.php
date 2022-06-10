@@ -13,13 +13,26 @@
                 </div>
                 <hr>
                 <div class="space-y-6">
-
+                    <x-bachiller.card-solicitudes
+                        title="Solicitudes incompletas"
+                        :cantidad="$incompletas"
+                        href="#"
+                    />
+                    <x-bachiller.card-solicitudes
+                        title="Solicitudes completas"
+                        :cantidad="$completas"
+                        href="#"
+                    />
+                </div>
+                <hr>
+                <div class="space-y-6">
+                    <x-bachiller.card-solicitudes
+                        title="Proyectos de investigación"
+                        :cantidad="$incompletas"
+                        href="#"
+                    />
                 </div>
             </div>
-        </div>
-
-        <div class="col-span-4 space-y-6">
-
         </div>
     </div>
 
