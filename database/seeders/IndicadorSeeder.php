@@ -712,9 +712,37 @@ class IndicadorSeeder extends Seeder
                 'frecuencia_reporte_id' => 2,
             ],
             //IND-033
-            //Es por Curso
+            [
+                'objetivo' => 'Conocer el número de estudiente desaprobados por curso en el programa de estudios.',
+                'titulo_interes' => null,
+                'titulo_total' => null,
+                'titulo_resultado' => 'N° Estudiantes Desaprobados',
+                'cod_ind_inicial' => 'IND-033',
+                'formula' => 'X = N° de estudiantes desaprobado por curso',
+                'minimo' => 10,
+                'satisfactorio' => 4,
+                'sobresaliente' => 2,
+                'proceso_id' => 1, //DB: procesos: 1: Enseñanza y Aprendizaje
+                'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
+                'frecuencia_medicion_id' => 2,
+                'frecuencia_reporte_id' => 2,
+            ],
             //IND-034
-            //Es por Curso
+            [
+                'objetivo' => 'Conocer el número de estudientes en riesgo académico por curso.',
+                'titulo_interes' => null,
+                'titulo_total' => null,
+                'titulo_resultado' => 'N° Estudiantes en Riesgo Académico',
+                'cod_ind_inicial' => 'IND-034',
+                'formula' => 'X = N° estudiantes en riesgo académico por curso / Programa de estudios',
+                'minimo' => 8,
+                'satisfactorio' => 6,
+                'sobresaliente' => 4,
+                'proceso_id' => 1, //DB: procesos: 1: Enseñanza y Aprendizaje
+                'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
+                'frecuencia_medicion_id' => 2,
+                'frecuencia_reporte_id' => 2,
+            ],
             //IND-035
             [
                 'objetivo' => 'Medir el porcentaje de docentes con evaluación de cumplimiento.',
