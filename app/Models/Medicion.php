@@ -542,23 +542,22 @@ class Medicion
         }
     }
 
+    /* IND 46 - Investigacion
+     * Objetivo: Saber el número de trabajos de investigación publicados por programa de estudios.
+     * Formula: X = N° de trabajos de investigación publicados por programa de estudios
+     * */
     public static function ind46($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)
     {
+        $escuelas = $es_escuela ? array($entidad_id)
+            : Escuela::query()->where('facultad_id', $entidad_id)->pluck('id');
 
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+        $resultado = Investigacion::query()
+            ->where('estado_id', 3) //Tabla Estados -> 3:Publicado
+            ->whereBetween('fecha_publicacion', [$fecha_inicio, $fecha_fin])
+            ->whereIn('escuela_id', $escuelas)
+            ->count();
 
-        $q = Investigacion::query()->where('estado_id', 3) //Tabla Estados: 3:Publicado
-        ->whereBetween('fecha_publicacion', [$fecha_inicio, $fecha_fin]);
-
-        if ($es_escuela) {
-            $resultados['resultado'] = $q->where('escuela_id', $entidad_id)->count();
-        } else {
-            $resultados['resultado'] = $q->whereIn('escuela_id', function ($query3) use ($entidad_id) {
-                $query3->select('id')->from('escuelas')->where('facultad_id', $entidad_id);
-            })->count();
-        }
-
-        return $resultados;
+        return MedicionHelper::getArrayResultados(null, null, $resultado);
     }
 
     public static function ind47($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)
