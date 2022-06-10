@@ -14,11 +14,9 @@ return new class extends Migration {
     {
         Schema::create('cursos', function (Blueprint $table) {
             $table->id();
-            $table->integer('escuela_id');
             $table->string('curricula', 2);
-            $table->string('codigo', 10);
+            $table->string('codigo', 7);
             $table->string('nombre');
-            $table->integer('ciclo_id');
             $table->integer('horas_teoria');
             $table->integer('horas_practica');
             $table->foreignId('escuela_id')->constrained('escuelas')
@@ -27,7 +25,6 @@ return new class extends Migration {
             $table->foreignId('ciclo_id')->constrained('ciclos')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-//            $table->timestamps();
         });
     }
 

@@ -11,5 +11,5 @@ class Curso extends Model
 
     protected $table = "cursos";
     public $timestamps = false;
-    public $fillable = ['escuela_id', 'curricula', 'codigo', 'nombre', 'ciclo_id', 'horas_teoria', 'horas_practica'];
+    public $fillable = ['curricula', 'codigo', 'nombre', 'horas_teoria', 'horas_practica', 'escuela_id', 'ciclo_id'];
 }
