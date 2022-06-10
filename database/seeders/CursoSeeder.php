@@ -22,7 +22,7 @@ class CursoSeeder extends Seeder
                 "curso" => "INTRODUCCIÓN AL ESTUDIO DE LA OBSTETRICIA",
                 "ciclo" => 1,
                 "horas_teoria" => "2",
-                "horas_practica" => "4",
+                "horas_prac" => "4",
             ],
         ];
 
