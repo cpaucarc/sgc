@@ -6,10 +6,12 @@ use App\Models\Documento;
 use App\Models\DocumentoSolicitud;
 use App\Models\Semestre;
 use App\Models\Solicitud;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -32,6 +34,8 @@ class EnviarRequisito extends Component
 
     public $tesis = null;
 
+    public $escuela_id = null;
+
     protected $rules = [
         'archivo' => 'required',
         'requisitoSeleccionado' => 'required|gt:0'
@@ -39,8 +43,11 @@ class EnviarRequisito extends Component
 
     public function mount()
     {
+        $this->escuela_id = User::escuelas_id(Auth::user()->id);
+
         $this->solicitud = Solicitud::query()
             ->where('dni_estudiante', Auth::user()->dni)
+            ->where('escuela_id', $this->escuela_id[0])
             ->where('tipo_solicitud_id', 1) // 1: Bachiller
             ->first();
 
@@ -78,7 +85,9 @@ class EnviarRequisito extends Component
         //Si no hay solicitud, se crea (estado 4: En evaluacion)
         if (is_null($this->solicitud)) {
             $this->solicitud = Solicitud::create([
+                'uuid' => Str::uuid(),
                 'dni_estudiante' => (Auth::user()->dni),
+                'escuela_id' => $this->escuela_id[0],
                 'tipo_solicitud_id' => 1, // 1: Bachiller
                 'estado_id' => 4,// 4: En evaluación (Categoria => 2:solicitud)
             ]);
