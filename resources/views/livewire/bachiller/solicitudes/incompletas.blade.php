@@ -1,19 +1,19 @@
 <div>
     <div class="grid grid-cols-6 gap-12">
-        @forelse( $solicitudesIncompletas as $soli)
+        @forelse( $solicitudesIncompletas as $solicitud)
             <div
                 class="col-span-3 group bg-white border border-stone-200 px-3 py-3 rounded-md transition hover:shadow-md flex items-center justify-between border">
                 <div>
-                    <x-utils.links.basic wire:click="mostrarDatos('{{ $soli->dni_estudiante }}')"
+                    <x-utils.links.basic wire:click="mostrarDatos('{{ $solicitud->dni_estudiante }}')"
                                          class="cursor-pointer">
-                        {{$soli->dni_estudiante}}
+                        {{$solicitud->dni_estudiante}}
                     </x-utils.links.basic>
                     <h3 class="text-gray-400 group-hover:text-gray-500 text-sm">
-                        {{ $soli->documentos_count }} de 8 requisitos enviados
+                        {{ $solicitud->documentos_count }} de 8 requisitos enviados
                     </h3>
                 </div>
                 <x-utils.buttons.default
-                    wire:click="modalRequisitos({{ $soli->id }})">
+                    wire:click="modalRequisitos({{ $solicitud->id }})">
                     Revisar
                 </x-utils.buttons.default>
             </div>

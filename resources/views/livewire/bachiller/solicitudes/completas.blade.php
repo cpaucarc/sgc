@@ -99,7 +99,7 @@
                     @endslot
                 </x-utils.tables.table>
                 <div class="mt-4 w-full flex justify-end">
-                    <x-jet-button wire:click="estadoSolicitud($solicitudSeleccionado->dni_estudiante)">
+                    <x-jet-button wire:click="estadoSolicitud({{$solicitudSeleccionado->dni_estudiante}})">
                         <x-icons.quality class="h-4 w-4 mr-1"></x-icons.quality>
                         Asignar bachiller a estudiante
                     </x-jet-button>

@@ -1,5 +1,15 @@
 <div>
-
+    <div class="flex justify-between items-center mb-4">
+        <x-utils.forms.search-input wire:model.debounce.500ms="search"/>
+        @if(!is_null($escuelas))
+            <x-utils.forms.select wire:model="escuela_seleccionado">
+                <option value="0">Todos</option>
+                @foreach($escuelas as $esc)
+                    <option value="{{$esc->id}}">{{$esc->nombre}}</option>
+                @endforeach
+            </x-utils.forms.select>
+        @endif
+    </div>
     @if(count($bachilleres))
         <x-utils.tables.table>
             @slot('head')

@@ -136,7 +136,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('solicitudes/incompletas','incompletas')->name('bachiller.solicitudes.incompletas');
         Route::get('solicitudes/completas','completas')->name('bachiller.solicitudes.completas');
         Route::get('solicitud', 'request')->name('bachiller.request');
-        Route::get('solicitudes', 'requests')->name('bachiller.requests');
+//        Route::get('solicitudes', 'requests')->name('bachiller.requests');
     });
 
     Route::prefix('investigacion')->controller(InvestigacionController::class)->group(function () {

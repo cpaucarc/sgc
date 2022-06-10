@@ -17,6 +17,7 @@ class Completas extends Component
     protected $listeners = [
         'documentoAprobado' => 'render',
         'documentoDenegado' => 'render',
+        'estadoSolicitud' => 'render',
     ];
 
     public function mount($solicitudesCompletas)
@@ -67,6 +68,7 @@ class Completas extends Component
         $this->emit('documentoAprobado');
     }
 
+    //Si el estudiante cumple con todos los requisitos se le asigna el grado de bachiller.
     public function estadoSolicitud($dni_estudiante)
     {
         if (!is_null($this->solicitudSeleccionado)) {
