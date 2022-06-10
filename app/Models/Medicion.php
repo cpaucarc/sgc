@@ -373,28 +373,26 @@ class Medicion
         }
     }
 
+    /* IND 36 - Enseñanza-Aprendizaje
+     * Objetivo: Conocer el grado de satisfacción de los usuarios con el proceso E-A por programa de estudios.
+     * Formula: X = (Total satisfechos con el proceso E-A)/(Total de encuestados ) x 100
+     * */
     public static function ind36($escuela_id, $semestre)
     {
-        // X = (Total satisfechos con e proceso E-A)/(Total de encuestados ) x 100
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
         try {
-            // FIXME 10: Cantidad de docentes con evaluación de cumplimiento por escuela.. -> esta devolviendo un numero Aleatorio
-            $rsp1 = Http::withToken(env('OGE_TOKEN'))
+            $satisfechos = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/10?escuela=' . $escuela_id . '&semestre=' . $semestre);
-            // FIXME 09: Cantidad de docentes con evaluación de cumplimiento por escuela.. -> esta devolviendo un numero Aleatorio
-            $rsp2 = Http::withToken(env('OGE_TOKEN'))
+
+            $encuestados = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/09?escuela=' . $escuela_id . '&semestre=' . $semestre);
 
-            $resultados['interes'] = intval($rsp1->body());
-            $resultados['total'] = intval($rsp2->body());
-            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
+            $interes = intval($satisfechos->body());
+            $total = intval($encuestados->body());
+
+            return MedicionHelper::getArrayResultados($interes, $total);
         } catch (\Exception $e) {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+            return null;
         }
-        return $resultados;
     }
 
     public static function ind37($escuela_id, $semestre, $fecha_inicio, $fecha_fin)
