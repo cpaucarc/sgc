@@ -4,6 +4,8 @@ namespace App\Lib;
 
 use App\Models\Comedor;
 use App\Models\Convenio;
+use App\Models\Escuela;
+use App\Models\Investigador;
 use App\Models\MaterialBibliografico;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -86,7 +88,7 @@ class MedicionHelper
                 ->get(env('OGE_API') . 'proceso_docente/facultad/05?facultad=' . $facultad_id . '&semestre=' . $semestre);
             return intval($cantidad->body());
         } catch (\Exception $e) {
-            return -9;
+            return 0;
         }
     }
 
@@ -113,6 +115,35 @@ class MedicionHelper
             $cantidad = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'proceso_matricula/facultad/01?facultad=' . $facultad_id . '&semestre=' . $semestre);
             return intval($cantidad->body());
+        } catch (\Exception $e) {
+            return 0;
+        }
+    }
+
+    /*
+     * $es_escuela : Boolean -> indicar si se medirá solo de la escuela o de una facultad
+     * $es_docente : Boolean -> indicar si se medirá investigadores del tipo docente o no (true: docentes, false: estudiantes)
+     * $entidad_id : Integer -> es el ID de la escuela o facultad (si $es_escuela es true, el ID será de la escuela, caso contrario, será de la facultad)
+     * */
+    public static function cantidadInvestigadores($es_escuela, $es_docente, $entidad_id, $fecha_inicio, $fecha_fin)
+    {
+        try {
+            if ($es_escuela) {
+                $escuelas = array($entidad_id);
+            } else {
+                $escuelas = Escuela::query()->where('facultad_id', $entidad_id)->pluck('id');
+            }
+
+            return Investigador::query()->where('es_docente', $es_docente)
+                ->whereIn('id', function ($query) use ($entidad_id, $fecha_inicio, $fecha_fin, $escuelas) {
+                    $query->select('investigador_id')
+                        ->from('investigacion_investigadores')
+                        ->whereIn('investigacion_id', function ($query2) use ($entidad_id, $fecha_inicio, $fecha_fin, $escuelas) {
+                            $query2->select('id')->from('investigaciones')
+                                ->whereIn('escuela_id', $escuelas)
+                                ->whereBetween('fecha_publicacion', [$fecha_inicio, $fecha_fin]);
+                        });
+                })->count();
         } catch (\Exception $e) {
             return 0;
         }

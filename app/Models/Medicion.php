@@ -513,23 +513,10 @@ class Medicion
     public static function ind44($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin, $semestre, $depto_id = null)
     {
         try {
-            if ($es_escuela) {
-                $escuelas = array($entidad_id);
-                $total = MedicionHelper::cantidadDocentesPorDepto($depto_id, $semestre);
-            } else {
-                $escuelas = Escuela::query()->where('facultad_id', $entidad_id)->pluck('id');
-                $total = MedicionHelper::cantidadDocentesPorFacultad($entidad_id, $semestre);
-            }
+            $total = $es_escuela ? MedicionHelper::cantidadDocentesPorDepto($depto_id, $semestre)
+                : MedicionHelper::cantidadDocentesPorFacultad($entidad_id, $semestre);
 
-            $interes = Investigador::query()->where('es_docente', true)
-                ->whereIn('id', function ($query) use ($entidad_id, $fecha_inicio, $fecha_fin, $escuelas) {
-                    $query->select('investigador_id')->from('investigacion_investigadores')
-                        ->whereIn('investigacion_id', function ($query2) use ($entidad_id, $fecha_inicio, $fecha_fin, $escuelas) {
-                            $query2->select('id')->from('investigaciones')
-                                ->whereIn('escuela_id', $escuelas)
-                                ->whereBetween('fecha_publicacion', [$fecha_inicio, $fecha_fin]);
-                        });
-                })->count();
+            $interes = MedicionHelper::cantidadInvestigadores($es_escuela, true, $entidad_id, $fecha_inicio, $fecha_fin);
 
             return MedicionHelper::getArrayResultados($interes, $total);
         } catch (\Exception $e) {
@@ -537,45 +524,22 @@ class Medicion
         }
     }
 
-    public static function ind45($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)
+    /* IND 45 - Investigacion
+     * Objetivo: Medir el grado de participación de los estudiantes en los proyectos de investigación.
+     * Formula: X = (N° de estudiantes que participan en PI)/(Total de estudiantes del programa) x 100
+     * */
+    public static function ind45($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin, $semestre)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+        try {
+            $total = $es_escuela ? MedicionHelper::cantidadEstudiantesPorEscuela($entidad_id, $semestre)
+                : MedicionHelper::cantidadEstudiantesPorFacultad($entidad_id, $semestre);
 
-        $q = Investigador::query()->where('es_docente', false);
+            $interes = MedicionHelper::cantidadInvestigadores($es_escuela, false, $entidad_id, $fecha_inicio, $fecha_fin);;
 
-        if ($es_escuela) {
-            $resultados['interes'] = $q->whereIn('id', function ($query) use ($entidad_id, $fecha_inicio, $fecha_fin) {
-                $query->select('investigador_id')
-                    ->from('investigacion_investigadores')
-                    ->whereIn('investigacion_id', function ($query2) use ($entidad_id, $fecha_inicio, $fecha_fin) {
-                        $query2->select('id')->from('investigaciones')
-                            ->where('escuela_id', $entidad_id)
-                            ->whereBetween('fecha_publicacion', [$fecha_inicio, $fecha_fin]);
-                    });
-            })->count();
-
-            // FIXME OGE: Calcular el numero total de docentes por escuela desde OGE
-            $resultados['total'] = 193; //Enf:193, Obs:216, Total: 409
-        } else {
-            $resultados['interes'] = $q->whereIn('id', function ($query) use ($entidad_id, $fecha_inicio, $fecha_fin) {
-                $query->select('investigador_id')
-                    ->from('investigacion_investigadores')
-                    ->whereIn('investigacion_id', function ($query2) use ($entidad_id, $fecha_inicio, $fecha_fin) {
-                        $query2->select('id')->from('investigaciones')
-                            ->whereIn('escuela_id', function ($query3) use ($entidad_id) {
-                                $query3->select('id')
-                                    ->from('escuelas')
-                                    ->where('facultad_id', $entidad_id);
-                            })
-                            ->whereBetween('fecha_publicacion', [$fecha_inicio, $fecha_fin]);
-                    });
-            })->count();
-
-            // FIXME OGE: Calcular el numero total de docentes por facultad desde OGE
-            $resultados['total'] = 409;
+            return MedicionHelper::getArrayResultados($interes, $total);
+        } catch (\Exception $e) {
+            return null;
         }
-        $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
-        return $resultados;
     }
 
     public static function ind46($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)
