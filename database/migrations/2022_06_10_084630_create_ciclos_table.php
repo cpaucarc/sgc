@@ -14,9 +14,7 @@ return new class extends Migration {
     {
         Schema::create('ciclos', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid', 40);
             $table->string('romano', 4);
-//            $table->timestamps();
         });
     }
 
