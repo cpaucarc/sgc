@@ -131,10 +131,11 @@ class Medicion
      * */
     public static function ind13($facultad_id, $fecha_inicio, $fecha_fin)
     {
-        $callback = MedicionHelper::medicionMatBibliografico($facultad_id, $fecha_inicio, $fecha_fin);
+        $medicion = MedicionHelper::medicionMatBibliografico($facultad_id, $fecha_inicio, $fecha_fin)
+            ->first(array(DB::raw('SUM(adquirido) as sum_adquirido'), DB::raw('MAX(total_libros) as max_total_libros')));
 
-        $interes = $callback->sum('adquirido');
-        $total = $callback->max('total_libros');
+        $interes = $medicion->sum_adquirido;
+        $total = $medicion->max_total_libros;
 
         return MedicionHelper::getArrayResultados($interes, $total);
     }
@@ -171,19 +172,19 @@ class Medicion
         return MedicionHelper::getArrayResultados($interes, $total);
     }
 
+    /* IND 19 - Bienestar Universitario
+         * Objetivo: Conocer el número total de atenciones por servicios por programa de estudios.
+         * Formula: X = ∑ atenciones por servicio por programa
+         * Interes: -
+         * Total: -
+         * Resultado: Total de Atenciones
+         * */
     public static function ind19($escuela_id, $fecha_inicio, $fecha_fin)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
-        $resultados['resultado'] = Comedor::query()
-            ->where('escuela_id', $escuela_id)
-            ->whereBetween('mes', [DB::raw('month("' . $fecha_inicio . '")'), DB::raw('month("' . $fecha_fin . '")')])
-            ->whereBetween('anio', [DB::raw('year("' . $fecha_inicio . '")'), DB::raw('year("' . $fecha_fin . '")')])
+        $resultado = MedicionHelper::medicionComedor($escuela_id, $fecha_inicio, $fecha_fin)
             ->sum('atenciones');
 
-        $resultados['resultado'] = is_null($resultados['resultado']) ? 0 : $resultados['resultado'];
-
-        return $resultados;
+        return MedicionHelper::getArrayResultados(null, null, $resultado);
     }
 
     public static function ind21($escuela_id, $fecha_inicio, $fecha_fin)
