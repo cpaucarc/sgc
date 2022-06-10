@@ -108,7 +108,7 @@
                     <td style="padding: 3px 6px">{{ $indicador->medicion->nombre }}</td>
                     <td style="padding: 3px 6px">
                         {{ count($indicador->analisis) }}
-                        de {{ (6/$indicador->medicion->tiempo_meses)*$semestre_count }}
+                        de {{ (16 / $indicador->medicion->tiempo_semanas) * $semestre_count }}
                     </td>
                 </tr>
             @endforeach

@@ -67,7 +67,7 @@ class IndicadorExport implements FromCollection, WithMapping, WithHeadings, With
             $indicador->medicion->nombre,
             $indicador->proceso->nombre,
             $indicador->unidadMedida->nombre,
-            count($indicador->analisis) . ' de ' . (6 / $indicador->medicion->tiempo_meses) * $this->semestre_count
+            count($indicador->analisis) . ' de ' . (16 / $indicador->medicion->tiempo_semanas) * $this->semestre_count
         ];
     }
 

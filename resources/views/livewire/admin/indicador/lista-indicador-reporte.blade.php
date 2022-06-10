@@ -86,7 +86,8 @@
                                     {{ $indicador->medicion->nombre }}
                                 </x-utils.tables.body>
                                 <x-utils.tables.body class="whitespace-nowrap flex items-center text-center text-xs">
-                                    {{ count($indicador->analisis) }} de {{ (6/$indicador->medicion->tiempo_meses) }}
+                                    {{ count($indicador->analisis) }}
+                                    de {{ (16 / $indicador->medicion->tiempo_semanas) }}
                                     {{--                                    @if(count($indicador->analisis))--}}
                                     {{--                                        <a class="text-xs" target="_blank"--}}
                                     {{--                                           href="{{ route('reporte.detalle.pdf', [--}}

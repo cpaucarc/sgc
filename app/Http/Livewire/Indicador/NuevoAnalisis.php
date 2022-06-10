@@ -10,6 +10,7 @@ use App\Models\Medicion;
 use App\Models\Semestre;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class NuevoAnalisis extends Component
@@ -57,7 +58,7 @@ class NuevoAnalisis extends Component
 
         $this->elaborado = Auth::user()->name;
 
-        $this->frecuenciaEnDias = $this->indicadorable->indicador->medicion->tiempo_meses * 30;
+        $this->frecuenciaEnDias = $this->indicadorable->indicador->medicion->tiempo_semanas * 7;
 
         $this->fechasPorDefecto($this->indicadorable->indicador->medicion->nombre);
 
@@ -81,9 +82,9 @@ class NuevoAnalisis extends Component
     public function updatedInicio()
     {
         $this->semestre_id = 0;
-        $this->semestre_nombre = null;
-        $this->semestre_inicio = null;
-        $this->semestre_fin = null;
+//        $this->semestre_nombre = null;
+//        $this->semestre_inicio = null;
+//        $this->semestre_fin = null;
         $this->comprobarFechas();
         $this->obtenerResultados();
     }
@@ -91,9 +92,9 @@ class NuevoAnalisis extends Component
     public function updatedFin()
     {
         $this->semestre_id = 0;
-        $this->semestre_nombre = null;
-        $this->semestre_inicio = null;
-        $this->semestre_fin = null;
+//        $this->semestre_nombre = null;
+//        $this->semestre_inicio = null;
+//        $this->semestre_fin = null;
         $this->comprobarFechas();
         $this->obtenerResultados();
     }
@@ -124,15 +125,20 @@ class NuevoAnalisis extends Component
     public function fechasPorDefecto($frecuencia)
     {
         $frecuencia = strtolower($frecuencia);
-        $this->fin = Carbon::now()->endOfMonth()->format('Y-m-d');
+        $now = Carbon::now();
+
         if (strcmp($frecuencia, "semestral") === 0) {
-//            $this->inicio = Carbon::now()->subMonths(5)->startOfMonth()->format('Y-m-d');
             $this->inicio = $this->semestre_inicio;
             $this->fin = $this->semestre_fin;
         } elseif (strcmp($frecuencia, "mensual") === 0) {
-            $this->inicio = Carbon::now()->startOfMonth()->format('Y-m-d');
+            $this->inicio = $now->startOfMonth()->format('Y-m-d');
+            $this->fin = $now->endOfMonth()->format('Y-m-d');
+        } elseif (strcmp($frecuencia, "semanal") === 0) {
+            $this->inicio = $now->startOfWeek()->format('Y-m-d');
+            $this->fin = $now->endOfWeek()->format('Y-m-d');
         } elseif (strcmp($frecuencia, "anual") === 0) {
-            $this->inicio = Carbon::now()->subYear()->startOfYear()->format('Y-m-d');
+            $this->inicio = $now->subYear()->startOfYear()->format('Y-m-d');
+            $this->fin = $now->subYear()->endOfYear()->format('Y-m-d');
         }
         $this->comprobarFechas();
     }
@@ -145,6 +151,8 @@ class NuevoAnalisis extends Component
             $this->diffIsOk = !($this->diffInDays > 184 || $this->diffInDays < 150);
         } elseif ($this->frecuenciaEnDias === 30) { //Mensual
             $this->diffIsOk = !($this->diffInDays > 31 || $this->diffInDays < 20);
+        } elseif ($this->frecuenciaEnDias === 7) { //Semanal
+            $this->diffIsOk = !($this->diffInDays > 7 || $this->diffInDays < 4);
         } elseif ($this->frecuenciaEnDias === 360) { //Anual
             $this->diffIsOk = !($this->diffInDays > 366 || $this->diffInDays < 330);
         }
