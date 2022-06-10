@@ -6,6 +6,7 @@ use App\Models\Comedor;
 use App\Models\Convenio;
 use App\Models\MaterialBibliografico;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class MedicionHelper
 {
@@ -61,6 +62,60 @@ class MedicionHelper
             ->where('facultad_id', $facultad_id)
             ->where('semestre_id', $semestre_id)
             ->first();
+    }
+
+    public static function cantidadDocentesPorDepto($depto_id, $semestre)
+    {
+        try {
+            $depto_id = $depto_id < 10 ? "0" . $depto_id : $depto_id;
+
+            $cantidad = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'proceso_docente/departamento/05?departamento=' . $depto_id . '&semestre=' . $semestre);
+            return intval($cantidad->body());
+        } catch (\Exception $e) {
+            return 0;
+        }
+    }
+
+    public static function cantidadDocentesPorFacultad($facultad_id, $semestre)
+    {
+        try {
+            $facultad_id = $facultad_id < 10 ? "0" . $facultad_id : $facultad_id;
+
+            $cantidad = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'proceso_docente/facultad/05?facultad=' . $facultad_id . '&semestre=' . $semestre);
+            return intval($cantidad->body());
+        } catch (\Exception $e) {
+            return -9;
+        }
+    }
+
+    // Cantidad de Estudiantes Matriculados
+    public static function cantidadEstudiantesPorEscuela($escuela_id, $semestre)
+    {
+        try {
+            $escuela_id = $escuela_id < 10 ? "0" . $escuela_id : $escuela_id;
+
+            $cantidad = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'proceso_matricula/escuela/01?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            return intval($cantidad->body());
+        } catch (\Exception $e) {
+            return 0;
+        }
+    }
+
+    // Cantidad de Estudiantes Matriculados
+    public static function cantidadEstudiantesPorFacultad($facultad_id, $semestre)
+    {
+        try {
+            $facultad_id = $facultad_id < 10 ? "0" . $facultad_id : $facultad_id;
+
+            $cantidad = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'proceso_matricula/facultad/01?facultad=' . $facultad_id . '&semestre=' . $semestre);
+            return intval($cantidad->body());
+        } catch (\Exception $e) {
+            return 0;
+        }
     }
 
 }

@@ -37,7 +37,7 @@ class NuevoAnalisis extends Component
 
     public function mount($indicadorable_id, $oficina, $tipo, $uuid)
     {
-        $this->tipo = $tipo; //Tipo Escuela o Facultad
+        $this->tipo = $tipo; //Tipo 1:Escuela o 2:Facultad
         $this->oficina = $oficina;
 
         $this->semestres = Semestre::query()->orderBy('nombre', 'desc')->get();
@@ -219,7 +219,7 @@ class NuevoAnalisis extends Component
             $res = Medicion::ind52($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
         } // Investigacion: 044 - 047
         elseif ($codigo_inicial === "IND-044") {
-            $res = Medicion::ind44($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
+            $res = Medicion::ind44($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin, $this->semestre_nombre, $this->tipo == 1 ? $this->entidad->depto_id : null);
         } elseif ($codigo_inicial === "IND-045") {
             $res = Medicion::ind45($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
         } elseif ($codigo_inicial === "IND-046") {
