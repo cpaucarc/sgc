@@ -232,28 +232,35 @@ class Medicion
         return MedicionHelper::getArrayResultados(null, null, $resultado);
     }
 
+    /* IND 25 - Convalidaciones
+     * Objetivo: Conocer el número de vacantes para convalidación por programa de estudios.
+     * Formula: X = N° vacantes para convalidacion por programa de estudio
+     * */
     public static function ind25($escuela_id, $fecha_inicio, $fecha_fin)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
-        $cantidad = Convalidacion::query()->where('escuela_id', $escuela_id)
+        $resultado = Convalidacion::query()->where('escuela_id', $escuela_id)
             ->whereBetween('created_at', [$fecha_inicio, $fecha_fin])
             ->sum('vacantes');
 
-        $resultados['resultado'] = $cantidad ?? 0;
-        return $resultados;
+        return MedicionHelper::getArrayResultados(null, null, $resultado);
     }
 
+    /* IND 26 - Convalidaciones
+     * Objetivo: Medir el grado de demanda de convalidación por programa de estudios.
+     * Formula: X = (N° de postulantes para convalidar por programa)/(Total de vacantes para convalidar por programa) x 100
+     * */
     public static function ind26($escuela_id, $fecha_inicio, $fecha_fin)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
-        $cantidad = Convalidacion::query()->where('escuela_id', $escuela_id)
+        $convalidacion = Convalidacion::query()
+            ->select('postulantes', 'vacantes')
+            ->where('escuela_id', $escuela_id)
             ->whereBetween('created_at', [$fecha_inicio, $fecha_fin])
-            ->sum('postulantes');
+            ->first();
 
-        $resultados['resultado'] = $cantidad ?? 0;
-        return $resultados;
+        $interes = $convalidacion->postulantes;
+        $total = $convalidacion->vacantes;
+
+        return MedicionHelper::getArrayResultados($interes, $total);
     }
 
     public static function ind27($facultad_id, $semestre_id)
