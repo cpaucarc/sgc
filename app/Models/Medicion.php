@@ -445,69 +445,65 @@ class Medicion
         }
     }
 
+    /* IND 41 - Matricula
+     * Objetivo: Conocer la cantidad de estudiantes con reserva de matrícula.
+     * Formula: X = N° de estudiantes con reserva de matricula por programa de estudio
+     * */
     public static function ind41($escuela_id, $semestre)
     {
-        //X = N° de estudiantes con reserva de matricula por programa de estudio
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
         try {
-            // FIXME está devolviendo un 404
-            $rsp = Http::withToken(env('OGE_TOKEN'))
+            $con_reserva = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'proceso_matricula/escuela/03?escuela=' . $escuela_id . '&semestre=' . $semestre);
 
-            $resultados['resultado'] = intval($rsp->body());
+            $resultado = intval($con_reserva->body());
+
+            return MedicionHelper::getArrayResultados(null, null, $resultado);
         } catch (\Exception $e) {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+            return null;
         }
-        return $resultados;
     }
 
+    /* IND 42 - Matricula
+     * Objetivo: Calcular la cantidad de estudiantes no matriculados del total de estudiantes matriculados.
+     * Formula: X = (N° de estudiantes no matriculados)/(Total de estudiantes matriculados por programa) x 100
+     * */
     public static function ind42($escuela_id, $semestre)
     {
-        //X = (N° de estudiantes no matriculados)/(Total de estudiantes matriculados por programa) x 100
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
         try {
-            // FIXME está devolviendo un 404
-            $rsp1 = Http::withToken(env('OGE_TOKEN'))
+            $no_matriculados = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'proceso_matricula/escuela/02?escuela=' . $escuela_id . '&semestre=' . $semestre);
-            // FIXME está devolviendo un 404
-            $rsp2 = Http::withToken(env('OGE_TOKEN'))
+
+            $total_matriculados = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'proceso_matricula/escuela/01?escuela=' . $escuela_id . '&semestre=' . $semestre);
 
-            $resultados['interes'] = intval($rsp1->body());
-            $resultados['total'] = intval($rsp2->body());
-            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+            $interes = intval($no_matriculados->body());
+            $total = intval($total_matriculados->body());
+
+            return MedicionHelper::getArrayResultados($interes, $total);
         } catch (\Exception $e) {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+            return null;
         }
-        return $resultados;
     }
 
+    /* IND 43 - Matricula
+     * Objetivo: Medir el nivel de satisfacción de los usuarios con el proceso de matrícula.
+     * Formula: X = (Total usuarios satisfechos por matricula)/(Total de usuarios encuestados por el proceso matricula ) x 100
+     * */
     public static function ind43($escuela_id, $semestre)
     {
-        //X = (Total usuarios satisfechos por matricula)/(Total de usuarios encuestados por el proceso matricula ) x 100
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
         try {
-            $rsp1 = Http::withToken(env('OGE_TOKEN'))
+            $satisfechos = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'proceso_matricula/escuela/05?escuela=' . $escuela_id . '&semestre=' . $semestre);
-            $rsp2 = Http::withToken(env('OGE_TOKEN'))
+            $encuestados = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'proceso_matricula/escuela/04?escuela=' . $escuela_id . '&semestre=' . $semestre);
 
-            $resultados['interes'] = intval($rsp1->body());
-            $resultados['total'] = intval($rsp2->body());
-            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+            $interes = intval($satisfechos->body());
+            $total = intval($encuestados->body());
+
+            return MedicionHelper::getArrayResultados($interes, $total);
         } catch (\Exception $e) {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+            return null;
         }
-        return $resultados;
     }
 
     public static function ind44($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)
