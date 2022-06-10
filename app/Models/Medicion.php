@@ -351,28 +351,26 @@ class Medicion
         }
     }
 
+    /* IND 35 - Enseñanza-Aprendizaje
+     * Objetivo: Medir el porcentaje de docentes con evaluación de cumplimiento.
+     * Formula: X = (Total docentes con evaluación de cumplimiento)/(Total de docentes evaluados por programa ) x 100
+     * */
     public static function ind35($escuela_id, $semestre)
     {
-        //X = (Total docentes con evaluación de cumplimiento)/(Total de docentes evaluados por programa ) x 100
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
         try {
-            // FIXME 07: Cantidad de docentes con evaluación de cumplimiento por escuela.. -> esta devolviendo un numero Aleatorio
-            $rsp1 = Http::withToken(env('OGE_TOKEN'))
+            $doc_con_evaluacion = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/07?escuela=' . $escuela_id . '&semestre=' . $semestre);
-            // FIXME 08: Cantidad de docentes con evaluación de cumplimiento por escuela.. -> esta devolviendo un numero Aleatorio
-            $rsp2 = Http::withToken(env('OGE_TOKEN'))
+
+            $doc_evaluados = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/08?escuela=' . $escuela_id . '&semestre=' . $semestre);
 
-            $resultados['interes'] = intval($rsp1->body());
-            $resultados['total'] = intval($rsp2->body());
-            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
+            $interes = intval($doc_con_evaluacion->body());
+            $total = intval($doc_evaluados->body());
+
+            return MedicionHelper::getArrayResultados($interes, $total);
         } catch (\Exception $e) {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+            return null;
         }
-        return $resultados;
     }
 
     public static function ind36($escuela_id, $semestre)
