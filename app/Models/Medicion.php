@@ -417,28 +417,26 @@ class Medicion
         }
     }
 
+    /* IND 38 - Enseñanza-Aprendizaje
+     * Objetivo: Medir el grado de cumplimiento de publicación de sílabo por programa de estudios.
+     * Formula: X = (Total silabos publicados por programa)/(Total de silabos por programa ) x 100
+     * */
     public static function ind38($escuela_id, $semestre)
     {
-        // X = (Total silabos publicados por programa)/(Total de silabos por programa ) x 100
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
         try {
-            // FIXME 13: Cantidad de sílabos publicados por escuela. -> esta devolviendo un numero Aleatorio
-            $rsp1 = Http::withToken(env('OGE_TOKEN'))
+            $silabos_publicados = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/13?escuela=' . $escuela_id . '&semestre=' . $semestre);
-            // FIXME 14: Cantidad de cursos abiertos por escuela. -> esta devolviendo un numero Aleatorio
-            $rsp2 = Http::withToken(env('OGE_TOKEN'))
+
+            $cursos_abiertos = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/14?escuela=' . $escuela_id . '&semestre=' . $semestre);
 
-            $resultados['interes'] = intval($rsp1->body());
-            $resultados['total'] = intval($rsp2->body());
-            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
+            $interes = intval($silabos_publicados->body());
+            $total = intval($cursos_abiertos->body());
+
+            return MedicionHelper::getArrayResultados($interes, $total);
         } catch (\Exception $e) {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+            return null;
         }
-        return $resultados;
     }
 
     public static function ind39($escuela_id, $semestre)
