@@ -326,29 +326,29 @@ class Medicion
         return MedicionHelper::getArrayResultados(null, null, $convenio->culminados);
     }
 
+    /* IND 32 - Enseñanza-Aprendizaje
+     * Objetivo: Conocer el porcentaje de estudiantes que lograron las competencias.
+     * Formula: X = (N° de estudiantes que lograron competencias)/(Total de estudiantes) x 100
+     * */
     public static function ind32($escuela_id, $semestre)
     {
-        // X = (N° de estudiantes que lograron competencias)/(Total de estudiantes) x 100
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
         try {
-            // FIXME 04: Cantidad de estudiantes aprobados en cada curso por escuela. -> esta devolviendo un numero Aleatorio
-            $rsp = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/04?escuela=' . $escuela_id . '&semestre=' . $semestre);
-            // Cantidad de estudiantes matriculados por escuela
-            $rsp1 = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_matricula/escuela/01?escuela=' . $escuela_id . '&semestre=' . $semestre);
+//            $aprobados = Http::withToken(env('OGE_TOKEN'))
+//                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/04?escuela=' . $escuela_id . '&semestre=' . $semestre);
+//
+//            $matriculados = Http::withToken(env('OGE_TOKEN'))
+//                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/03?escuela=' . $escuela_id . '&semestre=' . $semestre);
+//
+//            $interes = intval($rsp->body());
+//
+//            $total = intval($cant_estudiantes->body());
+//
+//            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
 
-            $resultados['interes'] = intval($rsp->body());
-
-            $resultados['total'] = intval($rsp1->body());
-            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+            return null;
         } catch (\Exception $e) {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+            return null;
         }
-        return $resultados;
     }
 
     public static function ind35($escuela_id, $semestre)
