@@ -34,6 +34,9 @@
                 </div>
             </div>
         </div>
+        <div class="col-span-4 space-y-6">
+            <livewire:tpu.lista-titulados :escuela="$escuela" :facultad="$facultad"/>
+        </div>
     </div>
 
 </x-app-layout>
