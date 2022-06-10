@@ -19,7 +19,7 @@
         </div>
 
         <div class="col-span-4 space-y-6">
-            
+
         </div>
     </div>
 

@@ -1,7 +1,7 @@
 <div
     class="group bg-white border border-stone-200 px-3 py-3 rounded-md transition hover:shadow-md">
     <x-utils.links.basic href="{{ $href }}" class="text-sm">
-        Requisitos {{ $estado }}
+        {{ $title }}
     </x-utils.links.basic>
     <div class="flex justify-between items-center">
         <div class="inline-flex gap-x-2 items-center text-gray-500 group-hover:text-gray-600">
