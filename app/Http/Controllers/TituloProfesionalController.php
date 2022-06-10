@@ -41,6 +41,8 @@ class TituloProfesionalController extends Controller
         $callback_titulados = GradoEstudiante::query()->distinct('dni_estudiante')
             ->where('grado_academico_id', 4); // 4: Titulado
 
+        $callback_proyectos=Tesis::query()->distinct('numero_registro');
+
         if (count($escuelas_id) > 0) {
             $this->escuela = Escuela::query()->whereIn('id', $escuelas_id)->first();
             $this->facultad = Facultad::query()->whereIn('id', function ($query) {
@@ -50,6 +52,7 @@ class TituloProfesionalController extends Controller
 
             $solicitudes = $callback_socicitud->where('escuela_id', $this->escuela->id)->get();
             $titulados = $callback_titulados->where('escuela_id', $this->escuela->id)->count();
+            $proyectos=$callback_proyectos->where('escuela_id',$this->escuela->id)->count();
 
         } elseif (count($facultades_id) > 0) {
             $this->facultad = Facultad::query()->whereIn('id', $facultades_id)->first();
@@ -60,6 +63,11 @@ class TituloProfesionalController extends Controller
             })->get();
 
             $titulados = $callback_titulados->whereIn('escuela_id', function ($query) {
+                $query->select('id')->from('escuelas')
+                    ->where('facultad_id', $this->facultad->id);
+            })->count();
+
+            $proyectos=$callback_proyectos->whereIn('escuela_id', function ($query) {
                 $query->select('id')->from('escuelas')
                     ->where('facultad_id', $this->facultad->id);
             })->count();
@@ -88,7 +96,7 @@ class TituloProfesionalController extends Controller
          * Si el usuario es de tipo escuela, el parametro facultad evia dato y la escuela tambien envia dato.
          */
 
-        return view('tpu.index', compact('facultad', 'escuela', 'incompletas', 'completas', 'titulados'));
+        return view('tpu.index', compact('facultad', 'escuela', 'incompletas', 'completas','proyectos', 'titulados'));
     }
 
     public function request()

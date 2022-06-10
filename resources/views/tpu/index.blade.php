@@ -30,7 +30,7 @@
                 <div class="space-y-6">
                     <x-bachiller.card-solicitudes
                         title="Proyectos de investigación"
-                        :cantidad="$incompletas"
+                        :cantidad="$proyectos"
                         nombre="proyectos"
                         href="#"
                     />
