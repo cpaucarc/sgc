@@ -219,16 +219,17 @@ class Medicion
         return MedicionHelper::getArrayResultados($interes, $total);
     }
 
+    /* IND 24 - Convalidaciones
+     * Objetivo: Conocer la cantidad de convalidaciones realizadas por programa de estudios.
+     * Formula: X = N° de convalidaciones realizadas por programa
+     * */
     public static function ind24($escuela_id, $fecha_inicio, $fecha_fin)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
-        $cantidad = Convalidacion::query()->where('escuela_id', $escuela_id)
+        $resultado = Convalidacion::query()->where('escuela_id', $escuela_id)
             ->whereBetween('created_at', [$fecha_inicio, $fecha_fin])
             ->sum('convalidados');
 
-        $resultados['resultado'] = $cantidad ?? 0;
-        return $resultados;
+        return MedicionHelper::getArrayResultados(null, null, $resultado);
     }
 
     public static function ind25($escuela_id, $fecha_inicio, $fecha_fin)
