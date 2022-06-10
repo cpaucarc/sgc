@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->string('nombre');
             $table->integer('ciclo_id');
             $table->integer('horas_teoria');
-            $table->integer('horas_prac');
+            $table->integer('horas_practica');
             $table->foreignId('escuela_id')->constrained('escuelas')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
