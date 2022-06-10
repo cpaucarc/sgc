@@ -12,21 +12,22 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('solicitudes', function (Blueprint $table) {
+        Schema::create('cursos', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid',40);
-            $table->string('dni_estudiante', 8);//<=>OGE
+            $table->integer('escuela_id');
+            $table->string('curricula', 2);
+            $table->string('codigo', 10);
+            $table->string('nombre');
+            $table->integer('ciclo_id');
+            $table->integer('horas_teoria');
+            $table->integer('horas_practica');
             $table->foreignId('escuela_id')->constrained('escuelas')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->foreignId('tipo_solicitud_id')->constrained('tipo_solicitud')
+            $table->foreignId('ciclo_id')->constrained('ciclos')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->foreignId('estado_id')->constrained('estados')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
-
-            $table->timestamps();
+//            $table->timestamps();
         });
     }
 
@@ -37,6 +38,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('solicitudes');
+        Schema::dropIfExists('cursos');
     }
 };

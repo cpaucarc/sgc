@@ -65,6 +65,9 @@ class DatabaseSeeder extends Seeder
         $this->call(LineaInvestigacionSeeder::class);
         \App\Models\ResponsabilidadSocial::factory(50)->create();
         \App\Models\Tesis::factory(50)->create();
+        $this->call(CicloSeeder::class);
+        $this->call(CursoSeeder::class);
+
 
         // Nivel 3
 //        \App\Models\ConvalidacionPostulante::factory(75)->create();

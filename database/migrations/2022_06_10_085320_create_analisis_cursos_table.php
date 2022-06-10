@@ -12,21 +12,17 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('solicitudes', function (Blueprint $table) {
+        Schema::create('analisis_cursos', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid',40);
-            $table->string('dni_estudiante', 8);//<=>OGE
-            $table->foreignId('escuela_id')->constrained('escuelas')
+            $table->integer('analisis_indicador_id');
+            $table->integer('curso_id');
+            $table->foreignId('analisis_indicador_id')->constrained('analisis_indicador')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->foreignId('tipo_solicitud_id')->constrained('tipo_solicitud')
+            $table->foreignId('curso_id')->constrained('cursos')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->foreignId('estado_id')->constrained('estados')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
-
-            $table->timestamps();
+//            $table->timestamps();
         });
     }
 
@@ -37,6 +33,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('solicitudes');
+        Schema::dropIfExists('analisis_cursos');
     }
 };
