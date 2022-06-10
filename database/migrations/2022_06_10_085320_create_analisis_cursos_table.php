@@ -14,15 +14,12 @@ return new class extends Migration {
     {
         Schema::create('analisis_cursos', function (Blueprint $table) {
             $table->id();
-            $table->integer('analisis_indicador_id');
-            $table->integer('curso_id');
             $table->foreignId('analisis_indicador_id')->constrained('analisis_indicador')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->foreignId('curso_id')->constrained('cursos')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-//            $table->timestamps();
         });
     }
 
