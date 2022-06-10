@@ -173,12 +173,12 @@ class Medicion
     }
 
     /* IND 19 - Bienestar Universitario
-         * Objetivo: Conocer el número total de atenciones por servicios por programa de estudios.
-         * Formula: X = ∑ atenciones por servicio por programa
-         * Interes: -
-         * Total: -
-         * Resultado: Total de Atenciones
-         * */
+     * Objetivo: Conocer el número total de atenciones por servicios por programa de estudios.
+     * Formula: X = ∑ atenciones por servicio por programa
+     * Interes: -
+     * Total: -
+     * Resultado: Total de Atenciones
+     * */
     public static function ind19($escuela_id, $fecha_inicio, $fecha_fin)
     {
         $resultado = MedicionHelper::medicionComedor($escuela_id, $fecha_inicio, $fecha_fin)
@@ -187,11 +187,15 @@ class Medicion
         return MedicionHelper::getArrayResultados(null, null, $resultado);
     }
 
+    /* IND 21 - Bolsa de Trabajo
+     * Objetivo: Medir el porcentaje de usuarios beneficiados por el proceso de bolsa de trabajo.
+     * Formula: X = (N° de beneficiados por programa)/(Total de postulantes del programa) x 100
+     * Interes: N° Beneficiados
+     * Total: N° Postulantes
+     * Resultado: Interes / Total * 100
+     * */
     public static function ind21($escuela_id, $fecha_inicio, $fecha_fin)
     {
-        // X = (N° de beneficiados por programa)/(Total de postulantes del programa) x 100
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
         $bolsa = BolsaPostulante::query()
             ->where('escuela_id', $escuela_id)
             ->where(function ($query) use ($fecha_inicio, $fecha_fin) {
@@ -205,19 +209,14 @@ class Medicion
             })
             ->first();
 
-        if ($bolsa) {
-            $resultados['interes'] = $bolsa->beneficiados;
-            $resultados['total'] = $bolsa->postulantes;
-
-            $resultados['resultado'] = is_null($resultados['interes']) ? 0
-                : (is_null($resultados['total']) ? 0 : round($resultados['interes'] / $resultados['total'] * 100));
-        } else {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+        if (!$bolsa) {
+            return null;
         }
 
-        return $resultados;
+        $interes = $bolsa->beneficiados;
+        $total = $bolsa->postulantes;
+
+        return MedicionHelper::getArrayResultados($interes, $total);
     }
 
     public static function ind24($escuela_id, $fecha_inicio, $fecha_fin)
