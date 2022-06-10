@@ -12,9 +12,6 @@ class Medicion
     /* IND 01 - Gestion de la Calidad
      * Objetivo: Medir el porcentaje de avance mensual de las actividades programadas en el plan de trabajo.
      * Formula: X = (N° de actividades cumplidas)/(Total de actividades programadas) x 100
-     * Interes: N° actividades cumplidas
-     * Total: N° actividades programadas
-     * Resultado: Interes / Total * 100
      * */
     public static function ind01($facultad_id, $fecha_inicio, $fecha_fin)
     {
@@ -50,9 +47,6 @@ class Medicion
     /* IND 09 - Biblioteca
      * Objetivo: Conocer la cantidad de material bibliográfico adquirido.
      * Formula: X = N° de material bibliografico adquirido
-     * Interes: -
-     * Total: -
-     * Resultado: N° Material Bibliográfico Adquirido
      * */
     public static function ind09($facultad_id, $fecha_inicio, $fecha_fin)
     {
@@ -65,9 +59,6 @@ class Medicion
     /* IND 10 - Biblioteca
      * Objetivo: Conocer la cantidad de material bibliográfico prestado.
      * Formula: X = Total de material bibliográfico prestado
-     * Interes: -
-     * Total: -
-     * Resultado: N° Material Bibliográfico Prestado
      * */
     public static function ind10($facultad_id, $fecha_inicio, $fecha_fin)
     {
@@ -80,9 +71,6 @@ class Medicion
     /* IND 11 - Biblioteca
      * Objetivo: Conocer la cantidad de material bibliográfico perdido.
      * Formula: X = Total de material bibliográfico prestado
-     * Interes: -
-     * Total: -
-     * Resultado: N° Material Bibliográfico Perdido
      * */
     public static function ind11($facultad_id, $fecha_inicio, $fecha_fin)
     {
@@ -95,9 +83,6 @@ class Medicion
     /* IND 12 - Biblioteca
      * Objetivo: Saber la cantidad de visitantes a la biblioteca de la universidad.
      * Formula: X = N° de visitantes a la biblioteca por programa de estudios
-     * Interes: -
-     * Total: -
-     * Resultado: N° Visitantes a la Biblioteca
      * */
     public static function ind12($escuela_id, $fecha_inicio, $fecha_fin)
     {
@@ -125,9 +110,6 @@ class Medicion
     /* IND 13 - Biblioteca
      * Objetivo: Conocer el porcentaje de libros actualizados por programa de estudios.
      * Formula: X = (N° de libros adquiridos)/(Total de libros en colección) x100
-     * Interes: N° Libros Adquiridos
-     * Total: Total Libros En Colección
-     * Resultado: Interes / Total * 100
      * */
     public static function ind13($facultad_id, $fecha_inicio, $fecha_fin)
     {
@@ -143,9 +125,6 @@ class Medicion
     /* IND 14 - Biblioteca
      * Objetivo: Saber la cantidad de material bibliográfico restaurado.
      * Formula: X = Total de material bibliográfico restaurado
-     * Interes: -
-     * Total: -
-     * Resultado: N° Material Bibliográfico Restaurado
      * */
     public static function ind14($facultad_id, $fecha_inicio, $fecha_fin)
     {
@@ -158,9 +137,6 @@ class Medicion
     /* IND 17 - Bienestar Universitario
      * Objetivo: Medir el porcentaje de comersales atendidos del total de comesales.
      * Formula: X = (N° de comensales atendidos por programa)/(Total de comensales por programa) x 100
-     * Interes: N° Comensales Atendidos
-     * Total: N° Total de Comensales
-     * Resultado: Interes / Total * 100
      * */
     public static function ind17($escuela_id, $fecha_inicio, $fecha_fin)
     {
@@ -175,9 +151,6 @@ class Medicion
     /* IND 19 - Bienestar Universitario
      * Objetivo: Conocer el número total de atenciones por servicios por programa de estudios.
      * Formula: X = ∑ atenciones por servicio por programa
-     * Interes: -
-     * Total: -
-     * Resultado: Total de Atenciones
      * */
     public static function ind19($escuela_id, $fecha_inicio, $fecha_fin)
     {
@@ -190,9 +163,6 @@ class Medicion
     /* IND 21 - Bolsa de Trabajo
      * Objetivo: Medir el porcentaje de usuarios beneficiados por el proceso de bolsa de trabajo.
      * Formula: X = (N° de beneficiados por programa)/(Total de postulantes del programa) x 100
-     * Interes: N° Beneficiados
-     * Total: N° Postulantes
-     * Resultado: Interes / Total * 100
      * */
     public static function ind21($escuela_id, $fecha_inicio, $fecha_fin)
     {
