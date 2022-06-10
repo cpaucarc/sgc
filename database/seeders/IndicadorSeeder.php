@@ -788,8 +788,8 @@ class IndicadorSeeder extends Seeder
                 'sobresaliente' => 0,
                 'proceso_id' => 1, //DB: procesos: 1: Enseñanza y Aprendizaje
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
-                'frecuencia_medicion_id' => 1,
-                'frecuencia_reporte_id' => 1,
+                'frecuencia_medicion_id' => 3,
+                'frecuencia_reporte_id' => 2,
             ],
             //IND-038
             [
