@@ -17,11 +17,15 @@ class FrecuenciaSeeder extends Seeder
         $frecuencias = [
             [
                 'nombre' => 'Mensual',
-                'tiempo_meses' => 1
+                'tiempo_semanas' => 4 // 1 mes = 4 semanas
             ],
             [
                 'nombre' => 'Semestral',
-                'tiempo_meses' => 6
+                'tiempo_semanas' => 16 // 1 mes = 4 semanas -> 4 meses = 16 semanas
+            ],
+            [
+                'nombre' => 'Semanal',
+                'tiempo_semanas' => 1
             ],
         ];
 
