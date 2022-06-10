@@ -457,23 +457,22 @@ class Medicion
         }
     }
 
+    /* IND 40 - Matricula
+     * Objetivo: Conocer la cantidad de estudiantes no matriculados por programa.
+     * Formula: X = N° de estudiantes no matriculados por programa de estudios
+     * */
     public static function ind40($escuela_id, $semestre)
     {
-        //X = N° de estudiantes no matriculados por programa de estudios
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
         try {
-            // FIXME está devolviendo un 404
-            $rsp = Http::withToken(env('OGE_TOKEN'))
+            $no_matriculados = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'proceso_matricula/escuela/02?escuela=' . $escuela_id . '&semestre=' . $semestre);
 
-            $resultados['resultado'] = intval($rsp->body());
+            $resultado = intval($no_matriculados->body());
+
+            return MedicionHelper::getArrayResultados(null, null, $resultado);
         } catch (\Exception $e) {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+            return null;
         }
-        return $resultados;
     }
 
     public static function ind41($escuela_id, $semestre)
