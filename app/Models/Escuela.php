@@ -10,7 +10,7 @@ class Escuela extends Model
     use HasFactory;
 
     public $timestamps = false;
-    public $fillable = ['nombre', 'uuid', 'abrev', 'facultad_id'];
+    public $fillable = ['nombre', 'uuid', 'abrev', 'depto_id', 'facultad_id'];
 
     public function facultad()
     {
