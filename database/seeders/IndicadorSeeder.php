@@ -253,7 +253,7 @@ class IndicadorSeeder extends Seeder
             //ToDo: 7 CONVALIDACIONES
             //IND-024
             [
-                'objetivo' => 'Conocer la cantidad de convalizaciones realizadas por programa de estudios.',
+                'objetivo' => 'Conocer la cantidad de convalidaciones realizadas por programa de estudios.',
                 'titulo_interes' => null,
                 'titulo_total' => null,
                 'titulo_resultado' => 'N° de convalidaciones',
@@ -470,7 +470,7 @@ class IndicadorSeeder extends Seeder
                 'objetivo' => 'Conocer el número total de atenciones por servicios por programa de estudios.',
                 'titulo_interes' => null,
                 'titulo_total' => null,
-                'titulo_resultado' => 'Resultado Indicador',
+                'titulo_resultado' => 'Total de atenciones',
                 'cod_ind_inicial' => 'IND-019',
                 'formula' => 'X = ∑ atenciones por servicio por programa',
                 'minimo' => 20,
