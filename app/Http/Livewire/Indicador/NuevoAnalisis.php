@@ -306,7 +306,7 @@ class NuevoAnalisis extends Component
         } elseif ($codigo_inicial === "IND-076") {
             $res = Medicion::ind76($this->tipo == 1, $this->tipo == 1 ? $this->entidad->depto_id : $this->entidad->id, $this->semestre_nombre);
         } elseif ($codigo_inicial === "IND-077") {
-            $res = Medicion::ind77($this->tipo == 1, $this->entidad->id, $this->semestre_nombre);
+            $res = Medicion::ind77($this->tipo == 1, $this->tipo == 1 ? $this->entidad->depto_id : $this->entidad->id, $this->semestre_nombre);
         } elseif ($codigo_inicial === "IND-078") {
             $res = Medicion::ind78($this->tipo == 1, $this->entidad->id, $this->semestre_nombre);
         } // Bolsa
