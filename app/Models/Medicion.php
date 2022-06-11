@@ -748,7 +748,7 @@ class Medicion
         return MedicionHelper::getArrayResultados($interes, $total);
     }
 
-    /* IND 58 - Titulo Profesional
+    /* IND 59 - Titulo Profesional
      * Objetivo: Medir el porcentaje de titulados por programa de estudios.
      * Formula: X = (N° de egresados que logran titularse)/(Total de graduados en bachiller por  programa) x 100
      * */
@@ -773,53 +773,51 @@ class Medicion
         $total = $bachilleres->count(); // Cantidad de bachilleres
 
         return MedicionHelper::getArrayResultados($interes, $total);
-    } //778 -> 782 -> 777 -> 776
-
-    public static function ind60($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)
-    {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
-        $q = GradoEstudiante::query()->where('grado_academico_id', 4)
-            ->whereBetween('created_at', [$fecha_inicio, $fecha_fin]);
-
-        if ($es_escuela) {
-            $q = $q->where('escuela_id', $entidad_id);
-        } else {
-            $q = $q->whereIn('escuela_id', function ($query2) use ($entidad_id) {
-                $query2->select('id')->from('escuelas')->where('facultad_id', $entidad_id);
-            });
-        }
-
-        $resultados['resultado'] = $q->count();
-
-        return $resultados;
     }
 
+    /* IND 60 - Titulo Profesional
+     * Objetivo: Conocer la cantidad de titulados por programa de estudios.
+     * Formula: X = N° de titulados por programa de estudios
+     * */
+    public static function ind60($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)
+    {
+        $escuelas = $es_escuela ? array($entidad_id)
+            : Escuela::query()->where('facultad_id', $entidad_id)->pluck('id');
+
+        $resultado = GradoEstudiante::query()
+            ->where('grado_academico_id', 4) // Tabla GradoAcademico -> 4:Titulado
+            ->whereIn('escuela_id', $escuelas)
+            ->whereBetween('created_at', [$fecha_inicio, $fecha_fin])
+            ->count();
+
+        return MedicionHelper::getArrayResultados(null, null, $resultado);
+    }
+
+    /* IND 61 - Titulo Profesional
+     * Objetivo: Medir el porcentaje de proyectos de investigación aprobados por programa de estudios.
+     * Formula: X = (N° de PI aprobados)/(Total de PI presentados por  programa) x 100
+     * */
     public static function ind61($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+        $escuelas = $es_escuela ? array($entidad_id)
+            : Escuela::query()->where('facultad_id', $entidad_id)->pluck('id');
 
-        if ($es_escuela) {
-            $escuelas = Escuela::select('id')->where('id', $entidad_id)->get();
-        } else {
-            $escuelas = Escuela::select('id')->where('facultad_id', $entidad_id)->get();
-        }
-
-        $resultados['total'] = Tesis::query()->whereIn('escuela_id', $escuelas)
+        $total = Tesis::query()
+            ->whereIn('escuela_id', $escuelas)
             ->whereIn('id', function ($query) use ($fecha_inicio, $fecha_fin) {
                 return $query->select('tesis_id')->from('sustentaciones')
                     ->whereBetween('fecha_sustentacion', [$fecha_inicio, $fecha_fin]);
             })->count();
 
-        $resultados['interes'] = Tesis::query()->whereIn('escuela_id', $escuelas)
+        $interes = Tesis::query()
+            ->whereIn('escuela_id', $escuelas)
             ->whereIn('id', function ($query) use ($fecha_inicio, $fecha_fin) {
                 return $query->select('tesis_id')->from('sustentaciones')
-                    ->where('estado_id', 10)
+                    ->where('estado_id', 10) // Tabla Estados -> 10:Aprobado
                     ->whereBetween('fecha_sustentacion', [$fecha_inicio, $fecha_fin]);
             })->count();
 
-        $resultados['resultado'] = $resultados['total'] == 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
-        return $resultados;
+        return MedicionHelper::getArrayResultados($interes, $total);
     }
 
     public static function ind62($es_escuela, $entidad_id, $semestre)
