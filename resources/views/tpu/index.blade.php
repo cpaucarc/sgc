@@ -1,17 +1,45 @@
 <x-app-layout>
-    <div class="w-3/4 mx-auto">
-        <div class="flex items-center justify-between mb-4">
-            <h1 class="font-bold text-xl text-gray-800">
-                Estudiantes con grado de título profesional
-            </h1>
-            <div class="relative">
-                <x-utils.links.primary href="{{ route('tpu.requests') }}">
-                    <x-icons.people class="h-5 w-5 mr-1" stroke="1.5"></x-icons.people>
-                    Revisar solicitudes
-                </x-utils.links.primary>
+
+    <div class="grid grid-cols-6 gap-12 pt-8">
+        <div class="col-span-2 space-y-4">
+            <div class="space-y-8 divide-gray-300 divide-dashed">
+                <div class="text-right">
+                    <p class="text-gray-500">Estudiantes de la</p>
+                    <h1 class="font-bold text-2xl text-gray-700">
+                        {{ $escuela ? "escuela de $escuela->nombre" : " facultad de $facultad->nombre" }}
+                    </h1>
+                    <p class="text-gray-500">con grado de título profesional</p>
+                    <p class="text-gray-500 font-semibold text-sm mt-4">{{ $titulados }} titulados en total</p>
+                </div>
+                <hr>
+                <div class="space-y-6">
+                    <x-bachiller.card-solicitudes
+                        title="Solicitudes incompletas"
+                        :cantidad="$incompletas"
+                        nombre="solicitudes"
+                        href="{{ route('tpu.solicitudes.incompletas') }}"
+                    />
+                    <x-bachiller.card-solicitudes
+                        title="Solicitudes completas"
+                        :cantidad="$completas"
+                        nombre="solicitudes"
+                        href="{{ route('tpu.solicitudes.completas') }}"
+                    />
+                </div>
+                <hr>
+                <div class="space-y-6">
+                    <x-bachiller.card-solicitudes
+                        title="Proyectos de investigación"
+                        :cantidad="$proyectos"
+                        nombre="proyectos"
+                        href="#"
+                    />
+                </div>
             </div>
         </div>
-
-        <livewire:tpu.lista-titulados :escuela="$escuela_id"/>
+        <div class="col-span-4 space-y-6">
+            <livewire:tpu.lista-titulados :escuela="$escuela" :facultad="$facultad"/>
+        </div>
     </div>
+
 </x-app-layout>

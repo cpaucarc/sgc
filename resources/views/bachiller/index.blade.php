@@ -14,13 +14,15 @@
                 <hr>
                 <div class="space-y-6">
                     <x-bachiller.card-solicitudes
-                        estado="incompletas"
+                        title="Solicitudes incompletas"
                         :cantidad="$incompletas"
+                        nombre="solicitudes"
                         href="{{ route('bachiller.solicitudes.incompletas') }}"
                     />
                     <x-bachiller.card-solicitudes
-                        estado="completas"
+                        title="Solicitudes completas"
                         :cantidad="$completas"
+                        nombre="solicitudes"
                         href="{{ route('bachiller.solicitudes.completas') }}"
                     />
                 </div>
