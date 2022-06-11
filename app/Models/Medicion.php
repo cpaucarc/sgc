@@ -925,39 +925,31 @@ class Medicion
         }
     }
 
-    public static function ind67($es_escuela, $entidad_id, $semestre)
+    /* IND 67 - Docente
+     * Objetivo: Medir la demanda de personal administrativo.
+     * Formula: X = (N° de estudiantes por programa)/(Total de administrativos por programa)
+     * */
+    public static function ind67($es_escuela, $entidad_id, $semestre, $depto_id = null)
     {
-        //X = (N° de estudiantes por programa)/(Total de administrativos por programa)
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
         try {
+            $tipo = 'facultad';
 
             if ($es_escuela) {
-                // FIXME está devolviendo 404
-                $rsp1 = Http::withToken(env('OGE_TOKEN'))
-                    ->get(env('OGE_API') . 'proceso_matricula/escuela/01?escuela=' . $entidad_id . '&semestre=' . $semestre);
-                // FIXME está devolviendo un 404
-                $rsp2 = Http::withToken(env('OGE_TOKEN'))
-                    ->get(env('OGE_API') . 'proceso_docente/departamento/10?departamento=' . $entidad_id . '&semestre=' . $semestre);
-            } else {
-                // FIXME está devolviendo 404
-                $rsp1 = Http::withToken(env('OGE_TOKEN'))
-                    ->get(env('OGE_API') . 'proceso_matricula/facultad/01?facultad=' . $entidad_id . '&semestre=' . $semestre);
-                // FIXME está devolviendo un 404
-                $rsp2 = Http::withToken(env('OGE_TOKEN'))
-                    ->get(env('OGE_API') . 'proceso_docente/facultad/10?facultad=' . $entidad_id . '&semestre=' . $semestre);
-
+                $tipo = 'departamento';
             }
 
-            $resultados['interes'] = intval($rsp1->body());
-            $resultados['total'] = intval($rsp2->body());
-            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+            // FIXME está devolviendo valores aleatorios (La API no está implementado 11/06/2022)
+            $administrativos = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/10?' . $tipo . '=' . $entidad_id . '&semestre=' . $semestre);
+            $interes = intval($administrativos->body());
+
+            $total = $es_escuela ? MedicionHelper::cantidadEstudiantesPorEscuela($entidad_id, $semestre)
+                : MedicionHelper::cantidadEstudiantesPorFacultad($entidad_id, $semestre);
+
+            return MedicionHelper::getArrayResultados($interes, $total);
         } catch (\Exception $e) {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+            return null;
         }
-        return $resultados;
     }
 
     public static function ind68($facultad_id, $fecha_inicio, $fecha_fin)
