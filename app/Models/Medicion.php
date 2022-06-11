@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Lib\MedicionHelper;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 class Medicion
 {
@@ -330,10 +329,10 @@ class Medicion
     {
         try {
             $doc_con_evaluacion = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/07?escuela=' . $escuela_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/07?escuela=' . MedicionHelper::normalizarID($escuela_id) . '&semestre=' . $semestre);
 
             $doc_evaluados = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/08?escuela=' . $escuela_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/08?escuela=' . MedicionHelper::normalizarID($escuela_id) . '&semestre=' . $semestre);
 
             $interes = intval($doc_con_evaluacion->body());
             $total = intval($doc_evaluados->body());
@@ -352,10 +351,10 @@ class Medicion
     {
         try {
             $satisfechos = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/10?escuela=' . $escuela_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/10?escuela=' . MedicionHelper::normalizarID($escuela_id) . '&semestre=' . $semestre);
 
             $encuestados = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/09?escuela=' . $escuela_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/09?escuela=' . MedicionHelper::normalizarID($escuela_id) . '&semestre=' . $semestre);
 
             $interes = intval($satisfechos->body());
             $total = intval($encuestados->body());
@@ -374,10 +373,10 @@ class Medicion
     {
         try {
             $asistencia = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/11?escuela=' . $escuela_id . '&semestre=' . $semestre . '&fecha_inicio=' . $fecha_inicio . '&fecha_fin=' . $fecha_fin);
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/11?escuela=' . MedicionHelper::normalizarID($escuela_id) . '&semestre=' . $semestre . '&fecha_inicio=' . $fecha_inicio . '&fecha_fin=' . $fecha_fin);
 
             $programada = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/12?escuela=' . $escuela_id . '&semestre=' . $semestre . '&fecha_inicio=' . $fecha_inicio . '&fecha_fin=' . $fecha_fin);
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/12?escuela=' . MedicionHelper::normalizarID($escuela_id) . '&semestre=' . $semestre . '&fecha_inicio=' . $fecha_inicio . '&fecha_fin=' . $fecha_fin);
 
             $interes = intval($asistencia->body());
             $total = intval($programada->body());
@@ -396,10 +395,10 @@ class Medicion
     {
         try {
             $silabos_publicados = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/13?escuela=' . $escuela_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/13?escuela=' . MedicionHelper::normalizarID($escuela_id) . '&semestre=' . $semestre);
 
             $cursos_abiertos = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/14?escuela=' . $escuela_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/14?escuela=' . MedicionHelper::normalizarID($escuela_id) . '&semestre=' . $semestre);
 
             $interes = intval($silabos_publicados->body());
             $total = intval($cursos_abiertos->body());
@@ -418,7 +417,7 @@ class Medicion
     {
         try {
             $matriculados = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_matricula/escuela/01?escuela=' . $escuela_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'proceso_matricula/escuela/01?escuela=' . MedicionHelper::normalizarID($escuela_id) . '&semestre=' . $semestre);
 
             $resultado = intval($matriculados->body());
 
@@ -436,7 +435,7 @@ class Medicion
     {
         try {
             $no_matriculados = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_matricula/escuela/02?escuela=' . $escuela_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'proceso_matricula/escuela/02?escuela=' . MedicionHelper::normalizarID($escuela_id) . '&semestre=' . $semestre);
 
             $resultado = intval($no_matriculados->body());
 
@@ -454,7 +453,7 @@ class Medicion
     {
         try {
             $con_reserva = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_matricula/escuela/03?escuela=' . $escuela_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'proceso_matricula/escuela/03?escuela=' . MedicionHelper::normalizarID($escuela_id) . '&semestre=' . $semestre);
 
             $resultado = intval($con_reserva->body());
 
@@ -472,10 +471,10 @@ class Medicion
     {
         try {
             $no_matriculados = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_matricula/escuela/02?escuela=' . $escuela_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'proceso_matricula/escuela/02?escuela=' . MedicionHelper::normalizarID($escuela_id) . '&semestre=' . $semestre);
 
             $total_matriculados = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_matricula/escuela/01?escuela=' . $escuela_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'proceso_matricula/escuela/01?escuela=' . MedicionHelper::normalizarID($escuela_id) . '&semestre=' . $semestre);
 
             $interes = intval($no_matriculados->body());
             $total = intval($total_matriculados->body());
@@ -494,9 +493,9 @@ class Medicion
     {
         try {
             $satisfechos = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_matricula/escuela/05?escuela=' . $escuela_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'proceso_matricula/escuela/05?escuela=' . MedicionHelper::normalizarID($escuela_id) . '&semestre=' . $semestre);
             $encuestados = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_matricula/escuela/04?escuela=' . $escuela_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'proceso_matricula/escuela/04?escuela=' . MedicionHelper::normalizarID($escuela_id) . '&semestre=' . $semestre);
 
             $interes = intval($satisfechos->body());
             $total = intval($encuestados->body());
@@ -656,7 +655,7 @@ class Medicion
         try {
             // Docentes que realizan tutoria por cada departamento
             $tutores = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'tutoria_consejeria/departamento/02?departamento=' . $depto_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'tutoria_consejeria/departamento/02?departamento=' . MedicionHelper::normalizarID($depto_id) . '&semestre=' . $semestre);
             $interes = intval($tutores->body());
 
             $total_docentes = MedicionHelper::cantidadDocentesPorDepto($depto_id, $semestre);
@@ -675,7 +674,7 @@ class Medicion
     {
         try {
             $asistentes = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'tutoria_consejeria/escuela/04?escuela=' . $escuela_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'tutoria_consejeria/escuela/04?escuela=' . MedicionHelper::normalizarID($escuela_id) . '&semestre=' . $semestre);
             $interes = intval($asistentes->body());
 
             $total = MedicionHelper::cantidadEstudiantesPorEscuela($escuela_id, $semestre);
@@ -694,7 +693,7 @@ class Medicion
     {
         try {
             $estudiantes_con_problemas = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'tutoria_consejeria/escuela/05?escuela=' . $escuela_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'tutoria_consejeria/escuela/05?escuela=' . MedicionHelper::normalizarID($escuela_id) . '&semestre=' . $semestre);
             $interes = intval($estudiantes_con_problemas->body());
 
             $total = MedicionHelper::cantidadEstudiantesPorEscuela($escuela_id, $semestre);
@@ -713,7 +712,7 @@ class Medicion
     {
         try {
             $estudiantes_riesgo_academico = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'tutoria_consejeria/escuela/06?escuela=' . $escuela_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'tutoria_consejeria/escuela/06?escuela=' . MedicionHelper::normalizarID($escuela_id) . '&semestre=' . $semestre);
             $resultado = intval($estudiantes_riesgo_academico->body());
 
             return MedicionHelper::getArrayResultados(null, null, $resultado);
@@ -836,11 +835,11 @@ class Medicion
 
             // FIXME está devolviendo valores aleatorios (La API no está implementado 11/06/2022)
             $docentes_que_cumplieron = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/04?' . $tipo . '=' . $entidad_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/04?' . $tipo . '=' . MedicionHelper::normalizarID($entidad_id) . '&semestre=' . $semestre);
             $interes = intval($docentes_que_cumplieron->body());
 
             $docentes_con_40h = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/03?' . $tipo . '=' . $entidad_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/03?' . $tipo . '=' . MedicionHelper::normalizarID($entidad_id) . '&semestre=' . $semestre);
             $total = intval($docentes_con_40h->body());
 
             return MedicionHelper::getArrayResultados($interes, $total);
@@ -864,7 +863,7 @@ class Medicion
 
             // FIXME está devolviendo valores aleatorios (La API no está implementado 11/06/2022)
             $docentes_que_cumplen = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/06?' . $tipo . '=' . $entidad_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/06?' . $tipo . '=' . MedicionHelper::normalizarID($entidad_id) . '&semestre=' . $semestre);
             $interes = intval($docentes_que_cumplen->body());
 
             $total = $es_depto ? MedicionHelper::cantidadDocentesPorDepto($entidad_id, $semestre)
@@ -890,7 +889,7 @@ class Medicion
             }
 
             $docentes_con_legajo_actualizado = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/07?' . $tipo . '=' . $entidad_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/07?' . $tipo . '=' . MedicionHelper::normalizarID($entidad_id) . '&semestre=' . $semestre);
             $interes = intval($docentes_con_legajo_actualizado->body());
 
             $total = $es_depto ? MedicionHelper::cantidadDocentesPorDepto($entidad_id, $semestre)
@@ -917,7 +916,7 @@ class Medicion
 
             // FIXME está devolviendo valores aleatorios (La API no está implementado 11/06/2022)
             $cantidad_capacitaciones = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/08?' . $tipo . '=' . $entidad_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/08?' . $tipo . '=' . MedicionHelper::normalizarID($entidad_id) . '&semestre=' . $semestre);
             $resultado = intval($cantidad_capacitaciones->body());
 
             return MedicionHelper::getArrayResultados(null, null, $resultado);
@@ -941,7 +940,7 @@ class Medicion
 
             // FIXME está devolviendo valores aleatorios (La API no está implementado 11/06/2022)
             $administrativos = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/10?' . $tipo . '=' . $entidad_id . '&semestre=' . $semestre);
+                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/10?' . $tipo . '=' . MedicionHelper::normalizarID($entidad_id) . '&semestre=' . $semestre);
             $interes = intval($administrativos->body());
 
             $total = $es_escuela ? MedicionHelper::cantidadEstudiantesPorEscuela($entidad_id, $semestre)
@@ -1056,8 +1055,6 @@ class Medicion
             $docentes_que_cumplen_perfil = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/11?' . $tipo . '=' . MedicionHelper::normalizarID($entidad_id) . '&semestre=' . $semestre);
             $interes = intval($docentes_que_cumplen_perfil->body());
-
-            Log::info('ind 74', [$docentes_que_cumplen_perfil, $interes]);
 
             $total = $es_depto ? MedicionHelper::cantidadDocentesPorDepto($entidad_id, $semestre)
                 : MedicionHelper::cantidadDocentesPorFacultad($entidad_id, $semestre);
