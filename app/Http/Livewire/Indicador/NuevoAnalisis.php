@@ -204,11 +204,11 @@ class NuevoAnalisis extends Component
         } elseif ($codigo_inicial === "IND-049") {
             $res = Medicion::ind49($this->tipo == 1, $this->entidad->id, $this->semestre_id);
         } elseif ($codigo_inicial === "IND-050") {
-            $res = Medicion::ind50($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
+            $res = Medicion::ind50($this->tipo == 1, $this->entidad->id, $this->semestre_nombre, $this->semestre_id, $this->tipo == 1 ? $this->entidad->depto_id : null);
         } elseif ($codigo_inicial === "IND-051") {
-            $res = Medicion::ind51($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
+            $res = Medicion::ind51($this->tipo == 1, $this->entidad->id, $this->semestre_nombre, $this->semestre_id);
         } elseif ($codigo_inicial === "IND-052") {
-            $res = Medicion::ind52($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin);
+            $res = Medicion::ind52($this->tipo == 1, $this->entidad->id, $this->semestre_id);
         } // Investigacion: 044 - 047
         elseif ($codigo_inicial === "IND-044") {
             $res = Medicion::ind44($this->tipo == 1, $this->entidad->id, $this->inicio, $this->fin, $this->semestre_nombre, $this->tipo == 1 ? $this->entidad->depto_id : null);

@@ -584,7 +584,6 @@ class Medicion
     public static function ind48($es_escuela, $entidad_id, $semestre_id)
     {
         $resultado = MedicionHelper::cantidadParticipantesRSU($es_escuela, true, $entidad_id, $semestre_id);
-
         return MedicionHelper::getArrayResultados(null, null, $resultado);
     }
 
@@ -595,85 +594,52 @@ class Medicion
     public static function ind49($es_escuela, $entidad_id, $semestre_id)
     {
         $resultado = MedicionHelper::cantidadParticipantesRSU($es_escuela, false, $entidad_id, $semestre_id);
-
         return MedicionHelper::getArrayResultados(null, null, $resultado);
     }
 
-    public static function ind50($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)
+    /* IND 50 - Resp Social
+     * Objetivo: Medir el grado de participación de los docentes en responsabilidad social
+     * Formula: X = (N° de docentes que realizan RSU)/(Total de docentes por programa) x 100
+     * */
+    public static function ind50($es_escuela, $entidad_id, $semestre, $semestre_id, $depto_id = null)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+        $interes = MedicionHelper::cantidadParticipantesRSU($es_escuela, false, $entidad_id, $semestre_id);
 
-        $q = RsuParticipante::query()->where('es_estudiante', false);
+        $total = $es_escuela ? MedicionHelper::cantidadDocentesPorDepto($depto_id, $semestre)
+            : MedicionHelper::cantidadDocentesPorFacultad($entidad_id, $semestre);
 
-        if ($es_escuela) {
-            $resultados['interes'] = $q->whereIn('responsabilidad_social_id', function ($query) use ($entidad_id, $fecha_inicio, $fecha_fin) {
-                $query->select('id')->from('responsabilidad_social')
-                    ->where('escuela_id', $entidad_id)
-                    ->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin]);
-            })->count();
-
-            // FIXME OGE: Calcular el numero total de docentes por escuela desde OGE
-            $resultados['total'] = 23; //Enf:23, Obs:21
-        } else {
-            $resultados['interes'] = $q->whereIn('responsabilidad_social_id', function ($query) use ($entidad_id, $fecha_inicio, $fecha_fin) {
-                $query->select('id')->from('responsabilidad_social')
-                    ->whereIn('escuela_id', function ($query2) use ($entidad_id) {
-                        $query2->select('id')->from('escuelas')->where('facultad_id', $entidad_id);
-                    })
-                    ->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin]);
-            })->count();
-
-            // FIXME OGE: Calcular el numero total de docentes por facultad desde OGE
-            $resultados['total'] = 44;
-        }
-        $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
-        return $resultados;
+        return MedicionHelper::getArrayResultados($interes, $total);
     }
 
-    public static function ind51($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)
+    /* IND 51 - Resp Social
+     * Objetivo: Medir el grado de participación de los estudiantes en responsabilidad social
+     * Formula: X = (N° de estudiantes que realizan RSU)/(Total de estudiantes por programa) x 100
+     * */
+    public static function ind51($es_escuela, $entidad_id, $semestre, $semestre_id)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+        $interes = MedicionHelper::cantidadParticipantesRSU($es_escuela, true, $entidad_id, $semestre_id);
 
-        $q = RsuParticipante::query()->where('es_estudiante', true);
+        $total = $es_escuela ? MedicionHelper::cantidadEstudiantesPorEscuela($entidad_id, $semestre)
+            : MedicionHelper::cantidadEstudiantesPorFacultad($entidad_id, $semestre);
 
-        if ($es_escuela) {
-            $resultados['interes'] = $q->whereIn('responsabilidad_social_id', function ($query) use ($entidad_id, $fecha_inicio, $fecha_fin) {
-                $query->select('id')->from('responsabilidad_social')
-                    ->where('escuela_id', $entidad_id)
-                    ->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin]);
-            })->count();
-            // FIXME OGE: Calcular el numero total de estudiantes por escuela desde OGE
-            $resultados['total'] = 193; //Enf:193, Obs:216
-        } else {
-            $resultados['interes'] = $q->whereIn('responsabilidad_social_id', function ($query) use ($entidad_id, $fecha_inicio, $fecha_fin) {
-                $query->select('id')->from('responsabilidad_social')
-                    ->whereIn('escuela_id', function ($query2) use ($entidad_id) {
-                        $query2->select('id')->from('escuelas')->where('facultad_id', $entidad_id);
-                    })
-                    ->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin]);
-            })->count();
-            // FIXME OGE: Calcular el numero total de estudiantes por escuela desde OGE
-            $resultados['total'] = 409;
-        }
-        $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
-        return $resultados;
+        return MedicionHelper::getArrayResultados($interes, $total);
     }
 
-    public static function ind52($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)
+    /* IND 52 - Resp Social
+     * Objetivo: Conocer el número de proyectos que realizan RSU por programa de estudios.
+     * Formula: X = N° de proyectos de RSU por programa
+     * */
+    public static function ind52($es_escuela, $entidad_id, $semestre_id)
     {
+        $escuelas = $es_escuela ? array($entidad_id)
+            : Escuela::query()->where('facultad_id', $entidad_id)->pluck('id');
 
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+        $resultado = ResponsabilidadSocial::query()
+            ->where('semestre_id', $semestre_id)
+            ->whereIn('escuela_id', $escuelas)
+            ->count();
 
-        $q = ResponsabilidadSocial::query()->whereBetween('fecha_inicio', [$fecha_inicio, $fecha_fin]);
-
-        if ($es_escuela) {
-            $resultados['resultado'] = $q->where('escuela_id', $entidad_id)->count();
-        } else {
-            $resultados['resultado'] = $q->whereIn('escuela_id', function ($query2) use ($entidad_id) {
-                $query2->select('id')->from('escuelas')->where('facultad_id', $entidad_id);
-            })->count();
-        }
-        return $resultados;
+        return MedicionHelper::getArrayResultados(null, null, $resultado);
     }
 
     public static function ind54($escuela_id, $semestre)
