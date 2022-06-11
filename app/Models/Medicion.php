@@ -901,30 +901,28 @@ class Medicion
         }
     }
 
-    public static function ind66($es_escuela, $entidad_id, $semestre)
+    /* IND 66 - Docente
+     * Objetivo: Conocer el número de capacitaciones realizadas para mejorar las capacidades de los docentes.
+     * Formula: X = N° de capacitaciones para mejorar las capacidades de los directivos por programa
+     * */
+    public static function ind66($es_depto, $entidad_id, $semestre)
     {
-        //X = N° de capacitaciones para mejorar las capacidades de los directivos por programa
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
         try {
+            $tipo = 'facultad';
 
-            if ($es_escuela) {
-                // FIXME está trabajando con departamento, no con escuela
-                $rsp = Http::withToken(env('OGE_TOKEN'))
-                    ->get(env('OGE_API') . 'proceso_docente/departamento/08?departamento=' . $entidad_id . '&semestre=' . $semestre);
-
-            } else {
-                // FIXME está trabajando con departamento, no con escuela
-                $rsp = Http::withToken(env('OGE_TOKEN'))
-                    ->get(env('OGE_API') . 'proceso_docente/facultad/08?facultad=' . $entidad_id . '&semestre=' . $semestre);
+            if ($es_depto) {
+                $tipo = 'departamento';
             }
-            $resultados['resultado'] = intval($rsp->body());
+
+            // FIXME está devolviendo valores aleatorios (La API no está implementado 11/06/2022)
+            $cantidad_capacitaciones = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/08?' . $tipo . '=' . $entidad_id . '&semestre=' . $semestre);
+            $resultado = intval($cantidad_capacitaciones->body());
+
+            return MedicionHelper::getArrayResultados(null, null, $resultado);
         } catch (\Exception $e) {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+            return null;
         }
-        return $resultados;
     }
 
     public static function ind67($es_escuela, $entidad_id, $semestre)
