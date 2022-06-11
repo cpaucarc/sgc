@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Lib\MedicionHelper;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class Medicion
 {
@@ -1039,38 +1040,32 @@ class Medicion
         return MedicionHelper::getArrayResultados($interes, $total);
     }
 
-    public static function ind74($es_escuela, $entidad_id, $semestre)
+    /* IND 74 - Docente
+     * Objetivo: Conocer el porcentaje de docentes que cumplen con el perfil.
+     * Formula: X = (N° de docentes que cumplen con el perfil)/(Total de docentes por programa) x 100
+     * */
+    public static function ind74($es_depto, $entidad_id, $semestre)
     {
-        //X = (N° de docentes que cumplen con el perfil)/(Total de docentes por programa) x 100
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
         try {
+            $tipo = 'facultad';
 
-            if ($es_escuela) {
-                // FIXME está devolviendo 404
-                $rsp1 = Http::withToken(env('OGE_TOKEN'))
-                    ->get(env('OGE_API') . 'proceso_docente/departamento/11?departamento=' . $entidad_id . '&semestre=' . $semestre);
-                // FIXME está devolviendo un 404
-                $rsp2 = Http::withToken(env('OGE_TOKEN'))
-                    ->get(env('OGE_API') . 'proceso_docente/departamento/05?departamento=' . $entidad_id . '&semestre=' . $semestre);
-            } else {
-                // FIXME está devolviendo 404
-                $rsp1 = Http::withToken(env('OGE_TOKEN'))
-                    ->get(env('OGE_API') . 'proceso_docente/facultad/11?facultad=' . $entidad_id . '&semestre=' . $semestre);
-                // FIXME está devolviendo un 404
-                $rsp2 = Http::withToken(env('OGE_TOKEN'))
-                    ->get(env('OGE_API') . 'proceso_docente/facultad/05?facultad=' . $entidad_id . '&semestre=' . $semestre);
+            if ($es_depto) {
+                $tipo = 'departamento';
             }
 
-            $resultados['interes'] = intval($rsp1->body());
-            $resultados['total'] = intval($rsp2->body());
-            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+            $docentes_que_cumplen_perfil = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/11?' . $tipo . '=' . MedicionHelper::normalizarID($entidad_id) . '&semestre=' . $semestre);
+            $interes = intval($docentes_que_cumplen_perfil->body());
+
+            Log::info('ind 74', [$docentes_que_cumplen_perfil, $interes]);
+
+            $total = $es_depto ? MedicionHelper::cantidadDocentesPorDepto($entidad_id, $semestre)
+                : MedicionHelper::cantidadDocentesPorFacultad($entidad_id, $semestre);
+
+            return MedicionHelper::getArrayResultados($interes, $total);
         } catch (\Exception $e) {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+            return null;
         }
-        return $resultados;
     }
 
     public static function ind75($es_escuela, $entidad_id, $semestre)

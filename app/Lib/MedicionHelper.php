@@ -25,6 +25,14 @@ class MedicionHelper
         return array('interes' => $interes, 'total' => $total, 'resultado' => $total == 0 ? 0 : round($interes / $total * 100));
     }
 
+    /* Retorna el ID enviado antecediendo "0" si su valor es menor a 10
+     * Es util para pasar luego al endpoint de OGE, ya que si se envia solo 8, en lugar de 08, no funciona
+     * */
+    public static function normalizarID($id)
+    {
+        return intval($id) < 10 ? "0" . $id : strval($id);
+    }
+
     /*
      * Sirve en Medicion.php para calcular IND 09, 10, 11
      * */
@@ -70,7 +78,7 @@ class MedicionHelper
     public static function cantidadDocentesPorDepto($depto_id, $semestre)
     {
         try {
-            $depto_id = $depto_id < 10 ? "0" . $depto_id : $depto_id;
+            $depto_id = self::normalizarID($depto_id);
 
             $cantidad = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'proceso_docente/departamento/05?departamento=' . $depto_id . '&semestre=' . $semestre);
@@ -83,7 +91,7 @@ class MedicionHelper
     public static function cantidadDocentesPorFacultad($facultad_id, $semestre)
     {
         try {
-            $facultad_id = $facultad_id < 10 ? "0" . $facultad_id : $facultad_id;
+            $facultad_id = self::normalizarID($facultad_id);
 
             $cantidad = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'proceso_docente/facultad/05?facultad=' . $facultad_id . '&semestre=' . $semestre);
@@ -97,7 +105,7 @@ class MedicionHelper
     public static function cantidadEstudiantesPorEscuela($escuela_id, $semestre)
     {
         try {
-            $escuela_id = $escuela_id < 10 ? "0" . $escuela_id : $escuela_id;
+            $escuela_id = self::normalizarID($escuela_id);
 
             $cantidad = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'proceso_matricula/escuela/01?escuela=' . $escuela_id . '&semestre=' . $semestre);
@@ -111,7 +119,7 @@ class MedicionHelper
     public static function cantidadEstudiantesPorFacultad($facultad_id, $semestre)
     {
         try {
-            $facultad_id = $facultad_id < 10 ? "0" . $facultad_id : $facultad_id;
+            $facultad_id = self::normalizarID($facultad_id);
 
             $cantidad = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'proceso_matricula/facultad/01?facultad=' . $facultad_id . '&semestre=' . $semestre);
