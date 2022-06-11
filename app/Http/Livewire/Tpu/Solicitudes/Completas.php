@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Bachiller\Solicitudes;
+namespace App\Http\Livewire\Tpu\Solicitudes;
 
 use App\Models\DocumentoSolicitud;
 use App\Models\GradoEstudiante;
@@ -29,7 +29,7 @@ class Completas extends Component
     {
         $this->solicitudSeleccionado = Solicitud::query()
             ->with('documentos')
-            ->where('tipo_solicitud_id', 1) // 1 : Bachiller
+            ->where('tipo_solicitud_id', 3) // 3 : Titulo
             ->where('id', $id)
             ->first();
 
@@ -77,14 +77,14 @@ class Completas extends Component
 
             $gradoestudiante = GradoEstudiante::query()
                 ->where('dni_estudiante', $dni_estudiante)
-                ->where('grado_academico_id', 3) // 3 : Bachiller
+                ->where('grado_academico_id', 4) // 4: Títulado
                 ->where('escuela_id', $this->solicitudSeleccionado->escuela_id)
                 ->get();
 
             if (!$gradoestudiante->count()) {
                 GradoEstudiante::create([
                     'dni_estudiante' => $dni_estudiante,
-                    'grado_academico_id' => 3, // 3 : Bachiller
+                    'grado_academico_id' => 4, // 4 : Titulado
                     'escuela_id' => $this->solicitudSeleccionado->escuela_id,
                     'created_at' => now(),
                     'updated_at' => now()
@@ -97,6 +97,6 @@ class Completas extends Component
 
     public function render()
     {
-        return view('livewire.bachiller.solicitudes.completas');
+        return view('livewire.tpu.solicitudes.completas');
     }
 }
