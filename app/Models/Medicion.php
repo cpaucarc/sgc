@@ -704,23 +704,21 @@ class Medicion
         }
     }
 
+    /* IND 57 - Tutoria y Consejeria
+     * Objetivo: Conocer la cantidad de estudiantes que se encuentran en condición de riesgo académico.
+     * Formula: X = N° de estudiantes con riesgo académico por programa de estudios
+     * */
     public static function ind57($escuela_id, $semestre)
     {
-        //X = N° de estudiantes con riesgo académico por programa de estudios
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
         try {
-            // FIXME está devolviendo un 404
-            $rsp = Http::withToken(env('OGE_TOKEN'))
+            $estudiantes_riesgo_academico = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'tutoria_consejeria/escuela/06?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            $resultado = intval($estudiantes_riesgo_academico->body());
 
-            $resultados['resultado'] = intval($rsp->body());
+            return MedicionHelper::getArrayResultados(null, null, $resultado);
         } catch (\Exception $e) {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+            return null;
         }
-        return $resultados;
     }
 
     public static function ind58($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)
