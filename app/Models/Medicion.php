@@ -981,6 +981,20 @@ class Medicion
         return MedicionHelper::getArrayResultados($interes, $total);
     }
 
+    /* IND 69 - Gestion de la Calidad
+     * Objetivo: Conocer la cantidad de auditoria de calidad realizadas.
+     * Formula: X = N° de auditorias de calidad realizadas
+     * */
+    public static function ind69($facultad_id, $fecha_inicio, $fecha_fin)
+    {
+        $resultado = Auditoria::query()
+            ->where('facultad_id', $facultad_id)
+            ->whereBetween('created_at', [$fecha_inicio, $fecha_fin])
+            ->count();
+
+        return MedicionHelper::getArrayResultados(null, null, $resultado);
+    }
+
     public static function ind70($facultad_id, $fecha_inicio, $fecha_fin)
     {
         $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
