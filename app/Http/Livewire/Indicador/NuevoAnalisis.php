@@ -249,7 +249,7 @@ class NuevoAnalisis extends Component
         } elseif ($codigo_inicial === "IND-069") {
             $res = Medicion::ind69($this->entidad->id, $this->inicio, $this->fin);
         } elseif ($codigo_inicial === "IND-070") {
-            $res = Medicion::ind70($this->entidad->id, $this->inicio, $this->fin);
+            $res = Medicion::ind70($this->entidad->id, $this->semestre_id);
         } // Convalidaciones
         elseif ($codigo_inicial === "IND-024") {
             $res = Medicion::ind24($this->entidad->id, $this->inicio, $this->fin);
