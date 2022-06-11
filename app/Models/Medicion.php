@@ -721,61 +721,59 @@ class Medicion
         }
     }
 
+    /* IND 58 - Bachiller
+     * Objetivo: Medir el porcentaje de egresados que obtienen el grado de bachiller.
+     * Formula: X = (N° de bachilleres)/(Total de egresados del programa) x 100
+     * */
     public static function ind58($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+        $escuelas = $es_escuela ? array($entidad_id)
+            : Escuela::query()->where('facultad_id', $entidad_id)->pluck('id');
 
-        $q = GradoEstudiante::query()->where('grado_academico_id', 2)
-            ->whereBetween('created_at', [$fecha_inicio, $fecha_fin]);
+        $egresados = GradoEstudiante::query()
+            ->where('grado_academico_id', 2) // Tabla GradoAcademico -> 2:Egresado
+            ->whereBetween('created_at', [$fecha_inicio, $fecha_fin])
+            ->whereIn('escuela_id', $escuelas);
 
-        if ($es_escuela) {
-            $escuelas = Escuela::select('id')->where('id', $entidad_id)->get();
-        } else {
-            $escuelas = Escuela::select('id')->where('facultad_id', $entidad_id)->get();
-        }
-
-        $q = $q->whereIn('escuela_id', $escuelas);
-
-        $resultados['interes'] = GradoEstudiante::query()->where('grado_academico_id', 3)
+        $interes = GradoEstudiante::query()
+            ->where('grado_academico_id', 3) // Tabla GradoAcademico -> 3:Bachiller
             ->whereIn('escuela_id', $escuelas)
-            ->where(function ($query) use ($fecha_inicio, $fecha_fin, $q) {
+            ->where(function ($query) use ($fecha_inicio, $fecha_fin, $egresados) {
                 $query->whereBetween('created_at', [$fecha_inicio, $fecha_fin])
-                    ->orWhereIn('dni_estudiante', $q->select('dni_estudiante')->get());
-            })->count();
+                    ->orWhereIn('dni_estudiante', $egresados->pluck('dni_estudiante'));
+            })->count(); // Cantidad de egresados que obtuvieron el grado de Bachiller
 
-        $resultados['total'] = $q->count();
+        $total = $egresados->count(); // Cantidad de egresados
 
-        $resultados['resultado'] = $resultados['interes'] == 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
-        return $resultados;
+        return MedicionHelper::getArrayResultados($interes, $total);
     }
 
+    /* IND 58 - Titulo Profesional
+     * Objetivo: Medir el porcentaje de titulados por programa de estudios.
+     * Formula: X = (N° de egresados que logran titularse)/(Total de graduados en bachiller por  programa) x 100
+     * */
     public static function ind59($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+        $escuelas = $es_escuela ? array($entidad_id)
+            : Escuela::query()->where('facultad_id', $entidad_id)->pluck('id');
 
-        $q = GradoEstudiante::query()->where('grado_academico_id', 3)
-            ->whereBetween('created_at', [$fecha_inicio, $fecha_fin]);
+        $bachilleres = GradoEstudiante::query()
+            ->where('grado_academico_id', 3) // Tabla GradoAcademico -> 3:Bachiller
+            ->whereBetween('created_at', [$fecha_inicio, $fecha_fin])
+            ->whereIn('escuela_id', $escuelas);
 
-        if ($es_escuela) {
-            $escuelas = Escuela::select('id')->where('id', $entidad_id)->get();
-        } else {
-            $escuelas = Escuela::select('id')->where('facultad_id', $entidad_id)->get();
-        }
-
-        $q = $q->whereIn('escuela_id', $escuelas);
-
-        $resultados['interes'] = GradoEstudiante::query()->where('grado_academico_id', 4)
+        $interes = GradoEstudiante::query()
+            ->where('grado_academico_id', 4) // Tabla GradoAcademico -> 4:Titulado
             ->whereIn('escuela_id', $escuelas)
-            ->where(function ($query) use ($fecha_inicio, $fecha_fin, $q) {
+            ->where(function ($query) use ($fecha_inicio, $fecha_fin, $bachilleres) {
                 $query->whereBetween('created_at', [$fecha_inicio, $fecha_fin])
-                    ->orWhereIn('dni_estudiante', $q->select('dni_estudiante')->get());
-            })->count();
+                    ->orWhereIn('dni_estudiante', $bachilleres->pluck('dni_estudiante'));
+            })->count(); // Cantidad de bachilleres que obtuvieron el grado de Titulado
 
-        $resultados['total'] = $q->count();
+        $total = $bachilleres->count(); // Cantidad de bachilleres
 
-        $resultados['resultado'] = $resultados['interes'] == 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
-        return $resultados;
-    }
+        return MedicionHelper::getArrayResultados($interes, $total);
+    } //778 -> 782 -> 777 -> 776
 
     public static function ind60($es_escuela, $entidad_id, $fecha_inicio, $fecha_fin)
     {
