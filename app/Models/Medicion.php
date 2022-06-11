@@ -642,28 +642,28 @@ class Medicion
         return MedicionHelper::getArrayResultados(null, null, $resultado);
     }
 
-    public static function ind54($escuela_id, $semestre)
+    /* IND 54 - Tutoria y Consejeria
+     * Objetivo: Medir el porcentaje de docentes que participan en tutoría.
+     * Formula: X = (N° de docentes que realizan tutoría)/(Total de docentes del programa) x 100
+     * */
+    public static function ind54($depto_id, $semestre)
     {
-        //X = (N° de docentes que realizan tutoría)/(Total de docentes del programa) x 100
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
+        if (is_null($depto_id)) {
+            return null;
+        }
 
         try {
-            // FIXME está devolviendo un 404
-            $rsp1 = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'tutoria_consejeria/escuela/02?escuela=' . $escuela_id . '&semestre=' . $semestre);
-            // FIXME está devolviendo un 404
-            $rsp2 = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'tutoria_consejeria/escuela/01?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            // Docentes que realizan tutoria por cada departamento
+            $tutores = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'tutoria_consejeria/departamento/02?departamento=' . $depto_id . '&semestre=' . $semestre);
+            $interes = intval($tutores->body());
 
-            $resultados['interes'] = intval($rsp1->body());
-            $resultados['total'] = intval($rsp2->body());
-            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+            $total_docentes = MedicionHelper::cantidadDocentesPorDepto($depto_id, $semestre);
+
+            return MedicionHelper::getArrayResultados($interes, $total_docentes);
         } catch (\Exception $e) {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+            return null;
         }
-        return $resultados;
     }
 
     public static function ind55($escuela_id, $semestre)
