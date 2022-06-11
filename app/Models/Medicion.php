@@ -848,39 +848,31 @@ class Medicion
         }
     }
 
-    public static function ind63($es_escuela, $entidad_id, $semestre)
+    /* IND 63 - Docente
+     * Objetivo: Medir el porcentaje de docentes que cumplen con sus labores.
+     * Formula: X = (N° de docentes que cumplen con sus labores)/(Total de docentes del programa) x 100
+     * */
+    public static function ind63($es_depto, $entidad_id, $semestre)
     {
-        //X = (N° de docentes que cumplen con sus labores)/(Total de docentes del programa) x 100
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
         try {
+            $tipo = 'facultad';
 
-            if ($es_escuela) {
-                // FIXME está trabajando con departamento, no con escuela
-                $rsp1 = Http::withToken(env('OGE_TOKEN'))
-                    ->get(env('OGE_API') . 'proceso_docente/departamento/06?departamento=' . $entidad_id . '&semestre=' . $semestre);
-                // FIXME está devolviendo un 404
-                $rsp2 = Http::withToken(env('OGE_TOKEN'))
-                    ->get(env('OGE_API') . 'proceso_docente/departamento/05?departamento=' . $entidad_id . '&semestre=' . $semestre);
-            } else {
-                // FIXME está trabajando con departamento, no con escuela
-                $rsp1 = Http::withToken(env('OGE_TOKEN'))
-                    ->get(env('OGE_API') . 'proceso_docente/facultad/06?facultad=' . $entidad_id . '&semestre=' . $semestre);
-                // FIXME está devolviendo un 404
-                $rsp2 = Http::withToken(env('OGE_TOKEN'))
-                    ->get(env('OGE_API') . 'proceso_docente/facultad/05?facultad=' . $entidad_id . '&semestre=' . $semestre);
-
+            if ($es_depto) {
+                $tipo = 'departamento';
             }
 
-            $resultados['interes'] = intval($rsp1->body());
-            $resultados['total'] = intval($rsp2->body());
-            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+            // FIXME está devolviendo valores aleatorios (La API no está implementado 11/06/2022)
+            $docentes_que_cumplen = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/06?' . $tipo . '=' . $entidad_id . '&semestre=' . $semestre);
+            $interes = intval($docentes_que_cumplen->body());
+
+            $total = $es_depto ? MedicionHelper::cantidadDocentesPorDepto($entidad_id, $semestre)
+                : MedicionHelper::cantidadDocentesPorFacultad($entidad_id, $semestre);
+
+            return MedicionHelper::getArrayResultados($interes, $total);
         } catch (\Exception $e) {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+            return null;
         }
-        return $resultados;
     }
 
     public static function ind65($es_escuela, $entidad_id, $semestre)
