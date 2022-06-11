@@ -685,28 +685,23 @@ class Medicion
         }
     }
 
+    /* IND 56 - Tutoria y Consejeria
+     * Objetivo: Medir el porcentaje de estudiantes con problemas de aprendizaje.
+     * Formula: X = (N° de estudiantes con problemas de aprendizaje)/(Total de estudiantes del programa) x 100
+     * */
     public static function ind56($escuela_id, $semestre)
     {
-        //X = (N° de estudiantes con problemas de aprendizaje)/(Total de estudiantes del programa) x 100
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
         try {
-            // FIXME está devolviendo un 404
-            $rsp1 = Http::withToken(env('OGE_TOKEN'))
+            $estudiantes_con_problemas = Http::withToken(env('OGE_TOKEN'))
                 ->get(env('OGE_API') . 'tutoria_consejeria/escuela/05?escuela=' . $escuela_id . '&semestre=' . $semestre);
-            // FIXME está devolviendo un 404
-            $rsp2 = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'tutoria_consejeria/escuela/03?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            $interes = intval($estudiantes_con_problemas->body());
 
-            $resultados['interes'] = intval($rsp1->body());
-            $resultados['total'] = intval($rsp2->body());
-            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+            $total = MedicionHelper::cantidadEstudiantesPorEscuela($escuela_id, $semestre);
+
+            return MedicionHelper::getArrayResultados($interes, $total);
         } catch (\Exception $e) {
-            $resultados['interes'] = null;
-            $resultados['total'] = null;
-            $resultados['resultado'] = null;
+            return null;
         }
-        return $resultados;
     }
 
     public static function ind57($escuela_id, $semestre)
