@@ -952,18 +952,20 @@ class Medicion
         }
     }
 
-    public static function ind68($facultad_id, $fecha_inicio, $fecha_fin)
+    /* IND 68 - Gestion de la Calidad
+     * Objetivo: Conocer el porcentaje de indicadores que se encuentra en estado malo.
+     * Formula: X=(N° de indicadores con estado malo)/(Total de indicadores evaluados) x 100
+     * */
+    public static function ind68($facultad_id, $semestre_id)
     {
-        $resultados = array('interes' => null, 'total' => null, 'resultado' => null);
-
-        $q = AnalisisIndicador::query()
+        $analisis = AnalisisIndicador::query()
             ->where('cod_ind_final', 'not like', '%68%')
-            ->whereDate('fecha_medicion_inicio', '>=', $fecha_inicio)
-            ->whereDate('fecha_medicion_fin', '<=', $fecha_fin)
+            ->where('semestre_id', $semestre_id)
             ->whereIn('indicadorable_id', function ($query) use ($facultad_id) {
                 $query->select('id')->from('indicadorables')
                     ->where(function ($query2) use ($facultad_id) {
-                        $query2->where('indicadorable_type', "App\\Models\\Facultad")->where('indicadorable_id', $facultad_id);
+                        $query2->where('indicadorable_type', "App\\Models\\Facultad")
+                            ->where('indicadorable_id', $facultad_id);
                     })
                     ->orWhere(function ($query3) use ($facultad_id) {
                         $query3->where('indicadorable_type', "App\\Models\\Escuela")
@@ -973,12 +975,10 @@ class Medicion
                     });
             });
 
-        $resultados['total'] = $q->count();
+        $total = $analisis->count();
+        $interes = $analisis->whereColumn('resultado', '<=', 'minimo')->count();
 
-        $resultados['interes'] = $q->whereColumn('resultado', '<=', 'minimo')->count();
-
-        $resultados['resultado'] = $resultados['total'] == 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);
-        return $resultados;
+        return MedicionHelper::getArrayResultados($interes, $total);
     }
 
     public static function ind70($facultad_id, $fecha_inicio, $fecha_fin)
