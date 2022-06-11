@@ -78,12 +78,14 @@ class Completas extends Component
             $gradoestudiante = GradoEstudiante::query()
                 ->where('dni_estudiante', $dni_estudiante)
                 ->where('grado_academico_id', 3) // 3 : Bachiller
+                ->where('escuela_id', $this->solicitudSeleccionado->escuela_id)
                 ->get();
 
             if (!$gradoestudiante->count()) {
                 GradoEstudiante::create([
                     'dni_estudiante' => $dni_estudiante,
                     'grado_academico_id' => 3, // 3 : Bachiller
+                    'escuela_id' => $this->solicitudSeleccionado->escuela_id,
                     'created_at' => now(),
                     'updated_at' => now()
                 ]);
