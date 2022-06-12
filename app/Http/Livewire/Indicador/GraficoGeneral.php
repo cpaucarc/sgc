@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Indicador;
 
+use App\Lib\GraficoHelper;
+use App\Lib\MedicionHelper;
 use App\Models\Indicadorable;
 use Livewire\Component;
 
@@ -27,11 +29,14 @@ class GraficoGeneral extends Component
     public function mostrarGrafico()
     {
         $this->indicadorable = Indicadorable::query()
-            ->with('analisis:id,minimo,satisfactorio,sobresaliente,resultado,created_at,indicadorable_id')
+            ->with('analisis:id,minimo,satisfactorio,sobresaliente,resultado,indicadorable_id,fecha_medicion_inicio,fecha_medicion_fin')
             ->findOrFail($this->indicadorable_id);
-        if ($this->indicadorable) {
-            $this->generarDatos();
+
+        if (!$this->indicadorable) {
+            return;
         }
+
+        $this->generarDatos();
         $this->open = true;
     }
 
@@ -43,24 +48,29 @@ class GraficoGeneral extends Component
         $bar = array();
         $labels = array();
         $colors = array();
+        $lines = array(
+            'minimo' => GraficoHelper::$colores['rose_600'],
+            'satisfactorio' => GraficoHelper::$colores['amber_600'],
+            'sobresaliente' => GraficoHelper::$colores['green_600'],
+        );
 
         foreach ($this->indicadorable->analisis as $an) {
-            array_push($sobresaliente, $an->sobresaliente);
-            array_push($satisfactorio, $an->satisfactorio);
-            array_push($minimo, $an->minimo);
-            array_push($bar, $an->resultado);
-            array_push($labels, $an->created_at->format('d-M-Y'));
-            array_push($colors, $this->asignarColor($an->sobresaliente, $an->satisfactorio, $an->minimo, $an->resultado));
+            $sobresaliente[] = $an->sobresaliente;
+            $satisfactorio[] = $an->satisfactorio;
+            $minimo[] = $an->minimo;
+            $bar[] = $an->resultado;
+            $labels[] = $an->fecha_medicion_inicio->format('d-M-Y') . ' a ' . $an->fecha_medicion_fin->format('d-M-Y');
+            $colors[] = GraficoHelper::asignarColor($an->sobresaliente, $an->satisfactorio, $an->minimo, $an->resultado);
         }
 
         $size = count($sobresaliente);
         if ($size < 5) {
             for ($i = $size; $i < 5; $i++) {
-                array_push($sobresaliente, 0);
-                array_push($satisfactorio, 0);
-                array_push($minimo, 0);
-                array_push($bar, 0);
-                array_push($labels, '-');
+                $sobresaliente[] = 0;
+                $satisfactorio[] = 0;
+                $minimo[] = 0;
+                $bar[] = 0;
+                $labels[] = '-';
             }
         }
 
@@ -70,7 +80,8 @@ class GraficoGeneral extends Component
             'minimo' => $minimo,
             'bar' => $bar,
             'labels' => $labels,
-            'colors' => $colors
+            'colors' => $colors,
+            'lines' => $lines
         ];
 
 //        $this->mostrarGrafico = true;
@@ -78,17 +89,5 @@ class GraficoGeneral extends Component
 //        $this->dispatchBrowserEvent('grafico', ['datos' => $datos]);
         $this->emit('eventRenderGraph', $datos);
 
-    }
-
-    private function asignarColor($sobresaliente, $satisfactorio, $minimo, $valor)
-    {
-        if ($valor <= $minimo) {
-            return "#FDA4AF"; // Rojo - Tailwind: rose-300
-        } elseif ($valor <= $satisfactorio) {
-            return "#FCD34D"; // Rojo - Tailwind: amber-300
-        } elseif ($valor <= $sobresaliente) {
-            return "#86EFAC"; // Verde - Tailwind: green-300
-        }
-        return "#7DD3FC"; // Azul - Tailwind: sky-300
     }
 }

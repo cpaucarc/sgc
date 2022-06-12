@@ -26,6 +26,7 @@
                 bar = datos.bar;
                 labels = datos.labels;
                 colores = datos.colors;
+                lineas = datos.lines;
 
                 new Chart(document.getElementById("bar-chart"), {
                     type: 'bar',
@@ -37,7 +38,7 @@
                                 label: 'Sobresaliente',
                                 data: sobresaliente,
                                 fill: false,
-                                borderColor: '#16A34A',
+                                borderColor: lineas['sobresaliente'],
                                 tension: 0.1,
                                 pointBorderWidth: 7,
                             }, {
@@ -45,7 +46,7 @@
                                 label: 'Satisfactorio',
                                 data: satisfactorio,
                                 fill: false,
-                                borderColor: '#D97706',
+                                borderColor: lineas['satisfactorio'],
                                 tension: 0.1,
                                 pointBorderWidth: 7,
                             }, {
@@ -53,7 +54,7 @@
                                 label: 'Minimo',
                                 data: minimo,
                                 fill: false,
-                                borderColor: '#E11D48',
+                                borderColor: lineas['minimo'],
                                 tension: 0.1,
                                 pointBorderWidth: 7,
                             }, {
