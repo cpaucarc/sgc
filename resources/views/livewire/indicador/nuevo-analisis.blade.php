@@ -5,7 +5,7 @@
             <div class="flex justify-between items-center w-full p-2 bg-gray-50 rounded-lg">
                 <div class="flex items-center gap-x-2 text-sm">
                     <div class="bg-indigo-100 font-bold text-indigo-600 icon-12 rounded-full grid place-items-center">
-                        {{ substr($indicadorable->indicador->cod_ind_inicial, -3, 3) }}
+                        {{ substr($cod_ind, -3, 3) }}
                     </div>
                     <p class="font-bold text-gray-800 text-base">
                         {{ $indicadorable->indicador->objetivo }}
@@ -48,7 +48,7 @@
                             </label>
                         </div>
                         <p class="text-sm {{ $diffIsOk ? 'text-green-500' : 'text-rose-600 '}}">
-                            (Hay&nbsp;{{ $diffInDays }}&nbsp;dias entre estas estas fechas)
+                            {{ \App\Lib\AnalisisHelper::diasASemanas($inicio, $fin) }}
                         </p>
                     </div>
                 </div>
