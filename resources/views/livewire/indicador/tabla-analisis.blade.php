@@ -98,7 +98,7 @@
 
         <div class="mt-4 flex justify-end">
             <x-utils.buttons.default wire:click="openGraph" class="group text-sm">
-                <svg class="h-5 w-5 mr-1 group-hover:text-gray-600" viewBox="0 0 20 20" fill="currentColor">
+                <svg class="icon-5 mr-1 group-hover:text-gray-600" viewBox="0 0 20 20" fill="currentColor">
                     <path
                         d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
                 </svg>
@@ -107,7 +107,6 @@
         </div>
 
         <livewire:indicador.grafico-general indicadorable_id="{{ $indicadorable->id }}"/>
-
     @endif
 
     <livewire:indicador.nuevo-analisis indicadorable_id="{{ $indicadorable->id }}" oficina="{{ $oficina }}"
