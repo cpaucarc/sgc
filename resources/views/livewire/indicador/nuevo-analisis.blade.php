@@ -2,10 +2,9 @@
     {{--    @if($indicador)--}}
     <x-jet-dialog-modal wire:model="open" maxWidth="4xl">
         <x-slot name="title">
-            <div class="flex justify-between w-full py-2">
+            <div class="flex justify-between items-center w-full p-2 bg-gray-50 rounded-lg">
                 <div class="flex items-center gap-x-2 text-sm">
-                    <div
-                        class="bg-indigo-100 text-indigo-800 w-12 h-12 flex-shrink-0 rounded-full grid place-items-center">
+                    <div class="bg-indigo-100 font-bold text-indigo-600 icon-12 rounded-full grid place-items-center">
                         {{ substr($indicadorable->indicador->cod_ind_inicial, -3, 3) }}
                     </div>
                     <p class="font-bold text-gray-800 text-base">
@@ -18,13 +17,12 @@
         </x-slot>
 
         <x-slot name="content">
-
             <div class="space-y-8 divide-y divide-dashed divide-gray-200">
                 {{-- Fechas de medicion --}}
                 <div class="text-gray-700 rounded-lg flex items-center justify-between">
 
                     <div class="whitespace-nowrap flex items-center text-sm">
-                        <x-icons.info :stroke="1.5" class="h-6 w-6 mr-1 flex-shrink-0"/>
+                        <x-icons.info :stroke="1.5" class="icon-6 mr-1"/>
                         Medición&nbsp;<span class="font-bold">{{ $indicadorable->indicador->medicion->nombre }}</span>
                     </div>
 
@@ -90,7 +88,7 @@
 
                         <div class="col-span-3 mt-1">
                             <span class="text-gray-500 text-xs flex items-center py-0.5">
-                                <x-icons.quality class="flex-shrink-0 h-4 w-4 mr-1" stroke="1.25"/>
+                                <x-icons.quality class="icon-4 mr-1" stroke="1.25"/>
                                 Estos valores son calculados automaticamente, no pueden editarse manualmente.
                             </span>
                         </div>
@@ -137,26 +135,32 @@
                 </div>
 
                 {{-- Analisis y Observaciones --}}
-                <div class="pt-6 space-y-2">
-                    <div class="w-full">
-                        <div class="flex items-center">
-                            <x-jet-label for="analisis" value="Analisis/Interpretación de los resultados"
-                                         placeholder="Ninguno..."/>
+                <div class="pt-6 space-y-3">
+                    <details class="w-full">
+                        <summary class="flex items-center space-x-1">
+                            <span
+                                class="block font-medium text-sm text-gray-600 hover:text-gray-800 cursor-pointer soft-transition">
+                                ► Analisis/Interpretación de los resultados
+                            </span>
                             <x-utils.optional-badge/>
-                        </div>
+                        </summary>
                         <x-utils.forms.textarea id="analisis" wire:model.defer="analisis" class="mt-1 w-full"
-                                                placeholder="Ninguno..."/>
+                                                placeholder="Ningún analisis/interpretación..."/>
                         <x-jet-input-error for="analisis"/>
-                    </div>
+                    </details>
 
-                    <div class="w-full">
-                        <div class="flex items-center">
-                            <x-jet-label for="observacion" value="Observaciones"/>
+                    <details class="w-full">
+                        <summary class="flex items-center space-x-1">
+                            <span
+                                class="block font-medium text-sm text-gray-600 hover:text-gray-800 cursor-pointer soft-transition">
+                                ► Observaciones
+                            </span>
                             <x-utils.optional-badge/>
-                        </div>
-                        <x-utils.forms.textarea id="observacion" wire:model.defer="observacion" class="mt-1 w-full"/>
+                        </summary>
+                        <x-utils.forms.textarea id="observacion" wire:model.defer="observacion" class="mt-1 w-full"
+                                                placeholder="Ninguna observación..."/>
                         <x-jet-input-error for="observacion"/>
-                    </div>
+                    </details>
                 </div>
 
                 {{-- Personal encargado --}}
@@ -199,7 +203,7 @@
                 wire:target="guardarAnalisis"
                 wire:loading.class="cursor-wait"
                 wire:loading.attr="disabled">
-                <x-icons.load wire:loading wire:target="guardarAnalisis" class="h-5 w-5"/>
+                <x-icons.load wire:loading wire:target="guardarAnalisis" class="icon-5"/>
                 Guardar
             </x-jet-button>
         </x-slot>
