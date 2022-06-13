@@ -148,7 +148,6 @@ class NuevoAnalisis extends Component
         $this->validate();
 
         $usuario_actual = Auth::user()->id;
-        $semestre_actual = Semestre::query()->orderBy('nombre', 'desc')->first()->id;
         $analisis_cursos = array();
 
         foreach ($this->resultados as $res) {
@@ -168,7 +167,7 @@ class NuevoAnalisis extends Component
                 'revisado_por' => $this->revisado,
                 'aprobado_por' => $this->aprobado,
                 'user_id' => $usuario_actual,
-                'semestre_id' => $semestre_actual,
+                'semestre_id' => $this->semestre_id,
                 'indicadorable_id' => $this->indicadorable->id,
             ]);
 
