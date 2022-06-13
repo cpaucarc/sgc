@@ -303,19 +303,83 @@ class Medicion
     public static function ind32($escuela_id, $semestre)
     {
         try {
-//            $aprobados = Http::withToken(env('OGE_TOKEN'))
-//                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/04?escuela=' . $escuela_id . '&semestre=' . $semestre);
-//
-//            $matriculados = Http::withToken(env('OGE_TOKEN'))
-//                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/03?escuela=' . $escuela_id . '&semestre=' . $semestre);
-//
-//            $interes = intval($rsp->body());
-//
-//            $total = intval($cant_estudiantes->body());
-//
-//            $resultados['resultado'] = $resultados['total'] === 0 ? 0 : round($resultados['interes'] / $resultados['total'] * 100);;
+            $aprobados = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/04?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            $aprobados = $aprobados->json();
 
+            $matriculados = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/03?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            $matriculados = $matriculados->json();
+
+            $calculado = array();
+            foreach ($matriculados as $matriculado) {
+                foreach ($aprobados as $aprobado) {
+                    if ($aprobado["codigo"] === $matriculado["codigo"]) {
+                        $calculado[] = array(
+                            'curso_id' => $matriculado["codigo"],
+                            'curso' => $matriculado["curso"],
+                            'total' => intval($matriculado["matriculados"]),
+                            "interes" => intval($aprobado["aprobados"]),
+                            "resultado" => intval($aprobado["aprobados"] / $matriculado["matriculados"] * 100),
+                        );
+                    }
+                }
+            }
+            return $calculado;
+        } catch (\Exception $e) {
             return null;
+        }
+    }
+
+    /* IND 33 - Enseñanza-Aprendizaje
+     * Objetivo: Conocer el número de estudiente desaprobados por curso en el programa de estudios.
+     * Formula: X = N° de estudiantes desaprobado por curso
+     * */
+    public static function ind33($escuela_id, $semestre)
+    {
+        try {
+            $desaprobados = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/05?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            $desaprobados = $desaprobados->json();
+
+            $calculado = array();
+            foreach ($desaprobados as $desaprobado) {
+                $calculado[] = array(
+                    'codigo' => $desaprobado["codigo"],
+                    'curso' => $desaprobado["curso"],
+                    "interes" => null,
+                    'total' => null,
+                    "resultado" => intval($desaprobado["desaprobados"]),
+                );
+            }
+            return $calculado;
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
+    /* IND 34 - Enseñanza-Aprendizaje
+     * Objetivo: Conocer el número de estudientes en riesgo académico por curso.
+     * Formula: X = N° estudiantes en riesgo académico por curso / Programa de estudios
+     * */
+    public static function ind34($escuela_id, $semestre)
+    {
+        try {
+            $desaprobados = Http::withToken(env('OGE_TOKEN'))
+                ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/06?escuela=' . $escuela_id . '&semestre=' . $semestre);
+            $desaprobados = $desaprobados->json();
+
+            $calculado = array();
+            foreach ($desaprobados as $desaprobado) {
+                $calculado[] = array(
+                    'codigo' => $desaprobado["codigo"],
+                    'curso' => $desaprobado["curso"],
+                    "interes" => null,
+                    'total' => null,
+                    "resultado" => intval($desaprobado["tercera_vez_matriculada"]),
+                );
+            }
+            return $calculado;
         } catch (\Exception $e) {
             return null;
         }

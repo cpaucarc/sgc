@@ -3,7 +3,9 @@
 namespace App\Http\Livewire\Indicador;
 
 use App\Lib\AnalisisHelper;
+use App\Models\AnalisisCurso;
 use App\Models\AnalisisIndicador;
+use App\Models\Curso;
 use App\Models\Escuela;
 use App\Models\Facultad;
 use App\Models\Indicadorable;
@@ -11,7 +13,6 @@ use App\Models\Medicion;
 use App\Models\Semestre;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class NuevoAnalisis extends Component
@@ -22,7 +23,7 @@ class NuevoAnalisis extends Component
     public $min, $sat, $sob;
     public $semestres = null, $semestre_id = 0, $semestre_nombre = null, $semestre_inicio = null, $semestre_fin = null;
     public $inicio, $fin, $diffInDays, $diffIsOk = true;
-    public $interes = null, $total = null, $resultado = null;
+    public $resultados = null;
     public $elaborado, $revisado, $aprobado;
     public $analisis, $observacion;
     public $guardar = false; //Checkbox para saber si se va a guardar nuevos rangos de medida
@@ -35,7 +36,6 @@ class NuevoAnalisis extends Component
         'min' => 'required',
         'sat' => 'required',
         'sob' => 'required',
-        'resultado' => 'required',
     ];
 
     public function mount($indicadorable_id, $oficina, $tipo, $uuid)
@@ -141,27 +141,48 @@ class NuevoAnalisis extends Component
 
     public function guardarAnalisis()
     {
-//        $this->emit('guardado', "Evento click " . $this->inicio . " y " . $this->fin);
+        if (is_null($this->resultados)) {
+            return;
+        }
+
         $this->validate();
-        AnalisisIndicador::create([
-            'fecha_medicion_inicio' => $this->inicio,
-            'fecha_medicion_fin' => $this->fin,
-            'cod_ind_final' => $this->indicadorable->indicador->cod_ind_inicial . '_' . $this->entidad->abrev,
-            'minimo' => $this->min,
-            'satisfactorio' => $this->sat,
-            'sobresaliente' => $this->sob,
-            'interes' => $this->interes,
-            'total' => $this->total,
-            'resultado' => $this->resultado,
-            'interpretacion' => $this->analisis,
-            'observacion' => $this->observacion,
-            'elaborado_por' => $this->elaborado,
-            'revisado_por' => $this->revisado,
-            'aprobado_por' => $this->aprobado,
-            'user_id' => Auth::user()->id,
-            'semestre_id' => Semestre::query()->orderBy('nombre', 'desc')->first()->id,
-            'indicadorable_id' => $this->indicadorable->id,
-        ]);
+
+        $usuario_actual = Auth::user()->id;
+        $semestre_actual = Semestre::query()->orderBy('nombre', 'desc')->first()->id;
+        $analisis_cursos = array();
+
+        foreach ($this->resultados as $res) {
+            $analisis_indicador = AnalisisIndicador::create([
+                'fecha_medicion_inicio' => $this->inicio,
+                'fecha_medicion_fin' => $this->fin,
+                'cod_ind_final' => $this->indicadorable->indicador->cod_ind_inicial . '_' . $this->entidad->abrev,
+                'minimo' => $this->min,
+                'satisfactorio' => $this->sat,
+                'sobresaliente' => $this->sob,
+                'interes' => $res['interes'],
+                'total' => $res['total'],
+                'resultado' => $res['resultado'],
+                'interpretacion' => $this->analisis,
+                'observacion' => $this->observacion,
+                'elaborado_por' => $this->elaborado,
+                'revisado_por' => $this->revisado,
+                'aprobado_por' => $this->aprobado,
+                'user_id' => $usuario_actual,
+                'semestre_id' => $semestre_actual,
+                'indicadorable_id' => $this->indicadorable->id,
+            ]);
+
+            if (in_array($this->cod_ind, ['IND-032', 'IND-033', 'IND-034'])) {
+                $analisis_cursos[] = [
+                    "analisis_indicador_id" => $analisis_indicador->id,
+                    "curso_id" => Curso::query()->where('codigo', $res['codigo'])->first()->id
+                ];
+            }
+        }
+
+        if (!is_null($analisis_cursos)) {
+            AnalisisCurso::insert($analisis_cursos);
+        }
 
         // Guardamos los nuevos valores de min, sat, sob si el checkbox está activo
         if ($this->guardar) {
@@ -248,6 +269,10 @@ class NuevoAnalisis extends Component
         } // Enseñanza y Aprendizaje
         elseif ($this->cod_ind === "IND-032") {
             $res = Medicion::ind32($this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->cod_ind === "IND-033") {
+            $res = Medicion::ind33($this->entidad->id, $this->semestre_nombre);
+        } elseif ($this->cod_ind === "IND-034") {
+            $res = Medicion::ind34($this->entidad->id, $this->semestre_nombre);
         } elseif ($this->cod_ind === "IND-035") {
             $res = Medicion::ind35($this->entidad->id, $this->semestre_nombre);
         } elseif ($this->cod_ind === "IND-036") {
@@ -312,9 +337,7 @@ class NuevoAnalisis extends Component
         }
 
         if (isset($res)) {
-            $this->interes = $res['interes'];
-            $this->total = $res['total'];
-            $this->resultado = $res['resultado'];
+            $this->resultados = $res;
         }
     }
 }
