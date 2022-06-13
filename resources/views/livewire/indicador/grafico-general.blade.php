@@ -4,7 +4,7 @@
         <div class="px-8 py-3">
             <canvas id="bar-chart"></canvas>
 
-            <h3 class="mt-4 flex items-center justify-center font-semibold text-gray-400 text-sm">
+            <h3 class="mt-4 flex items-center justify-center font-semibold text-gray-400 text-sm print:hidden">
                 <x-icons.info class="h-5 w-5 mr-1 flex-shrink-0" stroke="1.55"/>
                 Si no puede ver el gráfico, pruebe a refrescar la página. <kbd>F5</kbd>
             </h3>
