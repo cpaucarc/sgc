@@ -23,4 +23,9 @@ class AnalisisIndicador extends Model
     {
         return $this->belongsTo(Semestre::class);
     }
+
+    public function curso()
+    {
+        return $this->belongsToMany(Curso::class, 'analisis_cursos');
+    }
 }
