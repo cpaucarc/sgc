@@ -1,18 +1,41 @@
 <div>
-
-    @if(count($indicadorable->analisis) !== 0)
-        <div class="flex items-center justify-between mb-4">
+    <section class="flex items-center justify-between mb-4">
+        @if(count($indicadorable->analisis) !== 0)
             <p class="ml-1 text-gray-600 font-semibold text-sm">
                 Hay&nbsp;<strong>{{ count($indicadorable->analisis) }}</strong>&nbsp;análisis de este
                 indicador
             </p>
+        @else
+            <p class="ml-1 text-gray-600 font-semibold text-sm">
+                No se encontró ningún análisis que mostrar
+            </p>
+        @endif
 
-            <x-jet-button wire:click="openModal">
-                <x-icons.plus class="flex-shrink-0 h-5 w-5 mr-1" stroke="1.5"/>
-                Nuevo
-            </x-jet-button>
+        <div class="flex items-center gap-x-2">
+
+            @if(!is_null($cursos))
+                <x-utils.forms.select wire:model="curso_seleccionado">
+                    <option value="0">Todos los cursos</option>
+                    @foreach($cursos as $cur)
+                        <option value="{{ $cur->id }}">{{ $cur->nombre }}</option>
+                    @endforeach
+                </x-utils.forms.select>
+            @endif
+
+            <x-utils.forms.select wire:model="semestre_seleccionado">
+                <option value="0">Todos</option>
+                @foreach($semestres as $sem)
+                    <option value="{{ $sem->id }}">{{ $sem->nombre }}</option>
+                @endforeach
+            </x-utils.forms.select>
+            @if(count($indicadorable->analisis) !== 0)
+                <x-jet-button wire:click="openModal" class="print:hidden">
+                    <x-icons.plus class="flex-shrink-0 h-5 w-5 mr-1" stroke="1.5"/>
+                    Nuevo
+                </x-jet-button>
+            @endif
         </div>
-    @endif
+    </section>
 
     @if(count($indicadorable->analisis) === 0)
         <x-indicador.mensaje-no-analisis>
@@ -25,6 +48,9 @@
             @slot('head')
                 <x-utils.tables.head>Semestre</x-utils.tables.head>
                 <x-utils.tables.head>Periodo</x-utils.tables.head>
+                @if($tieneCursos)
+                    <x-utils.tables.head>Curso</x-utils.tables.head>
+                @endif
                 @if($indicadorable->indicador->titulo_interes)
                     <x-utils.tables.head>{{ $indicadorable->indicador->titulo_interes }}</x-utils.tables.head>
                 @endif
@@ -41,7 +67,7 @@
                 <x-utils.tables.head>Satisfactorio</x-utils.tables.head>
                 <x-utils.tables.head>Sobresaliente</x-utils.tables.head>
                 <x-utils.tables.head>Creación</x-utils.tables.head>
-                <x-utils.tables.head>
+                <x-utils.tables.head class="print:hidden">
                     <span class=" sr-only">Acciones</span>
                 </x-utils.tables.head>
             @endslot
@@ -52,10 +78,15 @@
                             {{ $analisis->semestre->nombre }}
                         </x-utils.tables.body>
                         <x-utils.tables.body class="whitespace-nowrap text-xs">
-                            {{ $analisis->fecha_medicion_inicio->format('d/m/Y') }}
-                            a
-                            {{ $analisis->fecha_medicion_fin->format('d/m/Y') }}
+                            {{ $analisis->fecha_medicion_inicio->format('d-m-Y') }}
+                            &nbsp;hasta&nbsp;
+                            {{ $analisis->fecha_medicion_fin->format('d-m-Y') }}
                         </x-utils.tables.body>
+                        @if($tieneCursos)
+                            <x-utils.tables.body class="text-xs">
+                                {{ count($analisis->curso) ? $analisis->curso->first()->nombre : '-' }}
+                            </x-utils.tables.body>
+                        @endif
                         @if($indicadorable->indicador->titulo_interes)
                             <x-utils.tables.body>
                                 {{ $analisis->interes }}
@@ -78,20 +109,22 @@
                         <x-utils.tables.body>
                             {{ floatval($analisis->sobresaliente) }}
                         </x-utils.tables.body>
-                        <x-utils.tables.body class="whitespace-nowrap">
+                        <x-utils.tables.body class="whitespace-nowrap text-xs">
                             @if(today()->diffInDays($analisis->created_at) <= 7)
                                 {{ $analisis->created_at->diffForHumans() }}
                             @else
                                 {{ $analisis->created_at->format('d/m/Y') }}
                             @endif
                         </x-utils.tables.body>
-                        <x-utils.tables.body>
-                            <div class="flex items-center space-x-1">
-                                <x-utils.buttons.invisible wire:click="openEditModal({{$analisis->id}}, false)">
-                                    <x-icons.info class="h-5 w-5" stroke="1.5"></x-icons.info>
+                        <x-utils.tables.body class="print:hidden">
+                            <div class="flex items-center space-x-0">
+                                <x-utils.buttons.invisible title="Ver información"
+                                                           wire:click="openEditModal({{$analisis->id}}, false)">
+                                    <x-icons.info class="icon-4" stroke="2"></x-icons.info>
                                 </x-utils.buttons.invisible>
-                                <x-utils.buttons.invisible wire:click="openEditModal({{$analisis->id}}, true)">
-                                    <x-icons.edit class="h-5 w-5" stroke="1.5"></x-icons.edit>
+                                <x-utils.buttons.invisible title="Editar"
+                                                           wire:click="openEditModal({{$analisis->id}}, true)">
+                                    <x-icons.edit class="icon-4" stroke="2"></x-icons.edit>
                                 </x-utils.buttons.invisible>
                             </div>
                         </x-utils.tables.body>
@@ -101,13 +134,19 @@
         </x-utils.tables.table>
 
         <div class="mt-4 flex justify-end">
-            <x-utils.buttons.default wire:click="openGraph" class="group text-sm">
-                <svg class="icon-5 mr-1 group-hover:text-gray-600" viewBox="0 0 20 20" fill="currentColor">
-                    <path
-                        d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
-                </svg>
-                Mostrar gráfico
-            </x-utils.buttons.default>
+            @if(!$tieneCursos || $curso_seleccionado > 0)
+                <x-utils.buttons.default wire:click="openGraph" class="group text-sm print:hidden">
+                    <svg class="icon-5 mr-1 group-hover:text-gray-600" viewBox="0 0 20 20" fill="currentColor">
+                        <path
+                            d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+                    </svg>
+                    Mostrar gráfico
+                </x-utils.buttons.default>
+            @else
+                <p class="text-sm text-gray-700">
+                    Para ver el grafico, seleccione un curso en específico
+                </p>
+            @endif
         </div>
 
         <livewire:indicador.grafico-general indicadorable_id="{{ $indicadorable->id }}"/>
