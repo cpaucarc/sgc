@@ -4,9 +4,9 @@
         <div class="col-span-2 space-y-4">
             <div class="space-y-8 divide-gray-300 divide-dashed">
                 <div class="text-right">
-                    <p class="text-gray-500">Estudiantes de la</p>
+                    <p class="text-gray-500">Estudiantes de </p>
                     <h1 class="font-bold text-2xl text-gray-700">
-                        {{ $escuela ? "escuela de $escuela->nombre" : " facultad de $facultad->nombre" }}
+                        {{ $escuela ? "$escuela->nombre" : "$facultad->nombre" }}
                     </h1>
                     <p class="text-gray-500">con grado de bachiller</p>
                     <p class="text-gray-500 font-semibold text-sm mt-4">{{ $bachilleres }} bachilleres en total</p>
