@@ -12,4 +12,9 @@ class Curso extends Model
     protected $table = "cursos";
     public $timestamps = false;
     public $fillable = ['curricula', 'codigo', 'nombre', 'horas_teoria', 'horas_practica', 'escuela_id', 'ciclo_id'];
+
+    public function ciclo()
+    {
+        return $this->belongsTo(Ciclo::class);
+    }
 }
