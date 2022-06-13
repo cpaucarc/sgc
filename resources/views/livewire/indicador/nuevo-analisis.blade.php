@@ -47,7 +47,10 @@
                                 <input wire:model="fin" type="date" class="border-none p-0 w-32 focus:ring-0 text-sm">
                             </label>
                         </div>
-                        <p class="text-sm {{ $diffIsOk ? 'text-green-500' : 'text-rose-600 '}}">
+                        <p class="text-sm flex items-center {{ $diffIsOk ? 'text-green-500' : 'text-rose-600'}}">
+                            @if(!$diffIsOk)
+                                <x-icons.warning class="icon-5 mr-1 text-rose-600 mr-1" stroke="1.25"/>
+                            @endif
                             {{ \App\Lib\AnalisisHelper::diasASemanas($inicio, $fin) }}
                         </p>
                     </div>
@@ -60,63 +63,30 @@
                 </div>
 
                 {{-- Resultados de medicion --}}
-                <div wire:loading.remove class="pt-6 space-y-4">
-                    {{-- Resultados de medicion --}}
-                    <div class="grid grid-cols-3 gap-x-6">
-                        @if($indicadorable->indicador->titulo_interes)
-                            <div class="w-full">
-                                <x-jet-label for="interes" value="{{ $indicadorable->indicador->titulo_interes }}"/>
-                                <x-jet-input id="interes" value="{{ round($interes, 1) }}" type="text"
-                                             class="mt-1 w-full bg-gray-100" autocomplete="off" readonly/>
-                                <x-jet-input-error for="interes"/>
-                            </div>
-
-                            <div class="w-full">
-                                <x-jet-label for="total" value="{{ $indicadorable->indicador->titulo_total }}"/>
-                                <x-jet-input id="total" value="{{ round($total, 1) }}" type="text"
-                                             class="mt-1 w-full bg-gray-100" autocomplete="off" readonly/>
-                                <x-jet-input-error for="total"/>
-                            </div>
-                        @endif
-                        <div class="w-full">
-                            <x-jet-label for="resultado" value="{{ $indicadorable->indicador->titulo_resultado }}"/>
-                            <x-jet-input id="resultado"
-                                         value="{{ round($resultado, 1) }} {{ $indicadorable->indicador->titulo_interes ? '%': '' }}"
-                                         type="text" class="mt-1 w-full bg-gray-100" autocomplete="off" readonly/>
-                            <x-jet-input-error for="resultado"/>
-                        </div>
-
-                        <div class="col-span-3 mt-1">
-                            <span class="text-gray-500 text-xs flex items-center py-0.5">
-                                <x-icons.quality class="icon-4 mr-1" stroke="1.25"/>
-                                Estos valores son calculados automaticamente, no pueden editarse manualmente.
-                            </span>
-                        </div>
-                    </div>
-
+                <div wire:loading.remove class="pt-6 space-y-6">
                     {{-- Rangos de medicion --}}
-                    <div class="grid grid-cols-3 gap-x-6">
+                    <div class="grid grid-cols-3 gap-x-6 p-4 bg-gray-50 rounded-lg">
                         <div class="w-full">
                             <x-jet-label for="minimo" value="Mínimo"/>
                             <x-jet-input id="minimo" wire:model.debounce.500ms="min" type="number"
-                                         class="mt-1 w-full" autocomplete="off"/>
+                                         class="mt-1 w-full focus:bg-rose-100" autocomplete="off"/>
                             <x-jet-input-error for="min"/>
                         </div>
                         <div class="w-full">
                             <x-jet-label for="satisfactorio" value="Satisfactorio"/>
                             <x-jet-input id="satisfactorio" wire:model.debounce.500ms="sat" type="number"
-                                         class="mt-1 w-full" autocomplete="off"/>
+                                         class="mt-1 w-full focus:bg-amber-100" autocomplete="off"/>
                             <x-jet-input-error for="sat"/>
                         </div>
                         <div class="w-full">
                             <x-jet-label for="sobresaliente" value="Sobresaliente"/>
                             <x-jet-input id="sobresaliente" wire:model.debounce.500ms="sob" type="number"
-                                         class="mt-1 w-full" autocomplete="off"/>
+                                         class="mt-1 w-full focus:bg-green-100" autocomplete="off"/>
                             <x-jet-input-error for="sob"/>
                         </div>
 
                         <div class="col-span-3 flex justify-between items-center text-gray-600 mt-2">
-                            <label class="cursor-pointer text-sm">
+                            <label class="cursor-pointer text-sm flex items-center">
                                 <x-utils.forms.checkbox wire:model.defer="guardar"/>
                                 Guardar estos valores para futuras instancias de este indicador.
                             </label>
@@ -128,10 +98,76 @@
                         </div>
                     </div>
 
-                    {{--                        --}}{{--                        @livewire('indicador.grafico-unitario', [--}}
-                    {{--                        --}}{{--                        'min' => $min, 'sat' => $sat, 'sob' => $sob, 'resultado' => $resultado--}}
-                    {{--                        --}}{{--                        ])--}}
+                    {{-- Resultados de medicion --}}
+                    <div class="space-y-1">
+                        <h4 class="block font-medium text-sm text-gray-600">Resultados</h4>
+                        @if(!is_null($resultados))
+                            <x-utils.tables.table>
+                                @slot('head')
+                                    @if(count($resultados) > 1)
+                                        <x-utils.tables.head>Curso</x-utils.tables.head>
+                                    @endif
+                                    @if($indicadorable->indicador->titulo_interes)
+                                        <x-utils.tables.head>
+                                            {{ $indicadorable->indicador->titulo_interes }}
+                                        </x-utils.tables.head>
+                                        <x-utils.tables.head>
+                                            {{ $indicadorable->indicador->titulo_total }}
+                                        </x-utils.tables.head>
+                                    @else
+                                        <x-utils.tables.head>
+                                            <span class="sr-only">Interes</span>
+                                        </x-utils.tables.head>
+                                        <x-utils.tables.head>
+                                            <span class="sr-only">Total</span>
+                                        </x-utils.tables.head>
+                                    @endif
+                                    <x-utils.tables.head>
+                                        {{ $indicadorable->indicador->titulo_resultado }}
+                                    </x-utils.tables.head>
+                                @endslot
+                                @slot('body')
+                                    @foreach($resultados as $res)
+                                        <x-utils.tables.row>
+                                            @if(!is_null($res['curso']))
+                                                <x-utils.tables.body>
+                                                    {{ $res['curso'] }}
+                                                </x-utils.tables.body>
+                                            @endif
 
+                                            @if($indicadorable->indicador->titulo_interes)
+                                                <x-utils.tables.body>
+                                                    {{ round($res['interes'], 1) }}
+                                                </x-utils.tables.body>
+
+                                                <x-utils.tables.body>
+                                                    {{ round($res['total'], 1) }}
+                                                </x-utils.tables.body>
+                                            @else
+                                                <x-utils.tables.body>
+                                                    <span class="sr-only">Nulo</span>
+                                                </x-utils.tables.body>
+                                                <x-utils.tables.body>
+                                                    <span class="sr-only">Nulo</span>
+                                                </x-utils.tables.body>
+                                            @endif
+
+                                            <x-utils.tables.body>
+                                                <p class="font-bold">
+                                                    {{ round($res['resultado'], 1) }} {{ $indicadorable->indicador->titulo_interes ? '%': '' }}
+                                                </p>
+                                            </x-utils.tables.body>
+
+                                        </x-utils.tables.row>
+                                    @endforeach
+                                @endslot
+                            </x-utils.tables.table>
+                        @endif
+                        <p class="block mt-1 text-gray-500 text-xs flex items-center py-0.5">
+                            <x-icons.quality class="icon-4 mr-1" stroke="1.25"/>
+                            Estos valores son calculados automaticamente, no pueden editarse manualmente.
+                        </p>
+                    </div>
                 </div>
 
                 {{-- Analisis y Observaciones --}}
