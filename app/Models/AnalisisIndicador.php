@@ -18,4 +18,9 @@ class AnalisisIndicador extends Model
         'fecha_medicion_inicio',
         'fecha_medicion_fin'
     ];
+
+    public function semestre()
+    {
+        return $this->belongsTo(Semestre::class);
+    }
 }
