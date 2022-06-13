@@ -23,6 +23,7 @@
     @else
         <x-utils.tables.table>
             @slot('head')
+                <x-utils.tables.head>Semestre</x-utils.tables.head>
                 <x-utils.tables.head>Periodo</x-utils.tables.head>
                 @if($indicadorable->indicador->titulo_interes)
                     <x-utils.tables.head>{{ $indicadorable->indicador->titulo_interes }}</x-utils.tables.head>
@@ -47,6 +48,9 @@
             @slot('body')
                 @foreach($indicadorable->analisis as $analisis)
                     <x-utils.tables.row>
+                        <x-utils.tables.body class="whitespace-nowrap">
+                            {{ $analisis->semestre->nombre }}
+                        </x-utils.tables.body>
                         <x-utils.tables.body class="whitespace-nowrap text-xs">
                             {{ $analisis->fecha_medicion_inicio->format('d/m/Y') }}
                             a

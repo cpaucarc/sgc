@@ -28,7 +28,7 @@ class TablaAnalisis extends Component
     public function render()
     {
         $this->indicadorable = Indicadorable::query()
-            ->with('indicador:id,titulo_interes,titulo_total,titulo_resultado', 'analisis')
+            ->with('indicador:id,titulo_interes,titulo_total,titulo_resultado', 'analisis', 'analisis.semestre:id,nombre')
             ->findOrFail($this->indicadorable_id);
 //        $this->openGraph();
         return view('livewire.indicador.tabla-analisis');
