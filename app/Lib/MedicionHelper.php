@@ -18,11 +18,29 @@ class MedicionHelper
      * */
     public static function getArrayResultados($interes = null, $total = null, $resultado = null)
     {
+        // Indicador que solo maneja el resultado directamente
         if (is_null($interes) || is_null($total)) {
-            return array('interes' => null, 'total' => null, 'resultado' => is_null($resultado) ? 0 : $resultado);
+            return array(
+                array(
+                    'codigo' => null,
+                    'curso' => null,
+                    'interes' => null,
+                    'total' => null,
+                    'resultado' => is_null($resultado) ? 0 : $resultado
+                )
+            );
         }
 
-        return array('interes' => $interes, 'total' => $total, 'resultado' => $total == 0 ? 0 : round($interes / $total * 100));
+        // Indicador que maneja el calculo del resultado a partir del interes y total
+        return array(
+            array(
+                'codigo' => null,
+                'curso' => null,
+                'interes' => $interes,
+                'total' => $total,
+                'resultado' => $total == 0 ? 0 : round($interes / $total * 100)
+            )
+        );
     }
 
     /* Retorna el ID enviado antecediendo "0" si su valor es menor a 10
