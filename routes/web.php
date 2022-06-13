@@ -201,39 +201,5 @@ Route::get('storage/{file}', function ($file) {
 
 // Para pruebas
 Route::get('/prueba', function () {
-    $escuela_id = 11;
-    $semestre = '2021-2';
-
-    $aprobados = Http::withToken(env('OGE_TOKEN'))
-        ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/04?escuela=' . $escuela_id . '&semestre=' . $semestre);
-
-    $aprobados = $aprobados->json();
-    $matriculados = Http::withToken(env('OGE_TOKEN'))
-        ->get(env('OGE_API') . 'ensenianza_aprendizaje/escuela/03?escuela=' . $escuela_id . '&semestre=' . $semestre);
-    $matriculados = $matriculados->json();
-
-//    echo gettype($aprobados);
-//    echo gettype($matriculados);
-    $calculado = array();
-    foreach ($matriculados as $matriculado) {
-        $ar = array(
-            "semestre" => $semestre,
-            "codigo" => $matriculado["codigo"],
-            "curso" => $matriculado["curso"],
-            "matriculados" => $matriculado["matriculados"],
-        );
-
-        foreach ($aprobados as $aprobado) {
-            if ($aprobado["codigo"] === $matriculado["codigo"]) {
-                $ar = array_merge($ar, array(
-                    "aprobados" => $aprobado["aprobados"],
-                    "porcentaje" => round($aprobado["aprobados"] / $matriculado["matriculados"] * 100, 2) . '%',
-                ));
-            }
-        }
-
-        array_push($calculado, $ar);
-    }
-    var_dump($calculado);
-//    return $aprobados;
+    echo 'Prueba';
 });
