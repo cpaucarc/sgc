@@ -68,6 +68,7 @@
                         </x-utils.tables.row>
                     @endslot
                 </x-utils.tables.table>
+                {{$solicitud}}
             </div>
 
             <div class="space-y-4 pt-4">

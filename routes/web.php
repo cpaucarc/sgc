@@ -127,6 +127,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/', 'index')->name('tpu.index');
         Route::get('solicitudes/incompletas', 'incompletas')->name('tpu.solicitudes.incompletas');
         Route::get('solicitudes/completas', 'completas')->name('tpu.solicitudes.completas');
+        Route::get('investigaciones', 'investigaciones')->name('tpu.investigaciones');
 
         Route::get('solicitud', 'request')->name('tpu.request');
         Route::get('solicitud/{solicitud}', 'tesis')->name('tpu.tesis');

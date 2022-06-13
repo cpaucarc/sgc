@@ -32,7 +32,7 @@
                         title="Proyectos de investigación"
                         :cantidad="$proyectos"
                         nombre="proyectos"
-                        href="#"
+                        href="{{ route('tpu.investigaciones') }}"
                     />
                 </div>
             </div>
