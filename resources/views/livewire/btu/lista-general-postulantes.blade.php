@@ -72,8 +72,8 @@
 
     @else
         <x-utils.message-no-items
-            title="Aún no hay datos sobre visitantes"
-            text="Aquí podrá encontrar la información de visitas a la biblioteca de la facultad.">
+            title="Aún no hay datos sobre los postulantes y los beneficiarios"
+            text="Aquí podrá encontrar la información de los postulantes y los beneficiarios del Bolsa de Trabajo Universitario.">
             @slot('icon')
                 <svg class="text-gray-400" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
                     <path fill-rule="evenodd"
