@@ -9,7 +9,7 @@
                         {{$soli->dni_estudiante}}
                     </x-utils.links.basic>
                     <h3 class="text-gray-400 group-hover:text-gray-500 text-sm">
-                        {{ $soli->documentos_count }} de 8 requisitos enviados
+                        {{ $soli->documentos_count }} de 15 requisitos enviados
                     </h3>
                 </div>
                 <x-utils.buttons.default
