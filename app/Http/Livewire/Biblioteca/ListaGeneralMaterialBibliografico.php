@@ -13,6 +13,8 @@ class ListaGeneralMaterialBibliografico extends Component
     public $semestre = 0, $semestres = null;
     public $facultad_ids = [];
 
+    public $listeners = ['render', 'eliminar'];
+
     public function mount($facultad_ids)
     {
         $this->semestres = Semestre::query()->orderBy('nombre', 'desc')->get();
@@ -31,5 +33,11 @@ class ListaGeneralMaterialBibliografico extends Component
             ->orderBy('id', 'desc')
             ->get();
         return view('livewire.biblioteca.lista-general-material-bibliografico', compact('materiales'));
+    }
+
+    //Funciones
+    public function eliminar($id)
+    {
+        MaterialBibliografico::find($id)->delete();
     }
 }
