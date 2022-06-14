@@ -36,8 +36,10 @@ class ListaInvestigacionGeneral extends Component
     public function render()
     {
         $investigaciones = Investigacion::query()
-            ->select('id', 'uuid', 'titulo', 'fecha_publicacion', 'escuela_id', 'estado_id')
-            ->with('escuela:id,nombre', 'estado:id,nombre,color', 'financiaciones:id')
+            ->select('id', 'uuid', 'titulo', 'fecha_publicacion', 'escuela_id', 'estado_id', 'created_at')
+            ->with('escuela:id,nombre', 'estado:id,nombre,color')
+            ->withCount('investigadores')
+            ->withSum('financiaciones as presupuesto_sum', 'investigacion_financiacion.presupuesto')
             ->where('titulo', 'like', '%' . $this->search . '%')
             ->whereBetween('fecha_publicacion', [$this->inicio, $this->fin]);
 

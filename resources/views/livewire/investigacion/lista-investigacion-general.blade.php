@@ -4,6 +4,7 @@
         <x-utils.forms.search-input wire:model.debounce.500ms="search"/>
 
         <div class="flex items-center gap-x-2">
+            <p class="text-sm text-gray-700">Fecha de Publicación: </p>
             <x-utils.forms.labeled-input title="Desde:" wire:model="inicio" type="date"
                                          class="cursor-pointer w-auto"/>
             <x-utils.forms.labeled-input title="Hasta:" wire:model="fin" type="date"
@@ -16,9 +17,11 @@
             @slot('head')
                 <x-utils.tables.head>Título</x-utils.tables.head>
                 <x-utils.tables.head>Presupuesto</x-utils.tables.head>
+                <x-utils.tables.head>Investigadores</x-utils.tables.head>
                 <x-utils.tables.head>Programa</x-utils.tables.head>
                 <x-utils.tables.head>Estado</x-utils.tables.head>
                 <x-utils.tables.head>Publicación</x-utils.tables.head>
+                <x-utils.tables.head>Creación</x-utils.tables.head>
             @endslot
             @slot('body')
                 @foreach($investigaciones as $investigacion)
@@ -28,7 +31,12 @@
                                 {{substr($investigacion->titulo, 0, 80)}}
                             </x-utils.links.basic>
                         </x-utils.tables.body>
-                        <x-utils.tables.body>{{'S/. '.number_format((float)$investigacion->financiaciones->sum('pivot.presupuesto'), 2)}}</x-utils.tables.body>
+                        <x-utils.tables.body class="text-right">
+                            {{'S/. '.number_format((float)$investigacion->presupuesto_sum, 2)}}
+                        </x-utils.tables.body>
+                        <x-utils.tables.body>
+                            {{ $investigacion->investigadores_count }} investigadores
+                        </x-utils.tables.body>
                         <x-utils.tables.body>{{$investigacion->escuela->nombre}}</x-utils.tables.body>
                         <x-utils.tables.body>
                             <x-utils.badge
@@ -36,7 +44,12 @@
                                 {{$investigacion->estado->nombre}}
                             </x-utils.badge>
                         </x-utils.tables.body>
-                        <x-utils.tables.body>{{$investigacion->fecha_publicacion->format('d-m-Y')}}</x-utils.tables.body>
+                        <x-utils.tables.body class="text-xs font-semibold">
+                            {{$investigacion->fecha_publicacion->format('d-m-Y')}}
+                        </x-utils.tables.body>
+                        <x-utils.tables.body class="whitespace-nowrap text-xs">
+                            {{ $investigacion->created_at->format('d-m-Y h:i a') }}
+                        </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach
             @endslot
