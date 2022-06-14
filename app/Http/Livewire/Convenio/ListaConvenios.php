@@ -12,6 +12,8 @@ class ListaConvenios extends Component
     public $semestres = null, $semestre = 0;
     public $facultad_ids = [];
 
+    public $listeners = ['render', 'eliminar'];
+
     public function mount($facultad_ids)
     {
         $this->facultad_ids = $facultad_ids;
@@ -21,7 +23,7 @@ class ListaConvenios extends Component
 
     public function eliminar($id)
     {
-        $convenio = Convenio::find($id)->delete();
+        Convenio::find($id)->delete();
     }
 
     public function render()

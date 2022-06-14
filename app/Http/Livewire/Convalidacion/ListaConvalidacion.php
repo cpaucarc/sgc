@@ -13,6 +13,8 @@ class ListaConvalidacion extends Component
     public $escuelas = null, $escuela = 0;
     public $facultad_ids = [];
 
+    public $listeners = ['render', 'eliminar'];
+
     public function mount($facultad_ids)
     {
         $this->facultad_ids = $facultad_ids;
@@ -25,8 +27,7 @@ class ListaConvalidacion extends Component
 
     public function eliminar($id)
     {
-        $convalidacion = Convalidacion::where('id', $id);
-        $convalidacion->delete();
+        Convalidacion::find($id)->delete();
     }
 
     public function render()

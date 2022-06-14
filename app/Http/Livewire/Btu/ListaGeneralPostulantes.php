@@ -13,6 +13,8 @@ class ListaGeneralPostulantes extends Component
     public $escuela = 0, $escuelas = null;
     public $facultad_ids = [];
 
+    public $listeners = ['render', 'eliminar'];
+
     public function mount($facultad_ids)
     {
         $this->facultad_ids = $facultad_ids;
