@@ -32,7 +32,8 @@ class ListarInvestigaciones extends Component
     public function render()
     {
         $callback = Tesis::query()
-            ->where('numero_registro', 'like', '%' . $this->search . '%');
+            ->where('numero_registro', 'like', '%' . $this->search . '%')
+            ->orderBy('anio', 'desc');
 
         //Si la escuela seleccionada es mayor que cero.
         if ($this->escuela_seleccionado > 0) {
