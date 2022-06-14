@@ -21,8 +21,7 @@ class ListaConvenios extends Component
 
     public function eliminar($id)
     {
-        $convenio = Convenio::where('id', $id);
-        $convenio->delete();
+        $convenio = Convenio::find($id)->delete();
     }
 
     public function render()
@@ -30,7 +29,7 @@ class ListaConvenios extends Component
         $convenios = Convenio::query()
             ->with('semestre:id,nombre', 'facultad:id,nombre,abrev');
         if ($this->semestre > 0) {
-            $convalidaciones = $convenios->where('semestre_id', $this->semestre);
+            $convenios = $convenios->where('semestre_id', $this->semestre);
         }
         $convenios = $convenios->orderBy('id', 'desc')->get();
         return view('livewire.convenio.lista-convenios', compact('convenios'));

@@ -25,8 +25,7 @@ class ListaGeneralPostulantes extends Component
 
     public function eliminar($id)
     {
-        $postulante = BolsaPostulante::where('id', $id);
-        $postulante->delete();
+        BolsaPostulante::find($id)->delete();
     }
 
     public function render()
