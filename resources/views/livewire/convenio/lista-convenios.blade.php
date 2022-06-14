@@ -47,7 +47,7 @@
                                 - {{$convenio->facultad->abrev}}</x-utils.tables.body>
                             <x-utils.tables.body>
                                 <x-utils.buttons.danger class="text-sm"
-                                                        wire:click="eliminar({{ $convenio->id }})">
+                                                        onclick="eliminar({{ $convenio->id }},{{($i+1)}})">
                                     <x-icons.delete class="h-4 w-4" stroke="1.5"/>
                                 </x-utils.buttons.danger>
                             </x-utils.tables.body>
@@ -75,15 +75,14 @@
     @endif
 
     @push('js')
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
-            Livewire.on('error', msg => {
-                Swal.fire({
-                    icon: 'error',
-                    title: '',
-                    text: msg,
-                });
-            });
+            function eliminar(id, row) {
+                let res = confirm('¿Desea eliminar el registro número (' + row + ') de Convenio?')
+
+                if (res) {
+                    window.livewire.emit('eliminar', id);
+                }
+            }
         </script>
     @endpush
 </div>
