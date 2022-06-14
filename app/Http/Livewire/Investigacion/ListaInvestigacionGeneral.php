@@ -41,7 +41,10 @@ class ListaInvestigacionGeneral extends Component
             ->withCount('investigadores')
             ->withSum('financiaciones as presupuesto_sum', 'investigacion_financiacion.presupuesto')
             ->where('titulo', 'like', '%' . $this->search . '%')
-            ->whereBetween('fecha_publicacion', [$this->inicio, $this->fin]);
+            ->where(function ($q) {
+                $q->whereBetween('fecha_publicacion', [$this->inicio, $this->fin])
+                    ->orWhereNull('fecha_publicacion');
+            });
 
         if (count($this->facultades_id)) { // El usuario pertenece a alguna facultad
             $investigaciones = $investigaciones->whereIn('escuela_id', function ($query) {
@@ -52,7 +55,7 @@ class ListaInvestigacionGeneral extends Component
             $investigaciones = $investigaciones->whereIn('escuela_id', $this->escuelas_id);
         }
 
-        $investigaciones = $investigaciones->orderBy('fecha_publicacion')->orderBy('titulo')->get();
+        $investigaciones = $investigaciones->orderBy('created_at', 'desc')->orderBy('titulo')->get();
 
         return view('livewire.investigacion.lista-investigacion-general', compact('investigaciones'));
     }
