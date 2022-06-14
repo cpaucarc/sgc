@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Rsu;
 
+use App\Lib\UsuarioHelper;
 use App\Models\Entidadable;
 use App\Models\Escuela;
 use App\Models\Oficina;
@@ -37,30 +38,7 @@ class FormularioCrearRsu extends Component
 
     public function mount()
     {
-        $entidades = Auth::user()->entidades->pluck('id');
-
-        $callback = function ($query) use ($entidades) {
-            $query->whereIn('id', $entidades);
-        };
-
-        $entidad_escuela = Entidadable::query()
-            ->where('entidadable_type', "App\\Models\\Escuela")
-            ->whereHas('entidad', $callback)
-            ->pluck('entidadable_id');
-
-        $entidad_facultad = Entidadable::query()
-            ->where('entidadable_type', "App\\Models\\Facultad")
-            ->whereHas('entidad', $callback)
-            ->pluck('entidadable_id');
-
-        if (count($entidad_facultad)) {
-            $this->escuelas = Escuela::whereIn('facultad_id', $entidad_facultad)
-                ->orderBy('nombre')->get();
-        }
-        else{
-            $this->escuelas = Escuela::whereIn('id', $entidad_escuela)
-                ->orderBy('nombre')->get();
-        }
+        $this->escuelas = UsuarioHelper::escuelasDelUsuario();
     }
 
     protected $listeners = ['enviarEmpresa' => 'recibirEmpresa'];
@@ -126,7 +104,7 @@ class FormularioCrearRsu extends Component
             'responsabilidad_social_id' => $rsu->id
         ]);
 
-        $this->emit('guardado', "La RSU llamada '$rsu->nombre' fue creado con éxito.");
+        $this->emit('guardado', "La RSU llamada '" . $this->titulo . "' fue creado con éxito.");
 
         return redirect()->route('rsu.index');
     }
