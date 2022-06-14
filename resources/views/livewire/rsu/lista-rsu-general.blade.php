@@ -32,7 +32,9 @@
                 <x-utils.tables.head>Programa</x-utils.tables.head>
                 <x-utils.tables.head>Lugar</x-utils.tables.head>
                 <x-utils.tables.head>Empresa</x-utils.tables.head>
-                <x-utils.tables.head>Finalización</x-utils.tables.head>
+                <x-utils.tables.head>Inicio</x-utils.tables.head>
+                <x-utils.tables.head>Fin</x-utils.tables.head>
+                <x-utils.tables.head>Estado</x-utils.tables.head>
             @endslot
             @slot('body')
                 @foreach($rsu as $resp_social)
@@ -46,18 +48,49 @@
                             {{ $resp_social->escuela->nombre }}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            <p class="line-clamp-1">{{ $resp_social->lugar }}</p>
-                        </x-utils.tables.body>
-                        <x-utils.tables.body>
-                            <p class="line-clamp-1">
-                                {{ $resp_social->empresa_id ? $resp_social->empresa->nombre : '--'}}
+                            <p class="line-clamp-1" title="{{ $resp_social->lugar }}">
+                                {{ $resp_social->lugar }}
                             </p>
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            <x-utils.badge
-                                class="whitespace-nowrap {{$resp_social->fecha_fin ? '' : 'bg-rose-100 text-rose-700'}}">
-                                {{ $resp_social->fecha_fin  ? $resp_social->fecha_fin->format('d/m/Y') : 'Sin completar' }}
-                            </x-utils.badge>
+                            <p class="block line-clamp-1">
+                                {{ $resp_social->empresa_id ? $resp_social->empresa->nombre : '--'}}
+                            </p>
+                            @if($resp_social->empresa_id)
+                                <p class="text-gray-600 text-xs">
+                                    RUC: {{  $resp_social->empresa->ruc }}
+                                </p>
+                            @endif
+                        </x-utils.tables.body>
+                        <x-utils.tables.body class="text-xs">
+                            {{ $resp_social->fecha_inicio->format('d/m/Y') }}
+                        </x-utils.tables.body>
+                        <x-utils.tables.body class="text-xs">
+                            {{ $resp_social->fecha_fin->format('d/m/Y') }}
+                        </x-utils.tables.body>
+                        <x-utils.tables.body class="text-xs font-semibold">
+                            @if( now() < $resp_social->fecha_inicio )
+                                <span class="bg-amber-100 text-amber-800 whitespace-nowrap px-3 py-1 rounded">
+                                    Sin iniciar
+                                </span>
+                            @endif
+
+                            @if( now() > $resp_social->fecha_fin )
+                                <span class="bg-gray-100 text-gray-800 whitespace-nowrap px-3 py-1 rounded">
+                                    Finalizado
+                                </span>
+                            @endif
+
+                            @if( now() >= $resp_social->fecha_inicio && now() <= $resp_social->fecha_fin )
+                                <span class="bg-lime-100 text-lime-800 whitespace-nowrap px-3 py-1 rounded">
+                                    En progreso
+                                </span>
+                            @endif
+
+                            {{--                            <x-utils.badge--}}
+                            {{--                                class="whitespace-nowrap {{$resp_social->fecha_fin ? '' : 'bg-rose-100 text-rose-700'}}">--}}
+                            {{--                                {{ $resp_social->fecha_fin  ? $resp_social->fecha_fin->format('d/m/Y') : 'Sin completar' }}--}}
+                            {{--                            </x-utils.badge>--}}
                         </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach

@@ -41,7 +41,8 @@ class ListaRsuGeneral extends Component
             ->pluck('entidadable_id');
 
         $rsu = ResponsabilidadSocial::query()
-            ->with('escuela', 'empresa');
+            ->select('id', 'uuid', 'titulo', 'lugar', 'fecha_inicio', 'fecha_fin','escuela_id', 'empresa_id')
+            ->with('escuela:id,nombre', 'empresa:id,nombre,ruc');
 
         if (count($entidad_facultad)) { // El usuario pertenece a alguna facultad
             $rsu = $rsu->whereIn('escuela_id', function ($query) use ($entidad_facultad) {
