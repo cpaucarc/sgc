@@ -35,10 +35,10 @@ class Pendiente extends Component
             ->get();
 
         $this->solicitudesCompletas = $this->solicitudes->filter(function ($item) {
-            return $item->documentos_count == 8; // 8 : Requisitos de titulo profesional
+            return $item->documentos_count == 15; // 15 : Requisitos para bachiller
         });
         $this->solicitudesIncompletas = $this->solicitudes->filter(function ($item) {
-            return $item->documentos_count < 8;
+            return $item->documentos_count < 15;
         });
     }
 
@@ -78,7 +78,7 @@ class Pendiente extends Component
                 $this->solicitudSeleccionado->estado_id = 4;// 4 : Estado Solicitud En Evaluación
                 $this->solicitudSeleccionado->save();
             }
-            if ($countAprobado == 8) {
+            if ($countAprobado == 15) {
                 $this->solicitudSeleccionado->estado_id = 6;// 6 : Estado Solicitud Aprobado
                 $this->solicitudSeleccionado->save();
 

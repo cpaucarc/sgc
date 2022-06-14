@@ -9,7 +9,7 @@
                         {{$solicitud->dni_estudiante}}
                     </x-utils.links.basic>
                     <h3 class="text-gray-400 group-hover:text-gray-500 text-sm">
-                        {{ $solicitud->documentos_count }} de 8 requisitos enviados
+                        {{ $solicitud->documentos_count }} de 15 requisitos enviados
                     </h3>
                 </div>
                 <x-utils.buttons.default
@@ -22,7 +22,7 @@
                 <x-utils.message-image>
                     <x-slot name="title">No hay ninguna solicitud</x-slot>
                     <x-slot name="description">
-                        Actualmente no hay ninguna solicitud que tenga todos los documentos completos.
+                        Actualmente no hay ninguna solicitud que tenga los documentos incompletos.
                     </x-slot>
                     <x-slot name="image">{{ asset('images/svg/solicitudes_completas.svg') }}</x-slot>
                 </x-utils.message-image>

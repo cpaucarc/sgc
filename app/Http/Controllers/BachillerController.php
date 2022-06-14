@@ -69,11 +69,11 @@ class BachillerController extends Controller
         }
 
         $solicitudesCompletas = $solicitudes->filter(function ($item) {
-            return $item->documentos_count == 8; // 8 : Requisitos de titulo profesional
+            return $item->documentos_count == 15; // 15 : Requisitos para bachiller
         });
 
         $solicitudesIncompletas = $solicitudes->filter(function ($item) {
-            return $item->documentos_count < 8; // 8 : Requisitos de titulo profesional
+            return $item->documentos_count < 15; // 15 : Requisitos para bachiller
         });
 
         $facultad = $this->facultad;
@@ -147,7 +147,7 @@ class BachillerController extends Controller
             return redirect()->route('dashboard');
         }
         $solicitudesIncompletas = $solicitudes->filter(function ($item) {
-            return $item->documentos_count < 8; // 8 : Requisitos de titulo profesional
+            return $item->documentos_count < 15; // 15 : Requisitos para bachiller
         });
 
         return view('bachiller.solicitudes.incompletas', compact('solicitudesIncompletas'));
@@ -194,7 +194,7 @@ class BachillerController extends Controller
         }
 
         $solicitudesCompletas = $solicitudes->filter(function ($item) {
-            return $item->documentos_count == 8; // 8 : Requisitos de titulo profesional
+            return $item->documentos_count == 15; // 15 : Requisitos para bachiller
         });
 
         return view('bachiller.solicitudes.completas', compact('solicitudesCompletas'));

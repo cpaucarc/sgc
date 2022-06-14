@@ -22,7 +22,7 @@
                 <x-utils.message-image>
                     <x-slot name="title">No hay ninguna solicitud</x-slot>
                     <x-slot name="description">
-                        Actualmente no hay ninguna solicitud que tenga todos los documentos completos.
+                        Actualmente no hay ninguna solicitud que tenga los documentos incompletos.
                     </x-slot>
                     <x-slot name="image">{{ asset('images/svg/solicitudes_completas.svg') }}</x-slot>
                 </x-utils.message-image>
