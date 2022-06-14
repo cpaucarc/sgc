@@ -15,7 +15,7 @@
             @slot('head')
                 <x-utils.tables.head>N°</x-utils.tables.head>
                 <x-utils.tables.head>Título</x-utils.tables.head>
-                <x-utils.tables.head>Anio</x-utils.tables.head>
+                <x-utils.tables.head>Año</x-utils.tables.head>
                 <x-utils.tables.head>Escuela</x-utils.tables.head>
             @endslot
             @slot('body')
@@ -25,7 +25,7 @@
                             {{ $investigacion->numero_registro}}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            {{substr($investigacion->titulo, 0, 70)}}...
+                            {{substr($investigacion->titulo, 0, 90)}}...
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             {{ $investigacion->anio}}
