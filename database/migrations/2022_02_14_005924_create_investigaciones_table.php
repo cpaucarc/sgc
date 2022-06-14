@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('uuid', 40);
             $table->string('titulo');
             $table->text('resumen');
-            $table->date('fecha_publicacion');
+            $table->date('fecha_publicacion')->nullable();
 
             $table->foreignId('escuela_id')->constrained('escuelas')
                 ->cascadeOnUpdate()
