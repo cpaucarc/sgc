@@ -85,4 +85,16 @@
             </x-utils.links.primary>
         </x-utils.message-no-items>
     @endif
+
+    @push('js')
+        <script>
+            function eliminar(id, row) {
+                let res = confirm('¿Desea eliminar el registro número (' + row + ') de Visitantes a la Biblioteca?')
+
+                if (res) {
+                    window.livewire.emit('eliminar', id);
+                }
+            }
+        </script>
+    @endpush
 </div>

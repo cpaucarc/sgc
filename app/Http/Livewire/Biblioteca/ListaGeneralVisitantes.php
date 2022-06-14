@@ -16,6 +16,8 @@ class ListaGeneralVisitantes extends Component
     public $escuela = 0, $escuelas = null;
     public $facultad_ids = [];
 
+    public $listeners = ['render', 'eliminar'];
+
     public function mount($facultad_ids)
     {
         $this->facultad_ids = $facultad_ids;
@@ -39,5 +41,15 @@ class ListaGeneralVisitantes extends Component
         $visitantes = $visitantes->orderBy('id', 'desc')->get();
 
         return view('livewire.biblioteca.lista-general-visitantes', compact('visitantes'));
+    }
+
+    //Funciones
+    public function eliminar($id)
+    {
+        $bibliotecaVisitante = BibliotecaVisitante::where('id', $id)->first();
+
+        if ($bibliotecaVisitante != null) {
+            $bibliotecaVisitante->delete();
+        }
     }
 }
