@@ -21,4 +21,9 @@ class InvestigacionController extends Controller
 
         return view('investigacion.show', compact('investigacion'));
     }
+
+    public function crear()
+    {
+        return view('investigacion.crear');
+    }
 }
