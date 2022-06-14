@@ -55,7 +55,7 @@ class RegistrarMaterialBibliografico extends Component
         $this->semestres = Semestre::query()->orderBy('nombre', 'desc')->get();
 
         $this->inicio = Carbon::now()->startOfMonth()->format('Y-m-d');
-        $this->fin = Carbon::now()->format('Y-m-d');
+        $this->fin = Carbon::now()->endOfMonth()->format('Y-m-d');
     }
 
     public function updatedFacultad($value)
