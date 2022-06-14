@@ -19,13 +19,13 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #24292F;
+    background: #e5e7eb;
     border-radius: 0; /* 5px */
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #3f3f46;
+    background: #d1d5db;
 }
 
 @layer components {

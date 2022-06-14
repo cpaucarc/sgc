@@ -56,7 +56,7 @@ class RegistrarPostulantes extends Component
         $this->semestre = $this->semestres->first()->id;
 
         $this->inicio = Carbon::now()->startOfMonth()->format('Y-m-d');
-        $this->fin = Carbon::now()->format('Y-m-d');
+        $this->fin = Carbon::now()->endOfMonth()->format('Y-m-d');
     }
 
     public function registrar()
