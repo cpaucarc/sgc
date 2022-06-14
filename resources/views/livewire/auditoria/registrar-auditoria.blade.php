@@ -2,7 +2,7 @@
 
     <div class="flex-col">
         <h2 class="font-bold text-stone-700 text-xl">
-            Registrar nueva Auditoria |{{$abc}}|
+            Registrar nueva Auditoria
         </h2>
     </div>
 
