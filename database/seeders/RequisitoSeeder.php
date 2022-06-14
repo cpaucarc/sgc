@@ -15,37 +15,65 @@ class RequisitoSeeder extends Seeder
     public function run()
     {
         $requisitos = [
-            // Proceso de Grado Bachiller (8)
+            // Proceso de Grado Bachiller (15)
             [
-                'nombre' => 'Certificado de estudios',
+                'nombre' => 'FUT dirigida al decano solicitando grado de bachiller',
                 'proceso_id' => 12 // 12: Grado Bachiller (Tabla: Procesos)
             ],
             [
-                'nombre' => 'Certificado de idioma',
+                'nombre' => 'Certificado de estudios originales, (OGE)',
                 'proceso_id' => 12 // 12: Grado Bachiller (Tabla: Procesos)
             ],
             [
-                'nombre' => 'Constancia de primera y última matrícula',
+                'nombre' => 'Constancia de egresado (dirección de escuela respectiva)',
                 'proceso_id' => 12 // 12: Grado Bachiller (Tabla: Procesos)
             ],
             [
-                'nombre' => 'Constancia de no adeudar',
+                'nombre' => 'Constancia original de ingreso (Comisión Central de Admisión de la UNASAM)',
                 'proceso_id' => 12 // 12: Grado Bachiller (Tabla: Procesos)
             ],
             [
-                'nombre' => 'Copia de DNI legalizada',
+                'nombre' => 'Recibo de pago por derecho de grado académico de bachiller, determinado en el Tupa',
                 'proceso_id' => 12 // 12: Grado Bachiller (Tabla: Procesos)
             ],
             [
-                'nombre' => 'Fotografías (02)',
+                'nombre' => 'Copia de DNI simple (Legalizado)',
                 'proceso_id' => 12 // 12: Grado Bachiller (Tabla: Procesos)
             ],
             [
-                'nombre' => 'Partida de nacimiento',
+                'nombre' => 'Copia simple de partida de nacimiento (Legalizado)',
                 'proceso_id' => 12 // 12: Grado Bachiller (Tabla: Procesos)
             ],
             [
-                'nombre' => 'Constancia de egresado',
+                'nombre' => 'Copia de certificado de estudios de conocimientod de idiomas nivel básico (UNASAM)',
+                'proceso_id' => 12 // 12: Grado Bachiller (Tabla: Procesos)
+            ],
+            [
+                'nombre' => 'Constancia de práctica (s) pre profesional (es), (dirección de escuela)',
+                'proceso_id' => 12 // 12: Grado Bachiller (Tabla: Procesos)
+            ],
+            [
+                'nombre' => 'Constancia de no adeudar bienes a la biblioteca central de la UNASAM',
+                'proceso_id' => 12 // 12: Grado Bachiller (Tabla: Procesos)
+            ],
+            [
+                'nombre' => 'Constancia de no adeudar bienes a la dirección de bienestar universitario de la UNASAM',
+                'proceso_id' => 12 // 12: Grado Bachiller (Tabla: Procesos)
+            ],
+            [
+                'nombre' => 'Constancia de no adeudar bienes y/o valores a la facultad',
+                'proceso_id' => 12 // 12: Grado Bachiller (Tabla: Procesos)
+            ],
+            [
+                'nombre' => 'Constancia original de primera matrícula',
+                'proceso_id' => 12 // 12: Grado Bachiller (Tabla: Procesos)
+            ],
+            [
+                'nombre' => 'Constancia original de fecha exacta de egreso',
+                'proceso_id' => 12 // 12: Grado Bachiller (Tabla: Procesos)
+            ],
+            [
+                'nombre' => 'Dos fotografias de frente, tamaño pasaporte.',
                 'proceso_id' => 12 // 12: Grado Bachiller (Tabla: Procesos)
             ],
             //  Proceso de Titulo Profesional (8)
