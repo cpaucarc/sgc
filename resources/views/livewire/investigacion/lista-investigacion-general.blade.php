@@ -9,6 +9,12 @@
                                          class="cursor-pointer w-auto"/>
             <x-utils.forms.labeled-input title="Hasta:" wire:model="fin" type="date"
                                          class="cursor-pointer w-auto"/>
+            @if(count($investigaciones) > 0)
+                <x-utils.links.primary class="text-sm" href="{{ route('investigacion.crear') }}">
+                    <x-icons.plus class="icon-5 mr-1" stroke="1.5"/>
+                    Nuevo
+                </x-utils.links.primary>
+            @endif
         </div>
     </div>
 
@@ -45,7 +51,7 @@
                             </x-utils.badge>
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-xs font-semibold">
-                            {{$investigacion->fecha_publicacion->format('d-m-Y')}}
+                            {{$investigacion->fecha_publicacion ? $investigacion->fecha_publicacion->format('d-m-Y') : '--'}}
                         </x-utils.tables.body>
                         <x-utils.tables.body class="whitespace-nowrap text-xs">
                             {{ $investigacion->created_at->format('d-m-Y h:i a') }}
@@ -66,9 +72,9 @@
                     </svg>
                 @endslot
 
-                {{--            <x-jet-button wire:click="openModal" class="text-sm">--}}
-                {{--                Registrar la primera investigación--}}
-                {{--            </x-jet-button>--}}
+                <x-utils.links.primary class="text-sm" href="{{ route('investigacion.crear') }}">
+                    Registrar la primera investigación
+                </x-utils.links.primary>
             </x-utils.message-no-items>
         </div>
     @endif
