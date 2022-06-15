@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FrecuenciaSeeder::class);
         $this->call(GradoAcademicoSeeder::class);
         \App\Models\Investigador::factory(50)->create();
-        $this->call(OficinaSeeder::class);
+//        $this->call(OficinaSeeder::class);
         $this->call(ProcesoSeeder::class);
         $this->call(SemestreSeeder::class);
         $this->call(TipoActividadSeeder::class);
