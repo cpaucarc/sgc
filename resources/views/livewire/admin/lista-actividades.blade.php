@@ -47,7 +47,9 @@
     @else
         <div class="border border-gray-300 rounded-md">
             <x-utils.message-no-items
-                title="Aún no hay actividades registrados">
+                title="Para iniciar, seleccione un proceso"
+                text="Elija el proceso, en la esquina superior derecha, del cual quiere ver sus actividades"
+            >
                 @slot('icon')
                     <svg class="text-gray-400" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
                         <path fill-rule="evenodd"
