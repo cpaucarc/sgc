@@ -31,7 +31,7 @@
                         <x-jet-nav-link href="{{ route('rsu.index') }}" :active="request()->routeIs('rsu.*')">
                             {{ __('Responsabilidad Social') }}
                         </x-jet-nav-link>
-                        @if(\Illuminate\Support\Facades\Auth::user()->hasAnyRole(['Dirección de Escuela', 'Departamento Academico','Decanatura']))
+                        @if(\Illuminate\Support\Facades\Auth::user()->hasAnyRole(['Dirección de Escuela', 'Departamento Academico','Decanatura','Estudiante']))
                             <x-jet-nav-link href="{{ route('bachiller.index') }}"
                                             :active="request()->routeIs('bachiller.*')">
                                 {{ __('Bachiller') }}
