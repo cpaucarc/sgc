@@ -1,10 +1,15 @@
-<div class="w-full md:w-9/12 lg:w-6/12 mx-auto divide-y divide-stone-200 space-y-6 mb-8">
+<div class="w-full md:w-9/12 lg:w-6/12 mx-auto divide-y divide-stone-200 space-y-6 mb-8"
+     xmlns="http://www.w3.org/1999/html">
 
     <div class="flex-col">
         <h2 class="font-bold text-stone-700 text-xl">
             Registrar nueva Responsabilidad Social
         </h2>
     </div>
+
+    <x-utils.dd>
+        {{ $escuelas }} | {{ $escuela }}
+    </x-utils.dd>
 
     <div class="space-y-4 divide-y divide-dashed divide-stone-200 pt-4">
         <div>
@@ -42,20 +47,23 @@
                 <x-jet-input-error for="fecha_de_finalizacion"/>
             </div>
         </div>
-        <div class="pt-4">
-            <x-jet-label for="escuela" value="Programa Académico"/>
-            <x-utils.forms.select id="escuela" class="mt-1 block w-full" wire:model.defer="escuela">
-                <option value="0">Selecciona</option>
-                @foreach($escuelas as $escuela)
-                    <option value="{{ $escuela->id }}">{{$escuela->nombre}}</option>
-                @endforeach
-            </x-utils.forms.select>
-            <x-jet-input-error for="escuela"/>
-        </div>
+        @if(count($escuelas) > 1)
+            <div class="pt-4">
+                <x-jet-label for="escuela" value="Programa Académico"/>
+                <x-utils.forms.select id="escuela" class="mt-1 block w-full" wire:model.defer="escuela">
+                    <option value="0">Selecciona</option>
+                    @foreach($escuelas as $escuela)
+                        <option value="{{ $escuela->id }}">{{$escuela->nombre}}</option>
+                    @endforeach
+                </x-utils.forms.select>
+                <x-jet-input-error for="escuela"/>
+            </div>
+        @endif
     </div>
 
     <div class="pt-4">
-        <label class="text-xs text-gray-700 font-semibold inline-flex items-center cursor-pointer block w-full">
+        <label
+            class="text-sm text-gray-600 hover:text-gray-700 soft-transition font-semibold inline-flex items-center cursor-pointer">
             <x-utils.forms.checkbox wire:model="en_empresa"/>
             Responsabilidad Social Universitario aplicado a una empresa
         </label>

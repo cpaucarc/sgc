@@ -26,6 +26,8 @@ class FormularioCrearRsu extends Component
     public $empresa_nombre = "";
     public $escuelas = null;
 
+    protected $listeners = ['enviarEmpresa' => 'recibirEmpresa'];
+
     protected $rules = [
         'titulo' => 'required',
         'descripcion' => 'nullable',
@@ -39,21 +41,17 @@ class FormularioCrearRsu extends Component
     public function mount()
     {
         $this->escuelas = UsuarioHelper::escuelasDelUsuario();
+
+        // Si solo hay una escuela, asignarlo por defecto y ya no mostrar el select en la vista
+        if (count($this->escuelas) === 1) {
+            $this->escuela = $this->escuelas->first()->id;
+        }
     }
 
-    protected $listeners = ['enviarEmpresa' => 'recibirEmpresa'];
 
     public function render()
     {
-        $abc = Oficina::whereIn('id', function ($query) {
-            $query->select('oficina_id')->from('entidades')
-                ->whereIn('id', function ($query2) {
-                    $query2->select('entidad_id')->from('entidad_user')
-                        ->where('user_id', Auth::user()->id);
-                });
-        })->pluck('id');
-
-        return view('livewire.rsu.formulario-crear-rsu', compact('abc'));
+        return view('livewire.rsu.formulario-crear-rsu');
     }
 
     /* Funciones */
