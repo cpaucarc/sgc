@@ -15,7 +15,7 @@ class ListaFacultades extends Component
     {
         $facultades = Facultad::query()
             ->where('nombre', 'like', '%' . $this->search . '%')
-            ->where('abrev', 'like', '%' . $this->search . '%')
+            ->orWhere('abrev', 'like', '%' . $this->search . '%')
             ->orderBy('nombre')
             ->get();
 
