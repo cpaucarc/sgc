@@ -625,7 +625,7 @@ class ReporteController extends Controller
 
     private function generarNombreReporte($tipo)
     {
-        return 'sgcfcm_' . $tipo . '_' . date("Ymd_his") . '.xlsx';
+        return 'sgc_' . $tipo . '_' . date("Ymd_his") . '.xlsx';
     }
 
 }
