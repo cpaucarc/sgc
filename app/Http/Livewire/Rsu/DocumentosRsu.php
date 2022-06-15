@@ -21,6 +21,8 @@ class DocumentosRsu extends Component
 
     public $archivo;
 
+    public $listeners = ['render', 'eliminarArchivo'];
+
     protected $rules = [
         'archivo' => 'required'
     ];
