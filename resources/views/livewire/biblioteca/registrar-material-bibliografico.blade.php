@@ -1,4 +1,4 @@
-<div class="w-full md:w-9/12 lg:w-6/12 mx-auto divide-y divide-stone-200 space-y-6 mb-8">
+<div class="w-full md:w-9/12 lg:w-8/12 mx-auto divide-y divide-stone-200 space-y-6 mb-8">
 
     <div class="flex-col">
         <h2 class="font-bold text-stone-700 text-xl">
