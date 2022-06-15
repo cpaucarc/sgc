@@ -10,7 +10,7 @@
 
             <div class="flex justify-between items-center">
                 <h1 class="font-bold text-xl text-black">
-                    Escuelas
+                    Programas Académicos
                 </h1>
                 <livewire:admin.crear-escuela/>
             </div>
