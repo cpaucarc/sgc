@@ -6,7 +6,7 @@
         </div>
 
         <div class="col-span-3 space-y-4">
-            <livewire:biblioteca.registrar-material-bibliografico/>
+            <livewire:biblioteca.lista-general-visitantes :facultad_ids="$facultad_ids"/>
         </div>
     </div>
 </x-app-layout>

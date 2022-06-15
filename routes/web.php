@@ -166,6 +166,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::prefix('biblioteca')->controller(BibliotecaController::class)->group(function () {
         Route::get('/', 'index')->name('biblioteca.index');
+        Route::get('visitante', 'visitante')->name('biblioteca.visitante');
         Route::get('registrar/material', 'registrarMaterial')->name('biblioteca.registrar.material');
         Route::get('registrar/visitante', 'registrarVisitante')->name('biblioteca.registrar.visitante');
     });
