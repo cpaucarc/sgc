@@ -66,7 +66,7 @@ class VisitanteExport implements FromCollection, WithMapping, WithHeadings, With
             $visitante->semestre->nombre,
             $visitante->fecha_inicio->format('d/m/Y'),
             $visitante->fecha_fin->format('d/m/Y'),
-            $visitante->visitantes,
+            $visitante->visitantes ? $visitante->visitantes : '0',
             $visitante->escuela->nombre,
             $visitante->escuela->facultad->nombre
         ];

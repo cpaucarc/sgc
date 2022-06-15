@@ -65,7 +65,7 @@ class BienestarExport implements FromCollection, WithMapping, WithHeadings, With
         return [
             $this->meses[$comedor->mes - 1],
             $comedor->anio,
-            $comedor->atenciones,
+            $comedor->atenciones ? $comedor->atenciones : '0',
             $comedor->escuela->nombre,
             $comedor->escuela->facultad->nombre
         ];

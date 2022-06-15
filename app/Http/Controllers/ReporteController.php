@@ -7,7 +7,6 @@ use App\Exports\BienestarExport;
 use App\Exports\BolsaExport;
 use App\Exports\ConvalidacionExport;
 use App\Exports\ConvenioExport;
-use App\Exports\EscuelaExport;
 use App\Exports\IndicadorExport;
 use App\Exports\InvestigacionExport;
 use App\Exports\MaterialExport;

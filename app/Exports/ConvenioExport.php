@@ -55,9 +55,9 @@ class ConvenioExport implements FromCollection, WithMapping, WithHeadings, WithS
     {
         return [
             $convenio->semestre->nombre,
-            $convenio->realizados,
-            $convenio->vigentes,
-            $convenio->culminados,
+            $convenio->realizados ? $convenio->realizados : '0',
+            $convenio->vigentes ? $convenio->vigentes : '0',
+            $convenio->culminados ? $convenio->culminados : '0',
             $convenio->facultad->nombre,
             $convenio->created_at->format('d/m/Y h:i a'),
         ];

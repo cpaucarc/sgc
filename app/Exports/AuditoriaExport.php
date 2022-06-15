@@ -52,7 +52,7 @@ class AuditoriaExport implements FromCollection, WithMapping, WithHeadings, With
         return [
             $auditoria->es_auditoria_interno ? 'Auditoria Interna' : 'Auditoria Externa',
             $auditoria->responsable,
-            $auditoria->documentos_count,
+            $auditoria->documentos_count ? $auditoria->documentos_count : '0',
             $auditoria->created_at->format('d-m-Y h:i a'),
         ];
     }

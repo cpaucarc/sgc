@@ -66,8 +66,8 @@ class BolsaExport implements FromCollection, WithMapping, WithHeadings, WithStyl
             $bolsa->semestre->nombre,
             $bolsa->fecha_inicio,
             $bolsa->fecha_fin,
-            $bolsa->postulantes,
-            $bolsa->beneficiados,
+            $bolsa->postulantes ? $bolsa->postulantes : '0',
+            $bolsa->beneficiados ? $bolsa->beneficiados : '0',
             $bolsa->escuela->nombre,
             $bolsa->escuela->facultad->nombre
         ];

@@ -58,11 +58,11 @@ class MaterialExport implements FromCollection, WithMapping, WithHeadings, WithS
             $material->semestre->nombre,
             $material->fecha_inicio->format('d/m/Y'),
             $material->fecha_fin->format('d/m/Y'),
-            $material->adquirido,
-            $material->prestado,
-            $material->perdido,
-            $material->restaurados,
-            $material->total_libros,
+            $material->adquirido ? $material->adquirido : '0',
+            $material->prestado ? $material->prestado : '0',
+            $material->perdido ? $material->perdido : '0',
+            $material->restaurados ? $material->restaurados : '0',
+            $material->total_libros ? $material->total_libros : '0',
             $material->facultad->nombre
         ];
     }

@@ -63,9 +63,9 @@ class ConvalidacionExport implements FromCollection, WithMapping, WithHeadings, 
     {
         return [
             $convalidacion->semestre->nombre,
-            $convalidacion->vacantes,
-            $convalidacion->postulantes,
-            $convalidacion->convalidados,
+            $convalidacion->vacantes ? $convalidacion->vacantes : '0',
+            $convalidacion->postulantes ? $convalidacion->postulantes : '0',
+            $convalidacion->convalidados ? $convalidacion->convalidados : '0',
             $convalidacion->escuela->nombre,
             $convalidacion->escuela->facultad->nombre,
             $convalidacion->created_at->format('d/m/Y h:i a'),
