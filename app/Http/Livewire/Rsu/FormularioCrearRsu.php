@@ -3,14 +3,10 @@
 namespace App\Http\Livewire\Rsu;
 
 use App\Lib\UsuarioHelper;
-use App\Models\Entidadable;
-use App\Models\Escuela;
-use App\Models\Oficina;
 use App\Models\ResponsabilidadSocial;
 use App\Models\RsuParticipante;
 use App\Models\Semestre;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
@@ -84,19 +80,13 @@ class FormularioCrearRsu extends Component
             'empresa_id' => $this->en_empresa ? $this->empresa_id : null
         ]);
 
-        //Oficinas al cual pertenece el usuario actual
-        $oficinas = Oficina::whereIn('id', function ($query) {
-            $query->select('oficina_id')->from('entidades')
-                ->whereIn('id', function ($query2) {
-                    $query2->select('entidad_id')->from('entidad_user')
-                        ->where('user_id', Auth::user()->id);
-                });
-        })->pluck('id');
+        //Roles (antiguamente oficinas) al cual pertenece el usuario actual
+//        $roles = Auth::user()->roles->pluck('id');
 
         RsuParticipante::create([
             'fecha_incorporacion' => now()->format('Y-m-d'),
             'es_responsable' => true,
-            'es_estudiante' => $oficinas->contains(9), // Tabla Oficinas: 9-Estudiante
+            'es_estudiante' => Auth::user()->hasRole('Estudiante'), // Tabla Oficinas: 9-Estudiante
             'dni_participante' => Auth::user()->dni,
             'responsabilidad_social_id' => $rsu->id
         ]);
