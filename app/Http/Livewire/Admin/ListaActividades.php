@@ -41,9 +41,19 @@ class ListaActividades extends Component
     }
 
     /* Funciones */
-
     public function eliminar($id)
     {
-        Actividad::find($id)->delete();
+        $dependientes = Actividad::query()
+            ->whereIn('id', function ($query) use ($id) {
+                $query->select('actividad_id')->from('responsables')
+                    ->where('actividad_id', $id);
+            })
+            ->count();
+
+        if ($dependientes > 0) {
+            $this->emit('error', 'No es posible eliminar esta actividad porque tiene tablas  dependientes.');
+        } else {
+            Actividad::find($id)->delete();
+        }
     }
 }
