@@ -3,12 +3,17 @@
 namespace App\Http\Livewire\Auditoria;
 
 use App\Models\Auditoria;
+use App\Models\Documento;
 use App\Models\Entidadable;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class ListaAuditorias extends Component
 {
+    public $open = false;
+    public $auditoria_seleccionado = null;
+    public $documentos = null;
+
     public function render()
     {
         $facultad_id = Entidadable::query()
@@ -26,5 +31,26 @@ class ListaAuditorias extends Component
             ->get();
 
         return view('livewire.auditoria.lista-auditorias', compact('auditorias'));
+    }
+
+    /* Funciones */
+    public function abrirModal($auditoria_id)
+    {
+        $this->open = true;
+
+        $this->auditoria_seleccionado = Auditoria::query()
+            ->with('facultad:id,nombre')
+            ->where('id', $auditoria_id)
+            ->first();
+
+        $this->documentos = Documento::query()
+            ->whereIn('id', function ($query) {
+                $query->select('documento_id')
+                    ->from('documento_enviado')
+                    ->where('documentable_id', $this->auditoria_seleccionado->id)
+                    ->where('documentable_type', 'App\\Models\\Auditoria');
+            })
+            ->get();
+
     }
 }
