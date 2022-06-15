@@ -13,7 +13,6 @@ class UltimoSemestre extends Component
     {
         $semestre = Semestre::query()
             ->orderBy('nombre', 'desc')
-            ->limit(1)
             ->first();
         return view('livewire.admin.semestre.ultimo-semestre', compact('semestre'));
     }
