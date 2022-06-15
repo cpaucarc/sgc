@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class CrearUsuario extends Component
 {
-    public $open = true;
+    public $open = false;
     public $nombres = "", $dni = "", $correo = "", $contrasena = "";
     public $en_docente = true;
     public $mensaje = null;
