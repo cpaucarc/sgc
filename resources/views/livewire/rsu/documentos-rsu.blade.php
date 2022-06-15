@@ -40,7 +40,7 @@
                         <x-utils.tables.body>
                             @if($documento_enviado->documento->user_id === auth()->user()->id )
                                 <x-utils.buttons.danger class="text-sm"
-                                                        wire:click="eliminarArchivo({{ $documento_enviado->documento_id }})">
+                                                        onclick="eliminarArchivo({{ $documento_enviado->documento_id }},'{{$documento_enviado->documento->nombre}}')">
                                     <x-icons.delete class="h-5 w-5" stroke="1.55"/>
                                 </x-utils.buttons.danger>
                             @else
@@ -99,4 +99,15 @@
 
     </x-jet-dialog-modal>
 
+    @push('js')
+        <script>
+            function eliminarArchivo(id, nombre) {
+                let res = confirm('¿Desea eliminar el archivo con el nombre de ' + nombre + ' de Documentos?')
+
+                if (res) {
+                    window.livewire.emit('eliminarArchivo', id);
+                }
+            }
+        </script>
+    @endpush
 </div>
