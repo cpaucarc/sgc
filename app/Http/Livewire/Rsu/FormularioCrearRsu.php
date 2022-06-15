@@ -10,6 +10,7 @@ use App\Models\ResponsabilidadSocial;
 use App\Models\RsuParticipante;
 use App\Models\Semestre;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
@@ -48,14 +49,12 @@ class FormularioCrearRsu extends Component
         }
     }
 
-
     public function render()
     {
         return view('livewire.rsu.formulario-crear-rsu');
     }
 
     /* Funciones */
-
     public function updatedEnEmpresa($value)
     {
         if (!$value) {

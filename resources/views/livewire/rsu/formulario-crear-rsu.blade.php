@@ -1,15 +1,10 @@
-<div class="w-full md:w-9/12 lg:w-6/12 mx-auto divide-y divide-stone-200 space-y-6 mb-8"
-     xmlns="http://www.w3.org/1999/html">
+<div class="w-full md:w-9/12 lg:w-6/12 mx-auto divide-y divide-stone-200 space-y-6 mb-8">
 
     <div class="flex-col">
         <h2 class="font-bold text-stone-700 text-xl">
             Registrar nueva Responsabilidad Social
         </h2>
     </div>
-
-    <x-utils.dd>
-        {{ $escuelas }} | {{ $escuela }}
-    </x-utils.dd>
 
     <div class="space-y-4 divide-y divide-dashed divide-stone-200 pt-4">
         <div>
@@ -51,7 +46,7 @@
             <div class="pt-4">
                 <x-jet-label for="escuela" value="Programa Académico"/>
                 <x-utils.forms.select id="escuela" class="mt-1 block w-full" wire:model.defer="escuela">
-                    <option value="0">Selecciona</option>
+                    <option value="0">Selecciona el programa académico</option>
                     @foreach($escuelas as $escuela)
                         <option value="{{ $escuela->id }}">{{$escuela->nombre}}</option>
                     @endforeach
@@ -81,7 +76,6 @@
         @endif
     </div>
 
-
     <div class="flex justify-end pt-4">
         <x-jet-button wire:click="guardarRSU" wire:target="guardarRSU"
                       wire:loading.class="cursor-wait" wire:loading.attr="disabled">
@@ -89,7 +83,6 @@
             {{ __('Registrar RSU') }}
         </x-jet-button>
     </div>
-
 
     @push('js')
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -110,5 +103,4 @@
             });
         </script>
     @endpush
-
 </div>
