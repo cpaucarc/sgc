@@ -22,11 +22,10 @@ class EstadoSolicitud extends Component
     public function mount()
     {
         $this->numSolicitud = Solicitud::query()
-            ->where('tipo_solicitud_id',3) // 3: Titulo profesional
+            ->where('tipo_solicitud_id', 3) // 3: Titulo profesional
             ->count();
         $this->semestreActual = Semestre::query()
-            ->where('fecha_fin', '>=', Carbon::now())
-            ->where('fecha_inicio', '<=', Carbon::now())
+            ->orderBy('id', 'desc')
             ->first();
         $this->entidad = Auth::user()->entidades()->first();
     }
@@ -36,7 +35,7 @@ class EstadoSolicitud extends Component
         $this->solicitud = Solicitud::query()
             ->with('estado')
             ->where('dni_estudiante', Auth::user()->dni)
-            ->where('tipo_solicitud_id',3) // 3: Bachiller
+            ->where('tipo_solicitud_id', 3) // 3: Bachiller
             ->first();
     }
 
