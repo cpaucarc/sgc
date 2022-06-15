@@ -84,6 +84,6 @@ class RegistrarVisitantesBiblioteca extends Component
             'escuela_id' => $this->escuela
         ]);
 
-        return redirect()->route('biblioteca.index');
+        return redirect()->route('biblioteca.visitante');
     }
 }

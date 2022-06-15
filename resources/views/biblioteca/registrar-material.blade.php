@@ -1,5 +1,12 @@
 <x-app-layout>
+    <div class="grid grid-cols-4 gap-x-8">
+        {{-- Rutas --}}
+        <div class="col-span-1">
+            <x-biblioteca.rutas-biblioteca></x-biblioteca.rutas-biblioteca>
+        </div>
 
-    <livewire:biblioteca.registrar-material-bibliografico/>
-
+        <div class="col-span-3 space-y-4">
+            <livewire:biblioteca.registrar-material-bibliografico/>
+        </div>
+    </div>
 </x-app-layout>

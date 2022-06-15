@@ -26,6 +26,24 @@ class BibliotecaController extends Controller
         return view('biblioteca.index', compact('facultad_ids'));
     }
 
+    public function visitante()
+    {
+        $callback = function ($query) {
+            $query->whereIn('id', Auth::user()->entidades->pluck('id'));
+        };
+
+        $facultad_ids = Entidadable::query()
+            ->where('entidadable_type', "App\\Models\\Facultad")
+            ->whereHas('entidad', $callback)
+            ->pluck('entidadable_id');
+
+        if (count($facultad_ids) < 1) {
+            abort(403, 'No tienes los permisos para estar en esta página');
+        }
+
+        return view('biblioteca.visitante', compact('facultad_ids'));
+    }
+
     public function show()
     {
         return view('biblioteca.index');
