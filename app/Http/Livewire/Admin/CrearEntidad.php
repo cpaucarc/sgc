@@ -8,22 +8,28 @@ use App\Models\Escuela;
 use App\Models\Facultad;
 use App\Models\Oficina;
 use Livewire\Component;
+use Spatie\Permission\Models\Role;
 
 class CrearEntidad extends Component
 {
     public $open = false;
-    public $oficinas, $oficina = 0;
+    public $roles, $rol = 0;
     public $nombre, $type = null, $ents = null, $seleccionado = 0;
     public int $nivel = 0;
 
     protected $rules = [
         'nombre' => 'required|max:250',
-        'oficina' => 'required|gt:0',
+        'rol' => 'required|gt:0',
+        'nivel' => 'required|gt:0',
     ];
 
     public function mount()
     {
-        $this->oficinas = Oficina::query()->select('id', 'nombre')->orderBy('nombre')->get();
+        $this->roles = Role::query()
+            ->select('id', 'name')
+            ->where('name', '<>', 'Administrador')
+            ->orderBy('name')
+            ->get();
     }
 
     public function updatedNivel($value)
@@ -34,7 +40,7 @@ class CrearEntidad extends Component
         } elseif (intval($value) === 3) { //Escuela
             $this->type = "App\\Models\\Escuela";
             $this->ents = Escuela::query()->select('id', 'nombre')->orderBy('nombre')->get();
-        } else { //0:Seleccione, 1:General
+        } else { //0:Seleccione o 1:General
             $this->reset('type', 'ents', 'seleccionado');
         }
     }
@@ -54,21 +60,26 @@ class CrearEntidad extends Component
     {
         $this->validate();
 
-        $entidad = Entidad::create([
-            'nombre' => $this->nombre,
-            'oficina_id' => $this->oficina,
-        ]);
-
-        if ($this->nivel > 1) {
-            Entidadable::create([
-                'entidadable_id' => $this->seleccionado,
-                'entidadable_type' => $this->type,
-                'entidad_id' => $entidad->id
+        try {
+            $entidad = Entidad::create([
+                'nombre' => $this->nombre,
+                'role_id' => $this->rol,
             ]);
-        }
 
-        $this->reset('nombre', 'oficina', 'type', 'ents', 'seleccionado');
-        $this->emitTo('admin.lista-entidades', 'render');
-        $this->open = false;
+            if ($this->nivel > 1) {
+                Entidadable::create([
+                    'entidadable_id' => $this->seleccionado,
+                    'entidadable_type' => $this->type,
+                    'entidad_id' => $entidad->id
+                ]);
+            }
+
+            $this->emit('guardado', "La nueva Entidad llamada '" . $this->nombre . "' fue creado con éxito.");
+            $this->reset('nombre', 'rol', 'type', 'ents', 'seleccionado');
+            $this->emitTo('admin.lista-entidades', 'render');
+            $this->open = false;
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
+        }
     }
 }
