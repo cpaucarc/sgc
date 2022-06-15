@@ -48,7 +48,6 @@ class CrearIndicador extends Component
         return view('livewire.admin.indicador.crear-indicador');
     }
 
-
     /* Funciones */
     public function openModal()
     {
@@ -79,6 +78,5 @@ class CrearIndicador extends Component
         $this->reset('open', 'objetivo', 'interes', 'total', 'resultado', 'codigo', 'formula', 'minimo', 'satisfactorio', 'sobresaliente');
 
         $this->emitTo('admin.indicador.lista-indicadores', 'render');
-
     }
 }

@@ -3,7 +3,6 @@
         Registrar nuevo
     </x-jet-button>
 
-
     <x-jet-dialog-modal wire:model="open">
         <x-slot name="title">
             <div class="flex justify-between w-full py-2">
@@ -20,25 +19,33 @@
                 <div class="flex items-center justify-between gap-6">
                     <div class="w-full">
                         <x-jet-label for="objetivo" value="Objetivo"/>
-                        <x-jet-input id="objetivo" class="w-full" type="text" wire:model.defer="objetivo"/>
+                        <x-jet-input id="objetivo" class="w-full"
+                                     placeholder="Ej. Medir el porcentaje de usuarios beneficiados por el proceso de bolsa de trabajo."
+                                     type="text" wire:model.defer="objetivo"/>
                         <x-jet-input-error for="objetivo"/>
                     </div>
                     <div class="col-span-2">
                         <x-jet-label for="codigo" value="Código"/>
-                        <x-jet-input id="codigo" type="text" class="mt-1 w-full"
+                        <x-jet-input id="codigo" type="text" class="mt-1 w-full" placeholder="Ej. IND-010"
                                      wire:model.defer="codigo" autocomplete="off"/>
                         <x-jet-input-error for="codigo"/>
                     </div>
                 </div>
                 <div class="flex items-center justify-between gap-6">
                     <div class="w-full">
-                        <x-jet-label for="interes" value="Título interes"/>
+                        <div class="flex gap-x-2">
+                            <x-jet-label for="interes" value="Título interes"/>
+                            <x-utils.optional-badge/>
+                        </div>
                         <x-jet-input id="interes" type="text" class="mt-1 w-full"
                                      wire:model.defer="interes" autocomplete="off"/>
                         <x-jet-input-error for="interes"/>
                     </div>
                     <div class="w-full">
-                        <x-jet-label for="total" value="Título total"/>
+                        <div class="flex gap-x-2">
+                            <x-jet-label for="total" value="Título total"/>
+                            <x-utils.optional-badge/>
+                        </div>
                         <x-jet-input id="total" type="text" class="mt-1 w-full"
                                      wire:model.defer="total" autocomplete="off"/>
                         <x-jet-input-error for="total"/>
@@ -63,25 +70,27 @@
                 </div>
                 <div class="w-full">
                     <x-jet-label for="formula" value="Fórmula"/>
-                    <x-jet-input id="formula" class="w-full" type="text" wire:model.defer="formula"/>
+                    <x-jet-input id="formula" class="w-full"
+                                 placeholder="Ej. X = (N° de beneficiados por programa)/(Total de postulantes del programa) x 100"
+                                 type="text" wire:model.defer="formula"/>
                     <x-jet-input-error for="formula"/>
                 </div>
                 <div class="flex items-center justify-between gap-6">
                     <div class="w-full">
                         <x-jet-label for="minimo" value="Mínimo"/>
-                        <x-jet-input id="minimo" type="text" class="mt-1 w-full"
+                        <x-jet-input id="minimo" type="text" class="mt-1 w-full" placeholder="Ej. 5"
                                      wire:model.defer="minimo" autocomplete="off"/>
                         <x-jet-input-error for="minimo"/>
                     </div>
                     <div class="w-full">
                         <x-jet-label for="satisfactorio" value="Satisfactorio"/>
-                        <x-jet-input id="satisfactorio" type="text" class="mt-1 w-full"
+                        <x-jet-input id="satisfactorio" type="text" class="mt-1 w-full" placeholder="Ej. 10"
                                      wire:model.defer="satisfactorio" autocomplete="off"/>
                         <x-jet-input-error for="satisfactorio"/>
                     </div>
                     <div class="w-full">
                         <x-jet-label for="sobresaliente" value="Sobresaliente"/>
-                        <x-jet-input id="sobresaliente" type="text" class="mt-1 w-full"
+                        <x-jet-input id="sobresaliente" type="text" class="mt-1 w-full" placeholder="Ej. 20"
                                      wire:model.defer="sobresaliente" autocomplete="off"/>
                         <x-jet-input-error for="sobresaliente"/>
                     </div>
