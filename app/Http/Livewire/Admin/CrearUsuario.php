@@ -10,8 +10,9 @@ use Livewire\Component;
 
 class CrearUsuario extends Component
 {
-    public $open = false;
-    public $nombres, $dni, $correo, $contrasena;
+    public $open = true;
+    public $nombres = "", $dni = "", $correo = "", $contrasena = "";
+    public $en_docente = true;
     public $mensaje = null;
 
     protected $rules = [
@@ -52,21 +53,30 @@ class CrearUsuario extends Component
     public function buscar()
     {
         if (strlen($this->dni) === 8) {
+            $url = $this->en_docente ? 'proceso_docente/01?codigo=' . $this->dni
+                : 'ensenianza_aprendizaje/01?codigo=' . $this->dni;
+
             $response = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'ensenianza_aprendizaje/01?codigo=' . $this->dni);
+                ->get(env('OGE_API') . $url);
             $response = $response->json();
 
-            if (isset($response['dni'])) {
-                $this->mensaje = null;
-                $this->nombres = ucwords(strtolower($response['nombre_completo']));
-                $this->correo = strtolower($response['correo_institucional']);
-                $this->contrasena = $this->dni;
-            } else {
-                $this->mensaje = "No hay registros que coincidan con el DNI " . $this->dni;
-                $this->reset('nombres', 'dni', 'correo', 'contrasena');
-            }
+            $this->asignarDatos($response);
         } else {
             $this->mensaje = "El DNI deberia tener 8 digitos, solo hay " . strlen($this->dni);
+        }
+    }
+
+    public function asignarDatos($datos)
+    {
+        if (isset($datos['dni'])) {
+            $this->mensaje = null;
+            $this->nombres = ucwords(strtolower($datos['nombre_completo']));
+            $this->correo = strtolower($datos['correo_institucional']);
+            $this->contrasena = $this->dni;
+        } else {
+            $this->mensaje = "No hay registros que coincidan con el DNI " . $this->dni
+                . "\nabc";
+            $this->reset('nombres', 'dni', 'correo', 'contrasena');
         }
     }
 

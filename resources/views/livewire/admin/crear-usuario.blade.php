@@ -30,8 +30,14 @@
                         </x-utils.buttons.default>
                     </div>
                     <x-jet-input-error for="dni"/>
+                    <label
+                        class="text-sm text-gray-600 font-semibold inline-flex items-center cursor-pointer my-1">
+                        <x-utils.forms.checkbox wire:model="en_docente"/>
+                        Buscar como docentes/administrativo
+                    </label>
                     @if($mensaje)
-                        <p class="w-full text-sm text-rose-600">
+                        <p class="w-full font-semibold flex gap-x-2 text-sm text-rose-600 rounded-md px-3 py-1 bg-rose-100">
+                            <x-icons.warning class="icon-5"/>
                             {{ $mensaje }}
                         </p>
                     @endif
@@ -53,7 +59,6 @@
                     <x-jet-input-error for="contrasena"/>
                 </div>
             </div>
-
         </x-slot>
 
         <x-slot name="footer">
@@ -63,7 +68,7 @@
                 wire:loading.class="cursor-wait"
                 wire:loading.attr="disabled">
                 <x-icons.load wire:loading wire:target="crearUsuario" class="h-5 w-5"/>
-                Guardar
+                Registrar usuario
             </x-jet-button>
         </x-slot>
     </x-jet-dialog-modal>
