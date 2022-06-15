@@ -38,6 +38,11 @@ class ListaGeneralMaterialBibliografico extends Component
     //Funciones
     public function eliminar($id)
     {
-        MaterialBibliografico::find($id)->delete();
+        $materialBibliografico = MaterialBibliografico::where('id', $id)->first();
+
+        if ($materialBibliografico != null) {
+            $materialBibliografico->delete();
+        }
     }
+
 }

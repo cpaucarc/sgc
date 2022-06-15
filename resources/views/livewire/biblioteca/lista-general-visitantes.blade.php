@@ -37,22 +37,31 @@
         <div class="py-4">
             <x-utils.tables.table>
                 @slot('head')
+                    <x-utils.tables.head>N°</x-utils.tables.head>
                     <x-utils.tables.head>Inicio</x-utils.tables.head>
                     <x-utils.tables.head>Finalización</x-utils.tables.head>
                     <x-utils.tables.head>Visitantes</x-utils.tables.head>
                     <x-utils.tables.head>Semestre</x-utils.tables.head>
                     <x-utils.tables.head>Programa</x-utils.tables.head>
                     <x-utils.tables.head>Facultad</x-utils.tables.head>
+                    <x-utils.tables.head><span class="sr-only">Acciones</span></x-utils.tables.head>
                 @endslot
                 @slot('body')
-                    @foreach($visitantes as $visitante)
+                    @foreach($visitantes as $i=>$visitante)
                         <x-utils.tables.row>
+                            <x-utils.tables.body>{{($i+1)}}</x-utils.tables.body>
                             <x-utils.tables.body>{{ $visitante->fecha_inicio->format('d-m-Y') }}</x-utils.tables.body>
                             <x-utils.tables.body>{{ $visitante->fecha_fin->format('d-m-Y') }}</x-utils.tables.body>
                             <x-utils.tables.body>{{ $visitante->visitantes }}</x-utils.tables.body>
                             <x-utils.tables.body>{{ $visitante->semestre->nombre }}</x-utils.tables.body>
                             <x-utils.tables.body>{{ $visitante->escuela->nombre }}</x-utils.tables.body>
                             <x-utils.tables.body>{{ $visitante->escuela->facultad->abrev }}</x-utils.tables.body>
+                            <x-utils.tables.body>
+                                <x-utils.buttons.danger class="text-sm"
+                                                        onclick="eliminar({{ $visitante->id }},{{($i+1)}})">
+                                    <x-icons.delete class="h-4 w-4" stroke="1.5"/>
+                                </x-utils.buttons.danger>
+                            </x-utils.tables.body>
                         </x-utils.tables.row>
                     @endforeach
                 @endslot
@@ -76,4 +85,16 @@
             </x-utils.links.primary>
         </x-utils.message-no-items>
     @endif
+
+    @push('js')
+        <script>
+            function eliminar(id, row) {
+                let res = confirm('¿Desea eliminar el registro número (' + row + ') de Visitantes a la Biblioteca?')
+
+                if (res) {
+                    window.livewire.emit('eliminar', id);
+                }
+            }
+        </script>
+    @endpush
 </div>
