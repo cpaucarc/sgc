@@ -43,7 +43,7 @@
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             @if($auditoria->documentos_count)
-                                <x-utils.buttons.invisible>
+                                <x-utils.buttons.invisible wire:click="abrirModal({{$auditoria->id}})">
                                     {{ $auditoria->documentos_count . ' documentos' }}
                                 </x-utils.buttons.invisible>
                             @else
@@ -81,6 +81,75 @@
         </div>
     @endif
 
+    @if($auditoria_seleccionado)
+        <x-jet-dialog-modal wire:model="open">
+
+            <x-slot name="title">
+                <div>
+                    <h1 class="font-bold text-gray-900">
+                        {{ $auditoria_seleccionado->es_auditoria_interno ? 'Auditoria Interna' : 'Auditoria Externa' }}
+                        (Facultad de {{$auditoria_seleccionado->facultad->nombre}})
+                    </h1>
+                    <p class="text-sm text-gray-700">
+                        Responsable: {{ $auditoria_seleccionado->responsable }}
+                    </p>
+                </div>
+                <x-utils.buttons.close-button wire:click="$set('open', false)"/>
+            </x-slot>
+
+            <x-slot name="content">
+                @if(count($documentos) > 0 )
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-gray-600 text-sm font-bold">
+                            Documentos subidos por el auditor:
+                        </h2>
+                    </div>
+                    <x-utils.tables.table>
+                        @slot('body')
+                            @foreach($documentos as $documento)
+                                <x-utils.tables.row class="p-1">
+                                    <x-utils.tables.body class="text-left text-sm">
+                                        @if(strlen($documento->nombre) > 60)
+                                            {{ substr($documento->nombre, 0, 45) }}
+                                            ...{{ substr($documento->nombre, -15) }}
+                                        @else
+                                            {{ $documento->nombre }}
+                                        @endif
+                                    </x-utils.tables.body>
+                                    <x-utils.tables.body class="text-right text-sm">
+                                        {{ $documento->created_at->diffForHumans() }}
+                                    </x-utils.tables.body>
+                                    <x-utils.tables.body class="text-right">
+                                        <div
+                                            class="flex items-center justify-end w-full gap-2 whitespace-nowrap">
+                                            <x-utils.links.default class="group text-xs" target="_blank"
+                                                                   href="{{ route('archivos', $documento->enlace_interno) }}">
+                                                <x-icons.documents class="h-4 w-4" stroke="1.5"/>
+                                                Ver
+                                            </x-utils.links.default>
+                                        </div>
+                                    </x-utils.tables.body>
+                                </x-utils.tables.row>
+                            @endforeach
+                        @endslot
+                    </x-utils.tables.table>
+                @else
+                    <x-utils.message-no-items
+                        title="No hay ningun documento"
+                        text="El auditor no ha subido ningun documento."
+                    >
+                        @slot('icon')
+                            <svg class="text-gray-400" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
+                                <path fill-rule="evenodd"
+                                      d="M5 2.5a.5.5 0 00-.5.5v18a.5.5 0 00.5.5h14a.5.5 0 00.5-.5V8.5h-4a2 2 0 01-2-2v-4H5zm10 0v4a.5.5 0 00.5.5h4a.5.5 0 00-.146-.336l-4.018-4.018A.5.5 0 0015 2.5zM3 3a2 2 0 012-2h9.982a2 2 0 011.414.586l4.018 4.018A2 2 0 0121 7.018V21a2 2 0 01-2 2H5a2 2 0 01-2-2V3z"></path>
+                            </svg>
+                        @endslot
+                    </x-utils.message-no-items>
+                @endif
+            </x-slot>
+
+        </x-jet-dialog-modal>
+    @endif
 </div>
 
 
