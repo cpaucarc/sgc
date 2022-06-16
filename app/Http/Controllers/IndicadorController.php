@@ -19,7 +19,7 @@ class IndicadorController extends Controller
     public function index()
     {
         $entidades_autorizadas = Entidad::query()
-            ->whereIn('oficina_id', [1, 5]) // 1:Director de Escuela, 5:Decano
+            ->whereIn('role_id', [1, 5]) // 1:Director de Escuela, 5:Decano
             ->pluck('id')->toArray();
         $entidades_del_usuario = Auth::user()->entidades->pluck('id')->toArray();
 

@@ -20,7 +20,7 @@ class BachillerController extends Controller
 
     public function index()
     {
-        $alumnos = Entidad::query()->where('oficina_id', 9)->pluck('id')->toArray();
+        $alumnos = Entidad::query()->where('role_id', 9)->pluck('id')->toArray();
         $entidades = Auth::user()->entidades->pluck('id')->toArray();
 
         //Si es un alumno, lo redirrecionamos para que realice la solicitud de bachiller
@@ -96,7 +96,7 @@ class BachillerController extends Controller
 
     public function requests()
     {
-        $alumnos = Entidad::query()->where('oficina_id', 9)->pluck('id')->toArray();
+        $alumnos = Entidad::query()->where('role_id', 9)->pluck('id')->toArray();
         $entidades = Auth::user()->entidades->pluck('id')->toArray();
 
         //Si es un alumno, lo redirrecionamos
@@ -109,7 +109,7 @@ class BachillerController extends Controller
 
     public function incompletas()
     {
-        $alumnos = Entidad::query()->where('oficina_id', 9)->pluck('id')->toArray();
+        $alumnos = Entidad::query()->where('role_id', 9)->pluck('id')->toArray();
         $entidades = Auth::user()->entidades->pluck('id')->toArray();
 
         //Si es un alumno, lo redirecionamos para que realice la solicitud de bachiller
@@ -155,7 +155,7 @@ class BachillerController extends Controller
 
     public function completas()
     {
-        $alumnos = Entidad::query()->where('oficina_id', 9)->pluck('id')->toArray();
+        $alumnos = Entidad::query()->where('role_id', 9)->pluck('id')->toArray();
         $entidades = Auth::user()->entidades->pluck('id')->toArray();
 
         //Si es un alumno, lo redirrecionamos para que realice la solicitud de bachiller
