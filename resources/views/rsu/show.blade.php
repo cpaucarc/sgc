@@ -9,7 +9,7 @@
 
             <div class="flex-col space-y-1 text-sm">
                 <h3 class="font-bold text-gray-400">Descripción</h3>
-                <p class="text-gray-600">{{$rsu->descripcion}}</p>
+                <p class="text-gray-600">{{ $rsu->descripcion ?? 'Ninguna' }}</p>
             </div>
 
             <hr class="bg-gray-400">
@@ -39,6 +39,11 @@
                     <h3 class="font-bold text-gray-400">Semestre</h3>
                     <p class="text-gray-600">{{$rsu->semestre->nombre}}</p>
                 </div>
+            </div>
+
+            <hr class="bg-gray-400">
+
+            <div class="flex items-center justify-between text-sm">
                 <div class="flex-col space-y-1">
                     <h3 class="font-bold text-gray-400">Inicio</h3>
                     <p class="text-gray-600">{{$rsu->fecha_inicio->format('d-m-Y')}}</p>
@@ -49,6 +54,24 @@
                         {{$rsu->fecha_fin ? $rsu->fecha_fin->format('d-m-Y') : 'Sin terminar'}}
                     </p>
                 </div>
+
+                @if( now() < $rsu->fecha_inicio )
+                    <span class="bg-amber-100 text-amber-800 whitespace-nowrap px-3 py-1 rounded">
+                        Sin iniciar
+                    </span>
+                @endif
+
+                @if( now() > $rsu->fecha_fin )
+                    <span class="bg-gray-100 text-gray-800 whitespace-nowrap px-3 py-1 rounded">
+                        Finalizado
+                    </span>
+                @endif
+
+                @if( now() >= $rsu->fecha_inicio && now() <= $rsu->fecha_fin )
+                    <span class="bg-lime-100 text-lime-800 whitespace-nowrap px-3 py-1 rounded">
+                        En progreso
+                    </span>
+                @endif
             </div>
         </div>
 

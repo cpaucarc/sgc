@@ -3,21 +3,22 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Entidad;
-use App\Models\Oficina;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 
 class RolesDelUsuario extends Component
 {
-    public $uuid, $usuario, $roles_actuales = [];
-    public $open = false;
-    public $roles = null, $selected = [];
+    public $open = false, $uuid;
+    public $usuario, $roles_actuales = [];
+    public $roles = null, $roles_selected = [];
+    public $entidades = null, $entidades_selected = [];
 
     public $listeners = ['eliminarRol'];
 
     protected $rules = [
-        'selected' => 'required|array|min:1',
+        'roles_selected' => 'required|array|min:1',
     ];
 
     public function mount($uuid)
@@ -29,10 +30,9 @@ class RolesDelUsuario extends Component
     {
         $this->usuario = User::query()
             ->select('id')
-            ->with('roles')
+            ->with('entidades', 'entidades.rol')
             ->where('uuid', $this->uuid)->first();
-
-        $this->roles_actuales = $this->usuario->roles->pluck('id');
+        $this->roles_actuales = $this->usuario->entidades->pluck('role_id');
 
         return view('livewire.admin.roles-del-usuario');
     }
@@ -44,28 +44,52 @@ class RolesDelUsuario extends Component
         $this->roles = Role::query()->whereNotIn('id', $this->roles_actuales)->get();
     }
 
+    public function updatedRolesSelected()
+    {
+        if (count($this->roles_selected) === 0) {
+            $this->entidades = null;
+        } else {
+            $this->entidades = Entidad::query()
+                ->whereIn('role_id', function ($query) {
+                    $query->select('id')->from('roles')->whereIn('name', $this->roles_selected);
+                })->get();
+        }
+    }
+
     public function asignarRol()
     {
         $this->validate();
 
-        $this->usuario->assignRole($this->selected);
+        $this->usuario->assignRole($this->roles_selected);
+        $this->usuario->entidades()->attach($this->entidades_selected);
 
-        $this->reset(['selected', 'open']);
+        $this->emit('guardado', "Roles y entidades asignados con éxito.");
+        $this->reset(['roles_selected', 'entidades_selected', 'open']);
     }
 
-    public function eliminarRol($nombre)
+    public function eliminarRol($entidad_id, $entidad_nombre, $rol_id, $rol_nombre)
     {
-        $ents = Entidad::query()
-            ->whereIn('oficina_id', function ($query) use ($nombre) {
-                $query->select('id')->from('oficinas')->where('nombre', $nombre);
-            })->pluck('id');
+        try {
+            $entidad = Entidad::query()->where('id', $entidad_id)->first();
+            $this->usuario->entidades()->detach($entidad_id);
+            $entidad->delete();
+            $mensaje = "La entidad llamada '" . $entidad_nombre . "' ";
 
-        if ($ents) {
-            $this->usuario->entidades()->detach($ents);
-            $this->emitTo('admin.entidades-del-usuario', 'render');
+            $entidades = DB::table('entidad_user')
+                ->where('user_id', $this->usuario->id)
+                ->whereIn('entidad_id', function ($query) use ($rol_id) {
+                    $query->select('id')->from('entidades')->where('role_id', $rol_id);
+                })
+                ->count();
+
+            if ($entidades === 0) {
+                $this->usuario->removeRole($rol_nombre);
+                $mensaje .= "y el rol '" . $rol_nombre . "'";
+            }
+
+            $this->emit('guardado', $mensaje . " fue quitada con éxito.");
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado \n " . $e);
         }
-
-        $this->usuario->removeRole($nombre);
-
     }
 }

@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <div class="grid grid-cols-4 gap-x-8">
         {{-- Rutas --}}
         <div class="col-span-1">
@@ -11,13 +10,9 @@
 
             <hr/>
 
-            <div class="grid grid-cols-2 gap-x-8">
+            <div class="w-3/4 mx-auto">
                 <livewire:admin.roles-del-usuario uuid="{{ $uuid }}"/>
-                <livewire:admin.entidades-del-usuario uuid="{{ $uuid }}"/>
             </div>
-
         </div>
     </div>
-
-
 </x-app-layout>

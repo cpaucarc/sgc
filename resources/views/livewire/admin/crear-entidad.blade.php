@@ -16,19 +16,19 @@
 
                 <div class="w-full">
                     <x-jet-label for="nombre" value="Nombre de la entidad"/>
-                    <x-jet-input id="nombre" class="w-full" type="text" wire:model.defer="nombre"
+                    <x-jet-input id="nombre" class="w-full" type="text" wire:model.defer="nombre" autocomplete="off"
                                  placeholder="Ej. Director de Escuela de Enfermeria"/>
                     <x-jet-input-error for="nombre"/>
                 </div>
                 <div class="w-full">
-                    <x-jet-label for="oficina" value="Tipo de oficina a la que pertenece"/>
-                    <x-utils.forms.select id="oficina" class="w-full" wire:model="oficina">
+                    <x-jet-label for="rol" value="Tipo de oficina o rol a la que pertenece"/>
+                    <x-utils.forms.select id="rol" class="w-full" wire:model.defer="rol">
                         <option value="0">Seleccione...</option>
-                        @foreach($oficinas as $of)
-                            <option value="{{ $of->id }}">{{ $of->nombre }}</option>
+                        @foreach($roles as $role)
+                            <option value="{{ $role->id }}">{{ $role->name }}</option>
                         @endforeach
                     </x-utils.forms.select>
-                    <x-jet-input-error for="oficina"/>
+                    <x-jet-input-error for="rol"/>
                 </div>
 
                 <hr>
@@ -70,4 +70,24 @@
             </x-jet-button>
         </x-slot>
     </x-jet-dialog-modal>
+
+    @push('js')
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Livewire.on('guardado', msg => {
+                Swal.fire({
+                    icon: 'success',
+                    title: '',
+                    text: msg,
+                });
+            });
+            Livewire.on('error', msg => {
+                Swal.fire({
+                    icon: 'error',
+                    title: '',
+                    text: msg,
+                });
+            });
+        </script>
+    @endpush
 </div>

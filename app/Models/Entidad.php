@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Models\Role;
 
 class Entidad extends Model
 {
@@ -13,9 +14,9 @@ class Entidad extends Model
     public $timestamps = false;
     public $fillable = ['nombre', 'role_id'];
 
-    public function oficina()
+    public function rol()
     {
-        return $this->belongsTo(Oficina::class);
+        return $this->belongsTo(Role::class, 'role_id', 'id');
     }
 
     // relación uno a muchos polimorfica
