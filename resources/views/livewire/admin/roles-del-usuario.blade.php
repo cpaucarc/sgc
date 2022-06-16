@@ -1,29 +1,28 @@
 <div>
-
-    @if(count($usuario->roles) > 0)
+    @if(count($usuario->entidades) > 0)
 
         <div class="flex items-center justify-end mb-4">
-
             <x-utils.buttons.default wire:click="openModal" class="text-sm">
-                Asignar roles
+                Asignar roles y entidades
             </x-utils.buttons.default>
-
         </div>
 
         <x-utils.tables.table>
             @slot('head')
                 <x-utils.tables.head>N°</x-utils.tables.head>
                 <x-utils.tables.head>Rol</x-utils.tables.head>
+                <x-utils.tables.head>Entidad</x-utils.tables.head>
                 <x-utils.tables.head><span class="sr-only">Acciones</span></x-utils.tables.head>
             @endslot
             @slot('body')
-                @foreach($usuario->roles as $i => $rol)
+                @foreach($usuario->entidades as $i => $entidad)
                     <x-utils.tables.row>
                         <x-utils.tables.body>{{ $i+1 }}</x-utils.tables.body>
-                        <x-utils.tables.body>{{ $rol->name }}</x-utils.tables.body>
+                        <x-utils.tables.body>{{ $entidad->rol->name }}</x-utils.tables.body>
+                        <x-utils.tables.body>{{ $entidad->nombre }}</x-utils.tables.body>
                         <x-utils.tables.body>
                             <x-utils.buttons.danger class="text-sm"
-                                                    onclick="eliminarRol('{{$rol->name}}')">
+                                                    onclick="eliminarRol({{ $entidad->id }}, '{{ $entidad->nombre }}', {{ $entidad->role_id }}, '{{ $entidad->rol->name }}')">
                                 <x-icons.delete class="h-4 w-4"/>
                             </x-utils.buttons.danger>
                         </x-utils.tables.body>
@@ -43,54 +42,108 @@
                 @endslot
 
                 <x-jet-button wire:click="openModal" class="text-sm">
-                    Asignar roles
+                    Asignar roles y entidades
                 </x-jet-button>
             </x-utils.message-no-items>
         </div>
     @endif
 
     @if(!is_null($roles))
-        <x-jet-dialog-modal wire:model="open" maxWidth="lg">
+        <x-jet-dialog-modal wire:model="open" maxWidth="4xl">
             <x-slot name="title">
-                <div class="flex justify-end w-full">
+                <div class="flex justify-between w-full">
+                    <h1 class="font-bold text-gray-700">
+                        Asignar roles y entidades al usuario
+                    </h1>
                     <x-utils.buttons.close-button wire:click="$set('open', false)"/>
                 </div>
             </x-slot>
 
             <x-slot name="content">
-                <div class="space-y-4">
 
-                    <p class="font-light text-sm text-gray-600">
-                        @if(count($selected))
-                            {{ count($selected) }} {{ count($selected) == 1 ? 'entidad seleccionado' : 'entidades seleccionados' }}
-                        @else
-                            No haz seleccionado ningún rol
-                        @endif
-                    </p>
+                <div class="grid grid-cols-2 gap-x-4 items-start">
+                    {{-- Sección de roles --}}
+                    <section class="border border-gray-300 divide-y divide-gray-300 rounded-md text-gray-700">
+                        <header class="px-3 py-2 rounded-t-md bg-stone-100">
+                            <h2 class="font-bold text-gray-600 mr-1">Sección de Roles</h2>
+                            <p class="text-sm">
+                                @if(count($roles_selected))
+                                    (
+                                    {{ count($roles_selected) }} {{ count($roles_selected) == 1 ? 'rol seleccionado' : 'roles seleccionados' }}
+                                    )
+                                @else
+                                    (No haz seleccionado ningún rol)
+                                @endif
+                            </p>
+                        </header>
 
-                    <x-utils.tables.table>
-                        @slot('head')
-                            <x-utils.tables.head>
-                                <span class="sr-only">Seleccionar</span>
-                            </x-utils.tables.head>
-                            <x-utils.tables.head>Rol</x-utils.tables.head>
-                        @endslot
-                        @slot('body')
-                            @foreach($roles as $rol)
-                                <x-utils.tables.row>
-                                    <x-utils.tables.body>
-                                        <x-utils.forms.checkbox wire:model="selected"
-                                                                wire:loading.attr="disabled"
-                                                                value="{{ $rol->name }}"/>
-                                    </x-utils.tables.body>
-                                    <x-utils.tables.body class="text-xs">
-                                        {{ $rol->name }}
-                                    </x-utils.tables.body>
-                                </x-utils.tables.row>
-                            @endforeach
-                        @endslot
-                    </x-utils.tables.table>
-                    <x-jet-input-error for="selected"/>
+                        <div class="divide-y divide-gray-300">
+                            <table class="divide-y divide-gray-300 w-full overflow-hidden">
+                                <tbody class="text-sm text-gray-700 divide-y divide-gray-300">
+                                @foreach($roles as $rol)
+                                    <tr class="hover:bg-gray-100 soft-transition">
+                                        <td class="px-3 py-1.5 text-left ">
+                                            <x-utils.forms.checkbox wire:model="roles_selected"
+                                                                    wire:loading.attr="disabled"
+                                                                    value="{{ $rol->name }}"/>
+                                        </td>
+                                        <td class="px-3 py-1.5 text-left">{{ $rol->name }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    {{-- Sección de entidades --}}
+                    <section class="border border-gray-300 divide-y divide-gray-300 rounded-md text-gray-700">
+                        <header class="px-3 py-2 rounded-t-md bg-stone-100">
+                            <h2 class="font-bold text-gray-600 mr-1">Sección de Entidades</h2>
+                            <p class="text-sm">
+                                @if(count($entidades_selected))
+                                    (
+                                    {{ count($entidades_selected) }} {{ count($entidades_selected) == 1 ? 'entidad seleccionado' : 'entidades seleccionados' }}
+                                    )
+                                @else
+                                    (No haz seleccionado ninguna entidad)
+                                @endif
+                            </p>
+                        </header>
+
+                        <div class="divide-y divide-gray-300">
+                            @if($entidades)
+                                <table class="divide-y divide-gray-300 w-full overflow-hidden">
+                                    <tbody class="text-sm text-gray-700 divide-y divide-gray-300">
+                                    @foreach($entidades as $ent)
+                                        <tr class="hover:bg-gray-100 soft-transition">
+                                            <td class="px-3 py-1.5 text-left">
+                                                <x-utils.forms.checkbox wire:model="entidades_selected"
+                                                                        wire:loading.attr="disabled"
+                                                                        value="{{ $ent->id }}"/>
+                                            </td>
+                                            <td class="px-3 py-1.5 text-left">{{ $ent->nombre }}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <div class="w-full grid place-items-center py-8">
+                                    <div class="w-1/2 flex flex-col justify-between items-center">
+                                        <svg class="text-gray-500 fill-current mx-auto" viewBox="0 0 24 24" width="24"
+                                             height="24">
+                                            <path
+                                                d="M3.5 3.75a.25.25 0 01.25-.25h13.5a.25.25 0 01.25.25v10a.75.75 0 001.5 0v-10A1.75 1.75 0 0017.25 2H3.75A1.75 1.75 0 002 3.75v16.5c0 .966.784 1.75 1.75 1.75h7a.75.75 0 000-1.5h-7a.25.25 0 01-.25-.25V3.75z"></path>
+                                            <path
+                                                d="M6.25 7a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm-.75 4.75a.75.75 0 01.75-.75h4.5a.75.75 0 010 1.5h-4.5a.75.75 0 01-.75-.75zm16.28 4.53a.75.75 0 10-1.06-1.06l-4.97 4.97-1.97-1.97a.75.75 0 10-1.06 1.06l2.5 2.5a.75.75 0 001.06 0l5.5-5.5z"></path>
+                                        </svg>
+                                        <p class="text-gray-800 leading-5 text-center mt-2">
+                                            Seleccione uno o más roles para ver las entidades.
+                                        </p>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    </section>
                 </div>
             </x-slot>
 
@@ -110,13 +163,29 @@
 </div>
 
 @push('js')
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        function eliminarRol(nombre) {
-
-            let res = confirm(`¿Desea quitar el rol ${nombre} del usuario?\nNota: Se eliminarán las entidades correspondientes`)
+        function eliminarRol(entidad_id, entidad_nombre, rol_id, rol_nombre) {
+            let res = confirm(`¿Desea quitar la entidad ${entidad_nombre} del usuario?\nNota: Se eliminarán los roles correspondientes`)
             if (res) {
-                window.livewire.emit('eliminarRol', nombre);
+                window.livewire.emit('eliminarRol', entidad_id, entidad_nombre, rol_id, rol_nombre);
             }
         }
+
+        Livewire.on('guardado', msg => {
+            Swal.fire({
+                icon: 'success',
+                title: '',
+                text: msg,
+            });
+        });
+
+        Livewire.on('error', msg => {
+            Swal.fire({
+                icon: 'error',
+                title: '',
+                text: msg,
+            });
+        });
     </script>
 @endpush
