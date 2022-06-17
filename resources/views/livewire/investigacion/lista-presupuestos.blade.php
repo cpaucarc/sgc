@@ -21,8 +21,10 @@
                 @foreach($investigacion->financiaciones as $financiador)
                     <x-utils.tables.row>
                         <x-utils.tables.body>
-                            {{$financiador->nombre}}
-                            <x-utils.new-item date="{{$financiador->pivot->created_at}}"/>
+                            <div class="flex items-center gap-x-1">
+                                {{$financiador->nombre}}
+                                <x-utils.new-item date="{{$financiador->pivot->created_at}}"/>
+                            </div>
                         </x-utils.tables.body>
                         <x-utils.tables.body
                             class="whitespace-nowrap">{{'S/. '. number_format((float)$financiador->pivot->presupuesto, 2) }}</x-utils.tables.body>
@@ -51,7 +53,7 @@
                     </svg>
                 @endslot
 
-                <x-jet-button class="text-sm">
+                <x-jet-button class="text-sm" wire:click="openModal">
                     Registrar fuentes
                 </x-jet-button>
             </x-utils.message-no-items>
@@ -83,8 +85,9 @@
                         <x-jet-input-error for="financiador_seleccionado"/>
                     </div>
                     <div>
-                        <x-jet-label for="monto" value="Monto"/>
-                        <x-jet-input id="monto" wire:model="monto" class="w-full" type="number"/>
+                        <x-jet-label for="monto" value="Monto en soles (S/.)"/>
+                        <x-jet-input id="monto" wire:model="monto" class="w-full" type="number"
+                                     placeholder="Ej. 100.25"/>
                         <x-jet-input-error for="monto"/>
                     </div>
                 </div>
