@@ -1,4 +1,4 @@
-<div class="space-y-2" xmlns="http://www.w3.org/1999/html">
+<div class="space-y-2">
 
     <div class="flex justify-between items-center">
         <h3 class="font-bold tracking-wide text-gray-600">
@@ -7,7 +7,7 @@
 
         @if($es_responsable and $rsu->participantes_count > 0)
             <x-utils.buttons.default class="text-sm" wire:click="abrirModal">
-                <x-icons.people class="icon-4 mr-1" stroke="2"></x-icons.people>
+                <x-icons.people class="icon-4 mr-1" stroke="1.75"></x-icons.people>
                 Añadir
             </x-utils.buttons.default>
         @endif
