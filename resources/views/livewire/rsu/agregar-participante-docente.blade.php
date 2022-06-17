@@ -43,6 +43,8 @@
             </x-jet-button>
         </div>
     @else
-        No hay ningun dato
+        <div class="text-gray-600 px-4 py-6">
+            No hay ningun dato
+        </div>
     @endif
 </div>
