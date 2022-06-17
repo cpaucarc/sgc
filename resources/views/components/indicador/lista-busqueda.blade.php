@@ -10,7 +10,7 @@
                     @foreach($facultad->indicadores as $indicador)
                         <li>
                             <x-indicador.link-buscador
-                                href="{{ route('indicador.indicador', [$indicador->id, 2, $escuela->uuid]) }}"
+                                href="{{ route('indicador.indicador', [$indicador->id, 2, $facultad->uuid]) }}"
                                 :codigo="$indicador->cod_ind_inicial"
                                 :objetivo="$indicador->objetivo"/>
                         </li>
