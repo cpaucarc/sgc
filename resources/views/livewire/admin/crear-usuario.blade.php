@@ -36,10 +36,7 @@
                         Buscar como docentes/administrativo
                     </label>
                     @if($mensaje)
-                        <p class="w-full font-semibold flex gap-x-2 text-sm text-rose-600 rounded-md px-3 py-1 bg-rose-100">
-                            <x-icons.warning class="icon-5"/>
-                            {{ $mensaje }}
-                        </p>
+                        <x-utils.alert.error-box>{{ $mensaje }}</x-utils.alert.error-box>
                     @endif
                 </div>
                 <div class="w-full">
