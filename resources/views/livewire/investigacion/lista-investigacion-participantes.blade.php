@@ -1,17 +1,13 @@
 <div>
-
     <div class="flex justify-between items-center mb-2">
         <h2 class="text-gray-600 text-base font-bold leading-tight">Investigadores</h2>
 
-        {{--        @if(count($financiadores) > 0)--}}
-        {{--            <x-utils.buttons.default class="text-sm" wire:click="openModal">--}}
-        {{--                <svg class="h-5 w-5 mr-1 fls4" fill="none" viewBox="0 0 24 24" stroke="currentColor">--}}
-        {{--                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"--}}
-        {{--                          d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>--}}
-        {{--                </svg>--}}
-        {{--                Nueva fuente--}}
-        {{--            </x-utils.buttons.default>--}}
-        {{--        @endif--}}
+        @if(count($investigacion->investigadores) > 0)
+            <x-utils.buttons.default class="text-sm" wire:click="abrirModal">
+                <x-icons.people class="icon-4 mr-1" stroke="1.75"></x-icons.people>
+                Añadir
+            </x-utils.buttons.default>
+        @endif
     </div>
 
     @if(count($investigacion->investigadores) > 0)
@@ -64,12 +60,13 @@
                 @endslot
 
                 <x-jet-button class="text-sm">
-                    Añadir colaboradores
+                    Añadir investigadores
                 </x-jet-button>
             </x-utils.message-no-items>
         </div>
     @endif
 
+    {{-- Modal con los datos del investigador --}}
     <x-jet-dialog-modal wire:model="open" maxWidth="3xl">
         <x-slot name="title">
             <h1 class="font-bold text-gray-700">
@@ -91,4 +88,57 @@
             @endif
         </x-slot>
     </x-jet-dialog-modal>
+
+    {{-- Modal para añdir participantes --}}
+    <x-jet-dialog-modal wire:model="add" maxWidth="3xl">
+        <x-slot name="title">
+            <h1 class="font-bold text-gray-700">
+                Añadir participantes
+            </h1>
+            <x-utils.buttons.close-button wire:click="$set('add', false)"/>
+        </x-slot>
+
+        <x-slot name="content">
+            <div class="space-y-6">
+                <div class="flex items-center justify-start">
+                    <button
+                        wire:click="buscarEnDocentes(false)"
+                        class="px-3 py-1.5 border-b-2 soft-transition {{ $en_docentes ? 'hover:bg-gray-50 border-gray-300 text-gray-500' : 'bg-indigo-50 border-indigo-600 text-indigo-600 font-semibold' }}">
+                        Añadir estudiantes
+                    </button>
+                    <button
+                        wire:click="buscarEnDocentes(true)"
+                        class="px-3 py-1.5 border-b-2 soft-transition {{ $en_docentes ? 'bg-indigo-50 border-indigo-600 text-indigo-600 font-semibold' : 'hover:bg-gray-50 border-gray-300 text-gray-500' }}">
+                        Añadir docentes
+                    </button>
+                </div>
+
+                @if($en_docentes)
+                    <livewire:investigacion.agregar-investigador-docente :investigacion_id="$investigacion_id"/>
+                @else
+                    <livewire:investigacion.agregar-investigador-estudiante :investigacion_id="$investigacion_id"/>
+                @endif
+            </div>
+        </x-slot>
+    </x-jet-dialog-modal>
+
+    @push('js')
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Livewire.on('guardado', msg => {
+                Swal.fire({
+                    icon: 'success',
+                    title: '',
+                    text: msg,
+                });
+            });
+            Livewire.on('error', msg => {
+                Swal.fire({
+                    icon: 'error',
+                    title: '',
+                    text: msg,
+                });
+            });
+        </script>
+    @endpush
 </div>
