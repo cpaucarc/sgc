@@ -7,7 +7,7 @@
 
         @if($es_responsable and $rsu->participantes_count > 0)
             <x-utils.buttons.default class="text-sm" wire:click="abrirModal">
-                <x-icons.people class="h-4 w-4 mr-1" stroke="1.5"></x-icons.people>
+                <x-icons.people class="icon-4 mr-1" stroke="2"></x-icons.people>
                 Añadir
             </x-utils.buttons.default>
         @endif
@@ -69,6 +69,7 @@
         </div>
     @endif
 
+    {{-- Modal de datos del participante obtenido de OGE --}}
     <x-jet-dialog-modal wire:model="open" maxWidth="3xl">
         <x-slot name="title">
             <h1 class="font-bold text-gray-700">
@@ -91,16 +92,84 @@
         </x-slot>
     </x-jet-dialog-modal>
 
+    {{-- Modal para añdir participantes --}}
     <x-jet-dialog-modal wire:model="add" maxWidth="3xl">
         <x-slot name="title">
             <h1 class="font-bold text-gray-700">
                 Añadir participantes
             </h1>
-            <x-utils.buttons.close-button wire:click="$set('open', false)"/>
+            <x-utils.buttons.close-button wire:click="$set('add', false)"/>
         </x-slot>
 
         <x-slot name="content">
-            En construcción
+            <div class="space-y-6">
+                <div class="flex items-center justify-start">
+                    <button
+                        wire:click="buscarEnDocentes(false)"
+                        class="px-3 py-1.5 border-b-2 soft-transition {{ $en_docentes ? 'hover:bg-gray-50 border-gray-300 text-gray-500' : 'bg-indigo-50 border-indigo-600 text-indigo-600 font-semibold' }}">
+                        Añadir estudiantes
+                    </button>
+                    <button
+                        wire:click="buscarEnDocentes(true)"
+                        class="px-3 py-1.5 border-b-2 soft-transition {{ $en_docentes ? 'bg-indigo-50 border-indigo-600 text-indigo-600 font-semibold' : 'hover:bg-gray-50 border-gray-300 text-gray-500' }}">
+                        Añadir docentes
+                    </button>
+                </div>
+
+                <div class="border rounded-md p-4">
+                    @if($en_docentes)
+                        docentes
+                    @else
+                        <div class="space-y-4">
+                            <div>
+                                <x-jet-label for="dni" value="DNI de los estudiantes (separados por comas)"/>
+                                <div class="flex gap-x-2">
+                                    <x-jet-input id="dni" autocomplete="off" class="flex-1" type="text"
+                                                 placeholder="74125896,77788955,..." wire:model.defer="dni"/>
+                                    <x-utils.buttons.default wire:click="agregarEstudiantes">
+                                        <x-icons.search wire:loading.remove wire:target="agregarEstudiantes"
+                                                        class="icon-4"/>
+                                        <svg wire:loading wire:target="agregarEstudiantes"
+                                             class="animate-spin icon-4 text-sky-600"
+                                             fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                                    stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor"
+                                                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                        <span class="ml-2 font-normal">Buscar y guardar</span>
+                                    </x-utils.buttons.default>
+                                </div>
+                                @if($mensaje_estudiantes)
+                                    <x-utils.alert.error-box>{{ $mensaje_estudiantes }}</x-utils.alert.error-box>
+                                @endif
+                            </div>
+                        </div>
+                    @endif
+                </div>
+
+            </div>
         </x-slot>
     </x-jet-dialog-modal>
+
+    @push('js')
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Livewire.on('guardado', msg => {
+                Swal.fire({
+                    icon: 'success',
+                    title: '',
+                    text: msg,
+                });
+            });
+            Livewire.on('error', msg => {
+                Swal.fire({
+                    icon: 'error',
+                    title: '',
+                    text: msg,
+                });
+            });
+        </script>
+    @endpush
+
 </div>
