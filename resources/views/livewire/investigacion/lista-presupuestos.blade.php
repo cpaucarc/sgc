@@ -26,9 +26,10 @@
                                 <x-utils.new-item date="{{$financiador->pivot->created_at}}"/>
                             </div>
                         </x-utils.tables.body>
-                        <x-utils.tables.body
-                            class="whitespace-nowrap">{{'S/. '. number_format((float)$financiador->pivot->presupuesto, 2) }}</x-utils.tables.body>
-                        <x-utils.tables.body class="text-xs">
+                        <x-utils.tables.body class="whitespace-nowrap">
+                            {{'S/. '. number_format((float)$financiador->pivot->presupuesto, 2) }}
+                        </x-utils.tables.body>
+                        <x-utils.tables.body>
                             {{$financiador->pivot->created_at->format('d-m-Y h:ia')}}
                         </x-utils.tables.body>
                     </x-utils.tables.row>
@@ -39,6 +40,7 @@
                 <x-utils.tables.foot class="whitespace-nowrap">
                     {{'S/. '. number_format((float)$investigacion->financiaciones->sum('pivot.presupuesto'), 2) }}
                 </x-utils.tables.foot>
+                <x-utils.tables.foot><span class="sr-only">.</span></x-utils.tables.foot>
             @endslot
         </x-utils.tables.table>
     @else
