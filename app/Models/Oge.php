@@ -9,9 +9,33 @@ class Oge
 
     public static function datos($dni)
     {
-        // Se obtienen los datos básicos de un estudiante o docente, a partir de su DNI
+        $datos = self::datosEstudiante($dni);
+
+        if (is_null($datos))
+            $datos = self::datosDocente($dni);
+
+        if (is_null($datos))
+            return null;
+
+        return $datos;
+    }
+
+    public static function datosEstudiante($dni)
+    {
         $response = Http::withToken(env('OGE_TOKEN'))
             ->get(env('OGE_API') . 'ensenianza_aprendizaje/01?codigo=' . $dni);
+        $response = $response->json();
+
+        if (!isset($response['dni']))
+            return null;
+
+        return $response;
+    }
+
+    public static function datosDocente($dni)
+    {
+        $response = Http::withToken(env('OGE_TOKEN'))
+            ->get(env('OGE_API') . 'proceso_docente/01?codigo=' . $dni);
         $response = $response->json();
 
         if (!isset($response['dni']))
