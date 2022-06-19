@@ -9,7 +9,10 @@ class Empresa extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-    public $fillable = ['nombre', 'ruc', 'telefono', 'correo', 'direccion', 'ubicacion'];
+    public $fillable = ['nombre', 'ruc', 'telefono', 'correo', 'direccion', 'ubicacion', 'user_id'];
 
+    public function usuario()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

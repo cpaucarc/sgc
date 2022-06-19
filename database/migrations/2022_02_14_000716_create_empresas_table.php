@@ -21,6 +21,12 @@ return new class extends Migration
             $table->string('correo')->unique()->nullable();
             $table->string('direccion')->nullable();
             $table->string('ubicacion')->nullable();
+
+            $table->foreignId('user_id')->constrained('users')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+            $table->timestamps();
         });
     }
 

@@ -23,6 +23,7 @@ class EmpresaFactory extends Factory
             'correo' => $this->faker->companyEmail,
             'direccion' => $this->faker->streetAddress,
             'ubicacion' => $this->faker->city . ' - ' . $this->faker->state,
+            'user_id' => $this->faker->numberBetween(2, 7),
         ];
     }
 }
