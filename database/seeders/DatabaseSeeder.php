@@ -22,13 +22,11 @@ class DatabaseSeeder extends Seeder
         $this->call(CargoJuradoSeeder::class);
         $this->call(CategoriaEstadoSeeder::class);
         $this->call(ColegioSeeder::class);
-        \App\Models\Empresa::factory(50)->create();
         $this->call(FacultadSeeder::class);
         $this->call(FinanciadorSeeder::class);
         $this->call(FrecuenciaSeeder::class);
         $this->call(GradoAcademicoSeeder::class);
         \App\Models\Investigador::factory(50)->create();
-//        $this->call(OficinaSeeder::class);
         $this->call(ProcesoSeeder::class);
         $this->call(SemestreSeeder::class);
         $this->call(TipoActividadSeeder::class);
@@ -38,7 +36,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UnidadMedidaSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
-//        \App\Models\User::factory(15)->create();
+        \App\Models\Empresa::factory(50)->create();
 
         // Nivel 1
         $this->call(ActividadSeeder::class);
