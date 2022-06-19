@@ -67,7 +67,7 @@
     @endif
 
     {{-- Modal con los datos del investigador --}}
-    <x-jet-dialog-modal wire:model="open" maxWidth="3xl">
+    <x-jet-dialog-modal wire:model="open" maxWidth="xl">
         <x-slot name="title">
             <h1 class="font-bold text-gray-700">
                 Datos del participante
@@ -77,12 +77,7 @@
 
         <x-slot name="content">
             @if($datos_participante)
-                <x-utils.oge-datos-basicos dni="{{ $datos_participante['dni'] }}"
-                                           nombres="{{ $datos_participante['nombre_completo'] }}"
-                                           correo="{{ $datos_participante['email'] }}"
-                                           institucional="{{ $datos_participante['correo_institucional'] }}"
-                                           celular="{{ $datos_participante['celular'] }}"
-                />
+                <x-utils.oge-datos-basicos :persona="$datos_participante"/>
             @else
                 <x-utils.oge-no-datos/>
             @endif

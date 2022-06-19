@@ -62,7 +62,7 @@
         </div>
     @endif
 
-    <x-jet-dialog-modal wire:model="open" maxWidth="3xl">
+    <x-jet-dialog-modal wire:model="open" maxWidth="xl">
         <x-slot name="title">
             <h1 class="font-bold text-gray-700">
                 Datos del estudiante
@@ -72,12 +72,7 @@
 
         <x-slot name="content">
             @if($datos_estudiante)
-                <x-utils.oge-datos-basicos dni="{{ $datos_estudiante['dni'] }}"
-                                           nombres="{{ $datos_estudiante['nombre_completo'] }}"
-                                           correo="{{ $datos_estudiante['email'] }}"
-                                           institucional="{{ $datos_estudiante['correo_institucional'] }}"
-                                           celular="{{ $datos_estudiante['celular'] }}"
-                />
+                <x-utils.oge-datos-basicos :persona="$datos_estudiante"/>
             @else
                 <x-utils.oge-no-datos/>
             @endif
