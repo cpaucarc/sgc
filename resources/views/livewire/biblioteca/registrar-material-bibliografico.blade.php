@@ -60,7 +60,7 @@
             </div>
             <div class="w-full">
                 <x-jet-label for="total" value="Cantidad Total de Libros"/>
-                <x-jet-input id="total" type="number" class="mt-1 block w-full"
+                <x-jet-input id="total" min="0" type="number" class="mt-1 block w-full"
                              wire:model.defer="total" autocomplete="off" autofocus/>
                 <x-jet-input-error for="total"/>
             </div>
@@ -71,7 +71,7 @@
         <div class="pt-4 grid grid-cols-3 items-center">
             <x-jet-label for="adquirido" value="MB Adquiridos"/>
             <div class="col-span-2">
-                <x-jet-input id="adquirido" type="number" class="mt-1 block w-full"
+                <x-jet-input id="adquirido" min="0" type="number" class="mt-1 block w-full"
                              wire:model.defer="adquirido" autocomplete="off" autofocus/>
                 <x-jet-input-error for="adquirido"/>
             </div>
@@ -80,7 +80,7 @@
         <div class="pt-4 grid grid-cols-3 items-center">
             <x-jet-label for="prestado" value="MB Prestados"/>
             <div class="col-span-2">
-                <x-jet-input id="prestado" type="number" class="mt-1 block w-full"
+                <x-jet-input id="prestado" type="number" min="0" class="mt-1 block w-full"
                              wire:model.defer="prestado" autocomplete="off" autofocus/>
                 <x-jet-input-error for="prestado"/>
             </div>
@@ -89,7 +89,7 @@
         <div class="pt-4 grid grid-cols-3 items-center">
             <x-jet-label for="perdido" value="MB Perdidos"/>
             <div class="col-span-2">
-                <x-jet-input id="perdido" type="number" class="mt-1 block w-full"
+                <x-jet-input id="perdido" type="number" min="0" class="mt-1 block w-full"
                              wire:model.defer="perdido" autocomplete="off" autofocus/>
                 <x-jet-input-error for="perdido"/>
             </div>
@@ -98,7 +98,7 @@
         <div class="pt-4 grid grid-cols-3 items-center">
             <x-jet-label for="restaurado" value="MB Restaurados"/>
             <div class="col-span-2">
-                <x-jet-input id="restaurado" type="number" class="mt-1 block w-full"
+                <x-jet-input id="restaurado" type="number" min="0" class="mt-1 block w-full"
                              wire:model.defer="restaurado" autocomplete="off" autofocus/>
                 <x-jet-input-error for="restaurado"/>
             </div>

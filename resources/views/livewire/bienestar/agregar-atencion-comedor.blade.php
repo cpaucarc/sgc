@@ -25,18 +25,18 @@
         </div>
         <div>
             <x-jet-label for="cantidad" value="Cantidad de comensales atendidos"/>
-            <x-jet-input id="cantidad" type="number" class="w-full" wire:model.defer="cantidad" autofocus/>
+            <x-jet-input id="cantidad" type="number" min="0" class="w-full" wire:model.defer="cantidad" autofocus/>
             <x-jet-input-error for="cantidad"/>
         </div>
         <div>
             <x-jet-label for="total" value="Total de comensales"/>
-            <x-jet-input id="total" type="number" class="w-full" wire:model.defer="total"/>
+            <x-jet-input id="total" type="number" min="0" class="w-full" wire:model.defer="total"/>
             <x-jet-input-error for="total"/>
         </div>
         <div class="flex justify-end">
             <x-jet-button wire:click="guardar" wire:target="guardar"
                           wire:loading.class="cursor-wait" wire:loading.attr="disabled">
-                <x-icons.load class="h-4 w-4" wire:loading wire:target="guardar"></x-icons.load>
+                <x-icons.load class="icon-4" wire:loading wire:target="guardar"></x-icons.load>
                 {{ __('Guardar información') }}
             </x-jet-button>
         </div>

@@ -71,13 +71,13 @@
             </div>
             <div class="w-full">
                 <x-jet-label for="postulantes" value="Postulantes"/>
-                <x-jet-input id="postulantes" type="number" class="mt-1 block w-full"
+                <x-jet-input id="postulantes" type="number" min="0" class="mt-1 block w-full"
                              wire:model.defer="postulantes" autocomplete="off" autofocus/>
                 <x-jet-input-error for="postulantes"/>
             </div>
             <div class="w-full">
                 <x-jet-label for="beneficiados" value="Beneficiados"/>
-                <x-jet-input id="beneficiados" type="number" class="mt-1 block w-full"
+                <x-jet-input id="beneficiados" type="number" min="0" class="mt-1 block w-full"
                              wire:model.defer="beneficiados" autocomplete="off"/>
                 <x-jet-input-error for="beneficiados"/>
             </div>

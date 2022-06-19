@@ -62,7 +62,7 @@
             </div>
             <div class="w-full">
                 <x-jet-label for="visitantes" value="Visitantes"/>
-                <x-jet-input id="visitantes" type="number" class="mt-1 block w-full"
+                <x-jet-input id="visitantes" type="number" min="0" class="mt-1 block w-full"
                              wire:model.defer="visitantes" autocomplete="off" autofocus/>
                 <x-jet-input-error for="visitantes"/>
             </div>

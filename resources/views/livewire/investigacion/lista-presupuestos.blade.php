@@ -88,7 +88,7 @@
                     </div>
                     <div>
                         <x-jet-label for="monto" value="Monto en soles (S/.)"/>
-                        <x-jet-input id="monto" wire:model="monto" class="w-full" type="number"
+                        <x-jet-input id="monto" min="0" wire:model="monto" class="w-full" type="number"
                                      placeholder="Ej. 100.25"/>
                         <x-jet-input-error for="monto"/>
                     </div>

@@ -68,19 +68,19 @@
                     <div class="grid grid-cols-3 gap-x-6 p-4 bg-gray-50 rounded-lg">
                         <div class="w-full">
                             <x-jet-label for="minimo" value="Mínimo"/>
-                            <x-jet-input id="minimo" wire:model.debounce.500ms="min" type="number"
+                            <x-jet-input id="minimo" wire:model.debounce.500ms="min" type="number" min="0"
                                          class="mt-1 w-full focus:bg-rose-100" autocomplete="off"/>
                             <x-jet-input-error for="min"/>
                         </div>
                         <div class="w-full">
                             <x-jet-label for="satisfactorio" value="Satisfactorio"/>
-                            <x-jet-input id="satisfactorio" wire:model.debounce.500ms="sat" type="number"
+                            <x-jet-input id="satisfactorio" wire:model.debounce.500ms="sat" type="number" min="0"
                                          class="mt-1 w-full focus:bg-amber-100" autocomplete="off"/>
                             <x-jet-input-error for="sat"/>
                         </div>
                         <div class="w-full">
                             <x-jet-label for="sobresaliente" value="Sobresaliente"/>
-                            <x-jet-input id="sobresaliente" wire:model.debounce.500ms="sob" type="number"
+                            <x-jet-input id="sobresaliente" wire:model.debounce.500ms="sob" type="number" min="0"
                                          class="mt-1 w-full focus:bg-green-100" autocomplete="off"/>
                             <x-jet-input-error for="sob"/>
                         </div>

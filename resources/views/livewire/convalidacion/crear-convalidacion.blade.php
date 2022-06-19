@@ -43,7 +43,7 @@
             </div>
             <div class="w-full">
                 <x-jet-label for="vacantes" value="Cantidad Total de Vacantes"/>
-                <x-jet-input id="vacantes" type="number" class="mt-1 block w-full"
+                <x-jet-input id="vacantes" type="number" min="0" class="mt-1 block w-full"
                              wire:model.defer="vacantes" autocomplete="off" autofocus/>
                 <x-jet-input-error for="vacantes"/>
             </div>
@@ -51,13 +51,13 @@
         <div class="flex gap-x-6 pt-4">
             <div class="w-full">
                 <x-jet-label for="postulantes" value="Cantidad Total de Postulantes"/>
-                <x-jet-input id="postulantes" type="number" class="mt-1 block w-full"
+                <x-jet-input id="postulantes" type="number" min="0" class="mt-1 block w-full"
                              wire:model.defer="postulantes" autocomplete="off"/>
                 <x-jet-input-error for="postulantes"/>
             </div>
             <div class="w-full">
                 <x-jet-label for="convalidados" value="Cantidad Total de Convalidados"/>
-                <x-jet-input id="convalidados" type="number" class="mt-1 block w-full"
+                <x-jet-input id="convalidados" type="number" min="0" class="mt-1 block w-full"
                              wire:model.defer="convalidados" autocomplete="off"/>
                 <x-jet-input-error for="convalidados"/>
             </div>
