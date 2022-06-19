@@ -9,7 +9,7 @@ class Semestre extends Model
 {
     use HasFactory;
 
-    public $fillable = ['nombre', 'fecha_inicio', 'fecha_fin'];
+    public $fillable = ['nombre', 'fecha_inicio', 'fecha_fin', 'activo'];
     public $timestamps = false;
 
     protected $dates = [
