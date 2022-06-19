@@ -53,8 +53,7 @@ class EnviarRequisito extends Component
             ->first();
 
         $this->semestreActual = Semestre::query()
-            ->where('fecha_fin', '>=', Carbon::now())
-            ->where('fecha_inicio', '<=', Carbon::now())
+            ->orderBy('nombre', 'desc')
             ->first();
 
         $this->entidad = Auth::user()->entidades()->first();
