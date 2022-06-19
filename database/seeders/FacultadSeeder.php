@@ -47,19 +47,19 @@ class FacultadSeeder extends Seeder
                 'uuid' => Str::uuid()
             ], // 5
             [
-                'nombre' => 'Ingenieria Minas Geologia y Metalurgia',
+                'nombre' => 'Ingeniería de Minas, Geología y Metalurgia',
                 'abrev' => 'FIMGM',
                 'direccion' => 'Av. Universitaria N° 115',
                 'uuid' => Str::uuid()
             ], // 6
             [
-                'nombre' => 'Ingenieria Civil',
+                'nombre' => 'Ingeniería Civil',
                 'abrev' => 'FIC',
                 'direccion' => 'Av. Universitaria N° 115',
                 'uuid' => Str::uuid()
             ], // 7
             [
-                'nombre' => 'Ciencias Medicas',
+                'nombre' => 'Ciencias Médicas',
                 'abrev' => 'FCM',
                 'direccion' => 'Av. Agustín Gamarra N° 1227',
                 'uuid' => Str::uuid()
@@ -71,19 +71,19 @@ class FacultadSeeder extends Seeder
                 'uuid' => Str::uuid()
             ], // 9 VACIO
             [
-                'nombre' => 'Derecho y Ciencias Polticias',
+                'nombre' => 'Derecho y Ciencias Políticas',
                 'abrev' => 'FDCCPP',
                 'direccion' => 'Av. Inés Huaylas, Huaraz N° 02001',
                 'uuid' => Str::uuid()
             ], // 10
             [
-                'nombre' => 'Ciencias Sociales, Educacion y de la Comunicacion',
+                'nombre' => 'Ciencias Sociales, Educación y de la Comunicación',
                 'abrev' => 'FCSEC',
                 'direccion' => 'Av. Universitaria N° 115',
                 'uuid' => Str::uuid()
             ], // 11
             [
-                'nombre' => 'Economia y Contabilidad',
+                'nombre' => 'Economía y Contabilidad',
                 'abrev' => 'FEC',
                 'direccion' => 'Av. Universitaria N° 115',
                 'uuid' => Str::uuid()
