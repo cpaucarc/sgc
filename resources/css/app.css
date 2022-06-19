@@ -1,34 +1,13 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-    height: 8px;
-    width: 10px;
-}
-
-::-webkit-scrollbar-thumb:horizontal {
-    border-radius: 0; /* 10px */
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    background: #FFFFFF;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #e5e7eb;
-    border-radius: 0; /* 5px */
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #d1d5db;
-}
+@import "scrollbar.css";
 
 @layer components {
+    .input {
+        @apply px-2 py-1.5 text-sm rounded-md;
+    }
+
     .icon-4 {
         @apply w-4 h-4 flex-shrink-0;
     }
