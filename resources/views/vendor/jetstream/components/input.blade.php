@@ -1,5 +1,5 @@
 @props(['disabled' => false])
 
 <input {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge([
-    'class' => 'px-2 py-1.5 bg-gray-50 focus:bg-white text-sm transition border-gray-300 focus:border-indigo-500 rounded-md placeholder:text-gray-400'
+    'class' => 'input bg-gray-50 focus:bg-white border-gray-300 focus:border-indigo-500 placeholder:text-gray-400 out-of-range:border-rose-600 soft-transition'
     ]) !!}>

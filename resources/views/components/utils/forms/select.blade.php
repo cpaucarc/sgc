@@ -1,6 +1,6 @@
 <select
     {{ $attributes->merge([
-    'class' => 'text-sm bg-gray-50 focus:bg-white transition duration-500 ease-in-out pl-2 pr-8 py-1.5 mt-1 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:text-gray-800 placeholder-gray-400'])
+    'class' => 'text-sm bg-gray-50 focus:bg-white soft-transition pl-2 pr-8 py-1.5 mt-1 rounded-md border border-gray-300 text-gray-700 focus:outline-none focus:text-gray-800 placeholder-gray-400'])
     }}>
     {{ $slot }}
 </select>
