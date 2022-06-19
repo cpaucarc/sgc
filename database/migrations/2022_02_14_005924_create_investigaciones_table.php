@@ -19,6 +19,9 @@ return new class extends Migration {
             $table->text('resumen');
             $table->date('fecha_publicacion')->nullable();
 
+            $table->foreignId('semestre_id')->constrained('semestres')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->foreignId('escuela_id')->constrained('escuelas')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();

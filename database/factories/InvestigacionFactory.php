@@ -16,11 +16,14 @@ class InvestigacionFactory extends Factory
      */
     public function definition()
     {
+        $publicado = $this->faker->boolean(60);
+
         return [
             'titulo' => $this->faker->sentence(15),
             'uuid' => $this->faker->uuid,
             'resumen' => $this->faker->paragraph() . " " . $this->faker->paragraph(),
-            'fecha_publicacion' => ($this->faker->dateTimeBetween('-1 years', 'now'))->format("Y-m-d"),
+            'fecha_publicacion' => $publicado ? ($this->faker->dateTimeBetween('-1 years', 'now'))->format("Y-m-d") : null,
+            'semestre_id' => $this->faker->numberBetween(1, 3),
             'escuela_id' => $this->faker->numberBetween(10, 11),
             'sublinea_id' => $this->faker->numberBetween(1, 7),
             'estado_id' => $this->faker->numberBetween(1, 3)

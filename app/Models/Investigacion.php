@@ -10,13 +10,18 @@ class Investigacion extends Model
     use HasFactory;
 
     protected $table = "investigaciones";
-    public $fillable = ['titulo', 'uuid', 'resumen', 'fecha_publicacion', 'escuela_id', 'sublinea_id', 'estado_id'];
+    public $fillable = ['titulo', 'uuid', 'resumen', 'fecha_publicacion', 'semestre_id', 'escuela_id', 'sublinea_id', 'estado_id'];
 
     public $dates = ['fecha_publicacion'];
 
     public function escuela()
     {
         return $this->belongsTo(Escuela::class);
+    }
+
+    public function semestre()
+    {
+        return $this->belongsTo(Semestre::class);
     }
 
     public function sublinea()
