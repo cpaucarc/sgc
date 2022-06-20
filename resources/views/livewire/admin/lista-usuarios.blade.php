@@ -1,26 +1,16 @@
 <div>
     <div class="flex justify-between mb-4">
         <x-utils.forms.search-input wire:model.debounce.500ms="search"/>
-
-        {{--        <x-utils.forms.select wire:model="proceso">--}}
-        {{--            <option value="0">Seleccione un proceso</option>--}}
-        {{--            @foreach($procesos as $proc)--}}
-        {{--                <option value="{{ $proc->id }}">{{ $proc->nombre }}</option>--}}
-        {{--            @endforeach--}}
-        {{--        </x-utils.forms.select>--}}
     </div>
 
     @if($usuarios and count($usuarios) > 0)
-
-        {{--        <x-utils.dd>--}}
-        {{--            {{$usuarios}}--}}
-        {{--        </x-utils.dd>--}}
 
         <x-utils.tables.table>
             @slot('head')
                 <x-utils.tables.head>Usuario</x-utils.tables.head>
                 <x-utils.tables.head>DNI</x-utils.tables.head>
                 <x-utils.tables.head>Correo</x-utils.tables.head>
+                <x-utils.tables.head>Roles</x-utils.tables.head>
                 <x-utils.tables.head>Estado</x-utils.tables.head>
                 <x-utils.tables.head>Creación</x-utils.tables.head>
                 <x-utils.tables.head><span class="sr-only">Acciones</span></x-utils.tables.head>
@@ -31,7 +21,7 @@
                         <x-utils.tables.body>
                             <x-utils.links.basic class="flex items-center"
                                                  href="{{ route('admin.panel.usuario', $usuario->uuid) }}">
-                                <img class="h-6 w-6 rounded-full mr-2" src="{{ $usuario->profile_photo_url }}"
+                                <img class="icon-6 rounded-full mr-2" src="{{ $usuario->profile_photo_url }}"
                                      alt="{{ $usuario->name }}">
                                 <p>{{$usuario->name}}</p>
                                 <x-utils.new-item date="{{$usuario->created_at}}"/>
@@ -40,8 +30,19 @@
                         <x-utils.tables.body class="text-xs">{{$usuario->dni}}</x-utils.tables.body>
                         <x-utils.tables.body>{{$usuario->email}}</x-utils.tables.body>
                         <x-utils.tables.body>
+                            @if(count($usuario->roles))
+                                <ul>
+                                    @foreach($usuario->roles as $rol)
+                                        <li class="whitespace-nowrap">• {{ $rol->name }}</li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                ---
+                            @endif
+                        </x-utils.tables.body>
+                        <x-utils.tables.body>
                             <x-utils.badge
-                                class="text-xs font-semibold {{$usuario->activo ? 'bg-green-100 text-green-700':'bg-red-100 text-red-700'}}">
+                                class="text-xs font-bold {{$usuario->activo ? 'bg-green-100 text-green-700':'bg-red-100 text-red-700'}}">
                                 {{$usuario->activo ? 'Activo':'Inactivo'}}
                             </x-utils.badge>
                         </x-utils.tables.body>
