@@ -35,7 +35,7 @@
                             {{ $bachiller->escuela->nombre }}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            {{ $bachiller->created_at->format('h:i d-m-Y') }}
+                            {{ $bachiller->created_at->format('d-m-Y h:i a') }}
                         </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach

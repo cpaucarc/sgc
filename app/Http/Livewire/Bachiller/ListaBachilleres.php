@@ -38,7 +38,8 @@ class ListaBachilleres extends Component
         $callback = GradoEstudiante::query()
             ->with('escuela')
             ->where('grado_academico_id', 3)//3:Bachiller
-            ->where('dni_estudiante', 'like', '%' . $this->search . '%');
+            ->where('dni_estudiante', 'like', '%' . $this->search . '%')
+            ->orderBy('created_at', 'desc');
 
         //Si la escuela seleccionada es mayor que cero.
         if ($this->escuela_seleccionado > 0) {
