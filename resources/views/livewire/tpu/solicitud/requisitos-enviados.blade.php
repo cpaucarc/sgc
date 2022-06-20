@@ -23,7 +23,7 @@
                             </x-utils.links.basic>
                         </x-utils.tables.body>
                         <x-utils.tables.body class="whitespace-nowrap">
-                            {{ $documentos->documento->updated_at->format('d M Y')}}
+                            {{ $documentos->documento->updated_at->format('d-m-Y h:i a')}}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             <buttons
