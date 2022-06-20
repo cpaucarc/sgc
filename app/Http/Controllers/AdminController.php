@@ -90,4 +90,9 @@ class AdminController extends Controller
         return view('admin.usuario', compact('uuid'));
     }
 
+    public function empresas()
+    {
+        return view('admin.empresas');
+    }
+
 }
