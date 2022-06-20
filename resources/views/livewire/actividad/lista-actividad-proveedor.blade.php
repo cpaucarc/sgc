@@ -87,7 +87,10 @@
                 <div class="space-y-8">
                     <div class="space-y-2">
                         <h2 class="text-gray-800 text-sm font-bold">Subir archivo:</h2>
-                        <x-utils.forms.file-input class="w-full block" wire:model.defer="archivo"/>
+                        <x-jet-label for="archivo" value="{{ __('Archivo Adjunto. (Peso max: 25Mb)') }}"/>
+                        <x-utils.file-uploading>
+                            <x-utils.forms.file-input id="archivo" class="w-full block" wire:model.defer="archivo"/>
+                        </x-utils.file-uploading>
                         <x-jet-input-error for="archivo"></x-jet-input-error>
                     </div>
 

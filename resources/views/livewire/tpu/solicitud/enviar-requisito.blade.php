@@ -54,7 +54,8 @@
                                                 <span>{{substr($tesis->titulo, 1, 70)}}...</span>
                                                 <input id="file-upload" name="file-upload" type="file" class="sr-only">
                                             </a>
-                                            <p class="text-gray-400"><span class="font-bold">Año: </span>{{$tesis->anio}}
+                                            <p class="text-gray-400"><span
+                                                    class="font-bold">Año: </span>{{$tesis->anio}}
                                             </p>
                                         </div>
                                     @endif
@@ -64,8 +65,10 @@
                     </x-utils.badge>
                 @endif
                 <div class="space-y-2">
-                    <x-jet-label for="archivo" value="Subir archivo"/>
-                    <x-utils.forms.file-input class="w-full block" wire:model.defer="archivo" id="{{ $randomID }}"/>
+                    <x-jet-label for="archivo" value="{{ __('Archivo Adjunto. (Peso max: 25Mb)') }}"/>
+                    <x-utils.file-uploading>
+                        <x-utils.forms.file-input class="w-full block" wire:model.defer="archivo" id="{{ $randomID }}"/>
+                    </x-utils.file-uploading>
                     <x-utils.loading-file wire:loading wire:target="archivo"></x-utils.loading-file>
                     <x-jet-input-error for="archivo"></x-jet-input-error>
                 </div>

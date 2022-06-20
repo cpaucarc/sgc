@@ -37,37 +37,17 @@
     </div>
 
     <div class="space-y-4 divide-y divide-dashed divide-stone-200 pt-4">
-        <div
-            x-data="{ isUploading: false, progress: 0 }"
-            x-on:livewire-upload-start="isUploading = true"
-            x-on:livewire-upload-finish="isUploading = false"
-            x-on:livewire-upload-error="isUploading = false"
-            x-on:livewire-upload-progress="progress = $event.detail.progress"
-        >
-            <x-utils.forms.file-input wire:model.defer="archivos" class="w-full" multiple/>
-            <x-jet-input-error for="archivos"/>
+        <x-utils.file-uploading>
+            <x-jet-label for="archivo" value="{{ __('Archivos Adjuntos. (Peso max: 25Mb)') }}"/>
+            <x-utils.file-uploading>
+                <x-utils.forms.file-input id="archivo" wire:model.defer="archivos" class="w-full" multiple/>
+            </x-utils.file-uploading>
+        </x-utils.file-uploading>
+        <x-jet-input-error for="archivos"/>
 
-            @if($mensaje)
-                <x-utils.alert.error-box>{{ $mensaje }}</x-utils.alert.error-box>
-            @endif
-
-            <!-- Progress Bar -->
-            <div x-show="isUploading"
-                 x-transition:enter="ease-out duration-300"
-                 x-transition:enter-start="opacity-0"
-                 x-transition:enter-end="opacity-100"
-                 x-transition:leave="ease-in duration-200"
-                 x-transition:leave-start="opacity-100"
-                 x-transition:leave-end="opacity-0">
-                <div class="w-full bg-indigo-200 rounded-full mt-2 overflow-hidden">
-                    <div
-                        class="bg-indigo-600 text-xs font-medium text-indigo-50 text-center p-0.5 leading-none rounded-full"
-                        :style="`width: ${progress}%;`" x-text="`${progress}%`">
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        @if($mensaje)
+            <x-utils.alert.error-box>{{ $mensaje }}</x-utils.alert.error-box>
+        @endif
     </div>
 
     <div class="flex justify-end pt-4">

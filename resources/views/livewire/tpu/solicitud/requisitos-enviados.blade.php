@@ -67,8 +67,10 @@
         @slot('content')
             <div class="space-y-6">
                 <div class="space-y-2">
-                    <x-jet-label for="archivo" value="Subir archivo"/>
-                    <x-utils.forms.file-input class="w-full block" wire:model.defer="archivo"/>
+                    <x-jet-label for="archivo" value="{{ __('Archivo Adjunto. (Peso max: 25Mb)') }}"/>
+                    <x-utils.file-uploading>
+                        <x-utils.forms.file-input class="w-full block" wire:model.defer="archivo"/>
+                    </x-utils.file-uploading>
                     <x-utils.loading-file wire:loading wire:target="archivo"></x-utils.loading-file>
                     <x-jet-input-error for="archivo"></x-jet-input-error>
                 </div>

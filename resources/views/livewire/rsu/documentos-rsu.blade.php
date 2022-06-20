@@ -82,8 +82,10 @@
 
             <div class="my-4">
 
-                <x-jet-label for="archivo" value="{{ __('Archivo') }}"/>
-                <x-utils.forms.file-input class="block w-full" id="archivo" wire:model="archivo"/>
+                <x-jet-label for="archivo" value="{{ __('Archivo Adjunto. (Peso max: 25Mb)') }}"/>
+                <x-utils.file-uploading>
+                    <x-utils.forms.file-input class="block w-full" id="archivo" wire:model="archivo"/>
+                </x-utils.file-uploading>
                 <x-jet-input-error for="archivo"></x-jet-input-error>
 
             </div>
