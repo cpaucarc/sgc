@@ -23,6 +23,7 @@ class RegistrarAuditoria extends Component
     public $tipo = 1; // 1:interno, 0:externo
     public $facultad_id = [];
     public $facultad = 0, $facultades = null;
+    public $mensaje = null;
 
     protected $rules = [
         'tipo' => 'required:between:0,1',
@@ -94,7 +95,6 @@ class RegistrarAuditoria extends Component
 
         } catch (\Exception $e) {
             $this->emit('error', 'Hubo un problema:\\n' . $e);
-            return;
         }
     }
 }
