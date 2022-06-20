@@ -20,7 +20,7 @@ class ListaGeneralPostulantes extends Component
         $this->facultad_ids = $facultad_ids;
 
         $this->semestres = Semestre::query()->orderBy('nombre', 'desc')->get();
-        $this->semestre = $this->semestres->first()->id;
+//        $this->semestre = $this->semestres->first()->id;
 
         $this->escuelas = Escuela::query()->whereIn('facultad_id', $this->facultad_ids)->orderBy('nombre', 'desc')->get();
     }
@@ -33,11 +33,13 @@ class ListaGeneralPostulantes extends Component
     public function render()
     {
         $postulantes = BolsaPostulante::query()
-            ->with('semestre:id,nombre', 'escuela:id,nombre,facultad_id', 'escuela.facultad:id,abrev')
-            ->where('semestre_id', $this->semestre);
+            ->with('semestre:id,nombre', 'escuela:id,nombre,facultad_id', 'escuela.facultad:id,abrev');
 
         if ($this->escuela > 0) {
             $postulantes = $postulantes->where('escuela_id', $this->escuela);
+        }
+        if ($this->semestre > 0) {
+            $postulantes = $postulantes->where('semestre_id', $this->semestre);
         }
 
         $postulantes = $postulantes->orderBy('id', 'desc')->get();
