@@ -7,16 +7,15 @@
         </div>
 
         <div class="inline-flex space-x-2 items-center">
-            <x-utils.forms.select class="w-24" wire:model="semestre">
-                @forelse($semestres as $sm)
+            <x-utils.forms.select class="w-52" wire:model="semestre">
+                <option value="0">Todos los semestres</option>
+                @foreach($semestres as $sm)
                     <option value="{{ $sm->id }}">{{$sm->nombre}}</option>
-                @empty
-                    <option value="0">No hay datos</option>
-                @endforelse
+                @endforeach
             </x-utils.forms.select>
 
-            <x-utils.forms.select class="w-28" wire:model="escuela">
-                <option value="0">Todos</option>
+            <x-utils.forms.select class="w-52" wire:model="escuela">
+                <option value="0">Todos los programas</option>
                 @foreach($escuelas as $esc)
                     <option value="{{ $esc->id }}">{{$esc->nombre}}</option>
                 @endforeach
