@@ -29,7 +29,7 @@ class RegistrarAuditoria extends Component
         'tipo' => 'required:between:0,1',
         'responsable' => 'required|string|max:250',
         'facultad' => 'required|gt:0',
-        'archivos' => 'required|array|min:1'
+        'archivos' => 'required|array|min:1|max:5'
     ];
 
     public function mount()
@@ -49,11 +49,9 @@ class RegistrarAuditoria extends Component
         $this->validate();
 
         try {
-
             $rutaCarpeta = '/public/auditoria';
-            if (!Storage::exists($rutaCarpeta)) {
+            if (!Storage::exists($rutaCarpeta))
                 Storage::makeDirectory($rutaCarpeta);
-            }
 
             $auditoria = Auditoria::create([
                 'uuid' => Str::uuid(),
@@ -95,6 +93,7 @@ class RegistrarAuditoria extends Component
 
         } catch (\Exception $e) {
             $this->emit('error', 'Hubo un problema:\\n' . $e);
+            return;
         }
     }
 }
