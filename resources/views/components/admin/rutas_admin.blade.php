@@ -53,6 +53,16 @@
     </div>
 
     <div class="flex flex-col items-start w-full gap-y-1 divide-gray-200 divide-y">
+        <p class="ml-3 text-sm text-gray-400 font-semibold tracking-wide">Gestión de RSU</p>
+        <div class="px-2 flex flex-col items-start w-full gap-y-1 pt-1">
+            <x-utils.links.nav-link href="{{ route('admin.panel.empresas') }}"
+                                    active="{{request()->routeIs('admin.panel.empresas')}}">
+                {{ __('Empresas') }}
+            </x-utils.links.nav-link>
+        </div>
+    </div>
+
+    <div class="flex flex-col items-start w-full gap-y-1 divide-gray-200 divide-y">
         <p class="ml-3 text-sm text-gray-400 font-semibold tracking-wide">Gestión de usuarios</p>
         <div class="px-2 flex flex-col items-start w-full gap-y-1 pt-1">
             <x-utils.links.nav-link href="{{ route('admin.panel.usuarios') }}"
