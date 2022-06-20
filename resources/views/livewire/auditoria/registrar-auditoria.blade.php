@@ -37,11 +37,9 @@
     </div>
 
     <div class="space-y-4 divide-y divide-dashed divide-stone-200 pt-4">
+        <x-jet-label for="archivo" value="{{ __('Archivos Adjuntos. (Peso max: 25Mb)') }}"/>
         <x-utils.file-uploading>
-            <x-jet-label for="archivo" value="{{ __('Archivos Adjuntos. (Peso max: 25Mb)') }}"/>
-            <x-utils.file-uploading>
-                <x-utils.forms.file-input id="archivo" wire:model.defer="archivos" class="w-full" multiple/>
-            </x-utils.file-uploading>
+            <x-utils.forms.file-input id="archivo" wire:model.defer="archivos" class="w-full" multiple/>
         </x-utils.file-uploading>
         <x-jet-input-error for="archivos"/>
 
@@ -77,12 +75,6 @@
                     text: msg,
                 });
             });
-
-            window.addEventListener('error', (event) => {
-                console.log('Error');
-                console.log(event)
-            });
-
 
         </script>
     @endpush
