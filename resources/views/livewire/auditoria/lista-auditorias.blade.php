@@ -8,6 +8,12 @@
         </div>
 
         <div class="inline-flex space-x-2 items-center">
+            <x-utils.forms.select class="w-52" wire:model="auditoria">
+                <option value="-1">Todas las auditorias</option>
+                <option value="0">Auditoria Externa</option>
+                <option value="1">Auditoria Interna</option>
+            </x-utils.forms.select>
+
             @if(count($auditorias) > 0)
                 <x-utils.links.primary class="text-sm" href="{{ route('auditoria.create') }}">
                     <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
@@ -20,6 +26,7 @@
     @if(count($auditorias) > 0)
         <x-utils.tables.table>
             @slot('head')
+                <x-utils.tables.head>N°</x-utils.tables.head>
                 <x-utils.tables.head>Responsable</x-utils.tables.head>
                 <x-utils.tables.head>Tipo de Auditoria</x-utils.tables.head>
                 <x-utils.tables.head>Facultad</x-utils.tables.head>
@@ -27,8 +34,11 @@
                 <x-utils.tables.head>Fecha de Auditoria</x-utils.tables.head>
             @endslot
             @slot('body')
-                @foreach($auditorias as $auditoria)
+                @foreach($auditorias as $i=>$auditoria)
                     <x-utils.tables.row>
+                        <x-utils.tables.body class="font-semibold">
+                            {{ ($i+1)}}
+                        </x-utils.tables.body>
                         <x-utils.tables.body class="font-semibold">
                             {{ $auditoria->responsable }}
                         </x-utils.tables.body>
