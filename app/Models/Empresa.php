@@ -13,6 +13,12 @@ class Empresa extends Model
 
     public function usuario()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function rsu()
+    {
+        return $this->hasMany(ResponsabilidadSocial::class);
+    }
+
 }
