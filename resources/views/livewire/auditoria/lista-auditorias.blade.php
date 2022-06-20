@@ -1,68 +1,81 @@
 <div class="space-y-4">
+    <x-utils.card>
+        <div class="flex justify-between items-center space-x-2">
+            <div class="pr-4 flex-1">
+                <h1 class="text-xl font-bold text-gray-700">
+                    Registros de Auditorias
+                </h1>
+            </div>
 
-    <div class="flex justify-between items-center space-x-2">
-        <div class="pr-4 flex-1">
-            <h1 class="text-xl font-bold text-gray-700">
-                Auditorias
-            </h1>
-        </div>
+            <div class="inline-flex space-x-2 items-center">
+                <x-utils.forms.select class="w-52" wire:model="auditoria">
+                    <option value="-1">Todas las auditorias</option>
+                    <option value="0">Auditoria Externa</option>
+                    <option value="1">Auditoria Interna</option>
+                </x-utils.forms.select>
 
-        <div class="inline-flex space-x-2 items-center">
-            @if(count($auditorias) > 0)
-                <x-utils.links.primary class="text-sm" href="{{ route('auditoria.create') }}">
-                    <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
-                    Registrar
-                </x-utils.links.primary>
-            @endif
+                @if(count($auditorias) > 0)
+                    <x-utils.links.primary class="text-sm" href="{{ route('auditoria.create') }}">
+                        <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
+                        Registrar
+                    </x-utils.links.primary>
+                @endif
+            </div>
         </div>
-    </div>
+    </x-utils.card>
 
     @if(count($auditorias) > 0)
-        <x-utils.tables.table>
-            @slot('head')
-                <x-utils.tables.head>Responsable</x-utils.tables.head>
-                <x-utils.tables.head>Tipo de Auditoria</x-utils.tables.head>
-                <x-utils.tables.head>Facultad</x-utils.tables.head>
-                <x-utils.tables.head>N° Documentos</x-utils.tables.head>
-                <x-utils.tables.head>Fecha de Auditoria</x-utils.tables.head>
-            @endslot
-            @slot('body')
-                @foreach($auditorias as $auditoria)
-                    <x-utils.tables.row>
-                        <x-utils.tables.body class="font-semibold">
-                            {{ $auditoria->responsable }}
-                        </x-utils.tables.body>
-                        <x-utils.tables.body>
-                            <x-utils.badge
-                                class="font-bold {{ $auditoria->es_auditoria_interno ? 'bg-blue-100 text-blue-600' : 'bg-amber-100 text-amber-600' }}">
-                                {{ $auditoria->es_auditoria_interno ? 'Auditoria Interna' : 'Auditoria Externa' }}
-                            </x-utils.badge>
-                        </x-utils.tables.body>
-                        <x-utils.tables.body>
-                            {{ $auditoria->facultad->nombre }}
-                        </x-utils.tables.body>
-                        <x-utils.tables.body>
-                            @if($auditoria->documentos_count)
-                                <x-utils.buttons.invisible wire:click="abrirModal({{$auditoria->id}})">
-                                    {{ $auditoria->documentos_count . ' documentos' }}
-                                </x-utils.buttons.invisible>
-                            @else
-                                <p class="px-3 py-1">{{$auditoria->documentos_count. ' documentos'}}</p>
-                            @endif
-                        </x-utils.tables.body>
-                        <x-utils.tables.body>
-                            @if($auditoria->created_at->diffInDays(\Carbon\Carbon::now()) <= 3)
-                                {{ $auditoria->created_at->diffForHumans() }}
-                            @else
-                                {{ $auditoria->created_at->format('d-m-Y') }}
-                            @endif
-                        </x-utils.tables.body>
-                    </x-utils.tables.row>
-                @endforeach
-            @endslot
-        </x-utils.tables.table>
+        <div class="py-4">
+            <x-utils.tables.table>
+                @slot('head')
+                    <x-utils.tables.head>N°</x-utils.tables.head>
+                    <x-utils.tables.head>Responsable</x-utils.tables.head>
+                    <x-utils.tables.head>Tipo de Auditoria</x-utils.tables.head>
+                    <x-utils.tables.head>Facultad</x-utils.tables.head>
+                    <x-utils.tables.head>N° Documentos</x-utils.tables.head>
+                    <x-utils.tables.head>Fecha de Auditoria</x-utils.tables.head>
+                @endslot
+                @slot('body')
+                    @foreach($auditorias as $i=>$auditoria)
+                        <x-utils.tables.row>
+                            <x-utils.tables.body class="font-semibold">
+                                {{ ($i+1)}}
+                            </x-utils.tables.body>
+                            <x-utils.tables.body class="font-semibold">
+                                {{ $auditoria->responsable }}
+                            </x-utils.tables.body>
+                            <x-utils.tables.body>
+                                <x-utils.badge
+                                    class="font-bold {{ $auditoria->es_auditoria_interno ? 'bg-blue-100 text-blue-600' : 'bg-amber-100 text-amber-600' }}">
+                                    {{ $auditoria->es_auditoria_interno ? 'Auditoria Interna' : 'Auditoria Externa' }}
+                                </x-utils.badge>
+                            </x-utils.tables.body>
+                            <x-utils.tables.body>
+                                {{ $auditoria->facultad->nombre }}
+                            </x-utils.tables.body>
+                            <x-utils.tables.body>
+                                @if($auditoria->documentos_count)
+                                    <x-utils.buttons.invisible wire:click="abrirModal({{$auditoria->id}})">
+                                        {{ $auditoria->documentos_count . ' documentos' }}
+                                    </x-utils.buttons.invisible>
+                                @else
+                                    <p class="px-3 py-1">{{$auditoria->documentos_count. ' documentos'}}</p>
+                                @endif
+                            </x-utils.tables.body>
+                            <x-utils.tables.body>
+                                @if($auditoria->created_at->diffInDays(\Carbon\Carbon::now()) <= 3)
+                                    {{ $auditoria->created_at->diffForHumans() }}
+                                @else
+                                    {{ $auditoria->created_at->format('d-m-Y') }}
+                                @endif
+                            </x-utils.tables.body>
+                        </x-utils.tables.row>
+                    @endforeach
+                @endslot
+            </x-utils.tables.table>
+        </div>
     @else
-        <div class="border border-gray-300 rounded-md">
+        <div class="w-full border border-gray-300 rounded-md">
             <x-utils.message-no-items
                 title="Aún no se ha registrado ninguna Auditoria"
                 text="Aquí podrá encontrar todas los informes de Auditoria que hayan registrado.">
