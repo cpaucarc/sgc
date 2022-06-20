@@ -10,8 +10,10 @@
                   focus:outline-none
                   cursor-pointer file:cursor-pointer
                   border border-dashed
+                  focus:border-solid
                   border-indigo-300
                   rounded-lg
+                  soft-transition
                   px-2 py-1'
     ])}}
 />
