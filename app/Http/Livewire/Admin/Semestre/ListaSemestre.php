@@ -9,7 +9,7 @@ class ListaSemestre extends Component
 {
     public $search = "";
 
-    public $listeners = ['render'];
+    public $listeners = ['render', 'activarSemestre'];
 
     public function render()
     {
@@ -18,6 +18,13 @@ class ListaSemestre extends Component
             ->orderBy('nombre', 'desc')
             ->get();
         return view('livewire.admin.semestre.lista-semestre', compact('semestres'));
+    }
+
+    public function activarSemestre($semestre_id)
+    {
+        Semestre::where('id', '<>', $semestre_id)->update(['activo' => false]);
+        Semestre::where('id', '=', $semestre_id)->update(['activo' => true]);
+        $this->emitTo('admin.semestre.ultimo-semestre', 'render');
     }
 
 }

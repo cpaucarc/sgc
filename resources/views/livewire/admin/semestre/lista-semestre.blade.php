@@ -9,13 +9,26 @@
                 <x-utils.tables.head>Nombre</x-utils.tables.head>
                 <x-utils.tables.head>Fecha Incio</x-utils.tables.head>
                 <x-utils.tables.head>Fecha Fin</x-utils.tables.head>
+                <x-utils.tables.head><span class="sr-only">Activo</span></x-utils.tables.head>
             @endslot
             @slot('body')
                 @foreach($semestres as $semestre)
                     <x-utils.tables.row>
                         <x-utils.tables.body class="font-bold">{{$semestre->nombre}}</x-utils.tables.body>
-                        <x-utils.tables.body>{{$semestre->fecha_inicio->format('d/m/Y')}}</x-utils.tables.body>
-                        <x-utils.tables.body>{{$semestre->fecha_fin->format('d/m/Y')}}</x-utils.tables.body>
+                        <x-utils.tables.body>{{$semestre->fecha_inicio->format('d-m-Y')}}</x-utils.tables.body>
+                        <x-utils.tables.body>{{$semestre->fecha_fin->format('d-m-Y')}}</x-utils.tables.body>
+                        <x-utils.tables.body>
+                            @if($semestre->activo)
+                                <x-utils.badge class="bg-lime-200 text-lime-800 font-bold">
+                                    Activo
+                                </x-utils.badge>
+                            @else
+                                <button onclick="activarSemestre({{ $semestre->id }}, '{{ $semestre->nombre }}')"
+                                        class="px-2 py-1 bg-white text-white rounded-md group-hover:bg-indigo-500 soft-transition">
+                                    Asignar como activo
+                                </button>
+                            @endif
+                        </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach
             @endslot
@@ -35,5 +48,16 @@
             </x-utils.message-no-items>
         </div>
     @endif
+
+    @push('js')
+        <script>
+            function activarSemestre(semestre_id, semestre_nombre) {
+                let res = confirm(`¿Desea asignar como activo al semestre ${semestre_nombre}?`)
+                if (res) {
+                    window.livewire.emit('activarSemestre', semestre_id);
+                }
+            }
+        </script>
+    @endpush
 
 </div>
