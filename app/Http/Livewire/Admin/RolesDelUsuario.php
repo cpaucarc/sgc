@@ -15,7 +15,7 @@ class RolesDelUsuario extends Component
     public $roles = null, $roles_selected = [];
     public $entidades = null, $entidades_selected = [];
 
-    public $listeners = ['eliminarRol'];
+    public $listeners = ['eliminarRol', 'eliminarEntidad'];
 
     protected $rules = [
         'roles_selected' => 'required|array|min:1',
@@ -30,7 +30,7 @@ class RolesDelUsuario extends Component
     {
         $this->usuario = User::query()
             ->select('id')
-            ->with('entidades', 'entidades.rol')
+            ->with('entidades', 'entidades.rol', 'roles')
             ->where('uuid', $this->uuid)->first();
         $this->roles_actuales = $this->usuario->entidades->pluck('role_id');
 
@@ -67,27 +67,37 @@ class RolesDelUsuario extends Component
         $this->reset(['roles_selected', 'entidades_selected', 'open']);
     }
 
-    public function eliminarRol($entidad_id, $entidad_nombre, $rol_id, $rol_nombre)
+    public function eliminarRol($rol_nombre, $rol_id)
     {
         try {
-            $entidad = Entidad::query()->where('id', $entidad_id)->first();
+            // Quitar las entidades que pertenecen al rol y estan asociados al usuario
+            $entidades_id = Entidad::query()
+                ->where('role_id', $rol_id)
+                ->whereIn('id', function ($query) {
+                    $query->select('entidad_id')->from('entidad_user')
+                        ->where('user_id', $this->usuario->id);
+                })->pluck('id');
+            $this->usuario->entidades()->detach($entidades_id);
+
+            // Quitar el rol al usuario
+            $this->usuario->removeRole($rol_nombre);
+
+            $this->emit('guardado', "El rol '" . $rol_nombre . "' y cualquier entidad asociada a este fue quitado con éxito.");
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado \n " . $e);
+        }
+    }
+
+    public function eliminarEntidad($entidad_id, $entidad_nombre, $rol_nombre)
+    {
+        try {
+            // Quitar la entidad seleccionada al usuario
             $this->usuario->entidades()->detach($entidad_id);
-            $entidad->delete();
-            $mensaje = "La entidad llamada '" . $entidad_nombre . "' ";
 
-            $entidades = DB::table('entidad_user')
-                ->where('user_id', $this->usuario->id)
-                ->whereIn('entidad_id', function ($query) use ($rol_id) {
-                    $query->select('id')->from('entidades')->where('role_id', $rol_id);
-                })
-                ->count();
+            // Quitar el rol al usuario
+            $this->usuario->removeRole($rol_nombre);
 
-            if ($entidades === 0) {
-                $this->usuario->removeRole($rol_nombre);
-                $mensaje .= "y el rol '" . $rol_nombre . "'";
-            }
-
-            $this->emit('guardado', $mensaje . " fue quitada con éxito.");
+            $this->emit('guardado', "La entidad '" . $entidad_nombre . "' y cualquier entidad asociada a este fue quitado con éxito.");
         } catch (\Exception $e) {
             $this->emit('error', "Hubo un error inesperado \n " . $e);
         }
