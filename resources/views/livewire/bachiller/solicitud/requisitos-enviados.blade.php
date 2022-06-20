@@ -22,12 +22,12 @@
                                 {{ $documentos->requisito->nombre}}
                             </x-utils.links.basic>
                         </x-utils.tables.body>
-                        <x-utils.tables.body>
-                            {{ $documentos->documento->updated_at->format('d M Y')}}
+                        <x-utils.tables.body class="whitespace-nowrap">
+                            {{ $documentos->documento->updated_at->format('d-m-Y h:i a')}}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             <buttons
-                                class="inline-flex items-center text-{{ $documentos->estado->color  }}-700 border border-{{ $documentos->estado->color  }}-200 bg-{{ $documentos->estado->color  }}-100 rounded-lg text-sm px-3 py-1">
+                                class="inline-flex items-center text-{{ $documentos->estado->color  }}-700 border border-{{ $documentos->estado->color  }}-200 bg-{{ $documentos->estado->color  }}-100 rounded-lg text-sm px-3 py-1 whitespace-nowrap">
                                 {{ $documentos->estado->nombre }}
                             </buttons>
                         </x-utils.tables.body>
@@ -35,10 +35,6 @@
                             @if($documentos->estado->nombre ==="Denegado")
                                 <x-utils.buttons.warning
                                     wire:click="seleccionar('true',{{$documentos->requisito->id}})">
-                                    <x-icons.edit class="h-4 w-4 mr-1"></x-icons.edit>
-                                </x-utils.buttons.warning>
-                            @else
-                                <x-utils.buttons.warning class="cursor-wait">
                                     <x-icons.edit class="h-4 w-4 mr-1"></x-icons.edit>
                                 </x-utils.buttons.warning>
                             @endif
