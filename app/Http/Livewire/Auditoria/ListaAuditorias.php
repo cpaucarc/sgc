@@ -13,6 +13,7 @@ class ListaAuditorias extends Component
     public $open = false;
     public $auditoria_seleccionado = null;
     public $documentos = null;
+    public $auditoria = -1;
 
     public function render()
     {
@@ -29,6 +30,10 @@ class ListaAuditorias extends Component
             ->whereIn('facultad_id', $facultad_id)
             ->with('facultad:id,nombre')
             ->get();
+
+        if ($this->auditoria > -1) {
+            $auditorias = $auditorias->where('es_auditoria_interno', $this->auditoria);
+        }
 
         return view('livewire.auditoria.lista-auditorias', compact('auditorias'));
     }
