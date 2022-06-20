@@ -37,10 +37,6 @@
                                     wire:click="seleccionar('true',{{$documentos->requisito->id}})">
                                     <x-icons.edit class="h-4 w-4 mr-1"></x-icons.edit>
                                 </x-utils.buttons.warning>
-                            @else
-                                <x-utils.buttons.warning class="cursor-wait">
-                                    <x-icons.edit class="h-4 w-4 mr-1"></x-icons.edit>
-                                </x-utils.buttons.warning>
                             @endif
                         </x-utils.tables.body>
                     </x-utils.tables.row>
