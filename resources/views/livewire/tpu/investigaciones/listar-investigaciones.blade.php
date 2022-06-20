@@ -3,7 +3,7 @@
         <x-utils.forms.search-input wire:model.debounce.500ms="search"/>
         @if(!is_null($escuelas))
             <x-utils.forms.select wire:model="escuela_seleccionado">
-                <option value="0">Todos</option>
+                <option value="0">Todos los programas</option>
                 @foreach($escuelas as $esc)
                     <option value="{{$esc->id}}">{{$esc->nombre}}</option>
                 @endforeach
