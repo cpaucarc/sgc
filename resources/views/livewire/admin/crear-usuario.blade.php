@@ -30,11 +30,6 @@
                         </x-utils.buttons.default>
                     </div>
                     <x-jet-input-error for="dni"/>
-                    <label
-                        class="text-sm text-gray-600 font-semibold inline-flex items-center cursor-pointer my-1">
-                        <x-utils.forms.checkbox wire:model="en_docente"/>
-                        Buscar como docentes/administrativo
-                    </label>
                     @if($mensaje)
                         <x-utils.alert.error-box>{{ $mensaje }}</x-utils.alert.error-box>
                     @endif
@@ -50,7 +45,7 @@
                     <x-jet-input-error for="correo"/>
                 </div>
                 <div class="w-full">
-                    <x-jet-label for="contrasena" value="Contraseña del Usuario"/>
+                    <x-jet-label for="contrasena" value="Contraseña del Usuario (por defecto es el DNI)"/>
                     <x-jet-input id="contrasena" autocomplete="off" class="w-full" type="password"
                                  wire:model.defer="contrasena"/>
                     <x-jet-input-error for="contrasena"/>

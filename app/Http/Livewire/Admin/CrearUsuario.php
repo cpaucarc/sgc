@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Oge;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
@@ -12,7 +13,6 @@ class CrearUsuario extends Component
 {
     public $open = false;
     public $nombres = "", $dni = "", $correo = "", $contrasena = "";
-    public $en_docente = true;
     public $mensaje = null;
 
     protected $rules = [
@@ -53,13 +53,7 @@ class CrearUsuario extends Component
     public function buscar()
     {
         if (strlen($this->dni) === 8) {
-            $url = $this->en_docente ? 'proceso_docente/01?codigo=' . $this->dni
-                : 'ensenianza_aprendizaje/01?codigo=' . $this->dni;
-
-            $response = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . $url);
-            $response = $response->json();
-
+            $response = Oge::datos($this->dni);
             $this->asignarDatos($response);
         } else {
             $this->mensaje = "El DNI deberia tener 8 digitos, solo hay " . strlen($this->dni);
@@ -68,16 +62,28 @@ class CrearUsuario extends Component
 
     public function asignarDatos($datos)
     {
-        if (isset($datos['dni'])) {
+        if (!is_null($datos) && isset($datos['dni'])) {
             $this->mensaje = null;
             $this->nombres = ucwords(strtolower($datos['nombre_completo']));
-            $this->correo = strtolower($datos['correo_institucional']);
+            $this->correo = isset($datos['correo_institucional']) ? $this->crearCorreo($datos) : strtolower($datos['correo_institucional']);
             $this->contrasena = $this->dni;
         } else {
-            $this->mensaje = "No hay registros que coincidan con el DNI " . $this->dni
-                . "\nabc";
+            $this->mensaje = "No hay registros que coincidan con el DNI " . $this->dni;
             $this->reset('nombres', 'dni', 'correo', 'contrasena');
         }
+    }
+
+    public function crearCorreo($datos)
+    {
+        if (is_null($datos)) {
+            return "corre_aleatorio" . rand(1, 99999) . '@mail.com';
+        }
+
+        $apellido_paterno = strtolower($datos['apellido_paterno']);
+        $apellido_materno = strtolower(substr($datos['apellido_materno'], 0, 1));
+        $nombres = strtolower(substr($datos['nombres'], 0, 1));
+
+        return $nombres . $apellido_paterno . $apellido_materno . '@unasam.edu.pe';
     }
 
 }
