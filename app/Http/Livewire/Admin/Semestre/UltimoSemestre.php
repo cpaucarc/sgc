@@ -11,9 +11,7 @@ class UltimoSemestre extends Component
 
     public function render()
     {
-        $semestre = Semestre::query()
-            ->orderBy('nombre', 'desc')
-            ->first();
+        $semestre = Semestre::query()->where('activo', true)->first();
         return view('livewire.admin.semestre.ultimo-semestre', compact('semestre'));
     }
 }
