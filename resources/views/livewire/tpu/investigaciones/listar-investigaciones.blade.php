@@ -39,7 +39,7 @@
         </x-utils.tables.table>
 
         <div class="mt-4">
-            {{ $investigaciones->links() }}
+            {{ $investigaciones->onEachSide(1)->links() }}
         </div>
     @else
         <div class="border border-gray-300 rounded-md">
