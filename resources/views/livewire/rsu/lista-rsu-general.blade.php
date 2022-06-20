@@ -1,27 +1,28 @@
 <div class="space-y-4">
+    <x-utils.card>
+        <div class="flex justify-between items-center space-x-2">
+            <h1 class="pr-4 flex-1 text-xl font-bold text-gray-700">
+                Responsabilidad Social Universitario
+            </h1>
 
-    <div class="flex justify-between items-center space-x-2">
-        <h1 class="pr-4 flex-1 text-xl font-bold text-gray-700">
-            Responsabilidad Social Universitario
-        </h1>
+            <div class="inline-flex space-x-2 items-center">
+                <x-utils.forms.select class="w-24" wire:model="semestre_seleccionado">
+                    @forelse($semestres as $semestre)
+                        <option value="{{ $semestre->id }}">{{$semestre->nombre}}</option>
+                    @empty
+                        <option value="0">No hay datos</option>
+                    @endforelse
+                </x-utils.forms.select>
 
-        <div class="inline-flex space-x-2 items-center">
-            <x-utils.forms.select class="w-24" wire:model="semestre_seleccionado">
-                @forelse($semestres as $semestre)
-                    <option value="{{ $semestre->id }}">{{$semestre->nombre}}</option>
-                @empty
-                    <option value="0">No hay datos</option>
-                @endforelse
-            </x-utils.forms.select>
-
-            @if(count($rsu) > 0)
-                <x-utils.links.primary class="text-sm" href="{{ route('rsu.create') }}">
-                    <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
-                    Nuevo
-                </x-utils.links.primary>
-            @endif
+                @if(count($rsu) > 0)
+                    <x-utils.links.primary class="text-sm" href="{{ route('rsu.create') }}">
+                        <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
+                        Nuevo
+                    </x-utils.links.primary>
+                @endif
+            </div>
         </div>
-    </div>
+    </x-utils.card>
 
     @if(count($rsu) > 0)
         <x-utils.tables.table>
@@ -89,6 +90,10 @@
                 @endforeach
             @endslot
         </x-utils.tables.table>
+
+        <div class="mt-4">
+            {{ $rsu->onEachSide(1)->links() }}
+        </div>
     @else
         <div class="border border-gray-300 rounded-md">
             <x-utils.message-no-items

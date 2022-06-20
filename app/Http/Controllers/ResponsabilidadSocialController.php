@@ -40,4 +40,16 @@ class ResponsabilidadSocialController extends Controller
     {
         // RSU por usuario
     }
+
+    public function business()
+    {
+        //Todos los RSU
+        return view('rsu.business');
+    }
+
+    public function createBusiness()
+    {
+        //Todos los RSU
+        return view('rsu.create-business');
+    }
 }
