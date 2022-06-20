@@ -3,7 +3,7 @@
         <x-utils.forms.search-input wire:model.debounce.500ms="search"/>
         @if(!is_null($escuelas))
             <x-utils.forms.select wire:model="escuela_seleccionado">
-                <option value="0">Todos</option>
+                <option value="0">Todos los programas</option>
                 @foreach($escuelas as $esc)
                     <option value="{{$esc->id}}">{{$esc->nombre}}</option>
                 @endforeach
@@ -35,7 +35,7 @@
                             {{ $bachiller->escuela->nombre }}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            {{ $bachiller->created_at->format('h:i d-m-Y') }}
+                            {{ $bachiller->created_at->format('d-m-Y h:i a') }}
                         </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach
@@ -43,7 +43,7 @@
         </x-utils.tables.table>
 
         <div class="mt-4">
-            {{ $bachilleres->links() }}
+            {{ $bachilleres->onEachSide(1)->links() }}
         </div>
     @else
         <div class="border border-gray-300 rounded-md">

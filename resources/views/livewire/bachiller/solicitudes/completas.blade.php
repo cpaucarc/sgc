@@ -50,14 +50,14 @@
                     <h3 class="text-gray-800 text-base font-bold">
                         Lista de requisitos presentados
                     </h3>
-                    <div class="flex flex-col items-end w-48 space-y-2">
+                    <div class="flex flex-col items-end w-52 space-y-2">
                         <buttons
                             class="cursor-wait inline-flex items-center text-{{ $solicitudSeleccionado->estado->color }}-700 border border-{{ $solicitudSeleccionado->estado->color }}-200 bg-{{ $solicitudSeleccionado->estado->color }}-100 rounded-lg text-sm px-3 py-1">
                             <x-icons.info :stroke="2" class="h-5 w-5 mr-1"/>
                             {{ $solicitudSeleccionado->estado->nombre }}
                         </buttons>
                         <span
-                            class="text-xs">Actualizado el {{ date('h:m a d M', strtotime($solicitudSeleccionado->updated_at)) }}</span>
+                            class="text-xs">Actualizado el {{ date('d-m-Y h:i a', strtotime($solicitudSeleccionado->updated_at)) }}</span>
                     </div>
                 </div>
 
@@ -74,12 +74,12 @@
                                         {{ $doc->requisito->nombre }}
                                     </a>
                                 </x-utils.tables.body>
-                                <x-utils.tables.body class="text-xs">
-                                    {{ $doc->documento->updated_at->format('d M Y')}}
+                                <x-utils.tables.body class="text-xs whitespace-nowrap">
+                                    {{ $doc->documento->updated_at->format('d-m-Y h:i a')}}
                                 </x-utils.tables.body>
                                 <x-utils.tables.body>
                                     <buttons
-                                        class="inline-flex items-center text-{{ $doc->estado->color }}-700 border border-{{ $doc->estado->color }}-200 bg-{{ $doc->estado->color }}-100 rounded-lg text-xs px-3 py-1">
+                                        class="inline-flex items-center text-{{ $doc->estado->color }}-700 border border-{{ $doc->estado->color }}-200 bg-{{ $doc->estado->color }}-100 rounded-lg text-xs px-3 py-1 whitespace-nowrap">
                                         {{ $doc->estado->nombre }}
                                     </buttons>
                                 </x-utils.tables.body>

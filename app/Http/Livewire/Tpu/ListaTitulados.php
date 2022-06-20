@@ -38,7 +38,8 @@ class ListaTitulados extends Component
         $callback = GradoEstudiante::query()
             ->with('escuela')
             ->where('grado_academico_id', 4)//4: Titulado
-            ->where('dni_estudiante', 'like', '%' . $this->search . '%');
+            ->where('dni_estudiante', 'like', '%' . $this->search . '%')
+            ->orderBy('created_at', 'desc');
 
         //Si la escuela seleccionada es mayor que cero.
         if ($this->escuela_seleccionado > 0) {
