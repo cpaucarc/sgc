@@ -4,18 +4,18 @@
             <div class="text-right">
                 <p class="text-gray-500">Solicitudes con </p>
                 <h1 class="font-bold text-2xl text-gray-700">
-                    requisitos incompletos
+                    Requisitos Incompletos
                 </h1>
                 <div class="flex justify-end mt-4">
                     <p class="bg-amber-200 text-amber-800 font-bold text-sm px-3 py-1 rounded-lg">
-                        {{$solicitudesIncompletas->count()}} solicitudes
+                        {{ $cant_solicitudes_incompletas }} solicitudes
                     </p>
                 </div>
             </div>
         </div>
 
         <div class="col-span-4 space-y-6">
-            <livewire:tpu.solicitudes.incompletas :solicitudesIncompletas="$solicitudesIncompletas"/>
+            <livewire:tpu.solicitudes.incompletas :escuelas_id="$escuelas_id"/>
         </div>
     </div>
 </x-app-layout>

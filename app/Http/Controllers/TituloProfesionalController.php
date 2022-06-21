@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Lib\UsuarioHelper;
 use App\Models\Entidad;
 use App\Models\Escuela;
 use App\Models\Facultad;
@@ -131,50 +132,25 @@ class TituloProfesionalController extends Controller
 
     public function incompletas()
     {
-        $alumnos = Entidad::query()->where('role_id', 9)->pluck('id')->toArray();
-        $entidades = Auth::user()->entidades->pluck('id')->toArray();
-
-        //Si es un alumno, lo redirrecionamos
-        if (!empty(array_intersect($alumnos, $entidades))) {
+        if (Auth::user()->hasRole('Estudiante')) {
             return redirect()->route('tpu.request');
         }
 
-        //Toma los ids de la facultad que pertence el usuario. Retorna en un array.
-        $facultades_id = User::facultades_id(Auth::user()->id);
-        $escuelas_id = User::escuelas_id(Auth::user()->id);
-
-        $callback_socicitud = Solicitud::query()
-            ->where('tipo_solicitud_id', 3)// 3 : Título
-            ->withCount('documentos')
-            ->having('documentos_count', '>', 0);
-
-        if (count($escuelas_id) > 0) {
-            $this->escuela = Escuela::query()->whereIn('id', $escuelas_id)->first();
-            $this->facultad = Facultad::query()->whereIn('id', function ($query) {
-                $query->select('facultad_id')->from('escuelas')
-                    ->where('id', $this->escuela->id);
-            })->first();
-
-            $solicitudes = $callback_socicitud->where('escuela_id', $this->escuela->id)->get();
-
-        } elseif (count($facultades_id) > 0) {
-            $this->facultad = Facultad::query()->whereIn('id', $facultades_id)->first();
-
-            $solicitudes = $callback_socicitud->whereIn('escuela_id', function ($query) {
-                $query->select('id')->from('escuelas')
-                    ->where('facultad_id', $this->facultad->id);
-            })->get();
-
-        } else {
-//            abort(403, 'No tienes los permisos para estar en esta página');
+        if (!Auth::user()->hasAnyRole(['Dirección de Escuela', 'Departamento Academico', 'Decanatura'])) {
             return redirect()->route('dashboard');
         }
 
-        $solicitudesIncompletas = $solicitudes->filter(function ($item) {
-            return $item->documentos_count < 8; // 8 : Requisitos de titulo profesional
-        });
+        $escuelas_id = UsuarioHelper::escuelasDelUsuario()->pluck('id');
 
-        return view('tpu.solicitudes.incompletas', compact('solicitudesIncompletas'));
+        $cant_solicitudes_incompletas = Solicitud::query()
+            ->withCount('documentos')
+            ->where('tipo_solicitud_id', 3)// 3 : Título
+            ->whereIn('escuela_id', $escuelas_id)
+            ->having('documentos_count', '>', 0)
+            ->having('documentos_count', '<', 8) // 8 : Requisitos de titulo profesional
+            ->count();
+
+        return view('tpu.solicitudes.incompletas', compact('cant_solicitudes_incompletas', 'escuelas_id'));
     }
 
     public function completas()
