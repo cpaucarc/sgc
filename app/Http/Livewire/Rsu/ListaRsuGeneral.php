@@ -10,9 +10,12 @@ use App\Models\Semestre;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ListaRsuGeneral extends Component
 {
+    use WithPagination;
+
     public $semestres = null;
     public $semestre_seleccionado;
 
@@ -41,7 +44,7 @@ class ListaRsuGeneral extends Component
             ->pluck('entidadable_id');
 
         $rsu = ResponsabilidadSocial::query()
-            ->select('id', 'uuid', 'titulo', 'lugar', 'fecha_inicio', 'fecha_fin','escuela_id', 'empresa_id')
+            ->select('id', 'uuid', 'titulo', 'lugar', 'fecha_inicio', 'fecha_fin', 'escuela_id', 'empresa_id')
             ->with('escuela:id,nombre', 'empresa:id,nombre,ruc');
 
         if (count($entidad_facultad)) { // El usuario pertenece a alguna facultad
@@ -52,7 +55,7 @@ class ListaRsuGeneral extends Component
             $rsu = $rsu->whereIn('escuela_id', $entidad_escuela);
         }
         $rsu = $rsu->where('semestre_id', $this->semestre_seleccionado);
-        $rsu = $rsu->get();
+        $rsu = $rsu->paginate(10);
 
         return view('livewire.rsu.lista-rsu-general', compact('rsu'));
     }
