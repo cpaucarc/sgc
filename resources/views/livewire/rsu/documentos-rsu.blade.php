@@ -35,7 +35,7 @@
                             {{ App\Models\User::getUserNameByID($documento_enviado->documento->user_id)  }}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            {{ $documento_enviado->documento->created_at->format('d/m/Y h:m a') }}
+                            {{ $documento_enviado->documento->created_at->format('d-m-Y h:m a') }}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             @if($documento_enviado->documento->user_id === auth()->user()->id )
@@ -98,7 +98,6 @@
                 {{ __('Enviar Archivo') }}
             </x-jet-button>
         </x-slot>
-
     </x-jet-dialog-modal>
 
     @push('js')
