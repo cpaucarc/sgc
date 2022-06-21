@@ -16,7 +16,7 @@ class InvestigacionController extends Controller
     public function show($uuid)
     {
         $investigacion = Investigacion::query()
-            ->with('escuela', 'estado', 'sublinea')
+            ->with('escuela', 'estado', 'sublinea', 'semestre')
             ->where('uuid', $uuid)->first();
 
         return view('investigacion.show', compact('investigacion'));
