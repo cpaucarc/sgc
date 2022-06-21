@@ -2,18 +2,27 @@
     <div class="grid grid-cols-6 gap-12">
         @forelse( $solicitudesIncompletas as $solicitud)
             <div
-                class="col-span-3 group bg-white border border-stone-200 px-3 py-3 rounded-md transition hover:shadow-md flex items-center justify-between border">
+                class="col-span-3 group bg-white border border-stone-200 p-3 rounded-md soft-transition hover:shadow-md flex items-start justify-between">
                 <div>
                     <x-utils.links.basic wire:click="mostrarDatos('{{ $solicitud->dni_estudiante }}')"
-                                         class="cursor-pointer">
-                        {{$solicitud->dni_estudiante}}
+                                         class="cursor-pointer" title="Ver datos completos">
+                        DNI {{$solicitud->dni_estudiante}}
                     </x-utils.links.basic>
-                    <h3 class="text-gray-400 group-hover:text-gray-500 text-sm">
+                    <h3 class="text-gray-600 text-sm mb-1">
+                        {{ $solicitud->escuela->nombre }}
+                    </h3>
+                    <h3 class="text-gray-500 group-hover:text-gray-600 text-sm">
                         {{ $solicitud->documentos_count }} de 15 requisitos enviados
                     </h3>
+                    <h4 class="whitespace-nowrap text-gray-400 text-sm mt-2">
+                        @if($solicitud->updated_at->diffInDays(\Carbon\Carbon::now()) <= 7)
+                            Última actualización {{ $solicitud->updated_at->diffForHumans() }}
+                        @else
+                            Última actualización {{ $solicitud->updated_at->format('d-m-Y h:i a') }}
+                        @endif
+                    </h4>
                 </div>
-                <x-utils.buttons.default
-                    wire:click="modalRequisitos({{ $solicitud->id }})">
+                <x-utils.buttons.default class="text-sm" wire:click="modalRequisitos({{ $solicitud->id }})">
                     Revisar
                 </x-utils.buttons.default>
             </div>
@@ -47,18 +56,19 @@
                 </div>
             @endslot
             @slot('content')
-                <div class="w-full flex items-center justify-between mb-4">
+                <div class="w-full flex items-end justify-between mb-3">
                     <h3 class="text-gray-800 text-base font-bold">
                         Lista de requisitos presentados
                     </h3>
                     <div class="flex flex-col items-end w-52 space-y-2">
                         <buttons
-                            class="cursor-wait inline-flex items-center text-{{ $solicitudSeleccionado->estado->color }}-700 border border-{{ $solicitudSeleccionado->estado->color }}-200 bg-{{ $solicitudSeleccionado->estado->color }}-100 rounded-lg text-sm px-3 py-1">
-                            <x-icons.info :stroke="2" class="h-5 w-5 mr-1"/>
+                            class="inline-flex items-center text-{{ $solicitudSeleccionado->estado->color }}-700 bg-{{ $solicitudSeleccionado->estado->color }}-100 rounded-md text-sm font-semibold px-3 py-1">
+                            <x-icons.info :stroke="2" class="icon-5 mr-1"/>
                             {{ $solicitudSeleccionado->estado->nombre }}
                         </buttons>
-                        <span
-                            class="text-xs">Actualizado el {{ date('d-m-Y h:i a', strtotime($solicitudSeleccionado->updated_at)) }}</span>
+                        <span class="text-xs">
+                            Actualizado el {{ $solicitudSeleccionado->updated_at->format('d-m-Y h:i a') }}
+                        </span>
                     </div>
                 </div>
 
@@ -66,32 +76,34 @@
                     @slot('body')
                         @foreach($solicitudSeleccionado->documentos as $i => $doc)
                             <x-utils.tables.row>
-                                <x-utils.tables.body class="text-xs">
+                                <x-utils.tables.body>
                                     {{ ($i+1) }}
                                 </x-utils.tables.body>
-                                <x-utils.tables.body class="text-xs">
+                                <x-utils.tables.body>
                                     <a target="_blank" href="{{ route('archivos', $doc->documento->enlace_interno) }}"
-                                       class="hover:text-sky-600 hover:underline font-bold">
+                                       class="hover:text-sky-600 hover:underline font-bold line-clamp-1">
                                         {{ $doc->requisito->nombre }}
                                     </a>
                                 </x-utils.tables.body>
-                                <x-utils.tables.body class="text-xs whitespace-nowrap">
+                                <x-utils.tables.body class="whitespace-nowrap">
                                     {{ $doc->documento->updated_at->format('d-m-Y h:i a')}}
                                 </x-utils.tables.body>
                                 <x-utils.tables.body>
                                     <buttons
-                                        class="inline-flex items-center text-{{ $doc->estado->color }}-700 border border-{{ $doc->estado->color }}-200 bg-{{ $doc->estado->color }}-100 rounded-lg text-xs px-3 py-1 whitespace-nowrap">
+                                        class="inline-flex items-center text-{{ $doc->estado->color }}-700 bg-{{ $doc->estado->color }}-100 rounded-md px-3 py-1 whitespace-nowrap">
                                         {{ $doc->estado->nombre }}
                                     </buttons>
                                 </x-utils.tables.body>
                                 <x-utils.tables.body>
                                     <div
                                         class="flex items-center justify-end w-full gap-2 whitespace-nowrap">
-                                        <x-utils.buttons.danger wire:click="denegarDocumentoRequisito({{$doc->id}})">
-                                            <x-icons.x class="h-4 w-4 mr-1"></x-icons.x>
+                                        <x-utils.buttons.danger title="Denegar requisito"
+                                                                wire:click="denegarDocumentoRequisito({{$doc->id}})">
+                                            <x-icons.x class="icon-4 mr-1"/>
                                         </x-utils.buttons.danger>
-                                        <x-utils.buttons.success wire:click="aprobarDocumentoRequisito({{$doc->id}})">
-                                            <x-icons.check class="h-4 w-4 mr-1"></x-icons.check>
+                                        <x-utils.buttons.success title="Aprobar requisito"
+                                                                 wire:click="aprobarDocumentoRequisito({{$doc->id}})">
+                                            <x-icons.check class="icon-4 mr-1"/>
                                         </x-utils.buttons.success>
                                     </div>
                                 </x-utils.tables.body>
