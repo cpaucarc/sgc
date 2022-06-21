@@ -2,12 +2,9 @@
 
 namespace App\Http\Livewire\Rsu;
 
-use App\Models\Entidad;
 use App\Models\Entidadable;
-use App\Models\Oficina;
 use App\Models\ResponsabilidadSocial;
 use App\Models\Semestre;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -18,6 +15,7 @@ class ListaRsuGeneral extends Component
 
     public $semestres = null;
     public $semestre_seleccionado;
+    public $search = "", $estado = 0;
 
     public function mount()
     {
@@ -45,7 +43,12 @@ class ListaRsuGeneral extends Component
 
         $rsu = ResponsabilidadSocial::query()
             ->select('id', 'uuid', 'titulo', 'lugar', 'fecha_inicio', 'fecha_fin', 'escuela_id', 'empresa_id')
-            ->with('escuela:id,nombre', 'empresa:id,nombre,ruc');
+            ->with('escuela:id,nombre', 'empresa:id,nombre,ruc')
+            ->where(function ($query) {
+                $query->where('titulo', 'like', '%' . $this->search . '%')
+                    ->orWhere('lugar', 'like', '%' . $this->search . '%');
+            })
+            ->where('semestre_id', $this->semestre_seleccionado);
 
         if (count($entidad_facultad)) { // El usuario pertenece a alguna facultad
             $rsu = $rsu->whereIn('escuela_id', function ($query) use ($entidad_facultad) {
@@ -54,8 +57,17 @@ class ListaRsuGeneral extends Component
         } else { // El usuario NO pertenece a ninguna facultad
             $rsu = $rsu->whereIn('escuela_id', $entidad_escuela);
         }
-        $rsu = $rsu->where('semestre_id', $this->semestre_seleccionado);
-        $rsu = $rsu->paginate(10);
+
+        if (intval($this->estado) === 1) // Sin iniciar
+            $rsu = $rsu->where('fecha_inicio', '>', now());
+
+        if (intval($this->estado) === 2) // En progreso
+            $rsu = $rsu->where('fecha_inicio', '<=', now())->where('fecha_fin', '>=', now());
+
+        if (intval($this->estado) === 3) // En progreso
+            $rsu = $rsu->where('fecha_fin', '<', now());
+
+        $rsu = $rsu->orderBy('created_at', 'desc')->paginate(10);
 
         return view('livewire.rsu.lista-rsu-general', compact('rsu'));
     }
