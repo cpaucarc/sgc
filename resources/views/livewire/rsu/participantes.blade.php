@@ -32,9 +32,13 @@
                             </x-utils.buttons.invisible>
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            <p class="{{ $participante->es_responsable ? 'font-bold':'' }}">
-                                {{ $participante->es_responsable ? 'Responsable':'Participante' }}
-                            </p>
+                            @if($es_responsable && $participante->dni_participante !== auth()->user()->dni)
+                                @livewire('rsu.cargo-participante',['participante'=>$participante],key($participante->id))
+                            @else
+                                <p class="{{ $participante->es_responsable ? 'font-bold':'' }} ml-2">
+                                    {{ $participante->es_responsable ? 'Responsable':'Participante' }}
+                                </p>
+                            @endif
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             {{ $participante->es_estudiante ? 'Estudiante':'Docente' }}
