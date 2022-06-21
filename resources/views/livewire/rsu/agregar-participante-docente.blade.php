@@ -11,23 +11,25 @@
 
             @slot('body')
                 @foreach($docentes as $doc)
-                    <x-utils.tables.row>
-                        <x-utils.tables.body>
-                            <x-utils.forms.checkbox wire:model="docentes_seleccionados"
-                                                    wire:loading.attr="disabled"
-                                                    value="{{ $doc['dni'] }}"/>
-                        </x-utils.tables.body>
-                        <x-utils.tables.body>{{ $doc['dni'] }}</x-utils.tables.body>
-                        <x-utils.tables.body>
-                            {{ ucwords(strtolower($doc['nombre_completo'])) }}
-                        </x-utils.tables.body>
-                        <x-utils.tables.body>
-                            {{ ucwords(strtolower($doc['condicion'])) }}
-                        </x-utils.tables.body>
-                        <x-utils.tables.body>
-                            {{ ucwords(strtolower($doc['departamento_academico'])) }}
-                        </x-utils.tables.body>
-                    </x-utils.tables.row>
+                    @if(strlen(trim($doc['dni'])))
+                        <x-utils.tables.row>
+                            <x-utils.tables.body>
+                                <x-utils.forms.checkbox wire:model="docentes_seleccionados"
+                                                        wire:loading.attr="disabled"
+                                                        value="{{ $doc['dni'] }}"/>
+                            </x-utils.tables.body>
+                            <x-utils.tables.body>{{ $doc['dni'] }}</x-utils.tables.body>
+                            <x-utils.tables.body>
+                                {{ ucwords(strtolower($doc['nombre_completo'])) }}
+                            </x-utils.tables.body>
+                            <x-utils.tables.body>
+                                {{ ucwords(strtolower($doc['condicion'])) }}
+                            </x-utils.tables.body>
+                            <x-utils.tables.body>
+                                {{ ucwords(strtolower($doc['departamento_academico'])) }}
+                            </x-utils.tables.body>
+                        </x-utils.tables.row>
+                    @endif
                 @endforeach
             @endslot
         </x-utils.tables.table>
