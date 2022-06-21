@@ -7,7 +7,7 @@
                     requisitos completos
                 </h1>
                 <div class="flex justify-end mt-4">
-                    <p class="bg-yellow-200 text-yellow-800 px-3 py-1 rounded-lg">
+                    <p class="bg-lime-200 text-lime-800 font-bold text-sm px-3 py-1 rounded-lg">
                         {{$solicitudesCompletas->count()}} solicitudes
                     </p>
                 </div>
