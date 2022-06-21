@@ -54,7 +54,7 @@ class ListaProcesos extends Component
             ->count();
 
         if ($dependientes > 0) {
-            $this->emit('error', 'No es posible eliminar este proceso porque tiene tablas  dependientes.');
+            $this->emit('error', 'No es posible eliminar este proceso porque está asociado a una activiad o un módulo.');
         } else {
             Proceso::find($id)->delete();
         }
