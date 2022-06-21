@@ -51,7 +51,7 @@ class ListaActividades extends Component
             ->count();
 
         if ($dependientes > 0) {
-            $this->emit('error', 'No es posible eliminar esta actividad porque tiene tablas  dependientes.');
+            $this->emit('error', 'No es posible eliminar esta actividad porque está asociado a las entradas y salidas.');
         } else {
             Actividad::find($id)->delete();
         }
