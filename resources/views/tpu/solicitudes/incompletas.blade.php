@@ -7,7 +7,7 @@
                     requisitos incompletos
                 </h1>
                 <div class="flex justify-end mt-4">
-                    <p class="bg-yellow-200 text-yellow-800 px-3 py-1 rounded-lg">
+                    <p class="bg-amber-200 text-amber-800 font-bold text-sm px-3 py-1 rounded-lg">
                         {{$solicitudesIncompletas->count()}} solicitudes
                     </p>
                 </div>
