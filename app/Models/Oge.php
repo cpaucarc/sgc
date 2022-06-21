@@ -9,10 +9,10 @@ class Oge
 
     public static function datos($dni)
     {
-        $datos = self::datosEstudiante($dni);
+        $datos = self::datosDocente($dni);
 
         if (is_null($datos))
-            $datos = self::datosDocente($dni);
+            $datos = self::datosEstudiante($dni);
 
         if (is_null($datos))
             return null;
