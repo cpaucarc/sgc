@@ -10,7 +10,12 @@ class Solicitud extends Model
     use HasFactory;
 
     protected $table = "solicitudes";
-    public $fillable = ['uuid','dni_estudiante','escuela_id', 'tipo_solicitud_id', 'estado_id'];
+    public $fillable = ['uuid', 'dni_estudiante', 'escuela_id', 'tipo_solicitud_id', 'estado_id'];
+
+    public function escuela()
+    {
+        return $this->belongsTo(Escuela::class);
+    }
 
     public function estado()
     {
