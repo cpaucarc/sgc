@@ -16,12 +16,16 @@ class AgregarInvestigadorDocente extends Component
     public $docentes = null;
     public $investigacion_id;
     public $dni_usados; // DNI de docentes ya registrados como participantes
+    public $depto_id, $semestre;
 
     protected $listeners = ["cargarDocentes" => "cargarDatosDocentes"];
 
-    public function mount($investigacion_id)
+    public function mount($investigacion_id, $depto_id, $semestre)
     {
         $this->investigacion_id = $investigacion_id;
+        $this->depto_id = $depto_id;
+        $this->semestre = $semestre;
+
         $investigaciones = Investigacion::query()
             ->select('id')
             ->with(['investigadores' => function ($query) {
@@ -44,7 +48,7 @@ class AgregarInvestigadorDocente extends Component
 
         if (is_null($this->docentes)) {
             $response = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_docente/departamento/02?departamento=54&semestre=2021-2');
+                ->get(env('OGE_API') . 'proceso_docente/departamento/02?departamento=' . $this->depto_id . '&semestre=' . $this->semestre);
             $arrayDocentes = $response->json();
 
             foreach ($arrayDocentes as $doct) {

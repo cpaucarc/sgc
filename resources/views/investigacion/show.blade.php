@@ -10,6 +10,11 @@
                 <p class="text-gray-600">{{$investigacion->escuela->nombre}}</p>
             </div>
 
+            <div class="flex-col space-y-1 text-sm pt-4">
+                <h3 class="font-bold text-gray-400">Semestre</h3>
+                <p class="text-gray-600">{{$investigacion->semestre->nombre}}</p>
+            </div>
+
             <div class="flex justify-between items-start gap-x-4 text-sm pt-4">
                 <div class="flex-col space-y-1">
                     <h3 class="font-bold text-gray-400">Estado</h3>
@@ -58,7 +63,9 @@
             </div>
 
             <div class="pt-4">
-                <livewire:investigacion.lista-investigacion-participantes investigacion_id="{{$investigacion->id}}"/>
+                <livewire:investigacion.lista-investigacion-participantes investigacion_id="{{$investigacion->id}}"
+                                                                          :depto_id="$investigacion->escuela->depto_id"
+                                                                          :semestre="$investigacion->semestre->nombre"/>
             </div>
 
             <div class="pt-4">

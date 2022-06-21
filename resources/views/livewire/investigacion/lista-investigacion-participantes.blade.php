@@ -109,7 +109,9 @@
                 </div>
 
                 @if($en_docentes)
-                    <livewire:investigacion.agregar-investigador-docente :investigacion_id="$investigacion_id"/>
+                    <livewire:investigacion.agregar-investigador-docente :investigacion_id="$investigacion_id"
+                                                                         :depto_id="$depto_id"
+                                                                         :semestre="$semestre"/>
                 @else
                     <livewire:investigacion.agregar-investigador-estudiante :investigacion_id="$investigacion_id"/>
                 @endif

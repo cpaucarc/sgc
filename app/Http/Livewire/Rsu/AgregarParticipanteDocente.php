@@ -14,10 +14,11 @@ class AgregarParticipanteDocente extends Component
     public $docentes = null;
     public $rsu_id;
     public $dni_usados; // DNI de docentes ya registrados como participantes
+    public $depto_id, $semestre;
 
     protected $listeners = ["cargarDocentes" => "cargarDatosDocentes"];
 
-    public function mount($rsu_id)
+    public function mount($rsu_id, $depto_id, $semestre)
     {
         $this->rsu_id = $rsu_id;
         $rsu = ResponsabilidadSocial::query()->select('id')
@@ -26,6 +27,8 @@ class AgregarParticipanteDocente extends Component
             }])
             ->where('id', $this->rsu_id)->first();
         $this->dni_usados = $rsu->participantes->pluck('dni_participante')->toArray();
+        $this->depto_id = $depto_id;
+        $this->semestre = $semestre;
         $this->cargarDatosDocentes();
     }
 
@@ -40,7 +43,7 @@ class AgregarParticipanteDocente extends Component
 
         if (is_null($this->docentes)) {
             $response = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_docente/departamento/02?departamento=54&semestre=2021-2');
+                ->get(env('OGE_API') . 'proceso_docente/departamento/02?departamento=' . $this->depto_id . '&semestre=' . $this->semestre);
             $arrayDocentes = $response->json();
 
             foreach ($arrayDocentes as $doct) {

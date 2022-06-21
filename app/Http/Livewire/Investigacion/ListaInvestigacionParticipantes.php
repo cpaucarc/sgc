@@ -14,12 +14,15 @@ class ListaInvestigacionParticipantes extends Component
 
     public $add = false;
     public $en_docentes = false; // Variable para saber en que API buscar, y que vista mostrar (Estudiantes, Docentes)
+public $depto_id, $semestre;
 
     protected $listeners = ["render"];
 
-    public function mount($investigacion_id)
+    public function mount($investigacion_id, $depto_id, $semestre)
     {
         $this->investigacion_id = $investigacion_id;
+        $this->depto_id = $depto_id;
+        $this->semestre = $semestre;
     }
 
     public function render()

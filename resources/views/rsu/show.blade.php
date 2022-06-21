@@ -77,7 +77,8 @@
 
         <div class="col-span-4 space-y-8 divide-y divide-dashed divide-stone-300">
 
-            <livewire:rsu.participantes :rsu_id="$rsu->id" :es_responsable="$es_responsable"/>
+            <livewire:rsu.participantes :rsu_id="$rsu->id" :es_responsable="$es_responsable"
+                                        :depto_id="$rsu->escuela->depto_id" :semestre="$rsu->semestre->nombre"/>
 
             <div class="pt-4">
                 <livewire:rsu.documentos-rsu :rsu_id="$rsu->id" :es_responsable="$es_responsable"/>

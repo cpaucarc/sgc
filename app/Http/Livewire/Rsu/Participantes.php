@@ -19,15 +19,17 @@ class Participantes extends Component
     public $open = false; // Abrir modal de datos del participante
     public $datos_participante = null;
     public $add = false; // Abrir modal para agregar participantes
+    public $depto_id, $semestre;
 
     protected $listeners = ["render", "quitarParticipante"];
 
-    public function mount($rsu_id, $es_responsable)
+    public function mount($rsu_id, $es_responsable, $depto_id, $semestre)
     {
         $this->rsu_id = $rsu_id;
         $this->es_responsable = $es_responsable;
+        $this->depto_id = $depto_id;
+        $this->semestre = $semestre;
         $this->emitTo("rsu.agregar-participante-docente", "cargarDocentes");
-        Log::info('montando datos', [$rsu_id]);
     }
 
     public function render()

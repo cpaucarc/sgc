@@ -120,7 +120,7 @@
                 </div>
 
                 @if($en_docentes)
-                    <livewire:rsu.agregar-participante-docente :rsu_id="$rsu_id"/>
+                    <livewire:rsu.agregar-participante-docente :rsu_id="$rsu_id" :depto_id="$depto_id" :semestre="$semestre"/>
                 @else
                     <livewire:rsu.agregar-participante-estudiante :rsu_id="$rsu_id"/>
                 @endif
