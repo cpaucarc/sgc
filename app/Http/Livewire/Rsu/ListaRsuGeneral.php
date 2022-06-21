@@ -71,4 +71,19 @@ class ListaRsuGeneral extends Component
 
         return view('livewire.rsu.lista-rsu-general', compact('rsu'));
     }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingEstado()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSemestreSeleccionado()
+    {
+        $this->resetPage();
+    }
 }

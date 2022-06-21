@@ -103,12 +103,11 @@
                 @endforeach
             @endslot
         </x-utils.tables.table>
-
         <div class="mt-4">
             {{ $rsu->onEachSide(1)->links() }}
         </div>
     @else
-        <div class="border border-gray-300 rounded-md">
+        <div class="border border-gray-300 rounded-md mt-4">
             <x-utils.message-no-items
                 title="Aún no se ha registrado ninguna Responsabilidad Social"
                 text="Aquí podrá encontrar todas las Responsabilidades Sociales que hayan desarrollado los docentes y/o estudiantes.">
@@ -124,7 +123,6 @@
             </x-utils.message-no-items>
         </div>
     @endif
-
 </div>
 
 

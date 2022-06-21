@@ -1,5 +1,4 @@
 <div class="space-y-4">
-
     <x-utils.card>
         <div class="flex justify-between items-center space-x-2">
             <h1 class="pr-4 flex-1 text-xl font-bold text-gray-700">
@@ -78,13 +77,13 @@
                             @endif
 
                             @if( now() > $resp_social->fecha_fin )
-                                <span class="bg-gray-100 text-gray-800 whitespace-nowrap px-3 py-1 rounded font-bold">
+                                <span class="bg-gray-100 text-gray-800 whitespace-nowrap px-3 py-1 rounded">
                                     Finalizado
                                 </span>
                             @endif
 
                             @if( now() >= $resp_social->fecha_inicio && now() <= $resp_social->fecha_fin )
-                                <span class="bg-green-100 text-green-800 whitespace-nowrap px-3 py-1 rounded font-bold">
+                                <span class="bg-lime-100 text-lime-800 whitespace-nowrap px-3 py-1 rounded">
                                     En progreso
                                 </span>
                             @endif
@@ -94,7 +93,7 @@
             @endslot
         </x-utils.tables.table>
     @else
-        <div class="border border-gray-300 rounded-md">
+        <div class="border border-gray-300 rounded-md mt-4">
             <x-utils.message-no-items
                 title="Aún no se ha registrado ninguna Responsabilidad Social"
                 text="Aquí podrá encontrar todas las Responsabilidades Sociales en los cuales hayas participado.">
