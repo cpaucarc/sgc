@@ -56,19 +56,19 @@
                 </div>
 
                 @if( now() < $rsu->fecha_inicio )
-                    <span class="bg-amber-100 text-amber-800 whitespace-nowrap px-3 py-1 rounded">
+                    <span class="bg-amber-100 font-bold text-amber-800 whitespace-nowrap px-3 py-1 rounded">
                         Sin iniciar
                     </span>
                 @endif
 
                 @if( now() > $rsu->fecha_fin )
-                    <span class="bg-gray-100 text-gray-800 whitespace-nowrap px-3 py-1 rounded">
+                    <span class="bg-gray-100 font-bold text-gray-800 whitespace-nowrap px-3 py-1 rounded">
                         Finalizado
                     </span>
                 @endif
 
                 @if( now() >= $rsu->fecha_inicio && now() <= $rsu->fecha_fin )
-                    <span class="bg-lime-100 text-lime-800 whitespace-nowrap px-3 py-1 rounded">
+                    <span class="bg-lime-100 font-bold text-lime-800 whitespace-nowrap px-3 py-1 rounded">
                         En progreso
                     </span>
                 @endif
