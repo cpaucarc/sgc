@@ -18,6 +18,7 @@ class ListaRsuGeneral extends Component
 
     public $semestres = null;
     public $semestre_seleccionado;
+    public $search = "";
 
     public function mount()
     {
@@ -45,7 +46,11 @@ class ListaRsuGeneral extends Component
 
         $rsu = ResponsabilidadSocial::query()
             ->select('id', 'uuid', 'titulo', 'lugar', 'fecha_inicio', 'fecha_fin', 'escuela_id', 'empresa_id')
-            ->with('escuela:id,nombre', 'empresa:id,nombre,ruc');
+            ->with('escuela:id,nombre', 'empresa:id,nombre,ruc')
+            ->where(function ($query) {
+                $query->where('titulo', 'like', '%' . $this->search . '%')
+                    ->orWhere('lugar', 'like', '%' . $this->search . '%');
+            });
 
         if (count($entidad_facultad)) { // El usuario pertenece a alguna facultad
             $rsu = $rsu->whereIn('escuela_id', function ($query) use ($entidad_facultad) {
