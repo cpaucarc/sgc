@@ -122,6 +122,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/', 'index')->name('rsu.index');
         Route::get('crear', 'create')->name('rsu.create');
         Route::get('ver/{uuid}', 'show')->name('rsu.show');
+        Route::get('empresa', 'business')->name('rsu.business');
+        Route::get('empresa/crear', 'createBusiness')->name('rsu.business.create');
     });
 
     Route::prefix('tpu')->controller(TituloProfesionalController::class)->group(function () {

@@ -31,7 +31,7 @@
     </div>
 
     @if($solicitudSeleccionado)
-        <x-jet-dialog-modal wire:model="openModelRequisitos">
+        <x-jet-dialog-modal wire:model="openModelRequisitos" maxWidth="4xl">
             @slot('title')
                 <div class="flex items-center justify-between w-full m-0">
                     <h1 class="text-gray-600">
@@ -70,7 +70,7 @@
                                 </x-utils.tables.body>
                                 <x-utils.tables.body class="text-xs">
                                     <a target="_blank" href="{{ route('archivos', $doc->documento->enlace_interno) }}"
-                                       class="hover:text-sky-600 hover:underline line-clamp-1">
+                                       class="hover:text-sky-600 hover:underline font-bold">
                                         {{ $doc->requisito->nombre }}
                                     </a>
                                 </x-utils.tables.body>
