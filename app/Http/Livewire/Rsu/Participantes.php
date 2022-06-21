@@ -6,6 +6,7 @@ use App\Models\Oge;
 use App\Models\ResponsabilidadSocial;
 use App\Models\RsuParticipante;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
@@ -19,7 +20,7 @@ class Participantes extends Component
     public $datos_participante = null;
     public $add = false; // Abrir modal para agregar participantes
 
-    protected $listeners = ["render"];
+    protected $listeners = ["render", "quitarParticipante"];
 
     public function mount($rsu_id, $es_responsable)
     {
@@ -57,6 +58,11 @@ class Participantes extends Component
         $this->en_docentes = $es_docente; // Para cambiar de pestaña entre 'Añadir estudiantes' y 'Añadir docentes'
         if ($es_docente)
             $this->emitTo("rsu.agregar-participante-docente", "cargarDocentes");
+    }
+
+    public function quitarParticipante($participante_id)
+    {
+        RsuParticipante::find($participante_id)->delete();
     }
 
 }

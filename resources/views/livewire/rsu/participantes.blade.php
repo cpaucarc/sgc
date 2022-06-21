@@ -20,14 +20,14 @@
                 <x-utils.tables.head>Cargo</x-utils.tables.head>
                 <x-utils.tables.head>Tipo</x-utils.tables.head>
                 <x-utils.tables.head>Incorporación</x-utils.tables.head>
+                <x-utils.tables.head><span class="sr-only">Acciones</span></x-utils.tables.head>
             @endslot
             @slot('body')
                 @foreach($rsu->participantes as $participante)
                     <x-utils.tables.row>
                         <x-utils.tables.body>
-                            <x-utils.buttons.invisible
-                                wire:click="mostrarDatos('{{ $participante->dni_participante }}')"
-                                class="text-sm">
+                            <x-utils.buttons.invisible class="text-sm"
+                                                       wire:click="mostrarDatos('{{ $participante->dni_participante }}')">
                                 {{ $participante->dni_participante }}
                             </x-utils.buttons.invisible>
                         </x-utils.tables.body>
@@ -40,7 +40,15 @@
                             {{ $participante->es_estudiante ? 'Estudiante':'Docente' }}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            {{$participante->fecha_incorporacion->format('d/m/Y') }}
+                            {{$participante->fecha_incorporacion->format('d-m-Y') }}
+                        </x-utils.tables.body>
+                        <x-utils.tables.body>
+                            @if($es_responsable && $participante->dni_participante !== auth()->user()->dni)
+                                <x-utils.buttons.danger class="text-sm"
+                                                        onclick="quitarParticipante({{ $participante->id }},'{{ $participante->dni_participante }}')">
+                                    <x-icons.person-remove class="icon-4" stroke="2"/>
+                                </x-utils.buttons.danger>
+                            @endif
                         </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach
@@ -123,6 +131,7 @@
     @push('js')
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
+
             Livewire.on('guardado', msg => {
                 Swal.fire({
                     icon: 'success',
@@ -130,6 +139,7 @@
                     text: msg,
                 });
             });
+
             Livewire.on('error', msg => {
                 Swal.fire({
                     icon: 'error',
@@ -137,6 +147,14 @@
                     text: msg,
                 });
             });
+
+            function quitarParticipante(id, dni) {
+                let res = confirm('¿Desea quitar al participante con DNI ' + dni + ' de la responsabilidad social?')
+
+                if (res)
+                    window.livewire.emit('quitarParticipante', id);
+
+            }
         </script>
     @endpush
 </div>
