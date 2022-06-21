@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 class UsuarioHelper
 {
+    // Retorna las escuelas (con id, nombre, ...) a las que pertenece el usuario logeado
+    // Para obtener solo los id, se recomienda hacer: UsuarioHelper::escuelasDelUsuario()->pluck('id');
     public static function escuelasDelUsuario()
     {
         $entidades = Auth::user()->entidades->pluck('id');
