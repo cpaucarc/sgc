@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class ListaAtencionComedor extends Component
 {
-    public $mes, $anio, $escuelas;
+    public $mes, $anios = null, $anio, $escuelas;
     protected $listeners = ["cargarDatos" => "render"];
 
     public function mount()
@@ -26,13 +26,12 @@ class ListaAtencionComedor extends Component
             ->whereIn('escuela_id', $this->escuelas)
             ->where('anio', 'like', '%' . $this->anio . '%');
 
-        if ($this->mes > 0) {
+        if ($this->mes > 0)
             $comedor = $comedor->where('mes', 'like', '%' . $this->mes . '%');
-        }
 
-        $comedor = $comedor->orderBy('anio', 'desc')
-            ->orderBy('mes', 'desc')
-            ->get();
+        $comedor = $comedor->orderBy('anio', 'desc')->orderBy('mes', 'desc')->get();
+
+        $this->anios = Comedor::query()->orderBy('anio')->distinct()->pluck('anio');
 
         return view('livewire.bienestar.lista-atencion-comedor', compact('comedor'));
     }

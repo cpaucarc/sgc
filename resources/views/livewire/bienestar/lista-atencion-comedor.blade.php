@@ -1,32 +1,28 @@
 <div>
-
-    <div class="flex justify-end items-center gap-x-2 mb-4">
-        <x-utils.forms.select class="w-20" wire:model="mes">
-            <option value="0">Todos</option>
-            <option value="1">Enero</option>
-            <option value="2">Febrero</option>
-            <option value="3">Marzo</option>
-            <option value="4">Abril</option>
-            <option value="5">Mayo</option>
-            <option value="6">Junio</option>
-            <option value="7">Julio</option>
-            <option value="8">Agosto</option>
-            <option value="9">Septiembre</option>
-            <option value="10">Octubre</option>
-            <option value="11">Noviembre</option>
-            <option value="12">Diciembre</option>
-        </x-utils.forms.select>
-        <x-utils.forms.select class="w-20" wire:model="anio">
-            <option value="2019">2019</option>
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-            <option value="2024">2024</option>
-            <option value="2025">2025</option>
-            <option value="2026">2026</option>
-        </x-utils.forms.select>
-    </div>
+    @if(count($anios))
+        <div class="flex justify-end items-center gap-x-2 mb-4">
+            <x-utils.forms.select class="w-20" wire:model="mes">
+                <option value="0">Todos</option>
+                <option value="1">Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+            </x-utils.forms.select>
+            <x-utils.forms.select class="w-20" wire:model="anio">
+                @foreach($anios as $an)
+                    <option value="{{ $an }}">{{ $an }}</option>
+                @endforeach
+            </x-utils.forms.select>
+        </div>
+    @endif
 
     @if(count($comedor))
         <x-utils.tables.table>
@@ -41,7 +37,7 @@
                 @foreach($comedor as $cmd)
                     <x-utils.tables.row>
                         <x-utils.tables.body>
-                            {{ \App\Models\Fecha::nombreDeMes($cmd->mes)  }} - {{$cmd->anio}}
+                            {{$cmd->anio}} - {{ \App\Models\Fecha::nombreDeMes($cmd->mes)  }}
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-center">
                             {{$cmd->atenciones}}
@@ -49,7 +45,7 @@
                         <x-utils.tables.body class="text-center">
                             {{$cmd->total}}
                         </x-utils.tables.body>
-                        <x-utils.tables.body class="text-right">
+                        <x-utils.tables.body class="text-center">
                             {{ round($cmd->atenciones/$cmd->total*100, 2) .  '%' }}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
