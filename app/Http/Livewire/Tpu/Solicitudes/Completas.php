@@ -10,9 +10,9 @@ use Livewire\Component;
 
 class Completas extends Component
 {
-    public $solicitudesCompletas;
     public $solicitudSeleccionado = null, $openModelRequisitos = false;
     public $openModalEstudiante = false, $datos_estudiante = null;
+    public $escuelas_id = [];
 
     protected $listeners = [
         'documentoAprobado' => 'render',
@@ -20,9 +20,9 @@ class Completas extends Component
         'estadoSolicitud' => 'render',
     ];
 
-    public function mount($solicitudesCompletas)
+    public function mount($escuelas_id)
     {
-        $this->solicitudesCompletas = $solicitudesCompletas;
+        $this->escuelas_id = $escuelas_id;
     }
 
     public function modalRequisitos($id)
@@ -97,6 +97,15 @@ class Completas extends Component
 
     public function render()
     {
-        return view('livewire.tpu.solicitudes.completas');
+        $solicitudesCompletas = Solicitud::query()
+            ->with('escuela:id,nombre')
+            ->withCount('documentos')
+            ->where('tipo_solicitud_id', 3)// 3 : Título
+            ->whereIn('escuela_id', $this->escuelas_id)
+            ->having('documentos_count', '=', 8) // 8 : Requisitos de titulo profesional
+            ->orderBy('updated_at', 'desc')
+            ->get();
+
+        return view('livewire.tpu.solicitudes.completas', compact('solicitudesCompletas'));
     }
 }
