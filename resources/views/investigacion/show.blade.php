@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <div class="grid grid-cols-7 gap-14">
+    <div class="grid grid-cols-7 gap-24">
 
         <div class="col-span-3 divide-y divide-stone-200 divide-dashed space-y-4">
             <h2 class="text-gray-700 text-xl font-bold leading-tight">{{$investigacion->titulo}}</h2>
@@ -15,24 +15,26 @@
                 <p class="text-gray-600">{{$investigacion->semestre->nombre}}</p>
             </div>
 
-            <div class="flex justify-between items-start gap-x-4 text-sm pt-4">
-                <div class="flex-col space-y-1">
-                    <h3 class="font-bold text-gray-400">Estado</h3>
-                    <x-utils.badge
-                        class="font-semibold bg-{{$investigacion->estado->color}}-100 text-{{$investigacion->estado->color}}-700">
-                        {{$investigacion->estado->nombre}}
-                    </x-utils.badge>
-                </div>
+            <livewire:investigacion.estado-investigacion :investigacion_id="$investigacion->id"/>
 
-                @if($investigacion->fecha_publicacion)
-                    <div class="flex-col space-y-1 text-sm">
-                        <h3 class="font-bold text-gray-400">Publicación</h3>
-                        <p class="text-gray-600">
-                            {{$investigacion->fecha_publicacion->format('d-m-Y')}}
-                        </p>
-                    </div>
-                @endif
-            </div>
+{{--            <div class="flex gap-x-8 items-start text-sm pt-4">--}}
+{{--                <div class="flex-col space-y-1">--}}
+{{--                    <h3 class="font-bold text-gray-400">Estado</h3>--}}
+{{--                    <x-utils.badge--}}
+{{--                        class="font-semibold bg-{{$investigacion->estado->color}}-100 text-{{$investigacion->estado->color}}-700">--}}
+{{--                        {{$investigacion->estado->nombre}}--}}
+{{--                    </x-utils.badge>--}}
+{{--                </div>--}}
+
+{{--                @if($investigacion->fecha_publicacion)--}}
+{{--                    <div class="flex-col space-y-1 text-sm">--}}
+{{--                        <h3 class="font-bold text-gray-400">Fecha de Publicación</h3>--}}
+{{--                        <p class="text-gray-600">--}}
+{{--                            {{$investigacion->fecha_publicacion->format('d-m-Y')}}--}}
+{{--                        </p>--}}
+{{--                    </div>--}}
+{{--                @endif--}}
+{{--            </div>--}}
 
             <div class="bg-white text-stone-700 text-sm rounded-md space-y-2 pt-4">
                 <h3 class="font-bold text-base text-gray-500">Resumen</h3>
