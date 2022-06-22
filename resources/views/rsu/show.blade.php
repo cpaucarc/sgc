@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <div class="grid grid-cols-6 gap-14">
+    <div class="grid grid-cols-6 gap-16">
 
         <div class="col-span-2 space-y-4 p-4">
             <h2 class="text-gray-700 text-lg font-bold leading-tight">{{$rsu->titulo}}</h2>
