@@ -21,6 +21,15 @@
                 <x-jet-input-error for="resumen"></x-jet-input-error>
             </div>
         </div>
+        <div class="pt-6">
+            <x-jet-label for="semestre" value="Semestre"/>
+            <x-utils.forms.select id="semestre" class="mt-1 block w-full" wire:model.defer="semestre">
+                @foreach($semestres as $sem)
+                    <option value="{{ $sem->id }}">{{ $sem->nombre }}</option>
+                @endforeach
+            </x-utils.forms.select>
+            <x-jet-input-error for="semestre"/>
+        </div>
         @if(count($this->escuelas) > 1)
             <div class="pt-6">
                 <x-jet-label for="escuela" value="Programa Académico"/>
@@ -71,10 +80,10 @@
         </div>
     </div>
 
-    <div class="flex justify-end pt-4">
+    <div class="flex justify-end pt-4 mb-6">
         <x-jet-button wire:click="guardar" wire:target="guardar"
                       wire:loading.class="cursor-wait" wire:loading.attr="disabled">
-            <x-icons.load wire:loading wire:target="guardar" class="h-5 w-5"/>
+            <x-icons.load wire:loading wire:target="guardar" class="icon-5"/>
             {{ __('Registrar Investigación') }}
         </x-jet-button>
     </div>

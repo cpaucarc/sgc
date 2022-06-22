@@ -10,6 +10,7 @@ use App\Models\Investigacion;
 use App\Models\InvestigacionInvestigador;
 use App\Models\Investigador;
 use App\Models\LineaInvestigacion;
+use App\Models\Semestre;
 use App\Models\SublineaInvestigacion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -19,6 +20,7 @@ class FormularioCrearInvestigacion extends Component
 {
     public $escuelas = null, $areas = null, $lineas = null, $sublineas = null;
     public $titulo, $resumen, $escuela = 0, $area = 0, $linea = 0, $sublinea = 0;
+    public $semestres = null, $semestre = 1;
 
     protected $rules = [
         'titulo' => 'required|string|max:250',
@@ -44,6 +46,8 @@ class FormularioCrearInvestigacion extends Component
             })
             ->get();
 
+        $this->semestres = Semestre::query()->orderBy('nombre', 'desc')->get();
+        $this->semestre = $this->semestres->where('activo', true)->first()->id;
     }
 
     public function render()
@@ -78,6 +82,7 @@ class FormularioCrearInvestigacion extends Component
             'titulo' => $this->titulo,
             'resumen' => $this->resumen,
             'fecha_publicacion' => null,
+            'semestre_id' => $this->semestre,
             'escuela_id' => $this->escuela,
             'sublinea_id' => $this->sublinea,
             'estado_id' => 1, // Tabla Estados -> 1:En ejecución
