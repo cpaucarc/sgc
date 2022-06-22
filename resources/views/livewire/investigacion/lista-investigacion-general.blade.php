@@ -4,11 +4,18 @@
         <x-utils.forms.search-input wire:model.debounce.500ms="search"/>
 
         <div class="flex items-center gap-x-2">
-            <p class="text-sm text-gray-700">Fecha de Publicación: </p>
-            <x-utils.forms.labeled-input title="Desde:" wire:model="inicio" type="date"
-                                         class="cursor-pointer w-auto"/>
-            <x-utils.forms.labeled-input title="Hasta:" wire:model="fin" type="date"
-                                         class="cursor-pointer w-auto"/>
+            <x-utils.forms.select wire:model="semestre">
+                <option value="0">Todos</option>
+                @foreach($semestres as $sem)
+                    <option value="{{ $sem->id }}">{{ $sem->nombre }}</option>
+                @endforeach
+            </x-utils.forms.select>
+            <x-utils.forms.select wire:model="estado">
+                <option value="0">Todos</option>
+                <option value="1">En ejecución</option>
+                <option value="3">Publicado</option>
+                <option value="2">Denegado</option>
+            </x-utils.forms.select>
             @if(count($investigaciones) > 0)
                 <x-utils.links.primary class="text-sm" href="{{ route('investigacion.crear') }}">
                     <x-icons.plus class="icon-5 mr-1" stroke="1.5"/>
@@ -26,6 +33,7 @@
                 <x-utils.tables.head>Investigadores</x-utils.tables.head>
                 <x-utils.tables.head>Programa</x-utils.tables.head>
                 <x-utils.tables.head>Estado</x-utils.tables.head>
+                <x-utils.tables.head>Semestre</x-utils.tables.head>
                 <x-utils.tables.head>Publicación</x-utils.tables.head>
                 <x-utils.tables.head>Creación</x-utils.tables.head>
             @endslot
@@ -46,9 +54,12 @@
                         <x-utils.tables.body>{{$investigacion->escuela->nombre}}</x-utils.tables.body>
                         <x-utils.tables.body>
                             <x-utils.badge
-                                class="bg-{{$investigacion->estado->color}}-100 text-{{$investigacion->estado->color}}-700">
+                                class="whitespace-nowrap bg-{{$investigacion->estado->color}}-100 text-{{$investigacion->estado->color}}-700">
                                 {{$investigacion->estado->nombre}}
                             </x-utils.badge>
+                        </x-utils.tables.body>
+                        <x-utils.tables.body class="text-xs">
+                            {{$investigacion->semestre->nombre}}
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-xs font-semibold">
                             {{$investigacion->fecha_publicacion ? $investigacion->fecha_publicacion->format('d-m-Y') : '--'}}

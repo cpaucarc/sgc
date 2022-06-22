@@ -20,6 +20,7 @@
                 <x-utils.tables.head>Investigadores</x-utils.tables.head>
                 <x-utils.tables.head>Programa</x-utils.tables.head>
                 <x-utils.tables.head>Estado</x-utils.tables.head>
+                <x-utils.tables.head>Semestre</x-utils.tables.head>
                 <x-utils.tables.head>Publicación</x-utils.tables.head>
                 <x-utils.tables.head>Creación</x-utils.tables.head>
             @endslot
@@ -46,9 +47,12 @@
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             <x-utils.badge
-                                class="bg-{{$investigacion->estado->color}}-100 text-{{$investigacion->estado->color}}-700">
+                                class="whitespace-nowrap bg-{{$investigacion->estado->color}}-100 text-{{$investigacion->estado->color}}-700">
                                 {{ $investigacion->estado->nombre }}
                             </x-utils.badge>
+                        </x-utils.tables.body>
+                        <x-utils.tables.body class="text-xs">
+                            {{$investigacion->semestre->nombre}}
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-xs">
                             {{ $investigacion->fecha_publicacion ? $investigacion->fecha_publicacion->format('d-m-Y') : '--' }}

@@ -21,7 +21,7 @@ class Investigacion extends Model
 
     public function semestre()
     {
-        return $this->belongsTo(Semestre::class);
+        return $this->belongsTo(Semestre::class, 'semestre_id', 'id');
     }
 
     public function sublinea()
