@@ -46,6 +46,8 @@ class AgregarParticipanteEstudiante extends Component
             }
 
             $arrayDni = explode(",", $this->dni);
+            $arrayDni = array_unique($arrayDni);
+
             $arrayDniIncorrectos = array();
             foreach ($arrayDni as $d) {
                 if (!is_numeric($d)) {
@@ -68,7 +70,8 @@ class AgregarParticipanteEstudiante extends Component
 
             $arrayDniExistente = array(); // array de DNI que si existen en OGE
             $arrayDniInexistente = array(); // array de DNI que no se han encontrado
-            foreach ($arrayDni as $d) {
+            $array_aux = $arrayDni;
+            foreach ($array_aux as $id => $d) {
                 $response = Http::withToken(env('OGE_TOKEN'))
                     ->get(env('OGE_API') . 'ensenianza_aprendizaje/01?codigo=' . $d);
                 $response = $response->json();
@@ -82,6 +85,7 @@ class AgregarParticipanteEstudiante extends Component
                         'responsabilidad_social_id' => $this->rsu_id
                     ];
                     $this->dni_usados[] = $d;
+                    unset($array_aux[$id]);
                 } else {
                     $arrayDniInexistente[] = "• No encontramos ningún estudiante con DNI " . $d . ", revise si está bien escrito.";
                 }
@@ -92,6 +96,7 @@ class AgregarParticipanteEstudiante extends Component
                 RsuParticipante::insert($arrayDniExistente);
                 $this->emit('guardado', "Se añadieron correctamente " . count($arrayDniExistente) . " de " . count($arrayDni) . " nuevos participantes.");
                 $this->emitTo("rsu.participantes", "render");
+                $this->dni = implode(',', $array_aux);
                 $this->mensaje_estudiantes = null;
             }
 

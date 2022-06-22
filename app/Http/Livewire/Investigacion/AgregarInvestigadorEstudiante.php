@@ -12,7 +12,6 @@ use Livewire\Component;
 
 class AgregarInvestigadorEstudiante extends Component
 {
-
     public $investigacion_id;
     public $mensaje_estudiantes = null;
     public $dni = ""; // DNI de estudiantes ingresados al input
@@ -52,6 +51,8 @@ class AgregarInvestigadorEstudiante extends Component
             }
 
             $arrayDni = explode(",", $this->dni);
+            $arrayDni = array_unique($arrayDni);
+
             $arrayDniIncorrectos = array();
             foreach ($arrayDni as $d) {
                 if (!is_numeric($d)) {
@@ -74,7 +75,8 @@ class AgregarInvestigadorEstudiante extends Component
 
             $arrayDniExistente = array(); // array de DNI que si existen en OGE
             $arrayDniInexistente = array(); // array de DNI que no se han encontrado
-            foreach ($arrayDni as $d) {
+            $array_aux = $arrayDni;
+            foreach ($array_aux as $id => $d) {
                 $response = Http::withToken(env('OGE_TOKEN'))
                     ->get(env('OGE_API') . 'ensenianza_aprendizaje/01?codigo=' . $d);
                 $response = $response->json();
@@ -92,6 +94,7 @@ class AgregarInvestigadorEstudiante extends Component
                         'investigacion_id' => $this->investigacion_id
                     ];
                     $this->dni_usados[] = $d;
+                    unset($array_aux[$id]);
                 } else {
                     $arrayDniInexistente[] = "• No encontramos ningún estudiante con DNI " . $d . ", revise si está bien escrito.";
                 }
@@ -102,6 +105,7 @@ class AgregarInvestigadorEstudiante extends Component
                 InvestigacionInvestigador::insert($arrayDniExistente);
                 $this->emit('guardado', "Se añadieron correctamente " . count($arrayDniExistente) . " de " . count($arrayDni) . " nuevos investigadores.");
                 $this->emitTo("investigacion.lista-investigacion-participantes", "render");
+                $this->dni = implode(',', $array_aux);
                 $this->mensaje_estudiantes = null;
             }
 
