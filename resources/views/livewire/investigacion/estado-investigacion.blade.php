@@ -7,10 +7,10 @@
                 {{$investigacion->estado->nombre}}
             </x-utils.badge>
 
-            @if($investigacion->estado_id === 1)
+            @if($es_responsable && $investigacion->estado_id === 1)
                 <x-jet-dropdown width="40">
                     @slot('trigger')
-                        <button class="text-gray-400 hover:text-gray-500 soft-transition">
+                        <button class="text-gray-400 hover:text-gray-500 soft-transition p-1">
                             <svg class="fill-current" viewBox="0 0 16 16" width="16" height="16">
                                 <path
                                     d="M4.427 7.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 7H4.604a.25.25 0 00-.177.427z"></path>
