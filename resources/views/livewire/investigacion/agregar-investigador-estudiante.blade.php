@@ -2,7 +2,7 @@
     <x-jet-label for="dni" value="DNI de los estudiantes (separados por comas)"/>
     <div class="flex gap-x-2">
         <x-jet-input id="dni" autocomplete="off" class="flex-1" type="text"
-                     placeholder="74125896,77788955,..." wire:model.defer="dni"/>
+                     placeholder="Ej. 74125896,77788955,..." wire:model.defer="dni"/>
         <x-jet-button wire:click="agregarEstudiantes">
             <x-icons.search wire:loading.remove wire:target="agregarEstudiantes"
                             class="icon-4 text-white"/>
