@@ -35,7 +35,7 @@ class ListaActividadProveedor extends Component
     public function mount()
     {
         $this->semestres = Semestre::orderBy('nombre', 'desc')->get();
-        $this->semestre_seleccionado = $this->semestres->first()->id;
+        $this->semestre_seleccionado = $this->semestres->where('activo', 1)->first()->id;
 
         $this->entidades = Auth::user()->entidades->pluck('id');
 
