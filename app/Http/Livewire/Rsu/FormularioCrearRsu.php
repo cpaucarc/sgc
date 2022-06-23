@@ -75,7 +75,7 @@ class FormularioCrearRsu extends Component
             'lugar' => $this->lugar,
             'fecha_inicio' => $this->fecha_de_inicio,
             'fecha_fin' => $this->fecha_de_finalizacion,
-            'semestre_id' => Semestre::orderBy('nombre', 'desc')->first()->id,
+            'semestre_id' => Semestre::where('activo', 1)->first()->id,
             'escuela_id' => $this->escuela,
             'empresa_id' => $this->en_empresa ? $this->empresa_id : null
         ]);
