@@ -25,9 +25,7 @@ class EstadoSolicitud extends Component
             ->where('tipo_solicitud_id', 1) // 1: Bachiller
             ->distinct('id')
             ->count();
-        $this->semestreActual = Semestre::query()
-            ->orderBy('id','desc')
-            ->first();
+        $this->semestreActual = Semestre::where('activo', 1)->first();
         $this->entidad = Auth::user()->entidades()->first();
     }
 
