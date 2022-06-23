@@ -23,7 +23,7 @@ class ListaGeneralVisitantes extends Component
         $this->facultad_ids = $facultad_ids;
 
         $this->semestres = Semestre::query()->orderBy('nombre', 'desc')->get();
-        $this->semestre = $this->semestres->first()->id;
+        $this->semestre = $this->semestres->where('activo', true)->first()->id;
 
         $this->escuelas = Escuela::query()->whereIn('facultad_id', $this->facultad_ids)->orderBy('nombre', 'desc')->get();
     }
