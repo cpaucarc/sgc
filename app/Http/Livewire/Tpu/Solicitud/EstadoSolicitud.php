@@ -24,9 +24,7 @@ class EstadoSolicitud extends Component
         $this->numSolicitud = Solicitud::query()
             ->where('tipo_solicitud_id', 3) // 3: Titulo profesional
             ->count();
-        $this->semestreActual = Semestre::query()
-            ->orderBy('id', 'desc')
-            ->first();
+        $this->semestreActual = Semestre::where('activo', 1)->first();
         $this->entidad = Auth::user()->entidades()->first();
     }
 
