@@ -15,10 +15,6 @@ use Illuminate\Support\Facades\Auth;
 
 class TituloProfesionalController extends Controller
 {
-    /* Variables
-     * Sirve para saber el usuario a que facultad o escuela pertenece.
-     */
-    public $facultad = null, $escuela = null;
 
     public function index()
     {
@@ -45,32 +41,33 @@ class TituloProfesionalController extends Controller
         $callback_proyectos = Tesis::query()->distinct('numero_registro');
 
         if (count($escuelas_id) > 0) {
-            $this->escuela = Escuela::query()->whereIn('id', $escuelas_id)->first();
-            $this->facultad = Facultad::query()->whereIn('id', function ($query) {
+            $escuela = Escuela::query()->whereIn('id', $escuelas_id)->first();
+            $facultad = Facultad::query()->whereIn('id', function ($query) use ($escuela) {
                 $query->select('facultad_id')->from('escuelas')
-                    ->where('id', $this->escuela->id);
+                    ->where('id', $escuela->id);
             })->first();
 
-            $solicitudes = $callback_socicitud->where('escuela_id', $this->escuela->id)->get();
-            $titulados = $callback_titulados->where('escuela_id', $this->escuela->id)->count();
-            $proyectos = $callback_proyectos->where('escuela_id', $this->escuela->id)->count();
+            $solicitudes = $callback_socicitud->where('escuela_id', $escuela->id)->get();
+            $titulados = $callback_titulados->where('escuela_id', $escuela->id)->count();
+            $proyectos = $callback_proyectos->where('escuela_id', $escuela->id)->count();
 
         } elseif (count($facultades_id) > 0) {
-            $this->facultad = Facultad::query()->whereIn('id', $facultades_id)->first();
+            $escuela = null;
+            $facultad = Facultad::query()->whereIn('id', $facultades_id)->first();
 
-            $solicitudes = $callback_socicitud->whereIn('escuela_id', function ($query) {
+            $solicitudes = $callback_socicitud->whereIn('escuela_id', function ($query) use ($facultad) {
                 $query->select('id')->from('escuelas')
-                    ->where('facultad_id', $this->facultad->id);
+                    ->where('facultad_id', $facultad->id);
             })->get();
 
-            $titulados = $callback_titulados->whereIn('escuela_id', function ($query) {
+            $titulados = $callback_titulados->whereIn('escuela_id', function ($query) use ($facultad) {
                 $query->select('id')->from('escuelas')
-                    ->where('facultad_id', $this->facultad->id);
+                    ->where('facultad_id', $facultad->id);
             })->count();
 
-            $proyectos = $callback_proyectos->whereIn('escuela_id', function ($query) {
+            $proyectos = $callback_proyectos->whereIn('escuela_id', function ($query) use ($facultad) {
                 $query->select('id')->from('escuelas')
-                    ->where('facultad_id', $this->facultad->id);
+                    ->where('facultad_id', $facultad->id);
             })->count();
 
         } else {
@@ -85,9 +82,6 @@ class TituloProfesionalController extends Controller
         $solicitudesIncompletas = $solicitudes->filter(function ($item) {
             return $item->documentos_count < 8; // 8 : Requisitos de titulo profesional
         });
-
-        $facultad = $this->facultad;
-        $escuela = $this->escuela;
 
         $incompletas = $solicitudesIncompletas->count();
         $completas = $solicitudesCompletas->count();
@@ -192,29 +186,27 @@ class TituloProfesionalController extends Controller
         $callback_proyectos = Tesis::query()->distinct('numero_registro');
 
         if (count($escuelas_id) > 0) {
-            $this->escuela = Escuela::query()->whereIn('id', $escuelas_id)->first();
-            $this->facultad = Facultad::query()->whereIn('id', function ($query) {
+            $escuela = Escuela::query()->whereIn('id', $escuelas_id)->first();
+            $facultad = Facultad::query()->whereIn('id', function ($query) use ($escuela) {
                 $query->select('facultad_id')->from('escuelas')
-                    ->where('id', $this->escuela->id);
+                    ->where('id', $escuela->id);
             })->first();
 
             $proyectos = $callback_proyectos->where('escuela_id', $this->escuela->id)->count();
 
         } elseif (count($facultades_id) > 0) {
-            $this->facultad = Facultad::query()->whereIn('id', $facultades_id)->first();
+            $escuela = null;
+            $facultad = Facultad::query()->whereIn('id', $facultades_id)->first();
 
-            $proyectos = $callback_proyectos->whereIn('escuela_id', function ($query) {
+            $proyectos = $callback_proyectos->whereIn('escuela_id', function ($query) use ($facultad) {
                 $query->select('id')->from('escuelas')
-                    ->where('facultad_id', $this->facultad->id);
+                    ->where('facultad_id', $facultad->id);
             })->count();
 
         } else {
 //            abort(403, 'No tienes los permisos para estar en esta página');
             return redirect()->route('dashboard');
         }
-
-        $facultad = $this->facultad;
-        $escuela = $this->escuela;
 
         /* Evia: facultad y escuela
          * Si el usuario es de tipo facultad, el parametro facultad evia dato y la escuela es nulo.
