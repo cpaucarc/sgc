@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Auth;
 
 class BachillerController extends Controller
 {
-    /* Variables
-     * Sirve para saber el usuario a que facultad o escuela pertenece.
-     */
-    public $facultad = null, $escuela = null;
 
     public function index()
     {
@@ -42,26 +38,27 @@ class BachillerController extends Controller
             ->where('grado_academico_id', 3);
 
         if (count($escuelas_id) > 0) {
-            $this->escuela = Escuela::query()->whereIn('id', $escuelas_id)->first();
-            $this->facultad = Facultad::query()->whereIn('id', function ($query) {
+            $escuela = Escuela::query()->whereIn('id', $escuelas_id)->first();
+            $facultad = Facultad::query()->whereIn('id', function ($query) use ($escuela) {
                 $query->select('facultad_id')->from('escuelas')
-                    ->where('id', $this->escuela->id);
+                    ->where('id', $escuela->id);
             })->first();
 
-            $solicitudes = $callback_socicitud->where('escuela_id', $this->escuela->id)->get();
-            $bachilleres = $callback_bachilleres->where('escuela_id', $this->escuela->id)->count();
+            $solicitudes = $callback_socicitud->where('escuela_id', $escuela->id)->get();
+            $bachilleres = $callback_bachilleres->where('escuela_id', $escuela->id)->count();
 
         } elseif (count($facultades_id) > 0) {
-            $this->facultad = Facultad::query()->whereIn('id', $facultades_id)->first();
+            $escuela = null;
+            $facultad = Facultad::query()->whereIn('id', $facultades_id)->first();
 
-            $solicitudes = $callback_socicitud->whereIn('escuela_id', function ($query) {
+            $solicitudes = $callback_socicitud->whereIn('escuela_id', function ($query) use ($facultad) {
                 $query->select('id')->from('escuelas')
-                    ->where('facultad_id', $this->facultad->id);
+                    ->where('facultad_id', $facultad->id);
             })->get();
 
-            $bachilleres = $callback_bachilleres->whereIn('escuela_id', function ($query) {
+            $bachilleres = $callback_bachilleres->whereIn('escuela_id', function ($query) use ($facultad) {
                 $query->select('id')->from('escuelas')
-                    ->where('facultad_id', $this->facultad->id);
+                    ->where('facultad_id', $facultad->id);
             })->count();
 
         } else {
@@ -77,13 +74,10 @@ class BachillerController extends Controller
             return $item->documentos_count < 15; // 15 : Requisitos para bachiller
         });
 
-        $facultad = $this->facultad;
-        $escuela = $this->escuela;
-
         $incompletas = $solicitudesIncompletas->count();
         $completas = $solicitudesCompletas->count();
 
-        /* Evia: facultad y escuela
+        /* Envia: facultad y escuela
          * Si el usuario es de tipo facultad, el parametro facultad evia dato y la escuela es nulo.
          * Si el usuario es de tipo escuela, el parametro facultad evia dato y la escuela tambien envia dato.
          */

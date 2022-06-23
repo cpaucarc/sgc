@@ -44,7 +44,7 @@ class NuevoAnalisis extends Component
         $this->oficina = $oficina;
 
         $this->semestres = Semestre::query()->orderBy('nombre', 'desc')->get();
-        $this->semestre_id = $this->semestres->first()->id;
+        $this->semestre_id = $this->semestres->where('activo', true)->first()->id;
         $this->semestre_nombre = $this->semestres->first()->nombre;
         $this->semestre_inicio = $this->semestres->first()->fecha_inicio->format('Y-m-d');
         $this->semestre_fin = $this->semestres->first()->fecha_fin->format('Y-m-d');

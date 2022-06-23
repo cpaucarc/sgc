@@ -52,8 +52,8 @@ class RegistrarPostulantes extends Component
 
         $this->updatedEscuela($this->escuela);
 
-        $this->semestres = Semestre::query()->orderBy('nombre', 'desc')->get();
-        $this->semestre = $this->semestres->first()->id;
+        $this->semestres = Semestre::orderBy('nombre', 'desc')->get();
+        $this->semestre = $this->semestres->where('activo', true)->first()->id;
 
         $this->inicio = Carbon::now()->startOfMonth()->format('Y-m-d');
         $this->fin = Carbon::now()->endOfMonth()->format('Y-m-d');

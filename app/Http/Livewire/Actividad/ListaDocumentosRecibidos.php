@@ -24,7 +24,7 @@ class ListaDocumentosRecibidos extends Component
     public function mount()
     {
         $this->semestres = Semestre::orderBy('nombre', 'desc')->get();
-        $this->semestre = $this->semestres->first()->id;
+        $this->semestre = $this->semestres->where('activo', 1)->first()->id;
 
         $this->entidades = Auth::user()->entidades->pluck('id');
 

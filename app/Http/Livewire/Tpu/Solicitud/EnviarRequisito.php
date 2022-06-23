@@ -52,9 +52,7 @@ class EnviarRequisito extends Component
             ->where('tipo_solicitud_id', 3) // 3: Título profesional
             ->first();
 
-        $this->semestreActual = Semestre::query()
-            ->orderBy('nombre', 'desc')
-            ->first();
+        $this->semestreActual = Semestre::where('activo', 1)->first();
 
         $this->entidad = Auth::user()->entidades()->first();
     }

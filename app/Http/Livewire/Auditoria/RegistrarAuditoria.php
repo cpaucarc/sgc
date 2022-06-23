@@ -66,7 +66,7 @@ class RegistrarAuditoria extends Component
 
             $entidad_id = Auth::user()->entidades()->first()->id;
             $user_id = Auth::user()->id;
-            $semestre_id = Semestre::query()->orderBy('nombre', 'desc')->first()->id;
+            $semestre_id = Semestre::where('activo', true)->first()->id;
 
             foreach ($this->archivos as $archivo) {
 
