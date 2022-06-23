@@ -49,7 +49,7 @@ class CrearConvalidacion extends Component
         }
 
         $this->semestres = Semestre::orderBy('nombre', 'desc')->get();
-        $this->semestre = $this->semestres->first()->id;
+        $this->semestre = $this->semestres->where('activo', true)->first()->id;
     }
 
     public function registrar()
