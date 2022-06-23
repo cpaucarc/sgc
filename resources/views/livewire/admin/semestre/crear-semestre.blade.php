@@ -6,7 +6,10 @@
 
     <x-jet-dialog-modal wire:model="open">
         <x-slot name="title">
-            <div class="flex justify-end w-full">
+            <div class="flex justify-between w-full">
+                <h1 class="font-bold text-gray-700">
+                    Crear nuevo semestre académico
+                </h1>
                 <x-utils.buttons.close-button wire:click="$set('open', false)"/>
             </div>
         </x-slot>
