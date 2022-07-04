@@ -16,6 +16,8 @@ class Incompletas extends Component
     protected $listeners = [
         'documentoAprobado' => 'render',
         'documentoDenegado' => 'render',
+        'denegarDocumentoRequisito',
+        'aprobarDocumentoRequisito',
     ];
 
     public function mount($escuelas_id)

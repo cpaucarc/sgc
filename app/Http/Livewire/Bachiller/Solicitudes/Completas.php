@@ -18,6 +18,8 @@ class Completas extends Component
         'documentoAprobado' => 'render',
         'documentoDenegado' => 'render',
         'estadoSolicitud' => 'render',
+        'denegarDocumentoRequisito',
+        'aprobarDocumentoRequisito',
     ];
 
     public function mount($escuelas_id)

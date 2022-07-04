@@ -13,9 +13,11 @@ class Incompletas extends Component
     public $datos_estudiante = null, $openModalEstudiante = false;
     public $escuelas_id = [];
 
-    protected $listeners = [
+    public $listeners = [
         'documentoAprobado' => 'render',
         'documentoDenegado' => 'render',
+        'denegarDocumentoRequisito',
+        'aprobarDocumentoRequisito',
     ];
 
     public function mount($escuelas_id)
