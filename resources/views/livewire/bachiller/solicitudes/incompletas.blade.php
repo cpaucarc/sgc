@@ -95,16 +95,17 @@
                                     </buttons>
                                 </x-utils.tables.body>
                                 <x-utils.tables.body>
-                                    <div
-                                        class="flex items-center justify-end w-full gap-2 whitespace-nowrap">
-                                        <x-utils.buttons.danger title="Denegar requisito"
-                                                                wire:click="denegarDocumentoRequisito({{$doc->id}})">
-                                            <x-icons.x class="icon-4 mr-1"/>
-                                        </x-utils.buttons.danger>
-                                        <x-utils.buttons.success title="Aprobar requisito"
-                                                                 wire:click="aprobarDocumentoRequisito({{$doc->id}})">
-                                            <x-icons.check class="icon-4 mr-1"/>
-                                        </x-utils.buttons.success>
+                                    <div class="flex items-center justify-end w-full gap-2 whitespace-nowrap">
+                                        @if($doc->estado->nombre==='En Evaluacion')
+                                            <x-utils.buttons.danger title="Denegar requisito"
+                                                                    onclick="denegarDocumentoRequisito({{$doc->id}},'{{$doc->requisito->nombre}}')">
+                                                <x-icons.x class="icon-4 mr-1"/>
+                                            </x-utils.buttons.danger>
+                                            <x-utils.buttons.success title="Aprobar requisito"
+                                                                     onclick="aprobarDocumentoRequisito({{$doc->id}},'{{$doc->requisito->nombre}}')">
+                                                <x-icons.check class="icon-4 mr-1"/>
+                                            </x-utils.buttons.success>
+                                        @endif
                                     </div>
                                 </x-utils.tables.body>
                             </x-utils.tables.row>
@@ -131,5 +132,25 @@
             @endif
         </x-slot>
     </x-jet-dialog-modal>
+
+    @push('js')
+        <script>
+            function denegarDocumentoRequisito(id, name) {
+                let res = confirm('¿Desea denegar el requisito ' + name + '?')
+
+                if (res) {
+                    window.livewire.emit('denegarDocumentoRequisito', id);
+                }
+            }
+
+            function aprobarDocumentoRequisito(id, name) {
+                let res = confirm('¿Desea aprobar el requisito ' + name + '?')
+
+                if (res) {
+                    window.livewire.emit('aprobarDocumentoRequisito', id);
+                }
+            }
+        </script>
+    @endpush
 
 </div>

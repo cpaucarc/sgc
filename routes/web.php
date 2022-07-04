@@ -42,6 +42,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
+    /* Todo: Admin*/
     Route::prefix('admin')->controller(AdminController::class)->group(function () {
         Route::get('/', 'index')->name('admin.panel.index');
         Route::get('escuela', 'escuelas')->name('admin.panel.escuelas');
@@ -111,6 +112,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('bienestar-universitario/excel', 'bienestar_excel')->name('reporte.bienestar.excel');
     });
 
+    /*Todo: Actividad*/
     Route::prefix('actividad')->controller(ActividadController::class)->group(function () {
         Route::get('/', 'index')->name('actividad.index');
         Route::get('proveer', 'proveer')->name('actividad.proveer');
@@ -118,6 +120,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('ver/{id}/{semestre}', 'show')->name('actividad.show');
     });
 
+    /*Todo: Responsabilidad Social Universitario*/
     Route::prefix('rsu')->controller(ResponsabilidadSocialController::class)->group(function () {
         Route::get('/', 'index')->name('rsu.index');
         Route::get('crear', 'create')->name('rsu.create');
@@ -126,6 +129,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('empresa/crear', 'createBusiness')->name('rsu.business.create');
     });
 
+    /*Todo: Título Profesional Universitario*/
     Route::prefix('tpu')->controller(TituloProfesionalController::class)->group(function () {
         Route::get('/', 'index')->name('tpu.index');
         Route::get('solicitudes/incompletas', 'incompletas')->name('tpu.solicitudes.incompletas');
@@ -135,38 +139,44 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('solicitud', 'request')->name('tpu.request');
         Route::get('solicitud/{solicitud}', 'tesis')->name('tpu.tesis');
         Route::get('solicitud/{solicitud}/{tesis}', 'seeTesis')->name('tpu.seeTesis');
-//        Route::get('solicitudes', 'requests')->name('tpu.requests');
+        //Route::get('solicitudes', 'requests')->name('tpu.requests');
     });
 
+    /*Todo: Bachiller Universitario*/
     Route::prefix('bachiller')->controller(BachillerController::class)->group(function () {
         Route::get('/', 'index')->name('bachiller.index');
         Route::get('solicitudes/incompletas', 'incompletas')->name('bachiller.solicitudes.incompletas');
         Route::get('solicitudes/completas', 'completas')->name('bachiller.solicitudes.completas');
         Route::get('solicitud', 'request')->name('bachiller.request');
-//        Route::get('solicitudes', 'requests')->name('bachiller.requests');
+        //Route::get('solicitudes', 'requests')->name('bachiller.requests');
     });
 
+    /*Todo: Investigación*/
     Route::prefix('investigacion')->controller(InvestigacionController::class)->group(function () {
         Route::get('/', 'index')->name('investigacion.index');
         Route::get('ver/{uuid}', 'show')->name('investigacion.show');
         Route::get('crear', 'crear')->name('investigacion.crear');
     });
 
+    /*Todo: Convalidaciones*/
     Route::prefix('convalidacion')->controller(ConvalidacionController::class)->group(function () {
         Route::get('/', 'index')->name('convalidacion.index');
         Route::get('registrar', 'registrarConvalidacion')->name('convalidacion.registrar');
     });
 
+    /*Todo: Convenios*/
     Route::prefix('convenio')->controller(ConvenioController::class)->group(function () {
         Route::get('/', 'index')->name('convenio.index');
         Route::get('registrar', 'registrarConvenio')->name('convenio.registrar');
     });
 
+    /*Todo: Bolsa de Trabajo Universitario*/
     Route::prefix('btu')->controller(BolsaTrabajoController::class)->group(function () {
         Route::get('/', 'index')->name('btu.index');
         Route::get('registrar/postulante', 'registrarPostulante')->name('btu.registrar.postulante');
     });
 
+    /*Todo: Bibliote Especializada por Facultad*/
     Route::prefix('biblioteca')->controller(BibliotecaController::class)->group(function () {
         Route::get('/', 'index')->name('biblioteca.index');
         Route::get('visitante', 'visitante')->name('biblioteca.visitante');
@@ -174,28 +184,31 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('registrar/visitante', 'registrarVisitante')->name('biblioteca.registrar.visitante');
     });
 
+    /*Todo: Indicadores*/
     Route::prefix('indicador')->controller(IndicadorController::class)->group(function () {
         Route::get('/', 'index')->name('indicador.index');
         Route::get('proceso/{proceso_id}/{tipo}/{uuid}', 'proceso')->name('indicador.proceso'); //proceso:id | tipo:1-escuela,2-facultad | uuid:escuela,facultad
         Route::get('ver/{indicador_id}/{tipo}/{uuid}', 'indicador')->name('indicador.indicador'); //proceso:id | tipo:1-escuela,2-facultad | uuid:escuela,facultad
     });
 
+    /*Todo: Auditorias (Internas y Externas)*/
     Route::prefix('auditoria')->controller(AuditoriaController::class)->group(function () {
         Route::get('/', 'index')->name('auditoria.index');
         Route::get('crear', 'create')->name('auditoria.create');
     });
 
+    /*Todo: Bienestar Universitario*/
     Route::prefix('bienestar-universitario')->controller(ComedorController::class)->group(function () {
         Route::get('/', 'index')->name('bienestar.index');
     });
 });
 
-//Para mostrar encuestas
+//Rutas para mostrar encuestas
 Route::prefix('encuestas')->controller(EncuestaController::class)->group(function () {
     Route::get('rsu/{uuid}', 'rsu')->name('encuesta.rsu');
 });
 
-// Para mostrar archivos subidos al servidor
+//Rutas para mostrar archivos subidos al servidor
 Route::get('storage/{file}', function ($file) {
     return Storage::response($file);
 })->name('archivos');
@@ -205,7 +218,7 @@ Route::get('storage/{file}', function ($file) {
 //    return Storage::response($file);
 //})->name('archivos');
 
-// Para pruebas
+//Rutas para pruebas
 Route::get('/prueba', function () {
     echo 'Prueba';
 });

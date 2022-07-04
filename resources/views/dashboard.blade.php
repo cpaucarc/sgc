@@ -7,7 +7,7 @@
                 <h3 class="text-5xl font-bold">
                     Bienvenido
                 </h3>
-                <p class="inline-flex bg-gradient-to-r from-indigo-700 to-indigo-500 text-white py-2 px-3 text-3xl">
+                <p class="inline-flex rounded bg-gradient-to-r from-indigo-700 to-indigo-500 text-white py-2 px-3 text-3xl">
                     {{ Auth::user()->name }}
                 </p>
                 <h3 class="text-2xl">
@@ -31,12 +31,12 @@
                 <div class="flex flex-wrap gap-4">
                     <x-utils.links.external
                         to="https://www.transparencia.gob.pe/enlaces/pte_transparencia_enlaces.aspx?id_entidad=10403&id_tema=5&ver=#.YldazujMLMV"
-                        img="{{ asset('images/unasam/icons/escudo_unasam.png') }}">
+                        img="{{ asset('images/unasam_escudo.svg') }}">
                         Unasam
                     </x-utils.links.external>
                     <x-utils.links.external
                         to="https://www.gob.pe/institucion/unasam/funcionarios"
-                        img="{{ asset('images/unasam/icons/escudo_unasam.png') }}">
+                        img="{{ asset('images/unasam_escudo.svg') }}">
                         Directorio Unasam
                     </x-utils.links.external>
                     <x-utils.links.external
@@ -56,7 +56,7 @@
                         Portal FCM
                     </x-utils.links.external>
                     <x-utils.links.external to="http://sga.unasam.edu.pe/login"
-                                            img="{{ asset('images/unasam/icons/escudo_unasam.png') }}">
+                                            img="{{ asset('images/unasam_escudo.svg') }}">
                         SGA
                     </x-utils.links.external>
                     <x-utils.links.external to="http://campus.unasam.edu.pe/login/index.php"
