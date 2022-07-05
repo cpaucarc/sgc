@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
     @livewireStyles
-@stack('css')
+    @stack('css')
 
-<!-- Scripts -->
+    <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
 <body class="font-sans antialiased">
@@ -32,15 +32,17 @@
                 {{ $header }}
             </div>
         </header>
-@endif
+    @endif
 
-<!-- Page Content -->
+    <!-- Page Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 mb-20">
         <x-jet-banner/>
         <main>
             {{ $slot }}
         </main>
     </div>
+    <!-- Page Footer -->
+    <x-utils.footer version="2.0.0" company="Oficina General de Calidad Universitaria - UNASAM"/>
 </div>
 
 @stack('modals')
