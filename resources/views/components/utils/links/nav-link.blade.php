@@ -1,14 +1,15 @@
 @props(['active'])
 
 @php
-    $classes = ($active ?? false)
-                ? 'relative py-2 px-2 text-sm rounded-md flex flex-1 w-full items-center justify-between bg-zinc-100 text-stone-800 font-bold cursor-pointer tracking-wide'
-                : 'py-2 px-2 text-sm rounded-md flex flex-1 w-full items-center justify-between bg-white hover:bg-zinc-100 text-gray-600 font-semibold hover:text-gray-700 cursor-pointer whitespace-nowrap';
+    $common_clases = 'py-2 px-2 text-sm rounded-md flex flex-1 w-full items-center justify-between whitespace-nowrap cursor-pointer soft-transition ';
+    $classes = $common_clases . (($active ?? false)
+                ? 'relative bg-blue-500/10 text-zinc-800 font-bold tracking-wide'
+                : 'bg-transparent hover:bg-blue-400/10 text-zinc-600 font-semibold hover:text-zinc-700');
 @endphp
 
 <a {{ $attributes->merge(['class' => $classes]) }}>
     @if($active)
-        <div class="absolute -left-2 h-6 w-1 bg-blue-600 rounded-lg"></div>
+        <div class="absolute -left-2 h-6 w-1 bg-blue-500 rounded-md"></div>
     @endif
     {{ $slot }}
 </a>
