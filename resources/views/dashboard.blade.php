@@ -18,8 +18,7 @@
                 <div class="absolute shadow right-2 top-2">
                     <x-utils.clock/>
                 </div>
-                <img class="w-full aspect-[4/3] rounded-lg object-cover" src="{{ asset('images/unasam/campus1.webp') }}"
-                     alt="Campus">
+                <x-utils.dashboard-image :user="Auth::user()->id"></x-utils.dashboard-image>
             </div>
         </div>
 
