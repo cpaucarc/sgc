@@ -31,7 +31,7 @@ class DepartamentoSeeder extends Seeder
             ],
             [
                 'id' => 57,
-                'nombre' => 'CIENCIAS BASICAS',
+                'nombre' => 'CIENCIAS BÁSICAS',
                 'facultad_id' => 1
             ],
             [
@@ -56,7 +56,7 @@ class DepartamentoSeeder extends Seeder
             ],
             [
                 'id' => 61,
-                'nombre' => 'ECONOMIA',
+                'nombre' => 'ECONOMÍA',
                 'facultad_id' => 12
             ],
             [
@@ -66,12 +66,12 @@ class DepartamentoSeeder extends Seeder
             ],
             [
                 'id' => 54,
-                'nombre' => 'ENFERMERIA',
+                'nombre' => 'ENFERMERÍA',
                 'facultad_id' => 8
             ],
             [
                 'id' => 68,
-                'nombre' => 'ESTADISTICA',
+                'nombre' => 'ESTADÍSTICA',
                 'facultad_id' => 1
             ],
             [
@@ -96,7 +96,7 @@ class DepartamentoSeeder extends Seeder
             ],
             [
                 'id' => 56,
-                'nombre' => 'MATEMATICA',
+                'nombre' => 'MATEMÁTICA',
                 'facultad_id' => 1
             ],
             [
@@ -106,7 +106,7 @@ class DepartamentoSeeder extends Seeder
             ],
             [
                 'id' => 55,
-                'nombre' => 'PROPEDEUTICA',
+                'nombre' => 'PROPEDÉUTICA',
                 'facultad_id' => 8
             ],
         ];
