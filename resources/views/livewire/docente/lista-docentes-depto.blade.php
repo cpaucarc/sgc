@@ -1,7 +1,7 @@
 <div class="space-y-6">
     <div>
-        <h2 class="text-zinc-800 text-2xl font-extrabold">
-            Docentes del departamento académico {{ $depto->nombre }}
+        <h2 class="text-zinc-800 text-xl font-bold">
+            Docentes del departamento académico <span class="font-black">{{ $depto->nombre }}</span>
         </h2>
         <h3 class="text-zinc-600">
             Facultad de {{ $depto->facultad->nombre }}
@@ -19,7 +19,6 @@
 
     <x-utils.tables.table>
         @slot('head')
-            <x-utils.tables.head>N°</x-utils.tables.head>
             <x-utils.tables.head>Nombre del docente</x-utils.tables.head>
             <x-utils.tables.head>Contacto</x-utils.tables.head>
             <x-utils.tables.head>Categoría</x-utils.tables.head>
@@ -27,11 +26,8 @@
             <x-utils.tables.head>Dedicación</x-utils.tables.head>
         @endslot
         @slot('body')
-            @foreach($docentes as $i => $docente)
+            @foreach($docentes as $docente)
                 <x-utils.tables.row>
-                    <x-utils.tables.body class="text-xs">
-                        {{ $i + 1 }}
-                    </x-utils.tables.body>
                     <x-utils.tables.body class="text-xs">
                         <p class="font-bold">
                             {{ $docente->persona->apellido_paterno }} {{ $docente->persona->apellido_materno }} {{ $docente->persona->nombres }}
@@ -40,7 +36,7 @@
                             DNI: {{ $docente->persona->dni }}
                         </p>
                     </x-utils.tables.body>
-                    <x-utils.tables.body class="text-xs whitespace-nowrap">
+                    <x-utils.tables.body class="whitespace-nowrap">
                         Correo: <a href="mailto:{{ $docente->persona->correo }}"
                                    class="hover:text-blue-600">{{ $docente->persona->correo }}</a>
                         <p class="block">Celular: {{ $docente->persona->celular }}</p>
