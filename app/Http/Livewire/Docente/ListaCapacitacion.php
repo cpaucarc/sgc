@@ -9,14 +9,15 @@ use Livewire\Component;
 
 class ListaCapacitacion extends Component
 {
-    public $departamentos=null;
+    public $depto=null;
+
     protected $listeners = [
         "guardarInformacion" => "render"
     ];
 
     public function mount()
     {
-        $this->departamentos = Departamento::query()
+        $this->depto = Departamento::query()
             ->with('facultad')
             ->where('id', UsuarioHelper::escuelasDelUsuario()->pluck('depto_id')[0])
             ->first();
@@ -24,7 +25,7 @@ class ListaCapacitacion extends Component
 
     public function render()
     {
-        $capacitaciones = Capacitacion::query()->where('departamento_id',$this->departamentos->id)->get();
+        $capacitaciones = Capacitacion::query()->where('departamento_id',$this->depto->id)->get();
         return view('livewire.docente.lista-capacitacion', compact('capacitaciones'));
     }
 }

@@ -10,8 +10,8 @@
         <div>
             <x-jet-label for="departamento" value="Departamentos académicos"/>
             <x-utils.forms.select id="departamento" type="month" class="w-full" wire:model="departamento">
-                @if($departamentos)
-                    <option value="{{ $departamentos->id }}">{{ $departamentos->nombre }}</option>
+                @if($depto)
+                    <option value="{{ $depto->id }}">{{ $depto->nombre }}</option>
                 @else
                     <option value="0">No hay ningún dato</option>
                 @endif

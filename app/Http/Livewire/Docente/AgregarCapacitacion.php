@@ -11,7 +11,7 @@ use Livewire\Component;
 
 class AgregarCapacitacion extends Component
 {
-    public $departamentos = null, $departamento = 0;
+    public $depto = null, $departamento = 0;
     public $semestres = null, $semestre = 0;
     public $nombre;
 
@@ -21,10 +21,10 @@ class AgregarCapacitacion extends Component
 
     public function mount()
     {
-        $this->departamentos = Departamento::query()
+        $this->depto = Departamento::query()
             ->where('id', UsuarioHelper::escuelasDelUsuario()->pluck('depto_id')[0])
             ->first();
-        $this->departamento = $this->departamentos->id;
+        $this->departamento = $this->depto->id;
 
         $this->semestres = Semestre::query()->orderBy('nombre', 'desc')->get();
         $this->semestre = $this->semestres->where('activo', true)->first()->id;
