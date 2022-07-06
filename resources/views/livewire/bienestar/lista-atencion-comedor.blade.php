@@ -83,7 +83,7 @@
         <div class="border border-gray-300 rounded-md">
             <x-utils.message-no-items
                 title="Aún no hay ninguna información"
-                text="Aqui podrá ver la lista de informacipon sobre la atención de los estudiantes en el comedor universitario.">
+                text="Aqui podrá ver la lista de información sobre las atenciones a los servicios de Bienestar Universitario.">
                 @slot('icon')
                     <svg class="text-gray-400" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
                         <path fill-rule="evenodd"
@@ -99,7 +99,7 @@
     @push('js')
         <script>
             function eliminar(id, service) {
-                let res = confirm('¿Desea eliminar el registro de atenciones del servicio ' + service + '?')
+                let res = confirm('¿Desea eliminar el registro de atenciones del servicio de ' + service + '?')
 
                 if (res) {
                     window.livewire.emit('eliminar', id);
