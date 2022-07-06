@@ -17,6 +17,7 @@ use App\Models\Escuela;
 use App\Models\Estado;
 use App\Models\Facultad;
 use App\Models\Semestre;
+use App\Models\Servicio;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -572,9 +573,13 @@ class ReporteController extends Controller
     public function bienestar_reporte(Request $request)
     {
         try {
+            $servicio = intval($request->input('servicio'));
             $facultad = intval($request->input('facultad'));
             $escuela = intval($request->input('escuela'));
             $anio = intval($request->input('anio'));
+
+            $servicios = Servicio::query()->orderBy('nombre')
+                ->select('id', 'nombre');
 
             $facultades = Facultad::query()->orderBy('nombre')
                 ->select('id', 'nombre')
@@ -592,16 +597,22 @@ class ReporteController extends Controller
                 }]);
             }
 
+            if ($servicio > 0) {
+                $servicios = $servicios->where('id', $servicio);
+            }
+
             if ($facultad > 0) {
                 $facultades = $facultades->where('id', $facultad);
             }
 
+            $servicios = $servicios->get();
             $facultades = $facultades->get();
 
             $anio_nombre = $anio === 0 ? 'Todos' : $anio;
 
             $pdf = PDF::loadView('reporte.bienestar.reporte_atencion_comedor', [
                 'anio' => $anio_nombre,
+                'servicios' => $servicios,
                 'facultades' => $facultades
             ]);
             return $pdf->setPaper('a3')->stream();

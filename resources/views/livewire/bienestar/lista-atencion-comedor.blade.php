@@ -54,13 +54,13 @@
                             {{$atencion->atenciones}}
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-center">
-                            {{$atencion->total ?? '---'}}
+                            {{$atencion->total ?? $atencion->atenciones}}
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-center">
                             @if($atencion->total)
                                 {{ round($atencion->atenciones/$atencion->total*100, 2) .  '%' }}
                             @else
-                                ---
+                                {{ round($atencion->atenciones/$atencion->atenciones*100, 2) .  '%' }}
                             @endif
                         </x-utils.tables.body>
                         <x-utils.tables.body>
