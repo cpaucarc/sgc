@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('capacitaciones', function (Blueprint $table) {
             $table->id();
             $table->string('uuid', 40);
-            $table->string('nombre');
+            $table->text('nombre');
+            $table->date('fecha_inicio');
+            $table->date('fecha_fin');
             $table->foreignId('departamento_id')->constrained('departamentos')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
