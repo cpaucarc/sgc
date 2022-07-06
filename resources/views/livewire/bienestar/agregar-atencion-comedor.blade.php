@@ -2,11 +2,22 @@
 
     <x-slot name="header">
         <h1 class="font-bold text-sm text-gray-800">
-            Agregar información sobre la atención a estudiantes
+            Agregar información sobre la atención de los servicios
         </h1>
     </x-slot>
 
     <div class="my-2 space-y-4">
+        <div>
+            <x-jet-label for="servicio" value="Servicios de bienestar"/>
+            <x-utils.forms.select id="servicio" type="month" class="w-full" wire:model="servicio">
+                @forelse($servicios as $serv)
+                    <option value="{{ $serv->id }}">{{ $serv->nombre }}</option>
+                @empty
+                    <option value="0">No hay ningún dato</option>
+                @endforelse
+            </x-utils.forms.select>
+            <x-jet-input-error for="servicio"/>
+        </div>
         <div>
             <x-jet-label for="escuela" value="Programa académico"/>
             <x-utils.forms.select id="escuela" type="month" class="w-full" wire:model.defer="escuela">
@@ -24,15 +35,17 @@
             <x-jet-input-error for="fecha"/>
         </div>
         <div>
-            <x-jet-label for="cantidad" value="Cantidad de comensales atendidos"/>
+            <x-jet-label for="cantidad" value="Cantidad de atendidos"/>
             <x-jet-input id="cantidad" type="number" min="0" class="w-full" wire:model.defer="cantidad" autofocus/>
             <x-jet-input-error for="cantidad"/>
         </div>
-        <div>
-            <x-jet-label for="total" value="Total de comensales"/>
-            <x-jet-input id="total" type="number" min="0" class="w-full" wire:model.defer="total"/>
-            <x-jet-input-error for="total"/>
-        </div>
+        @if($selectComedor)
+            <div>
+                <x-jet-label for="total" value="Total"/>
+                <x-jet-input id="total" type="number" min="0" class="w-full" wire:model.defer="total"/>
+                <x-jet-input-error for="total"/>
+            </div>
+        @endif
         <div class="flex justify-end">
             <x-jet-button wire:click="guardar" wire:target="guardar"
                           wire:loading.class="cursor-wait" wire:loading.attr="disabled">

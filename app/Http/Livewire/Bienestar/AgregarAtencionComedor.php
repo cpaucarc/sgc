@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Bienestar;
 
+use App\Models\BienestarAtencion;
+use App\Models\Servicio;
 use App\Models\Comedor;
 use App\Models\Escuela;
 use App\Models\User;
@@ -11,11 +13,13 @@ use Livewire\Component;
 
 class AgregarAtencionComedor extends Component
 {
-    public $fecha, $cantidad, $total, $escuela = 0, $escuelas = null;
+    public $fecha, $cantidad, $total=null, $escuela = 0, $escuelas = null;
+    public $servicios = null, $servicio = 0, $selectComedor = false;
 
     protected $rules = [
+        'servicio' => 'required|gt:0',
+        'escuela' => 'required|gt:0',
         'cantidad' => 'required|gt:0',
-        'total' => 'required|gt:0'
     ];
 
     public function mount()
@@ -23,24 +27,33 @@ class AgregarAtencionComedor extends Component
         $this->fecha = now()->format('Y-m');
         $this->escuelas = Escuela::find(User::escuelas_id(Auth::user()->id));
         $this->escuela = $this->escuelas->first()->id;
+        $this->servicios = Servicio::query()->select('id', 'nombre')->get();
+        $this->servicio = $this->servicios->first()->id;
     }
 
     public function render()
     {
+        if ($this->servicio == 5) {// 5: Comedor Universitario
+            $this->selectComedor = true;
+        } else {
+            $this->selectComedor = false;
+        }
+
         return view('livewire.bienestar.agregar-atencion-comedor');
     }
 
     public function guardar()
     {
         $this->validate();
-        Comedor::create([
+        BienestarAtencion::create([
+            'servicio_id' => $this->servicio,
             'mes' => Carbon::createFromFormat('Y-m', $this->fecha)->month,
             'anio' => Carbon::createFromFormat('Y-m', $this->fecha)->year,
             'atenciones' => $this->cantidad,
             'total' => $this->total,
             'escuela_id' => $this->escuela
         ]);
-        $this->reset('cantidad');
+        $this->reset('cantidad','total');
         $this->emitTo('bienestar.lista-atencion-comedor', "cargarDatos");
     }
 }

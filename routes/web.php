@@ -182,7 +182,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('registrar/postulante', 'registrarPostulante')->name('btu.registrar.postulante');
     });
 
-    /*Todo: Bibliote Especializada por Facultad*/
+    /*Todo: Biblioteca Especializada por Facultad*/
     Route::prefix('biblioteca')->controller(BibliotecaController::class)->group(function () {
         Route::get('/', 'index')->name('biblioteca.index');
         Route::get('visitante', 'visitante')->name('biblioteca.visitante');

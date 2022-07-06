@@ -1,6 +1,12 @@
 <div>
     @if(count($anios))
         <div class="flex justify-end items-center gap-x-2 mb-4">
+            <x-utils.forms.select class="w-52" wire:model="servicio">
+                <option value="0">Todos los servicios</option>
+                @foreach($servicios as $sv)
+                    <option value="{{ $sv->id }}">{{$sv->nombre}}</option>
+                @endforeach
+            </x-utils.forms.select>
             <x-utils.forms.select class="w-20" wire:model="mes">
                 <option value="0">Todos</option>
                 <option value="1">Enero</option>
@@ -24,37 +30,55 @@
         </div>
     @endif
 
-    @if(count($comedor))
+    @if(count($atenciones))
         <x-utils.tables.table>
             @slot('head')
+                <x-utils.tables.head>Servicio</x-utils.tables.head>
                 <x-utils.tables.head>Fecha</x-utils.tables.head>
                 <x-utils.tables.head>Atenciones</x-utils.tables.head>
-                <x-utils.tables.head>Total Comensales</x-utils.tables.head>
+                <x-utils.tables.head>Total</x-utils.tables.head>
                 <x-utils.tables.head>% Atención</x-utils.tables.head>
                 <x-utils.tables.head>Programa</x-utils.tables.head>
+                <x-utils.tables.head><span class="sr-only">Acciones</span></x-utils.tables.head>
             @endslot
             @slot('body')
-                @foreach($comedor as $cmd)
+                @foreach($atenciones as $atencion)
                     <x-utils.tables.row>
                         <x-utils.tables.body>
-                            {{$cmd->anio}} - {{ \App\Models\Fecha::nombreDeMes($cmd->mes)  }}
-                        </x-utils.tables.body>
-                        <x-utils.tables.body class="text-center">
-                            {{$cmd->atenciones}}
-                        </x-utils.tables.body>
-                        <x-utils.tables.body class="text-center">
-                            {{$cmd->total}}
-                        </x-utils.tables.body>
-                        <x-utils.tables.body class="text-center">
-                            {{ round($cmd->atenciones/$cmd->total*100, 2) .  '%' }}
+                            {{$atencion->servicio->nombre}}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            {{$cmd->escuela->nombre}}
+                            {{$atencion->anio}} - {{ \App\Models\Fecha::nombreDeMes($atencion->mes)  }}
+                        </x-utils.tables.body>
+                        <x-utils.tables.body class="text-center">
+                            {{$atencion->atenciones}}
+                        </x-utils.tables.body>
+                        <x-utils.tables.body class="text-center">
+                            {{$atencion->total ?? $atencion->atenciones}}
+                        </x-utils.tables.body>
+                        <x-utils.tables.body class="text-center">
+                            @if($atencion->total)
+                                {{ round($atencion->atenciones/$atencion->total*100, 2) .  '%' }}
+                            @else
+                                {{ round($atencion->atenciones/$atencion->atenciones*100, 2) .  '%' }}
+                            @endif
+                        </x-utils.tables.body>
+                        <x-utils.tables.body>
+                            {{$atencion->escuela->nombre}}
+                        </x-utils.tables.body>
+                        <x-utils.tables.body>
+                            <x-utils.buttons.danger class="text-sm"
+                                                    onclick="eliminar({{ $atencion->id }},'{{$atencion->servicio->nombre}}')">
+                                <x-icons.delete class="h-4 w-4" stroke="1.5"/>
+                            </x-utils.buttons.danger>
                         </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach
             @endslot
         </x-utils.tables.table>
+        <div class="mt-4">
+            {{ $atenciones->links() }}
+        </div>
     @else
         <div class="border border-gray-300 rounded-md">
             <x-utils.message-no-items
@@ -71,4 +95,16 @@
             </x-utils.message-no-items>
         </div>
     @endif
+
+    @push('js')
+        <script>
+            function eliminar(id, service) {
+                let res = confirm('¿Desea eliminar el registro de atenciones del servicio ' + service + '?')
+
+                if (res) {
+                    window.livewire.emit('eliminar', id);
+                }
+            }
+        </script>
+    @endpush
 </div>

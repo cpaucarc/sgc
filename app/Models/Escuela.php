@@ -47,6 +47,11 @@ class Escuela extends Model
         return $this->hasMany(BolsaPostulante::class)->orderBy('fecha_fin');
     }
 
+    public function atenciones()
+    {
+        return $this->hasMany(BienestarAtencion::class)->orderBy('mes');
+    }
+
     public function comedor()
     {
         return $this->hasMany(Comedor::class)->orderBy('mes');

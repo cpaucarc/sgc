@@ -79,36 +79,51 @@
     </table>
 
     <p class="font-weight-bold mb-4" style="font-size: 15px">Año: {{ $anio }}</p>
-
+    <p class="font-weight-bold mb-4 inline-block" style="font-size: 15px">Servicio:
+        @foreach($servicios as $servicio)
+            @if ($loop->even)
+                <span class="bg-gray-200 p-2 rounded-lg"> {{$servicio->nombre}}</span>
+            @endif
+            @if ($loop->odd)
+                <span class="border border-gray-200 p-2 rounded-lg"> {{$servicio->nombre}}</span>
+            @endif
+        @endforeach
+    </p>
     @foreach($facultades as $fac)
         <p class="font-weight-bold mt-5 mb-3" style="font-size: 16px"> {{strtoupper($fac->nombre) }}</p>
         @foreach($fac->escuelas as $esc)
-            @if(count($esc->comedor))
+            @if(count($esc->atenciones))
                 <p class="font-weight-normal my-1" style="font-size: 14px">{{ strtoupper($esc->nombre) }}</p>
                 <table class="table table-sm table-bordered">
                     <thead>
                     <tr>
                         <th style="padding: 3px 6px">N°</th>
+                        <th style="padding: 3px 6px">Servicio</th>
                         <th style="padding: 3px 6px">Fecha</th>
                         <th style="padding: 3px 6px">Atenciones</th>
-                        <th style="padding: 3px 6px">Total de comensales</th>
+                        <th style="padding: 3px 6px">Total</th>
                         <th style="padding: 3px 6px">% Atención</th>
                         <th style="padding: 3px 6px">Escuela</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($esc->comedor as $i => $cmd)
+                    @foreach($esc->atenciones as $i => $atencion)
                         <tr>
                             <td style="padding: 3px 6px">{{ $i + 1 }}</td>
+                            <td style="padding: 3px 6px">{{ $atencion->servicio->nombre }}</td>
                             <td style="padding: 3px 6px">
-                                {{ \App\Models\Fecha::nombreDeMes($cmd->mes)  }} - {{$cmd->anio}}
+                                {{ \App\Models\Fecha::nombreDeMes($atencion->mes)  }} - {{$atencion->anio}}
                             </td>
-                            <td style="padding: 3px 6px">{{$cmd->atenciones}}</td>
-                            <td style="padding: 3px 6px">{{$cmd->total}}</td>
+                            <td style="padding: 3px 6px">{{$atencion->atenciones}}</td>
+                            <td style="padding: 3px 6px">{{$atencion->total ?? $atencion->atenciones}} </td>
                             <td style="padding: 3px 6px">
-                                {{ round($cmd->atenciones/$cmd->total*100, 2) .  '%' }}
+                                @if($atencion->total)
+                                    {{ round($atencion->atenciones/$atencion->total*100, 2) .  '%' }}
+                                @else
+                                    {{ round($atencion->atenciones/$atencion->atenciones*100, 2) .  '%' }}
+                                @endif
                             </td>
-                            <td style="padding: 3px 6px">{{ $cmd->escuela->nombre }}</td>
+                            <td style="padding: 3px 6px">{{ $atencion->escuela->nombre }}</td>
                         </tr>
                     @endforeach
                     </tbody>
