@@ -10,4 +10,9 @@ class ComedorController extends Controller
     {
         return view('bienestar.index');
     }
+
+    public function salud()
+    {
+        return view('bienestar.salud');
+    }
 }

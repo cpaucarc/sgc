@@ -85,5 +85,8 @@ class DatabaseSeeder extends Seeder
         // Nivel 5
         \App\Models\InvestigacionFinanciacion::factory(90)->create();
         \App\Models\InvestigacionInvestigador::factory(90)->create();
+
+        //Nivel6
+        $this->call(ServicioSeeder::class);
     }
 }
