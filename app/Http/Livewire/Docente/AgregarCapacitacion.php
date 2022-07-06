@@ -15,6 +15,9 @@ class AgregarCapacitacion extends Component
     public $semestres = null, $semestre = 0;
     public $nombre;
 
+    public $open = false;
+
+
     protected $rules = [
         'nombre' => 'required'
     ];
@@ -36,6 +39,11 @@ class AgregarCapacitacion extends Component
         return view('livewire.docente.agregar-capacitacion');
     }
 
+    public function abrirModal()
+    {
+        $this->open = true;
+    }
+
     public function guardar()
     {
         $this->validate();
@@ -45,7 +53,7 @@ class AgregarCapacitacion extends Component
             'departamento_id' => $this->departamento,
             'semestre_id' => $this->semestre
         ]);
-        $this->reset('nombre');
+        $this->reset('nombre','open');
         $this->emitTo('docente.lista-capacitacion', "guardarInformacion");
     }
 }
