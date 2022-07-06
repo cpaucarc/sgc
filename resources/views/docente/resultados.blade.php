@@ -7,7 +7,10 @@
         </div>
 
         <div class="col-span-3">
-            <livewire:docente.lista-docentes-depto/>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi cupiditate deserunt dignissimos
+                doloremque eligendi expedita illo in.
+            </p>
         </div>
     </div>
 

@@ -174,6 +174,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     /*Todo: Docente*/
     Route::prefix('docente')->controller(DocenteController::class)->group(function () {
         Route::get('/', 'index')->name('docente.index');
+        Route::get('por_semestre', 'por_semestre')->name('docente.por_semestre');
+        Route::get('resultados', 'resultados')->name('docente.resultados');
     });
 
     /*Todo: Bolsa de Trabajo Universitario*/

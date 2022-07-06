@@ -10,4 +10,14 @@ class DocenteController extends Controller
     {
         return view('docente.index');
     }
+
+    public function por_semestre()
+    {
+        return view('docente.por_semestre');
+    }
+
+    public function resultados()
+    {
+        return view('docente.resultados');
+    }
 }
