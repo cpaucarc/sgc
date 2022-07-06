@@ -1,7 +1,7 @@
-<nav x-data="{ open: false }" class="border-b border-gray-800 print:hidden" style="background-color: #24292F">
+<nav x-data="{ open: false }" class="bg-zinc-900 border-b border-zinc-900 print:hidden sticky z-30">
     <!-- Primary Navigation Menu -->
     <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-14">
+        <div class="flex justify-between h-[60px]">
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
@@ -71,6 +71,10 @@
                                             :active="request()->routeIs('bienestar.*')">
                                 {{ __('Bienestar Universitario') }}
                             </x-jet-nav-link>
+                            <x-jet-nav-link href="{{ route('docente.index') }}"
+                                            :active="request()->routeIs('docente.*')">
+                                {{ __('Docente') }}
+                            </x-jet-nav-link>
                         @endif
                         @if(\Illuminate\Support\Facades\Auth::user()->hasAnyRole(['Dirección de Escuela', 'Departamento Academico', 'Decanatura']))
                             <x-jet-nav-link href="{{ route('indicador.index') }}"
@@ -136,9 +140,9 @@
                             </x-slot>
                         </x-jet-dropdown>
                     </div>
-            @endif
+                @endif
 
-            <!-- Settings Dropdown -->
+                <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
                     <x-jet-dropdown align="right" width="48">
                         <x-slot name="trigger">
@@ -252,7 +256,7 @@
                     </x-jet-responsive-nav-link>
                 @endif
 
-            <!-- Authentication -->
+                <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 

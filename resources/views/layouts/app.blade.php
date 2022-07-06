@@ -7,8 +7,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
@@ -18,16 +16,15 @@
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
-<body class="font-sans antialiased">
+<body class="font-sans antialiased bg-zinc-50">
 
-
-<div class="min-h-screen bg-white">
+<div class="min-h-screen">
 
     @livewire('navigation-menu')
 
     <!-- Page Heading -->
     @if (isset($header))
-        <header class="bg-stone-100 border border-stone-200">
+        <header class="bg-zinc-100 border border-zinc-200">
             <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
                 {{ $header }}
             </div>

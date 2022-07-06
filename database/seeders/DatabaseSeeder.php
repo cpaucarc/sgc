@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 
@@ -86,7 +85,14 @@ class DatabaseSeeder extends Seeder
         \App\Models\InvestigacionFinanciacion::factory(90)->create();
         \App\Models\InvestigacionInvestigador::factory(90)->create();
 
-        //Nivel6
+        //Sprint 3
         $this->call(ServicioSeeder::class);
+
+        // Sprint 3
+        $this->call(DepartamentoSeeder::class);
+        $this->call(DocenteCategoriaSeeder::class);
+        $this->call(DocenteDedicacionSeeder::class);
+        $this->call(DocenteCondicionSeeder::class);
+
     }
 }

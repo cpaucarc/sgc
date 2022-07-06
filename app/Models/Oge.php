@@ -44,4 +44,14 @@ class Oge
         return $response;
     }
 
+    public static function listaDocentes($depto_id, $semeste)
+    {
+        $response = Http::withToken(env('OGE_TOKEN'))
+            ->get(env('OGE_API') . 'proceso_docente/departamento/02?departamento=' . $depto_id . '&semestre='.$semeste);
+
+        $response = $response->json();
+
+        return $response;
+    }
+
 }
