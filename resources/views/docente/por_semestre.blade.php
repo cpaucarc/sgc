@@ -7,7 +7,7 @@
         </div>
 
         <div class="col-span-3">
-            <livewire:docente.lista-docentes-semestre/>
+            <livewire:docente.lista-docente-semestre/>
         </div>
     </div>
 
