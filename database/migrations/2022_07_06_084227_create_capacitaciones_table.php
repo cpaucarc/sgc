@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('uuid', 40);
             $table->text('nombre');
+            $table->date('fecha_inicio');
+            $table->date('fecha_fin');
             $table->foreignId('departamento_id')->constrained('departamentos')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();

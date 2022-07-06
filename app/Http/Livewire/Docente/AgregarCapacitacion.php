@@ -6,6 +6,7 @@ use App\Lib\UsuarioHelper;
 use App\Models\Capacitacion;
 use App\Models\Departamento;
 use App\Models\Semestre;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
@@ -13,12 +14,14 @@ class AgregarCapacitacion extends Component
 {
     public $depto = null, $departamento = 0;
     public $semestres = null, $semestre = 0;
-    public $nombre;
+    public $nombre, $inicio, $fin;
 
     public $open = false;
 
 
     protected $rules = [
+        'inicio' => 'required|date|before:fin',
+        'fin' => 'required|date|after:inicio',
         'nombre' => 'required'
     ];
 
@@ -32,6 +35,8 @@ class AgregarCapacitacion extends Component
         $this->semestres = Semestre::query()->orderBy('nombre', 'desc')->get();
         $this->semestre = $this->semestres->where('activo', true)->first()->id;
 
+        $this->inicio = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $this->fin = Carbon::now()->endOfMonth()->format('Y-m-d');
     }
 
     public function render()
@@ -50,10 +55,12 @@ class AgregarCapacitacion extends Component
         Capacitacion::create([
             'uuid' => Str::uuid(),
             'nombre' => $this->nombre,
+            'fecha_inicio' => $this->inicio,
+            'fecha_fin' => $this->fin,
             'departamento_id' => $this->departamento,
             'semestre_id' => $this->semestre
         ]);
-        $this->reset('nombre','open');
+        $this->reset('nombre', 'open');
         $this->emitTo('docente.lista-capacitacion', "guardarInformacion");
     }
 }
