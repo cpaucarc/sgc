@@ -39,7 +39,7 @@
         </main>
     </div>
     <!-- Page Footer -->
-    <x-utils.footer version="2.0.0" company="Oficina General de Calidad Universitaria - UNASAM"/>
+    <x-utils.footer />
 </div>
 
 @stack('modals')
