@@ -71,6 +71,10 @@
                                             :active="request()->routeIs('bienestar.*')">
                                 {{ __('Bienestar Universitario') }}
                             </x-jet-nav-link>
+                            <x-jet-nav-link href="{{ route('docente.index') }}"
+                                            :active="request()->routeIs('docente.*')">
+                                {{ __('Docente') }}
+                            </x-jet-nav-link>
                         @endif
                         @if(\Illuminate\Support\Facades\Auth::user()->hasAnyRole(['Dirección de Escuela', 'Departamento Academico', 'Decanatura']))
                             <x-jet-nav-link href="{{ route('indicador.index') }}"

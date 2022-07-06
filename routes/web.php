@@ -9,6 +9,7 @@ use App\Http\Controllers\ComedorController;
 use App\Http\Controllers\ConvalidacionController;
 use App\Http\Controllers\BibliotecaController;
 use App\Http\Controllers\ConvenioController;
+use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\EncuestaController;
 use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\InvestigacionController;
@@ -168,6 +169,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::prefix('convenio')->controller(ConvenioController::class)->group(function () {
         Route::get('/', 'index')->name('convenio.index');
         Route::get('registrar', 'registrarConvenio')->name('convenio.registrar');
+    });
+
+    /*Todo: Docente*/
+    Route::prefix('docente')->controller(DocenteController::class)->group(function () {
+        Route::get('/', 'index')->name('docente.index');
     });
 
     /*Todo: Bolsa de Trabajo Universitario*/
