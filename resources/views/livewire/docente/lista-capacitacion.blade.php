@@ -17,7 +17,7 @@
     @if(count($capacitaciones))
         <x-utils.tables.table>
             @slot('head')
-                {{--<x-utils.tables.head>N°</x-utils.tables.head>--}}
+                <x-utils.tables.head>N°</x-utils.tables.head>
                 <x-utils.tables.head >Nombre</x-utils.tables.head>
                 <x-utils.tables.head>Inicio</x-utils.tables.head>
                 <x-utils.tables.head>Fin</x-utils.tables.head>
@@ -28,9 +28,9 @@
             @slot('body')
                 @foreach($capacitaciones as $i=>$capacitacion)
                     <x-utils.tables.row>
-                        {{--<x-utils.tables.body>
+                        <x-utils.tables.body>
                             {{($i+1)}}
-                        </x-utils.tables.body>--}}
+                        </x-utils.tables.body>
                         <x-utils.tables.body>
                             {{$capacitacion->nombre}}
                         </x-utils.tables.body>
