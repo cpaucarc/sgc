@@ -85,6 +85,9 @@ class DatabaseSeeder extends Seeder
         \App\Models\InvestigacionFinanciacion::factory(90)->create();
         \App\Models\InvestigacionInvestigador::factory(90)->create();
 
+        //Sprint 3
+        $this->call(ServicioSeeder::class);
+
         // Sprint 3
         $this->call(DepartamentoSeeder::class);
         $this->call(DocenteCategoriaSeeder::class);
