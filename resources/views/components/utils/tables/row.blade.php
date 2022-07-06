@@ -1,3 +1,3 @@
-<tr class="text-sm group text-gray-600 hover:text-gray-800 hover:bg-gray-50">
+<tr class="text-sm group text-zinc-700 hover:text-zinc-900 hover:bg-zinc-50">
     {{$slot}}
 </tr>
