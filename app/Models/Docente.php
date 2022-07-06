@@ -31,4 +31,9 @@ class Docente extends Model
     {
         return $this->belongsTo(DocenteDedicacion::class, 'dedicacion_id');
     }
+
+    public function capacitaciones()
+    {
+        return $this->belongsToMany(Capacitacion::class);
+    }
 }

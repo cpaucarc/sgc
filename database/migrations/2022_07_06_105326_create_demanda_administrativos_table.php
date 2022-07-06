@@ -13,16 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('bienestar_atenciones', function (Blueprint $table) {
+        Schema::create('demanda_administrativos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('servicio_id')->constrained('servicios')
+            $table->integer('num_docentes');
+            $table->integer('num_administrativos');
+            $table->foreignId('departamento_id')->constrained('departamentos')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->integer('mes');
-            $table->integer('anio');
-            $table->integer('atenciones');
-            $table->integer('total')->nullable();
-            $table->foreignId('escuela_id')->constrained('escuelas')
+            $table->foreignId('semestre_id')->constrained('semestres')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
         });
@@ -35,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bienestar_atenciones');
+        Schema::dropIfExists('demanda_administrativos');
     }
 };
