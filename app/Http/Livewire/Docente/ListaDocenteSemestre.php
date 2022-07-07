@@ -12,7 +12,6 @@ use Livewire\Component;
 
 class ListaDocenteSemestre extends Component
 {
-
     public $depto;
     public $semestres = null;
     public $semestre, $semestre_activo;
