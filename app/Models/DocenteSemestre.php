@@ -12,4 +12,14 @@ class DocenteSemestre extends Model
     protected $table = 'docente_semestre';
     public $timestamps = false;
     public $fillable = ['cumple_40h', 'cumplio_40h', 'cumplio_labores', 'docente_id', 'semestre_id', 'departamento_id'];
+
+    public function docente()
+    {
+        return $this->belongsTo(Docente::class);
+    }
+
+    public function semestre()
+    {
+        return $this->belongsTo(Semestre::class);
+    }
 }
