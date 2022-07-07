@@ -7,10 +7,7 @@
         </div>
 
         <div class="col-span-3">
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi cupiditate deserunt dignissimos
-                doloremque eligendi expedita illo in.
-            </p>
+            <livewire:docente.lista-docente-resultados/>
         </div>
     </div>
 
