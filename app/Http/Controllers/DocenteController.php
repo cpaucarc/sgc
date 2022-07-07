@@ -20,4 +20,9 @@ class DocenteController extends Controller
     {
         return view('docente.resultados');
     }
+
+    public function capacitaciones()
+    {
+        return view('docente.capacitaciones');
+    }
 }
