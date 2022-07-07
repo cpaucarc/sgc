@@ -1,10 +1,10 @@
 <div class="space-y-6">
 
     <section class="flex items-center justify-between gap-x-2">
-        <div class="">
+        <div class="space-y-2">
             <h1 class="text-zinc-800 text-xl font-bold">Docentes por semestre</h1>
-            <p class="text-sm text-zinc-700 bg-zinc-100 rounded-md inline-flex px-3 py-1">
-                <x-icons.info class="icon-5 mr-2"/>
+            <p class="text-sm text-amber-700 bg-amber-100 rounded-md inline-flex px-3 py-1.5 font-semibold">
+                <x-icons.info class="icon-5 mr-2" stroke="1.75"/>
                 Se recomienda que esta sección sea atendida a inicios del semestre académico.
             </p>
         </div>
@@ -24,17 +24,13 @@
             <x-utils.tables.head>Categoría - Condición - Dedicación</x-utils.tables.head>
             <x-utils.tables.head>¿Cumple 40h?</x-utils.tables.head>
             <x-utils.tables.head>Estado</x-utils.tables.head>
-            <x-utils.tables.head>Accion</x-utils.tables.head>
+            <x-utils.tables.head><span class="sr-only">Acciones</span></x-utils.tables.head>
         @endslot
         @slot('body')
             @foreach($docentes as $docente)
                 <x-utils.tables.row>
                     <x-utils.tables.body class="text-xs font-bold">
                         {{ $docente->persona->apellido_paterno }} {{ $docente->persona->apellido_materno }} {{ $docente->persona->nombres }}
-                        <a href="mailto:{{ $docente->persona->correo }}"
-                           class="hover:text-blue-600 soft-transition block font-normal text-sm">
-                            {{ $docente->persona->correo }}
-                        </a>
                     </x-utils.tables.body>
                     <x-utils.tables.body class="text-xs whitespace-nowrap">
                         {{ $docente->categoria->nombre }} - {{ $docente->condicion->nombre }}
@@ -42,22 +38,26 @@
                     </x-utils.tables.body>
                     <x-utils.tables.body>
                         @if(!is_null($docente->cumple_40h))
-                            @if($docente->cumple_40h)
-                                SI
-                            @else
-                                NO
-                            @endif
+                            {{ $docente->cumple_40h ? 'SI' : 'NO' }}
                         @else
                             ---
                         @endif
                     </x-utils.tables.body>
                     <x-utils.tables.body class="text-xs">
                         @if(is_null($docente->cumple_40h))
-                            <x-utils.badge class="whitespace-nowrap bg-zinc-100 text-zinc-600 font-semibold">
+                            <x-utils.badge class="whitespace-nowrap text-zinc-400 font-semibold">
+                                <svg class="fill-current mr-1" viewBox="0 0 16 16" width="16" height="16">
+                                    <path fill-rule="evenodd"
+                                          d="M3.404 12.596a6.5 6.5 0 119.192-9.192 6.5 6.5 0 01-9.192 9.192zM2.344 2.343a8 8 0 1011.313 11.314A8 8 0 002.343 2.343zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path>
+                                </svg>
                                 No dicta
                             </x-utils.badge>
                         @else
                             <x-utils.badge class="whitespace-nowrap bg-green-100 text-green-600 font-semibold">
+                                <svg class="fill-current mr-1" viewBox="0 0 16 16" width="16" height="16">
+                                    <path fill-rule="evenodd"
+                                          d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM0 8a8 8 0 1116 0A8 8 0 010 8zm11.78-1.72a.75.75 0 00-1.06-1.06L6.75 9.19 5.28 7.72a.75.75 0 00-1.06 1.06l2 2a.75.75 0 001.06 0l4.5-4.5z"></path>
+                                </svg>
                                 Dicta
                             </x-utils.badge>
                         @endif
@@ -74,9 +74,12 @@
                                 </x-utils.buttons.danger>
                             @endif
                         @else
-                            <p class="inline-flex px-2 py-1 cursor-help bg-zinc-100 rounded text-zinc-600"
+                            <p class="inline-flex px-2 py-1 cursor-not-allowed bg-zinc-100 rounded text-zinc-600"
                                title="No puede modificar los datos de este semestre">
-                                <x-icons.info class="icon-5"/>
+                                <svg class="fill-current" viewBox="0 0 16 16" width="16" height="16">
+                                    <path fill-rule="evenodd"
+                                          d="M1.5 8a6.5 6.5 0 0110.535-5.096l-9.131 9.131A6.472 6.472 0 011.5 8zm2.465 5.096a6.5 6.5 0 009.131-9.131l-9.131 9.131zM8 0a8 8 0 100 16A8 8 0 008 0z"></path>
+                                </svg>
                             </p>
                         @endif
                     </x-utils.tables.body>
@@ -84,7 +87,6 @@
             @endforeach
         @endslot
     </x-utils.tables.table>
-
 
     @push('js')
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
