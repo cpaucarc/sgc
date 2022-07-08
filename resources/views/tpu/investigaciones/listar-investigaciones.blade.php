@@ -1,21 +1,23 @@
 <x-app-layout>
-    <div class="grid grid-cols-8 gap-12 pt-8">
-        <div class="col-span-2 space-y-4">
-            <div class="text-right">
-                <p class="text-gray-500">Proyectos de </p>
-                <h1 class="font-bold text-2xl text-gray-700">
-                    investigación
-                </h1>
-                <div class="flex justify-end mt-4">
-                    <p class="bg-yellow-200 text-yellow-800 px-3 py-1 rounded-lg">
-                        {{$proyectos}} tesis
-                    </p>
-                </div>
-            </div>
+    <div class="grid grid-cols-4 gap-x-8">
+        {{-- Rutas --}}
+        <div class="col-span-1">
+            <x-bachiller.rutas-grado-academico/>
         </div>
 
-        <div class="col-span-6 space-y-6">
-            <livewire:tpu.investigaciones.listar-investigaciones :escuela="$escuela" :facultad="$facultad"/>
+        <div class="col-span-3 space-y-4">
+            <div class="flex items-center justify-between space-x-4">
+                <h2 class="text-zinc-800 text-xl font-bold">
+                    Lista de <span class="font-black">Proyectos de Investigación</span>
+                </h2>
+                <p class="text-sm text-amber-700 bg-amber-100 rounded-md inline-flex px-3 py-1.5 font-semibold">
+                    <x-icons.info class="icon-5 mr-2" stroke="1.75"/>
+                    {{$proyectos}} tesis
+                </p>
+            </div>
+            <div class="w-full">
+                <livewire:tpu.investigaciones.listar-investigaciones :escuela="$escuela" :facultad="$facultad"/>
+            </div>
         </div>
     </div>
 </x-app-layout>

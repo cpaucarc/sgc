@@ -33,11 +33,8 @@
                         </x-jet-nav-link>
                         @if(\Illuminate\Support\Facades\Auth::user()->hasAnyRole(['Dirección de Escuela', 'Departamento Academico','Decanatura','Estudiante']))
                             <x-jet-nav-link href="{{ route('bachiller.index') }}"
-                                            :active="request()->routeIs('bachiller.*')">
-                                {{ __('Bachiller') }}
-                            </x-jet-nav-link>
-                            <x-jet-nav-link href="{{ route('tpu.index') }}" :active="request()->routeIs('tpu.*')">
-                                {{ __('Título Profesional') }}
+                                            :active="request()->routeIs('bachiller.*','tpu.*')">
+                                {{ __('Grado Académico') }}
                             </x-jet-nav-link>
                         @endif
                         <x-jet-nav-link href="{{ route('investigacion.index') }}"

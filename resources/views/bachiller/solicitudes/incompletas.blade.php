@@ -1,23 +1,23 @@
 <x-app-layout>
+    <div class="grid grid-cols-4 gap-x-8">
+        {{-- Rutas --}}
+        <div class="col-span-1">
+            <x-bachiller.rutas-grado-academico/>
+        </div>
 
-    <div class="grid grid-cols-6 gap-12 pt-8">
-        <div class="col-span-2 space-y-4">
-            <div class="text-right">
-                <p class="text-gray-500">Solicitudes con </p>
-                <h1 class="font-bold text-2xl text-gray-700">
-                    Requisitos Incompletos
-                </h1>
-                <div class="flex justify-end mt-4">
-                    <p class="bg-amber-200 text-amber-800 font-bold text-sm px-3 py-1 rounded-lg">
-                        {{$cant_solicitudes_incompletas}} solicitudes
-                    </p>
-                </div>
+        <div class="col-span-3 space-y-4">
+            <div class="flex items-center justify-between space-x-4">
+                <h2 class="text-zinc-800 text-xl font-bold">
+                    Solicitudes con requisitos <span class="font-black">incompletos</span>
+                </h2>
+                <p class="text-sm text-amber-700 bg-amber-100 rounded-md inline-flex px-3 py-1.5 font-semibold">
+                    <x-icons.info class="icon-5 mr-2" stroke="1.75"/>
+                    {{$cant_solicitudes_incompletas}} solicitudes
+                </p>
+            </div>
+            <div class="w-full">
+                <livewire:bachiller.solicitudes.incompletas :escuelas_id="$escuelas_id"/>
             </div>
         </div>
-
-        <div class="col-span-4 space-y-6">
-            <livewire:bachiller.solicitudes.incompletas :escuelas_id="$escuelas_id"/>
-        </div>
     </div>
-
 </x-app-layout>
