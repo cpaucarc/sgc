@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
         Storage::deleteDirectory('/public/entradas');
 
         // Nivel 0
+        $this->call(PersonaSeeder::class);
+        $this->call(DocenteSeeder::class);
+
         $this->call(CargoJuradoSeeder::class);
         $this->call(CategoriaEstadoSeeder::class);
         $this->call(ColegioSeeder::class);
