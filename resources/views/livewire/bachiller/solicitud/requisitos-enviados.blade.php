@@ -68,7 +68,7 @@
                     <x-utils.file-uploading>
                         <x-utils.forms.file-input class="w-full block" wire:model.defer="archivo"/>
                     </x-utils.file-uploading>
-                    <x-utils.loading-file wire:loading wire:target="archivo"></x-utils.loading-file>
+                    {{--<x-utils.loading-file wire:loading wire:target="archivo"></x-utils.loading-file>--}}
                     <x-jet-input-error for="archivo"></x-jet-input-error>
                 </div>
             </div>
