@@ -14,7 +14,6 @@ return new class extends Migration {
     {
         Schema::create('servicios', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid', 40);
             $table->string('nombre', 40);
         });
     }

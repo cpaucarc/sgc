@@ -17,23 +17,18 @@ class ServicioSeeder extends Seeder
     {
         $servicios = [
             [
-                'uuid' => Str::uuid(),
                 'nombre' => 'Salud'
             ], // 1
             [
-                'uuid' => Str::uuid(),
                 'nombre' => 'Psicopedagogia'
             ],//2
             [
-                'uuid' => Str::uuid(),
                 'nombre' => 'Servicio Social'
             ],//3
             [
-                'uuid' => Str::uuid(),
                 'nombre' => 'Recreación y Deporte'
             ],//4
             [
-                'uuid' => Str::uuid(),
                 'nombre' => 'Comedor Universitario'
             ],//5
         ];

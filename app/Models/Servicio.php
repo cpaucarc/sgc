@@ -11,7 +11,7 @@ class Servicio extends Model
 
     protected $table = "servicios";
     public $timestamps = false;
-    public $fillable = ['uuid','nombre'];
+    public $fillable = ['nombre'];
 
     public function atenciones()
     {
