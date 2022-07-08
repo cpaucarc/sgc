@@ -16,9 +16,9 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('uuid', 40);
-            $table->string('dni', 8)->unique()->nullable();
             $table->string('email')->unique();
             $table->boolean('activo')->default(true);
+            $table->foreignId('persona_id')->nullable()->constrained('personas')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

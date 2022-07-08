@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Pedro el Administrador',
             'uuid' => Str::uuid(),
-            'dni' => rand(30000000, 89999999),
+            'persona_id' => null,
             'email' => 'prueba@mail.com',
             'email_verified_at' => now(),
             'password' => $password,
@@ -32,18 +32,19 @@ class UserSeeder extends Seeder
 
         /* User Docente */
         User::create([
-            'name' => 'Peter el Docente',
+            'name' => 'VERONICA ALBERTO', // Enfermeria
             'uuid' => Str::uuid(),
-            'dni' => rand(30000000, 89999999),
+            'persona_id' => 294,
             'email' => 'docente1@mail.com',
             'email_verified_at' => now(),
             'password' => $password,
             'remember_token' => Str::random(10)
         ])->assignRole('Docente');
+
         User::create([
-            'name' => 'Arnol el Docente',
+            'name' => 'SANDRA CRUZ', // Obstetricia
             'uuid' => Str::uuid(),
-            'dni' => rand(30000000, 89999999),
+            'persona_id' => 475,
             'email' => 'docente2@mail.com',
             'email_verified_at' => now(),
             'password' => $password,
@@ -52,18 +53,19 @@ class UserSeeder extends Seeder
 
         /* User Director de Escuela y Docente */
         User::create([
-            'name' => 'Pepe el Director',
+            'name' => 'SILVIA REYES',
             'uuid' => Str::uuid(),
-            'dni' => rand(30000000, 89999999),
+            'persona_id' => 293,
             'email' => 'director1@mail.com',
             'email_verified_at' => now(),
             'password' => $password,
             'remember_token' => Str::random(10)
         ])->assignRole('Dirección de Escuela', 'Docente');
+
         User::create([
-            'name' => 'Fidencio el Director',
+            'name' => 'GILMA REYES',
             'uuid' => Str::uuid(),
-            'dni' => rand(30000000, 89999999),
+            'persona_id' => 473,
             'email' => 'director2@mail.com',
             'email_verified_at' => now(),
             'password' => $password,
@@ -74,16 +76,17 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Carlitos el Enfermero Estudiante',
             'uuid' => Str::uuid(),
-            'dni' => rand(30000000, 89999999),
+            'persona_id' => null,
             'email' => 'estudiante1@mail.com',
             'email_verified_at' => now(),
             'password' => $password,
             'remember_token' => Str::random(10)
         ])->assignRole('Estudiante');
+
         User::create([
             'name' => 'Emilio el Obstetra Estudiante',
             'uuid' => Str::uuid(),
-            'dni' => rand(30000000, 89999999),
+            'persona_id' => null,
             'email' => 'estudiante2@mail.com',
             'email_verified_at' => now(),
             'password' => $password,
@@ -92,10 +95,10 @@ class UserSeeder extends Seeder
 
         /* User Decanatura */
         User::create([
-            'name' => 'Demitrio el Decano',
+            'name' => 'BIBIANA LEON',
             'uuid' => Str::uuid(),
-            'dni' => rand(30000000, 89999999),
-            'email' => 'decano1@mail.com',
+            'persona_id' => 307,
+            'email' => 'decanofcm@mail.com',
             'email_verified_at' => now(),
             'password' => $password,
             'remember_token' => Str::random(10)

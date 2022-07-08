@@ -21,7 +21,7 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
     use HasRoles;
 
-    protected $fillable = ['name', 'uuid', 'activo', 'dni', 'email', 'password',];
+    protected $fillable = ['name', 'uuid', 'activo', 'persona_id', 'email', 'password',];
 
     protected $hidden = ['password', 'remember_token', 'two_factor_recovery_codes', 'two_factor_secret',];
 
@@ -34,6 +34,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Entidad::class, 'entidad_user')
             ->withTimestamps()
             ->withPivot('id');
+    }
+
+    public function persona()
+    {
+        return $this->belongsTo(Persona::class);
     }
 
     public static function getUserNameById($id)
