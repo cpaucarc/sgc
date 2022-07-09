@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
 
         // Nivel 0
         $this->call(PersonaSeeder::class);
-        $this->call(DocenteSeeder::class);
 
         $this->call(CargoJuradoSeeder::class);
         $this->call(CategoriaEstadoSeeder::class);
@@ -97,5 +96,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DocenteDedicacionSeeder::class);
         $this->call(DocenteCondicionSeeder::class);
 
+        $this->call(DocenteSeeder::class);
     }
 }
