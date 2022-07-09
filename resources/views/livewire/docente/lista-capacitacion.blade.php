@@ -8,6 +8,7 @@
                     <option value="{{ $smt->id }}">{{$smt->nombre}}</option>
                 @endforeach
             </x-utils.forms.select>
+
             @if(count($capacitaciones))
                 <livewire:docente.agregar-capacitacion/>
             @endif
@@ -18,7 +19,7 @@
         <x-utils.tables.table>
             @slot('head')
                 <x-utils.tables.head>N°</x-utils.tables.head>
-                <x-utils.tables.head >Nombre</x-utils.tables.head>
+                <x-utils.tables.head>Nombre</x-utils.tables.head>
                 <x-utils.tables.head>Inicio</x-utils.tables.head>
                 <x-utils.tables.head>Fin</x-utils.tables.head>
                 <x-utils.tables.head>Departamento</x-utils.tables.head>
@@ -62,10 +63,10 @@
     @else
         <div class="border border-gray-300 rounded-md">
             <x-utils.message-no-items
-                title="Aún no hay ninguna información"
-                text="Aqui podrá ver la lista de información sobre las capacitaciones realizadas a los docentes.">
+                title="Aún no hay ninguna capacitación registrada"
+                text="Aqui podrá ver la lista de capacitaciones realizadas a los docentes.">
                 @slot('icon')
-                    <svg class="text-gray-400" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
+                    <svg class="text-gray-400 fill-current" viewBox="0 0 24 24" width="24" height="24">
                         <path fill-rule="evenodd"
                               d="M3.5 8a5.5 5.5 0 118.596 4.547 9.005 9.005 0 015.9 8.18.75.75 0 01-1.5.045 7.5 7.5 0 00-14.993 0 .75.75 0 01-1.499-.044 9.005 9.005 0 015.9-8.181A5.494 5.494 0 013.5 8zM9 4a4 4 0 100 8 4 4 0 000-8z"></path>
                         <path

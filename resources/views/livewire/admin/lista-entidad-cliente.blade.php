@@ -3,9 +3,7 @@
         <div class="divide-y divide-dashed divide-gray-300">
             <div class="mb-3">
                 <div class="flex items-end justify-between">
-                    <h2 class="font-bold text-xl text-gray-600">
-                        Cliente
-                    </h2>
+                    <h2 class="font-bold text-xl text-gray-600">Cliente</h2>
                     <x-utils.buttons.default wire:click="openModal" class="text-sm">
                         Agregar
                     </x-utils.buttons.default>
@@ -60,9 +58,7 @@
                     </svg>
                 @endslot
 
-                <x-jet-button wire:click="openModal" class="text-sm">
-                    Asignar salidas
-                </x-jet-button>
+                <x-jet-button wire:click="openModal" class="text-sm">Asignar salidas</x-jet-button>
             </x-utils.message-no-items>
         </div>
     @endif

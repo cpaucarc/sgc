@@ -16,6 +16,13 @@
 
         <x-slot name="content">
             <div class="my-2 space-y-4">
+                <div>
+                    <x-jet-label for="nombre" value="Nombre de la capacitación"/>
+                    <x-utils.forms.textarea class="mt-1 block w-full" wire:model.defer="nombre"
+                                            id="nombre" rows="2"/>
+                    <x-jet-input-error for="nombre"/>
+                </div>
+
                 <div class="flex gap-x-6">
                     <div class="w-full">
                         <x-jet-label for="departamento" value="Departamentos académicos"/>
@@ -43,23 +50,17 @@
 
                 <div class="flex gap-x-6">
                     <div class="w-full">
-                        <x-jet-label for="inicio" value="Fecha de inicio"/>
+                        <x-jet-label for="inicio" value="Fecha de Inicio de la Capacitación"/>
                         <x-jet-input id="inicio" type="date" class="mt-1 block w-full"
                                      wire:model.defer="inicio" autocomplete="off"/>
                         <x-jet-input-error for="inicio"/>
                     </div>
                     <div class="w-full">
-                        <x-jet-label for="fin" value="Fecha de Finalización"/>
+                        <x-jet-label for="fin" value="Fecha de Finalización de la Capacitación"/>
                         <x-jet-input id="fin" type="date" class="mt-1 block w-full"
                                      wire:model.defer="fin" autocomplete="off"/>
                         <x-jet-input-error for="fin"/>
                     </div>
-                </div>
-                <div>
-                    <x-jet-label for="nombre" value="Nombre de la capacitación"/>
-                    <x-utils.forms.textarea class="mt-1 block w-full" wire:model.defer="nombre"
-                                            id="nombre"/>
-                    <x-jet-input-error for="nombre"/>
                 </div>
             </div>
         </x-slot>
