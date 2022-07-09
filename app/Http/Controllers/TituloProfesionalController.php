@@ -192,7 +192,7 @@ class TituloProfesionalController extends Controller
                     ->where('id', $escuela->id);
             })->first();
 
-            $proyectos = $callback_proyectos->where('escuela_id', $this->escuela->id)->count();
+            $proyectos = $callback_proyectos->where('escuela_id', $escuela->id)->count();
 
         } elseif (count($facultades_id) > 0) {
             $escuela = null;
