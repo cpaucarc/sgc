@@ -27,7 +27,9 @@
                                 <x-utils.new-item date="{{$usuario->created_at}}"/>
                             </x-utils.links.basic>
                         </x-utils.tables.body>
-                        <x-utils.tables.body class="text-xs">{{$usuario->dni}}</x-utils.tables.body>
+                        <x-utils.tables.body>
+                            {{ $usuario->persona ? $usuario->persona->dni : '---' }}
+                        </x-utils.tables.body>
                         <x-utils.tables.body>{{$usuario->email}}</x-utils.tables.body>
                         <x-utils.tables.body>
                             @if(count($usuario->roles))

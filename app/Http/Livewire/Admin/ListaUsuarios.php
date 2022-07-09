@@ -22,7 +22,7 @@ class ListaUsuarios extends Component
     public function render()
     {
         $usuarios = User::query()
-            ->with('roles')
+            ->with('roles', 'persona')
             ->where('name', 'like', '%' . $this->search . '%')
             ->orderBy('activo', 'desc')
             ->orderBy('name')
