@@ -1,40 +1,31 @@
 <x-app-layout>
-    <div class="grid grid-cols-4 gap-x-8">
+    <div class="grid grid-cols-6 gap-x-8">
         {{-- Rutas --}}
         <div class="col-span-1">
             <x-bachiller.rutas-grado-academico/>
         </div>
 
-        <div class="col-span-3 space-y-4">
+        <div class="col-span-5 space-y-4">
             <div class="flex items-center justify-between space-x-4">
                 <h2 class="text-zinc-800 text-xl font-bold">
                     Estudiantes de <span
-                        class="font-black">{{ $escuela ? "$escuela->nombre" : "$facultad->nombre" }}</span> con grado de
-                    bachiller
+                        class="font-black">{{ $escuela ? "$escuela->nombre" : "$facultad->nombre" }}</span> con Grado de
+                    Bachiller
                 </h2>
-                <p class="text-sm text-amber-700 bg-amber-100 rounded-md inline-flex px-3 py-1.5 font-semibold">
-                    <x-icons.info class="icon-5 mr-2" stroke="1.75"/>
-                    {{ $bachilleres }} bachilleres en total
-                </p>
+                <x-grado.badge-icon :quantity="$bachilleres">
+                    <x-icons.academic class="h-8 text-gray-500"/>
+                </x-grado.badge-icon>
             </div>
 
-            <div class="grid grid-cols-6 gap-4">
-                <div class="col-span-3">
-                    <x-bachiller.card-solicitudes
-                        title="Solicitudes incompletas"
-                        :cantidad="$incompletas"
-                        nombre="solicitudes"
-                        href="{{ route('bachiller.solicitudes.incompletas') }}"
-                    />
-                </div>
-                <div class="col-span-3">
-                    <x-bachiller.card-solicitudes
-                        title="Solicitudes completas"
-                        :cantidad="$completas"
-                        nombre="solicitudes"
-                        href="{{ route('bachiller.solicitudes.completas') }}"
-                    />
-                </div>
+            <div class="flex space-x-8">
+                <x-grado.badge-link href="{{ route('bachiller.solicitudes.incompletas') }}" :exists="$incompletas"
+                                    bcolor="yellow">
+                    {{ __('Solicitudes Incompletas') }}
+                </x-grado.badge-link>
+                <x-grado.badge-link href="{{ route('bachiller.solicitudes.completas') }}" :exists="$completas"
+                                    bcolor="green">
+                    {{ __('Solicitudes Completas') }}
+                </x-grado.badge-link>
             </div>
 
             <div class="w-full">
