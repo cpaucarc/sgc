@@ -1,11 +1,11 @@
 <x-app-layout>
-    <div class="grid grid-cols-4 gap-x-8">
+    <div class="grid grid-cols-6 gap-x-8">
         {{-- Rutas --}}
         <div class="col-span-1">
             <x-bachiller.rutas-grado-academico/>
         </div>
 
-        <div class="col-span-3 space-y-4">
+        <div class="col-span-5 space-y-4">
 
             <x-utils.card class="mb-4">
                 <livewire:bachiller.solicitud.estado-solicitud/>
