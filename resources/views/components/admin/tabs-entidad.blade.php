@@ -1,7 +1,7 @@
 @props(['id'])
 
 <div class="w-full">
-    <ul class="flex flex-wrap justify-end gap-x-2">
+    <ul class="flex flex-wrap justify-end">
 
         {{--        href="{{ route('admin.index') }}" :active="request()->routeIs('admin.*')"--}}
 

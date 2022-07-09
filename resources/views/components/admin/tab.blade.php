@@ -1,9 +1,10 @@
 @props(['active'])
 
 @php
+    $common_classes = "inline-flex pt-2 pb-2 px-6 text-sm text-center rounded-t-lg border-b-2 group soft-transition ";
     $classes = ($active ?? false)
-                ? 'inline-flex pt-2 pb-2 px-6 text-sm font-bold text-center text-blue-600 rounded-t-lg border-b-2 border-blue-600 active group'
-                : 'inline-flex pt-2 pb-2 px-6 text-sm font-medium text-center text-gray-500 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 group';
+                ? $common_classes . 'font-bold text-blue-600 border-blue-600 bg-blue-500/10 active'
+                : $common_classes . 'font-medium text-gray-500 border-zinc-100 hover:text-zinc-600 hover:border-zinc-300';
 @endphp
 
 <li>
