@@ -177,6 +177,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('por_semestre', 'por_semestre')->name('docente.por_semestre');
         Route::get('resultados', 'resultados')->name('docente.resultados');
         Route::get('capacitaciones', 'capacitaciones')->name('docente.capacitaciones');
+        Route::get('capacitados', 'docentes_capacitados')->name('docente.capacitados');
     });
 
     /*Todo: Bolsa de Trabajo Universitario*/
