@@ -17,6 +17,7 @@ class EscuelaSeeder extends Seeder
     {
         $escuelas = [
             [
+                'id' => 1,
                 'nombre' => 'Agronomía',
                 'abrev' => 'AGN',
                 'depto_id' => 51,
@@ -24,62 +25,71 @@ class EscuelaSeeder extends Seeder
                 'uuid' => Str::uuid()
             ], // 1
             [
-                'nombre' => 'Ingenieria de Industrias Alimentarias',
+                'id' => 2,
+                'nombre' => 'Ingeniería de Industrias Alimentarias',
                 'abrev' => 'IIA',
                 'depto_id' => null,
                 'facultad_id' => 4,
                 'uuid' => Str::uuid()
             ], // 2
             [
-                'nombre' => 'Ingenieria Agricola',
+                'id' => 3,
+                'nombre' => 'Ingeniería Agrícola',
                 'abrev' => 'IAG',
                 'depto_id' => 41,
                 'facultad_id' => 2,
                 'uuid' => Str::uuid()
             ], // 3
             [
-                'nombre' => 'Estadistica e Informatica',
+                'id' => 4,
+                'nombre' => 'Estadística e Informática',
                 'abrev' => 'EEI',
                 'depto_id' => 68,
                 'facultad_id' => 1,
                 'uuid' => Str::uuid()
             ], // 4
             [
-                'nombre' => 'Matematica',
+                'id' => 5,
+                'nombre' => 'Matemática',
                 'abrev' => 'MAT',
                 'depto_id' => 56,
                 'facultad_id' => 1,
                 'uuid' => Str::uuid()
             ], // 5
             [
-                'nombre' => 'Ingenieria Ambiental',
+                'id' => 6,
+                'nombre' => 'Ingeniería Ambiental',
                 'abrev' => 'IAM',
                 'depto_id' => 44, // El depto es Ciencias del Ambiente
                 'facultad_id' => 5,
                 'uuid' => Str::uuid()
             ], // 6
             [
-                'nombre' => 'Ingenieria Sanitaria',
+                'id' => 7,
+                'nombre' => 'Ingeniería Sanitaria',
                 'abrev' => 'ISA',
                 'depto_id' => null,
                 'facultad_id' => 5,
                 'uuid' => Str::uuid()
             ], // 7
             [
-                'nombre' => 'Ingenieria de Minas',
+                'id' => 8,
+                'nombre' => 'Ingeniería de Minas',
                 'abrev' => 'IMN',
                 'depto_id' => 43,
                 'facultad_id' => 6,
                 'uuid' => Str::uuid()
             ], // 8
             [
-                'nombre' => 'Ingenieria Civil',
+                'id' => 9,
+                'nombre' => 'Ingeniería Civil',
                 'abrev' => 'ICV',
                 'depto_id' => 42,
                 'facultad_id' => 7,
                 'uuid' => Str::uuid()
             ], // 9
             [
+                'id' => 10,
                 'nombre' => 'Obstetricia',
                 'abrev' => 'OBS',
                 'depto_id' => 53,
@@ -87,27 +97,31 @@ class EscuelaSeeder extends Seeder
                 'uuid' => Str::uuid()
             ], // 10
             [
-                'nombre' => 'Enfermeria',
+                'id' => 11,
+                'nombre' => 'Enfermería',
                 'abrev' => 'ENF',
                 'depto_id' => 54,
                 'facultad_id' => 8,
                 'uuid' => Str::uuid()
             ], // 11
             [
-                'nombre' => 'Economia',
+                'id' => 12,
+                'nombre' => 'Economía',
                 'abrev' => 'ECN',
                 'depto_id' => 61,
                 'facultad_id' => 12,
                 'uuid' => Str::uuid()
             ], // 12
             [
-                'nombre' => 'Administracion',
+                'id' => 13,
+                'nombre' => 'Administración',
                 'abrev' => 'ADM',
                 'depto_id' => 46,
                 'facultad_id' => 3,
                 'uuid' => Str::uuid()
             ], // 13
             [
+                'id' => 14,
                 'nombre' => 'Contabilidad',
                 'abrev' => 'CTB',
                 'depto_id' => 45,
@@ -115,6 +129,7 @@ class EscuelaSeeder extends Seeder
                 'uuid' => Str::uuid()
             ], // 14
             [
+                'id' => 15,
                 'nombre' => 'Turismo',
                 'abrev' => 'TUR',
                 'depto_id' => 46,
@@ -122,132 +137,63 @@ class EscuelaSeeder extends Seeder
                 'uuid' => Str::uuid()
             ], // 15
             [
-                'nombre' => 'Derecho y Ciencias Politicas',
+                'id' => 16,
+                'nombre' => 'Derecho y Ciencias Políticas',
                 'abrev' => 'DCP',
                 'depto_id' => 48,
                 'facultad_id' => 10,
                 'uuid' => Str::uuid()
             ], // 16
             [
-                'nombre' => 'Periodismo',
-                'abrev' => 'PRD',
-                'depto_id' => null,
-                'facultad_id' => 11,
-                'uuid' => Str::uuid()
-            ], // 17
-            [
+                'id' => 19,
                 'nombre' => 'Educación: Primaria y Educación Bilingüe Intercultural',
                 'abrev' => 'PEBI',
                 'depto_id' => null,
                 'facultad_id' => 11,
                 'uuid' => Str::uuid()
-            ], // 18
-            [
-                'nombre' => 'Educación: Primaria y Educación Bilingüe Intercultural2',
-                'abrev' => 'PEBI2',
-                'depto_id' => null,
-                'facultad_id' => 11,
-                'uuid' => Str::uuid()
             ], // 19
             [
-                'nombre' => 'Lengua y Literatura',
-                'abrev' => 'LLT',
-                'depto_id' => null,
-                'facultad_id' => 11,
-                'uuid' => Str::uuid()
-            ], // 20
-            [
-                'nombre' => 'Educacion: Matematica e Informatica',
+                'id' => 21,
+                'nombre' => 'Educación: Matemática e Informática',
                 'abrev' => 'MINF',
                 'depto_id' => null,
                 'facultad_id' => 11,
                 'uuid' => Str::uuid()
             ], // 21
             [
-                'nombre' => 'Fisica y Quimica',
-                'abrev' => 'FQM',
-                'depto_id' => null,
-                'facultad_id' => 11,
-                'uuid' => Str::uuid()
-            ], // 22
-            [
-                'nombre' => 'Primaria',
-                'abrev' => 'PMR',
-                'depto_id' => null,
-                'facultad_id' => 11,
-                'uuid' => Str::uuid()
-            ], // 23
-            [
-                'nombre' => 'Ciencias de la Comunicacion',
+                'id' => 24,
+                'nombre' => 'Ciencias de la Comunicación',
                 'abrev' => 'CCM',
                 'depto_id' => null,
                 'facultad_id' => 11,
                 'uuid' => Str::uuid()
             ], // 24
             [
-                'nombre' => 'Ingenieria de Sistemas e Informática',
+                'id' => 25,
+                'nombre' => 'Ingeniería de Sistemas e Informática',
                 'abrev' => 'ISI',
                 'depto_id' => null,
                 'facultad_id' => 1,
                 'uuid' => Str::uuid()
             ], // 25
             [
-                'nombre' => 'Educacion: Comunicacion, Lingüistica y Literatura',
+                'id' => 28,
+                'nombre' => 'Educación: Comunicación, Lingüística y Literatura',
                 'abrev' => 'CLL',
-                'depto_id' => null,
-                'facultad_id' => 11,
-                'uuid' => Str::uuid()
-            ], // 26
-            [
-                'nombre' => 'Educacion: Matematica e Informatica2',
-                'abrev' => 'MINF2',
-                'depto_id' => null,
-                'facultad_id' => 11,
-                'uuid' => Str::uuid()
-            ], // 27
-            [
-                'nombre' => 'Educacion: Comunicacion, Lingüistica y Literatura2',
-                'abrev' => 'CLL2',
                 'depto_id' => null,
                 'facultad_id' => 11,
                 'uuid' => Str::uuid()
             ], // 28
             [
-                'nombre' => 'Educacion: Lengua Extranjera: Ingles',
+                'id' => 29,
+                'nombre' => 'Educación: Lengua Extranjera: Inglés',
                 'abrev' => 'LEI',
                 'depto_id' => null,
                 'facultad_id' => 11,
                 'uuid' => Str::uuid()
             ], // 29
             [
-                'nombre' => '-',
-                'abrev' => '-',
-                'depto_id' => null,
-                'facultad_id' => 11,
-                'uuid' => Str::uuid()
-            ], // 30 VACIO
-            [
-                'nombre' => '--',
-                'abrev' => '--',
-                'depto_id' => null,
-                'facultad_id' => 11,
-                'uuid' => Str::uuid()
-            ], // 31 VACIO
-            [
-                'nombre' => '---',
-                'abrev' => '---',
-                'depto_id' => null,
-                'facultad_id' => 11,
-                'uuid' => Str::uuid()
-            ], // 32 VACIO
-            [
-                'nombre' => 'Educacion',
-                'abrev' => 'EDC',
-                'depto_id' => null,
-                'facultad_id' => 11,
-                'uuid' => Str::uuid()
-            ], // 33
-            [
+                'id' => 34,
                 'nombre' => 'Arqueología',
                 'abrev' => 'AQG',
                 'depto_id' => null,
@@ -255,13 +201,15 @@ class EscuelaSeeder extends Seeder
                 'uuid' => Str::uuid()
             ], // 34
             [
-                'nombre' => 'Ingenieria Industrial',
+                'id' => 35,
+                'nombre' => 'Ingeniería Industrial',
                 'abrev' => 'IND',
                 'depto_id' => null,
                 'facultad_id' => 4,
                 'uuid' => Str::uuid()
             ], // 35
             [
+                'id' => 36,
                 'nombre' => 'Arquitectura y Urbanismo',
                 'abrev' => 'AQT',
                 'depto_id' => null,
