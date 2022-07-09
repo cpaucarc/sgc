@@ -6,9 +6,7 @@
             <x-docentes.rutas-docente/>
         </div>
         <div class="col-span-3">
-            <div class="col-span-3">
-                <livewire:docente.lista-capacitacion/>
-            </div>
+            <livewire:docente.lista-capacitacion/>
         </div>
     </div>
 
