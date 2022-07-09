@@ -13,7 +13,7 @@
                 </a>
 
                 <div class="pt-4 ">
-                    <h1 class="font-bold text-lg text-gray-600">{{ $entidad->oficina->nombre }}</h1>
+                    <h1 class="font-bold text-lg text-gray-600">{{ $entidad->rol->name }}</h1>
                     <h2 class="font-bold text-2xl text-gray-900">{{ $entidad->nombre }}</h2>
                 </div>
             </div>

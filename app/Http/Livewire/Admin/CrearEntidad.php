@@ -6,7 +6,6 @@ use App\Models\Entidad;
 use App\Models\Entidadable;
 use App\Models\Escuela;
 use App\Models\Facultad;
-use App\Models\Oficina;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 

@@ -39,19 +39,19 @@ class AdminController extends Controller
 
     public function entidad_responsable($id)
     {
-        $entidad = Entidad::with('oficina')->findOrFail($id);
+        $entidad = Entidad::with('rol')->findOrFail($id);
         return view('admin.entidad-responsable', compact('entidad'));
     }
 
     public function entidad_proveedor($id)
     {
-        $entidad = Entidad::with('oficina')->findOrFail($id);
+        $entidad = Entidad::with('rol')->findOrFail($id);
         return view('admin.entidad-proveedor', compact('entidad'));
     }
 
     public function entidad_cliente($id)
     {
-        $entidad = Entidad::with('oficina')->findOrFail($id);
+        $entidad = Entidad::with('rol')->findOrFail($id);
         return view('admin.entidad-cliente', compact('entidad'));
     }
 
