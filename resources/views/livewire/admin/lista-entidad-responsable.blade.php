@@ -1,8 +1,8 @@
 <div>
     @if($entidad and count($entidad->actividades) > 0)
         <div class="divide-y divide-dashed divide-gray-300">
-            <div class="mb-2">
-                <div class="flex items-center justify-between">
+            <div class="mb-3">
+                <div class="flex items-end justify-between">
                     <h2 class="font-bold text-xl text-gray-600">
                         Responsable
                     </h2>

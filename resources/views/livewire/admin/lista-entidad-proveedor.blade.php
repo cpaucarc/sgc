@@ -1,8 +1,8 @@
 <div>
     @if(count($entradas) > 0)
         <div class="divide-y divide-dashed divide-gray-300">
-            <div class="mb-2">
-                <div class="flex items-center justify-between">
+            <div class="mb-3">
+                <div class="flex items-end justify-between">
                     <h2 class="font-bold text-xl text-gray-600">
                         Proveedor
                     </h2>
@@ -45,6 +45,10 @@
                         @endforeach
                     @endslot
                 </x-utils.tables.table>
+
+                <div class="mt-4">
+                    {{ $entradas->links() }}
+                </div>
             </div>
         </div>
     @else

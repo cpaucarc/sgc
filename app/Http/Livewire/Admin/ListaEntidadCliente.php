@@ -5,9 +5,12 @@ namespace App\Http\Livewire\Admin;
 use App\Models\Cliente;
 use App\Models\Entidad;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ListaEntidadCliente extends Component
 {
+    use WithPagination;
+
     public $entidad_id;
 
     public $listeners = ['render', 'eliminarActividad'];
@@ -22,7 +25,7 @@ class ListaEntidadCliente extends Component
         $salidas = Cliente::query()
             ->with('salida', 'entidad', 'responsable')
             ->where('entidad_id', $this->entidad_id)
-            ->get();
+            ->paginate(10);
         return view('livewire.admin.lista-entidad-cliente', compact('salidas'));
     }
 
