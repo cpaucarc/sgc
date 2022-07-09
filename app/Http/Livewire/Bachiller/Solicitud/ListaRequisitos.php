@@ -8,6 +8,7 @@ use Livewire\Component;
 
 class ListaRequisitos extends Component
 {
+    public $crypto_modal = false;
 
     protected $listeners = [
         'requisitoGuardado' => 'render',
