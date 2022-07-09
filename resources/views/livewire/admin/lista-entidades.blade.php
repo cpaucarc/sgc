@@ -26,19 +26,19 @@
                         <x-utils.tables.body class="text-xs">
                             <a class="hover:underline hover:text-sky-700"
                                href="{{route('admin.panel.entidad.responsable', $entidad->id)}}">
-                                {{$entidad->actividades_count > 0 ? 'de '.$entidad->actividades_count.' actividades' : 'X'}}
+                                {{$entidad->actividades_count > 0 ? 'de '.$entidad->actividades_count.' actividades' : '---'}}
                             </a>
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-xs">
                             <a class="hover:underline hover:text-sky-700"
                                href="{{route('admin.panel.entidad.proveedor', $entidad->id)}}">
-                                {{$entidad->entradas_count > 0 ? 'de '.$entidad->entradas_count.' entradas' : 'X'}}
+                                {{$entidad->entradas_count > 0 ? 'de '.$entidad->entradas_count.' entradas' : '---'}}
                             </a>
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-xs">
                             <a class="hover:underline hover:text-sky-700"
                                href="{{route('admin.entidad.cliente', $entidad->id)}}">
-                                {{$entidad->salidas_count > 0 ? 'de '.$entidad->salidas_count.' salidas' : 'X'}}
+                                {{$entidad->salidas_count > 0 ? 'de '.$entidad->salidas_count.' salidas' : '---'}}
                             </a>
                         </x-utils.tables.body>
                     </x-utils.tables.row>
