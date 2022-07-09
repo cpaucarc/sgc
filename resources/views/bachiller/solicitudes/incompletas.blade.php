@@ -8,12 +8,11 @@
         <div class="col-span-5 space-y-4">
             <div class="flex items-center justify-between space-x-4">
                 <h2 class="text-zinc-800 text-xl font-bold">
-                    Solicitudes con requisitos <span class="font-black">incompletos</span>
+                    Solicitudes con <span class="font-black">Requisitos Incompletos</span>
                 </h2>
-                <p class="text-sm text-amber-700 bg-amber-100 rounded-md inline-flex px-3 py-1.5 font-semibold">
-                    <x-icons.info class="icon-5 mr-2" stroke="1.75"/>
-                    {{$cant_solicitudes_incompletas}} solicitudes
-                </p>
+                <x-grado.badge-icon :quantity="$cant_solicitudes_incompletas">
+                    <x-icons.document class="h-8 text-gray-500"/>
+                </x-grado.badge-icon>
             </div>
             <div class="w-full">
                 <livewire:bachiller.solicitudes.incompletas :escuelas_id="$escuelas_id"/>
