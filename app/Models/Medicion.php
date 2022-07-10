@@ -888,19 +888,20 @@ class Medicion
      * Objetivo: Medir el porcentaje de docentes que cumplen con el formato de 40 horas.
      * Formula: X = (N° de docentes cumplimiento de 40 hrs)/(Total de docentes de 40 horas) x 100
      * */
-    public static function ind62($es_depto, $entidad_id, $semestre)
+    public static function ind62($es_depto, $entidad_id, $semestre_id)
     {
         try {
-            $tipo = $es_depto ? 'departamento' : 'facultad';
+            $deptos_id = $es_depto ? [$entidad_id] :
+                Departamento::query()->where('facultad_id', $entidad_id)->pluck('id');
 
-            // FIXME está devolviendo valores aleatorios (La API no está implementado 11/06/2022)
-            $docentes_que_cumplieron = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/04?' . $tipo . '=' . MedicionHelper::normalizarID($entidad_id) . '&semestre=' . $semestre);
-            $interes = intval($docentes_que_cumplieron->body());
+            $docentes = DocenteSemestre::query()
+                ->where('cumple_40h', true)
+                ->where('semestre_id', $semestre_id)
+                ->whereIn('departamento_id', $deptos_id)
+                ->get();
 
-            $docentes_con_40h = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/03?' . $tipo . '=' . MedicionHelper::normalizarID($entidad_id) . '&semestre=' . $semestre);
-            $total = intval($docentes_con_40h->body());
+            $total = $docentes->count();
+            $interes = $docentes->where('cumplio_40h', true)->count();
 
             return MedicionHelper::getArrayResultados($interes, $total);
         } catch (\Exception $e) {
