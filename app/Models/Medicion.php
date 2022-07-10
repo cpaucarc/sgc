@@ -913,18 +913,19 @@ class Medicion
      * Objetivo: Medir el porcentaje de docentes que cumplen con sus labores.
      * Formula: X = (N° de docentes que cumplen con sus labores)/(Total de docentes del programa) x 100
      * */
-    public static function ind63($es_depto, $entidad_id, $semestre)
+    public static function ind63($es_depto, $entidad_id, $semestre_id)
     {
         try {
-            $tipo = $es_depto ? 'departamento' : 'facultad';
+            $deptos_id = $es_depto ? [$entidad_id] :
+                Departamento::query()->where('facultad_id', $entidad_id)->pluck('id');
 
-            // FIXME está devolviendo valores aleatorios (La API no está implementado 11/06/2022)
-            $docentes_que_cumplen = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/06?' . $tipo . '=' . MedicionHelper::normalizarID($entidad_id) . '&semestre=' . $semestre);
-            $interes = intval($docentes_que_cumplen->body());
+            $docentes = DocenteSemestre::query()
+                ->where('semestre_id', $semestre_id)
+                ->whereIn('departamento_id', $deptos_id)
+                ->get();
 
-            $total = $es_depto ? MedicionHelper::cantidadDocentesPorDepto($entidad_id, $semestre)
-                : MedicionHelper::cantidadDocentesPorFacultad($entidad_id, $semestre);
+            $total = $docentes->count();
+            $interes = $docentes->where('cumplio_labores', true)->count();
 
             return MedicionHelper::getArrayResultados($interes, $total);
         } catch (\Exception $e) {

@@ -304,7 +304,7 @@ class NuevoAnalisis extends Component
         elseif ($this->cod_ind === "IND-062") {
             $res = Medicion::ind62($this->tipo == 1, $this->tipo == 1 ? $this->entidad->depto_id : $this->entidad->id, $this->semestre_id);
         } elseif ($this->cod_ind === "IND-063") {
-            $res = Medicion::ind63($this->tipo == 1, $this->tipo == 1 ? $this->entidad->depto_id : $this->entidad->id, $this->semestre_nombre);
+            $res = Medicion::ind63($this->tipo == 1, $this->tipo == 1 ? $this->entidad->depto_id : $this->entidad->id, $this->semestre_id);
         } elseif ($this->cod_ind === "IND-065") {
             $res = Medicion::ind65($this->tipo == 1, $this->tipo == 1 ? $this->entidad->depto_id : $this->entidad->id, $this->semestre_nombre);
         } elseif ($this->cod_ind === "IND-066") {
