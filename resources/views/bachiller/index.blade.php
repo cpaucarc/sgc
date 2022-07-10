@@ -6,27 +6,23 @@
         </div>
 
         <div class="col-span-5 space-y-4">
-            <div class="flex items-center justify-between space-x-4">
-                <h2 class="text-zinc-800 text-xl font-bold">
-                    Estudiantes de <span
-                        class="font-black">{{ $escuela ? "$escuela->nombre" : "$facultad->nombre" }}</span> con Grado de
-                    Bachiller
-                </h2>
-                <x-grado.badge-icon :quantity="$bachilleres">
-                    <x-icons.academic class="h-8 text-gray-500"/>
-                </x-grado.badge-icon>
-            </div>
 
-            <div class="flex space-x-8">
-                <x-grado.badge-link href="{{ route('bachiller.solicitudes.incompletas') }}" :exists="$incompletas"
-                                    bcolor="yellow">
-                    {{ __('Solicitudes Incompletas') }}
-                </x-grado.badge-link>
-                <x-grado.badge-link href="{{ route('bachiller.solicitudes.completas') }}" :exists="$completas"
-                                    bcolor="green">
-                    {{ __('Solicitudes Completas') }}
-                </x-grado.badge-link>
-            </div>
+            <x-bachiller.tabs-grado-academico>
+                @slot('titulo')
+                    <div>
+                        <h2 class="text-zinc-800 text-lg font-bold">
+                            Estudiantes de <span class="font-black">
+                                {{ $escuela ? "$escuela->nombre" : "$facultad->nombre" }}</span>
+                            con Grado de Bachiller
+                        </h2>
+                    </div>
+                @endslot
+            </x-bachiller.tabs-grado-academico>
+
+            <h3 class="text-zinc-600 text-sm">
+                Actualmente hay <b>{{ $bachilleres }}</b> estudiantes que ya obtuvieron el Grado Académico
+                de Bachiller.
+            </h3>
 
             <div class="w-full">
                 <livewire:bachiller.lista-bachilleres :escuela="$escuela" :facultad="$facultad"/>
