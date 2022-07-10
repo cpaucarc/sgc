@@ -47,7 +47,7 @@ class EnviarRequisito extends Component
         $this->escuela_id = User::escuelas_id(Auth::user()->id);
 
         $this->solicitud = Solicitud::query()
-            ->where('dni_estudiante', Auth::user()->dni)
+            ->where('dni_estudiante', Auth::user()->persona->dni)
             ->where('escuela_id', $this->escuela_id[0])
             ->where('tipo_solicitud_id', 3) // 3: Título profesional
             ->first();
@@ -68,7 +68,7 @@ class EnviarRequisito extends Component
                     ->whereIn('solicitud_id', function ($query2) {
                         $query2->select('id')
                             ->from('solicitudes')
-                            ->where('dni_estudiante', Auth::user()->dni)
+                            ->where('dni_estudiante', Auth::user()->persona->dni)
                             ->where('tipo_solicitud_id', 3);// 3 : Titulo profesional
                     });
             })
@@ -90,7 +90,7 @@ class EnviarRequisito extends Component
         if (is_null($this->solicitud)) {
             $this->solicitud = Solicitud::create([
                 'uuid' => Str::uuid(),
-                'dni_estudiante' => (Auth::user()->dni),
+                'dni_estudiante' => (Auth::user()->persona->dni),
                 'escuela_id' => $this->escuela_id[0],
                 'tipo_solicitud_id' => 3, // 3: Título profesional
                 'estado_id' => 4,// 4: En evaluación (Categoria => 2:solicitud)
@@ -158,7 +158,7 @@ class EnviarRequisito extends Component
     public function tesisRegistrado()
     {
         $this->tesis = Tesis::query()
-            ->where('dni_estudiante', Auth::user()->dni)
+            ->where('dni_estudiante', Auth::user()->persona->dni)
             ->orderBy('id', 'desc')
             ->first();
     }

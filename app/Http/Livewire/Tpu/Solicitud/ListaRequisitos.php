@@ -25,7 +25,7 @@ class ListaRequisitos extends Component
                     ->whereIn('solicitud_id', function ($query2) {
                         $query2->select('id')
                             ->from('solicitudes')
-                            ->where('dni_estudiante', Auth::user()->dni)
+                            ->where('dni_estudiante', Auth::user()->persona->dni)
                             ->where('tipo_solicitud_id', 3); // 1: Título
                     });
             })
