@@ -37,7 +37,8 @@ class ListarInvestigaciones extends Component
                     ->orWhere('titulo', 'like', '%' . $this->search . '%')
                     ->orWhere('anio', 'like', '%' . $this->search . '%');
             })
-            ->orderBy('anio', 'desc');
+            ->orderBy('anio', 'desc')
+            ->orderBy('numero_registro', 'desc');
 
         //Si la escuela seleccionada es mayor que cero.
         if ($this->escuela_seleccionado > 0) {
@@ -46,8 +47,7 @@ class ListarInvestigaciones extends Component
 
         //Si el usuario es de escuela filtra por escuela
         if ($this->escuela) {
-            $investigaciones = $callback->where('escuela_id', $this->escuela->id)
-                ->paginate(10);
+            $investigaciones = $callback->where('escuela_id', $this->escuela->id)->paginate(10);
         } else {
             $investigaciones = $callback->paginate(10);
         }
