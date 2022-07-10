@@ -6,4 +6,9 @@
     <x-utils.links.nav-link href="{{ route('tpu.index') }}" :active="request()->routeIs('tpu.*')">
         {{ __('Título Profesional') }}
     </x-utils.links.nav-link>
+
+    <x-utils.links.nav-link href="{{ route('tesis.investigaciones') }}"
+                            :active="request()->routeIs('tesis.*')">
+        {{ __('Tesis') }}
+    </x-utils.links.nav-link>
 </div>
