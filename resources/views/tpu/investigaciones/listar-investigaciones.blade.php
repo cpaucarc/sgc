@@ -6,14 +6,15 @@
         </div>
 
         <div class="col-span-5 space-y-4">
-            <div class="flex items-center justify-between space-x-4">
+            <div>
                 <h2 class="text-zinc-800 text-xl font-bold">
-                    Lista de <span class="font-black">Proyectos de Investigación</span>
+                    Lista de <span class="font-black">Tesis/Proyectos de Investigación</span>
                 </h2>
-                <x-grado.badge-icon :quantity="$proyectos">
-                    <x-icons.document class="h-8 text-gray-500"/>
-                </x-grado.badge-icon>
+                <h3 class="text-zinc-600 text-sm">
+                    Hay <b>{{ $proyectos }}</b> proyectos de investigación/tesis registrados.
+                </h3>
             </div>
+
             <div class="w-full">
                 <livewire:tpu.investigaciones.listar-investigaciones :escuela="$escuela" :facultad="$facultad"/>
             </div>
