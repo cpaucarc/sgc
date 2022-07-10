@@ -959,15 +959,16 @@ class Medicion
      * Objetivo: Conocer el número de capacitaciones realizadas para mejorar las capacidades de los docentes.
      * Formula: X = N° de capacitaciones para mejorar las capacidades de los directivos por programa
      * */
-    public static function ind66($es_depto, $entidad_id, $semestre)
+    public static function ind66($es_depto, $entidad_id, $semestre_id)
     {
         try {
-            $tipo = $es_depto ? 'departamento' : 'facultad';
+            $deptos_id = $es_depto ? [$entidad_id] :
+                Departamento::query()->where('facultad_id', $entidad_id)->pluck('id');
 
-            // FIXME está devolviendo valores aleatorios (La API no está implementado 11/06/2022)
-            $cantidad_capacitaciones = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/08?' . $tipo . '=' . MedicionHelper::normalizarID($entidad_id) . '&semestre=' . $semestre);
-            $resultado = intval($cantidad_capacitaciones->body());
+            $resultado = Capacitacion::query()
+                ->where('semestre_id', $semestre_id)
+                ->whereIn('departamento_id', $deptos_id)
+                ->count();
 
             return MedicionHelper::getArrayResultados(null, null, $resultado);
         } catch (\Exception $e) {
