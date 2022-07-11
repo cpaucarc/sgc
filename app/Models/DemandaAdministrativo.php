@@ -11,8 +11,8 @@ class DemandaAdministrativo extends Model
 
     public $timestamps = false;
 
-    public $table = 'capacitaciones';
-    public $fillable = ['uuid', 'nombre', 'departamento_id', 'semestre_id'];
+    public $table = 'demanda_administrativos';
+    public $fillable = ['num_docentes', 'num_administrativos', 'departamento_id', 'semestre_id'];
 
     public function departamento()
     {
