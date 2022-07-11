@@ -30,13 +30,13 @@
                             {{ $docente->persona->apellido_paterno }} {{ $docente->persona->apellido_materno }} {{ $docente->persona->nombres }}
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-xs font-bold">
-                            @if(!is_null($docente->reconocido_id) and $docente->reconocido_id)
+                            @if(!is_null($docente->ascendido_id) and $docente->ascendido_id)
                                 <x-utils.badge class="whitespace-nowrap bg-green-200 text-green-700 text-xs">
                                     <svg class="fill-current mr-1" viewBox="0 0 16 16" width="16" height="16">
                                         <path fill-rule="evenodd"
                                               d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM0 8a8 8 0 1116 0A8 8 0 010 8zm11.78-1.72a.75.75 0 00-1.06-1.06L6.75 9.19 5.28 7.72a.75.75 0 00-1.06 1.06l2 2a.75.75 0 001.06 0l4.5-4.5z"></path>
                                     </svg>
-                                    Reconocido
+                                    Ascendido
                                 </x-utils.badge>
                             @else
                                 <x-utils.badge class="whitespace-nowrap text-zinc-400 text-xs">
@@ -44,18 +44,18 @@
                                         <path fill-rule="evenodd"
                                               d="M3.404 12.596a6.5 6.5 0 119.192-9.192 6.5 6.5 0 01-9.192 9.192zM2.344 2.343a8 8 0 1011.313 11.314A8 8 0 002.343 2.343zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path>
                                     </svg>
-                                    No reconocido
+                                    No ascendido
                                 </x-utils.badge>
                             @endif
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-xs font-bold">
-                            @if(!is_null($docente->reconocido_id) and $docente->reconocido_id)
-                                <x-utils.buttons.danger onclick="quitarReconocimiento({{ $docente->reconocido_id }})">
-                                    Quitar reconocimiento
+                            @if(!is_null($docente->ascendido_id) and $docente->ascendido_id)
+                                <x-utils.buttons.danger onclick="quitarAscendido({{ $docente->ascendido_id }})">
+                                    Quitar
                                 </x-utils.buttons.danger>
                             @else
-                                <x-utils.buttons.default onclick="agregarReconocimiento({{ $docente->id }})">
-                                    Marcar como reconocido
+                                <x-utils.buttons.default onclick="agregarAscendido({{ $docente->id }})">
+                                    Marcar como ascendido
                                 </x-utils.buttons.default>
                             @endif
                         </x-utils.tables.body>
@@ -95,20 +95,20 @@
                 });
             });
 
-            function agregarReconocimiento(docente_id) {
-                window.livewire.emit('agregarReconocimiento', docente_id);
+            function agregarAscendido(docente_id) {
+                window.livewire.emit('agregarAscendido', docente_id);
             }
 
-            function quitarReconocimiento(reconocido_id) {
+            function quitarAscendido(ascendido_id) {
                 Swal.fire({
-                    text: "¿Esta seguro de quitar el reconocimiento del docente?",
+                    text: "¿Esta seguro de quitar el estado de ascendido del docente?",
                     icon: 'question',
                     showCancelButton: true,
                     confirmButtonText: 'Si, quitar',
                     cancelButtonText: `Cancelar`,
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.livewire.emit('quitarReconocimiento', reconocido_id);
+                        window.livewire.emit('quitarAscendido', ascendido_id);
                     }
                 })
             }
