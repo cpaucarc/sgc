@@ -51,7 +51,7 @@
                         <x-utils.tables.body class="text-xs font-bold">
                             @if(!is_null($docente->ascendido_id) and $docente->ascendido_id)
                                 <x-utils.buttons.danger onclick="quitarAscendido({{ $docente->ascendido_id }})">
-                                    Quitar
+                                    Quitar estado ascendido
                                 </x-utils.buttons.danger>
                             @else
                                 <x-utils.buttons.default onclick="agregarAscendido({{ $docente->id }})">
