@@ -33,6 +33,10 @@
                                     :active="request()->routeIs('docente.reconocidos')">
                 {{ __('Docentes Reconocidos') }}
             </x-utils.links.nav-link>
+            <x-utils.links.nav-link href="{{ route('docente.ascendidos') }}"
+                                    :active="request()->routeIs('docente.ascendidos')">
+                {{ __('Docentes Ascendidos') }}
+            </x-utils.links.nav-link>
         </div>
     </div>
 </div>
