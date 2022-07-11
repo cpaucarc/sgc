@@ -30,4 +30,14 @@ class DocenteController extends Controller
     {
         return view('docente.docentes-capacitados');
     }
+
+    public function docentes_reconocidos()
+    {
+        return view('docente.docentes-reconocidos');
+    }
+
+    public function docentes_ascendidos()
+    {
+        return view('docente.docentes-ascendidos');
+    }
 }
