@@ -1,7 +1,7 @@
 <div class="space-y-2">
 
     <div class="flex justify-between items-center">
-        <h3 class="font-bold tracking-wide text-gray-600">
+        <h3 class="font-bold tracking-wide text-zinc-600">
             Participantes
         </h3>
 
@@ -59,12 +59,12 @@
             @endslot
         </x-utils.tables.table>
     @else
-        <div class="border border-gray-300 rounded-md">
+        <div class="border border-zinc-300 rounded-md">
             <x-utils.message-no-items
                 title="Aún no hay ningún participante"
                 text="Añada a más participantes de la Responsabilidad Social.">
                 @slot('icon')
-                    <svg class="text-gray-400" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
+                    <svg class="text-zinc-400" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
                         <path fill-rule="evenodd"
                               d="M3.5 8a5.5 5.5 0 118.596 4.547 9.005 9.005 0 015.9 8.18.75.75 0 01-1.5.045 7.5 7.5 0 00-14.993 0 .75.75 0 01-1.499-.044 9.005 9.005 0 015.9-8.181A5.494 5.494 0 013.5 8zM9 4a4 4 0 100 8 4 4 0 000-8z"></path>
                         <path
@@ -84,7 +84,7 @@
     {{-- Modal de datos del participante obtenido de OGE --}}
     <x-jet-dialog-modal wire:model="open" maxWidth="xl">
         <x-slot name="title">
-            <h1 class="font-bold text-gray-700">
+            <h1 class="font-bold text-zinc-700">
                 Datos del participante
             </h1>
             <x-utils.buttons.close-button wire:click="$set('open', false)"/>
@@ -102,7 +102,7 @@
     {{-- Modal para añdir participantes --}}
     <x-jet-dialog-modal wire:model="add" maxWidth="3xl">
         <x-slot name="title">
-            <h1 class="font-bold text-gray-700">
+            <h1 class="font-bold text-zinc-700">
                 Añadir participantes
             </h1>
             <x-utils.buttons.close-button wire:click="$set('add', false)"/>
@@ -113,12 +113,12 @@
                 <div class="flex items-center justify-start">
                     <button
                         wire:click="buscarEnDocentes(false)"
-                        class="px-3 py-1.5 border-b-2 soft-transition {{ $en_docentes ? 'hover:bg-gray-50 border-gray-300 text-gray-500' : 'bg-indigo-50 border-indigo-600 text-indigo-600 font-semibold' }}">
+                        class="px-3 py-1.5 border-b-2 soft-transition {{ $en_docentes ? 'hover:bg-zinc-50 border-zinc-300 text-zinc-500' : 'bg-indigo-50 border-indigo-600 text-indigo-600 font-semibold' }}">
                         Añadir estudiantes
                     </button>
                     <button
                         wire:click="buscarEnDocentes(true)"
-                        class="px-3 py-1.5 border-b-2 soft-transition {{ $en_docentes ? 'bg-indigo-50 border-indigo-600 text-indigo-600 font-semibold' : 'hover:bg-gray-50 border-gray-300 text-gray-500' }}">
+                        class="px-3 py-1.5 border-b-2 soft-transition {{ $en_docentes ? 'bg-indigo-50 border-indigo-600 text-indigo-600 font-semibold' : 'hover:bg-zinc-50 border-zinc-300 text-zinc-500' }}">
                         Añadir docentes
                     </button>
                 </div>

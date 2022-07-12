@@ -3,54 +3,54 @@
     <div class="grid grid-cols-6 gap-16">
 
         <div class="col-span-2 space-y-4 p-4">
-            <h2 class="text-gray-700 text-lg font-bold leading-tight">{{$rsu->titulo}}</h2>
+            <h2 class="text-zinc-700 text-lg font-bold leading-tight">{{$rsu->titulo}}</h2>
 
-            <hr class="bg-gray-400">
+            <hr class="bg-zinc-400">
 
             <div class="flex-col space-y-1 text-sm">
-                <h3 class="font-bold text-gray-400">Descripción</h3>
-                <p class="text-gray-600">{{ $rsu->descripcion ?? 'Ninguna' }}</p>
+                <h3 class="font-bold text-zinc-400">Descripción</h3>
+                <p class="text-zinc-600">{{ $rsu->descripcion ?? 'Ninguna' }}</p>
             </div>
 
-            <hr class="bg-gray-400">
+            <hr class="bg-zinc-400">
 
             <div class="flex-col space-y-1 text-sm">
-                <h3 class="font-bold text-gray-400">Programa Académico</h3>
-                <p class="text-gray-600">{{$rsu->escuela->nombre}}</p>
+                <h3 class="font-bold text-zinc-400">Programa Académico</h3>
+                <p class="text-zinc-600">{{$rsu->escuela->nombre}}</p>
             </div>
 
-            <hr class="bg-gray-400">
+            <hr class="bg-zinc-400">
 
             <div class="flex-col space-y-1 text-sm">
-                <h3 class="font-bold text-gray-400">Lugar de ejecución</h3>
-                <p class="text-gray-600">{{$rsu->lugar}}</p>
+                <h3 class="font-bold text-zinc-400">Lugar de ejecución</h3>
+                <p class="text-zinc-600">{{$rsu->lugar}}</p>
             </div>
             @if($rsu->empresa)
                 <div class="flex-col space-y-1 text-sm">
-                    <h3 class="font-bold text-gray-400">Empresa</h3>
-                    <p class="text-gray-600">{{$rsu->empresa->nombre}}</p>
+                    <h3 class="font-bold text-zinc-400">Empresa</h3>
+                    <p class="text-zinc-600">{{$rsu->empresa->nombre}}</p>
                 </div>
             @endif
 
-            <hr class="bg-gray-400">
+            <hr class="bg-zinc-400">
 
             <div class="flex items-center justify-between text-sm">
                 <div class="flex-col space-y-1">
-                    <h3 class="font-bold text-gray-400">Semestre</h3>
-                    <p class="text-gray-600">{{$rsu->semestre->nombre}}</p>
+                    <h3 class="font-bold text-zinc-400">Semestre</h3>
+                    <p class="text-zinc-600">{{$rsu->semestre->nombre}}</p>
                 </div>
             </div>
 
-            <hr class="bg-gray-400">
+            <hr class="bg-zinc-400">
 
             <div class="flex items-center justify-between text-sm">
                 <div class="flex-col space-y-1">
-                    <h3 class="font-bold text-gray-400">Inicio</h3>
-                    <p class="text-gray-600">{{$rsu->fecha_inicio->format('d-m-Y')}}</p>
+                    <h3 class="font-bold text-zinc-400">Inicio</h3>
+                    <p class="text-zinc-600">{{$rsu->fecha_inicio->format('d-m-Y')}}</p>
                 </div>
                 <div class="flex-col space-y-1">
-                    <h3 class="font-bold text-gray-400">Finalización</h3>
-                    <p class="text-gray-600">
+                    <h3 class="font-bold text-zinc-400">Finalización</h3>
+                    <p class="text-zinc-600">
                         {{$rsu->fecha_fin ? $rsu->fecha_fin->format('d-m-Y') : 'Sin terminar'}}
                     </p>
                 </div>
@@ -62,7 +62,7 @@
                 @endif
 
                 @if( now() > $rsu->fecha_fin )
-                    <span class="bg-gray-100 font-bold text-gray-800 whitespace-nowrap px-3 py-1 rounded">
+                    <span class="bg-zinc-100 font-bold text-zinc-800 whitespace-nowrap px-3 py-1 rounded">
                         Finalizado
                     </span>
                 @endif

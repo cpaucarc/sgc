@@ -1,7 +1,7 @@
 <div>
 
     <div class="flex justify-between items-center mb-2">
-        <h2 class="text-gray-500 text-base font-bold leading-tight">Financiación</h2>
+        <h2 class="text-zinc-500 text-base font-bold leading-tight">Financiación</h2>
 
         @if(count($investigacion->financiaciones) > 0)
             <x-utils.buttons.default class="text-sm" wire:click="openModal">
@@ -44,12 +44,12 @@
             @endslot
         </x-utils.tables.table>
     @else
-        <div class="border border-gray-300 rounded-md">
+        <div class="border border-zinc-300 rounded-md">
             <x-utils.message-no-items
                 title="Sin fuentes de financiación"
                 text="En esta sección podrá especificar las fuentes de financiación que posee este Proyecto.">
                 @slot('icon')
-                    <svg class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg class="h-6 w-6 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                               d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
@@ -66,7 +66,7 @@
 
         <x-slot name="title">
             <div>
-                <h1 class="font-bold text-gray-700">
+                <h1 class="font-bold text-zinc-700">
                     Añadir nueva fuente de financiación
                 </h1>
             </div>

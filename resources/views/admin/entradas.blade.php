@@ -6,7 +6,7 @@
             <x-admin.rutas_admin/>
         </div>
 
-        <div class="col-span-3 space-y-4 divide-gray-300 divide-dashed">
+        <div class="col-span-3 space-y-4 divide-zinc-300 divide-dashed">
 
             <div class="flex justify-between items-center">
                 <h1 class="font-bold text-xl text-black">

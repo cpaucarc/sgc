@@ -1,7 +1,7 @@
 <div class="space-y-4">
     <x-utils.card>
         <div class="flex justify-between items-center space-x-2">
-            <h1 class="pr-4 flex-1 text-xl font-bold text-gray-700">
+            <h1 class="pr-4 flex-1 text-xl font-bold text-zinc-700">
                 Responsabilidad Social Universitario
             </h1>
 
@@ -58,7 +58,7 @@
                                 {{ $resp_social->empresa_id ? $resp_social->empresa->nombre : '--'}}
                             </p>
                             @if($resp_social->empresa_id)
-                                <p class="text-gray-600 text-xs">
+                                <p class="text-zinc-600 text-xs">
                                     RUC: {{  $resp_social->empresa->ruc }}
                                 </p>
                             @endif
@@ -77,7 +77,7 @@
                             @endif
 
                             @if( now() > $resp_social->fecha_fin )
-                                <span class="bg-gray-100 text-gray-800 whitespace-nowrap px-3 py-1 rounded">
+                                <span class="bg-zinc-100 text-zinc-800 whitespace-nowrap px-3 py-1 rounded">
                                     Finalizado
                                 </span>
                             @endif
@@ -93,12 +93,12 @@
             @endslot
         </x-utils.tables.table>
     @else
-        <div class="border border-gray-300 rounded-md mt-4">
+        <div class="border border-zinc-300 rounded-md mt-4">
             <x-utils.message-no-items
                 title="Aún no se ha registrado ninguna Responsabilidad Social"
                 text="Aquí podrá encontrar todas las Responsabilidades Sociales en los cuales hayas participado.">
                 @slot('icon')
-                    <svg class="text-gray-400 icon-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg class="text-zinc-400 icon-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                               d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
                     </svg>

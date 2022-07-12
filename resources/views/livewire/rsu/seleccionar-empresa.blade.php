@@ -9,7 +9,7 @@
 
             <x-slot name="title">
                 <div>
-                    <h1 class="font-bold text-gray-700">
+                    <h1 class="font-bold text-zinc-700">
                         Lista de empresas
                     </h1>
                 </div>

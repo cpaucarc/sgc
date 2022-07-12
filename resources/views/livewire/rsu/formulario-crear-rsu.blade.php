@@ -58,7 +58,7 @@
 
     <div class="pt-4">
         <label
-            class="text-sm text-gray-600 hover:text-gray-700 soft-transition font-semibold inline-flex items-center cursor-pointer">
+            class="text-sm text-zinc-600 hover:text-zinc-700 soft-transition font-semibold inline-flex items-center cursor-pointer">
             <x-utils.forms.checkbox wire:model="en_empresa"/>
             Responsabilidad Social Universitario aplicado a una empresa
         </label>
@@ -67,7 +67,7 @@
             <div class="mt-2">
                 <x-jet-label for="empresa" value="Empresa"/>
                 <div class="flex items-center justify-between gap-x-2">
-                    <x-jet-input id="empresa" type="text" class="mt-1 block w-full bg-gray-50" disabled
+                    <x-jet-input id="empresa" type="text" class="mt-1 block w-full bg-zinc-50" disabled
                                  wire:model.defer="empresa_nombre" placeholder="Ninguna empresa seleccionada"/>
                     <livewire:rsu.seleccionar-empresa/>
                 </div>

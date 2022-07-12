@@ -1,5 +1,5 @@
 <div
-    {{ $attributes->merge(['class' => "bg-white border border-gray-300 divide-y divide-gray-300 rounded-md text-gray-700"]) }}>
+    {{ $attributes->merge(['class' => "bg-white border border-zinc-300 divide-y divide-zinc-300 rounded-md text-zinc-700"]) }}>
 
     @if(isset($header))
         <div class="px-3 py-3 rounded-t-md bg-stone-50">

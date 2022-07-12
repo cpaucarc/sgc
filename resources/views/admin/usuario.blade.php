@@ -5,7 +5,7 @@
             <x-admin.rutas_admin/>
         </div>
 
-        <div class="col-span-3 space-y-6 divide-gray-300 divide-dashed">
+        <div class="col-span-3 space-y-6 divide-zinc-300 divide-dashed">
             <livewire:admin.info-usuario uuid="{{ $uuid }}"/>
 
             <hr/>
