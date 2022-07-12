@@ -47,7 +47,6 @@ class RegistrarAuditoria extends Component
     public function guardarAuditoria()
     {
         $this->validate();
-
         try {
             $rutaCarpeta = '/public/auditoria';
             if (!Storage::exists($rutaCarpeta))
@@ -89,6 +88,8 @@ class RegistrarAuditoria extends Component
                 $auditoria->documentos()->save($documento_enviado);
             }
 
+            $msg = 'La información de Auditoria se registró correctamente.';
+            $this->emit('guardado', ['titulo' => 'Auditoria agregado', 'mensaje' => $msg]);
             return redirect()->route('auditoria.index');
 
         } catch (\Exception $e) {

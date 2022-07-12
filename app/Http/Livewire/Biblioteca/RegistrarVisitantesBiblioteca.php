@@ -74,9 +74,8 @@ class RegistrarVisitantesBiblioteca extends Component
     /* Funciones */
     public function registrar()
     {
+        $this->validate();
         try {
-            $this->validate();
-
             BibliotecaVisitante::create([
                 'fecha_inicio' => $this->inicio,
                 'fecha_fin' => $this->fin,

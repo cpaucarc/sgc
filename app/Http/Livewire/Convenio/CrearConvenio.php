@@ -42,9 +42,8 @@ class CrearConvenio extends Component
 
     public function registrar()
     {
+        $this->validate();
         try {
-            $this->validate();
-
             $convenios = Convenio::query()
                 ->where('facultad_id', $this->facultad)
                 ->where('semestre_id', $this->semestre)
@@ -60,10 +59,8 @@ class CrearConvenio extends Component
                 ]);
                 $this->reset(['realizados', 'vigentes', 'culminados']);
 
-                $this->emit('guardado', 'Se registro la información de Convenios correctamente.');
                 $msg = 'La información de convenios se registró correctamente.';
                 $this->emit('guardado', ['titulo' => 'Convenio agregado', 'mensaje' => $msg]);
-
                 return redirect()->route('convenio.index');
             } else {
                 $this->emit('error', 'Ya se registró la información de Convenios en este ciclo.');
