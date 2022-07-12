@@ -93,7 +93,7 @@ class FormularioCrearRsu extends Component
             ]);
 
             $msg = "La RSU llamada '" . $this->titulo . "' fue creado con éxito.";
-            $this->emit('guardado', ['titulo' => 'Investigación creado', 'mensaje' => $msg]);
+            $this->emit('guardado', ['titulo' => 'RSU creado', 'mensaje' => $msg]);
             return redirect()->route('rsu.index');
         } catch (\Exception $e) {
             $this->emit('error', "Hubo un error inesperado: \n" . $e);
