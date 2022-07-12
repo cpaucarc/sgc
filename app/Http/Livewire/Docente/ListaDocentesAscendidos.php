@@ -12,7 +12,6 @@ use Livewire\Component;
 class ListaDocentesAscendidos extends Component
 {
     public $semestres, $semestre, $semestre_activo, $depto;
-    public $reconocidoss = null, $reconocido, $inicio, $fin;
 
     protected $listeners = ['agregarAscendido', 'quitarAscendido'];
 

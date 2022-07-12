@@ -1,55 +1,56 @@
-<div>
-    <div class="flex justify-between items-center gap-x-8 mb-4">
-        <h1 class="text-zinc-800 text-xl font-bold">Información de capacitaciones</h1>
+<div class="space-y-6">
+    <section class="flex justify-between items-center gap-x-8 mb-4">
+        <h1 class="text-zinc-800 text-xl font-bold">Información de Demanda Administrativo</h1>
         <div class="flex justify-between items-center gap-x-2">
             <x-utils.forms.select class="w-52" wire:model="semestre">
-                <option value="0">Todos las semestres</option>
+                <option value="0">Todos los semestres</option>
                 @foreach($semestres as $smt)
                     <option value="{{ $smt->id }}">{{$smt->nombre}}</option>
                 @endforeach
             </x-utils.forms.select>
 
-            @if(count($capacitaciones))
-                <livewire:docente.agregar-capacitacion/>
+            @if(count($demanda_administrativos))
+                <div class="text-left">
+                    <livewire:docente.agregar-demanda-administrativos/>
+                </div>
             @endif
-        </div>
-    </div>
 
-    @if(count($capacitaciones))
+        </div>
+    </section>
+
+    <hr class="border-dashed border-zinc-300"/>
+
+    @if(count($demanda_administrativos))
         <x-utils.tables.table>
             @slot('head')
                 <x-utils.tables.head>N°</x-utils.tables.head>
-                <x-utils.tables.head>Nombre</x-utils.tables.head>
-                <x-utils.tables.head>Inicio</x-utils.tables.head>
-                <x-utils.tables.head>Fin</x-utils.tables.head>
+                <x-utils.tables.head>Docentes</x-utils.tables.head>
+                <x-utils.tables.head>Administrativos</x-utils.tables.head>
                 <x-utils.tables.head>Departamento</x-utils.tables.head>
                 <x-utils.tables.head>Semestre</x-utils.tables.head>
                 <x-utils.tables.head><span class="sr-only">Acciones</span></x-utils.tables.head>
             @endslot
             @slot('body')
-                @foreach($capacitaciones as $i=>$capacitacion)
+                @foreach($demanda_administrativos as $i=>$demanda_admin)
                     <x-utils.tables.row>
                         <x-utils.tables.body>
                             {{($i+1)}}
                         </x-utils.tables.body>
-                        <x-utils.tables.body>
-                            {{$capacitacion->nombre}}
+                        <x-utils.tables.body  class="whitespace-nowrap text-zinc-400">
+                            {{$demanda_admin->num_docentes}} docentes
                         </x-utils.tables.body>
-                        <x-utils.tables.body class="whitespace-nowrap text-zinc-400 text-sm">
-                            {{$capacitacion->fecha_inicio}}
-                        </x-utils.tables.body>
-                        <x-utils.tables.body class="whitespace-nowrap text-zinc-400 text-sm">
-                            {{$capacitacion->fecha_fin}}
+                        <x-utils.tables.body  class="whitespace-nowrap text-zinc-400">
+                            {{$demanda_admin->num_administrativos}} administrativos
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            {{$capacitacion->departamento->nombre}}
+                            {{$demanda_admin->departamento->nombre}}
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-center">
-                            {{$capacitacion->semestre->nombre}}
+                            {{$demanda_admin->semestre->nombre}}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             <x-utils.buttons.danger class="text-sm"
-                                                    onclick="eliminar({{ $capacitacion->id }},'{{$capacitacion->nombre}}')">
+                                                    onclick="eliminar({{ $demanda_admin->id }})">
                                 <x-icons.delete class="h-4 w-4" stroke="1.5"/>
                             </x-utils.buttons.danger>
                         </x-utils.tables.body>
@@ -58,12 +59,12 @@
             @endslot
         </x-utils.tables.table>
         <div class="mt-4">
-            {{ $capacitaciones->links() }}
+            {{ $demanda_administrativos->links() }}
         </div>
     @else
         <div class="border border-gray-300 rounded-md">
             <x-utils.message-no-items
-                title="Aún no hay ninguna capacitación registrada"
+                title="Aún no hay ningun demanda administrativo registrada"
                 text="Aqui podrá ver la lista de capacitaciones realizadas a los docentes.">
                 @slot('icon')
                     <svg class="text-gray-400 fill-current" viewBox="0 0 24 24" width="24" height="24">
@@ -74,7 +75,7 @@
                     </svg>
                 @endslot
                 <div class="text-left">
-                    <livewire:docente.agregar-capacitacion/>
+                    <livewire:docente.agregar-demanda-administrativos/>
                 </div>
             </x-utils.message-no-items>
         </div>
@@ -97,9 +98,9 @@
                 });
             });
 
-            function eliminar(id,name) {
+            function eliminar(id) {
                 Swal.fire({
-                    text: "¿Desea eliminar el registro de capacitaciones " + name + "?",
+                    text: "¿Esta seguro de eliminar la información de demanda administrativo?",
                     icon: 'question',
                     showCancelButton: true,
                     confirmButtonText: 'Si, eliminar',
