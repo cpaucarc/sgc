@@ -94,8 +94,8 @@
         <script>
             function eliminar(id, row) {
                 Swal.fire({
-                    text: "¿Desea eliminar el registro número (" + row + ") de Visitantes a la Biblioteca?",
-                    icon: 'question',
+                    text: "¿Desea eliminar el registro número (" + row + ") de Visitas a la Biblioteca?",
+                    icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Si, eliminar',
                     cancelButtonText: `Cancelar`,
@@ -105,7 +105,6 @@
                     }
                 })
             }
-
         </script>
     @endpush
 </div>
