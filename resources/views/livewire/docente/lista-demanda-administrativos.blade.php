@@ -1,6 +1,6 @@
 <div class="space-y-6">
     <section class="flex justify-between items-center gap-x-8 mb-4">
-        <h1 class="text-zinc-800 text-xl font-bold">Información de capaciones</h1>
+        <h1 class="text-zinc-800 text-xl font-bold">Información de demanda administrativo</h1>
         <div class="flex justify-between items-center gap-x-2">
             <x-utils.forms.select class="w-52" wire:model="semestre">
                 <option value="0">Todos los semestres</option>
@@ -80,5 +80,39 @@
             </x-utils.message-no-items>
         </div>
     @endif
+
+    @push('js')
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Livewire.on('guardado', rspta => {
+                Swal.fire({
+                    html: `<b>!${rspta.titulo}!</b><br/><small>${rspta.mensaje}</small>`,
+                    icon: 'success'
+                });
+            });
+
+            Livewire.on('error', msg => {
+                Swal.fire({
+                    html: `<b>!Hubo un error!</b><br/><small>${msg}</small>`,
+                    icon: 'error'
+                });
+            });
+
+            function eliminar(id) {
+                Swal.fire({
+                    text: "¿Esta seguro de la información de demanda administrativo?",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, eliminar',
+                    cancelButtonText: `Cancelar`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('eliminar', id);
+                    }
+                })
+            }
+
+        </script>
+    @endpush
 
 </div>

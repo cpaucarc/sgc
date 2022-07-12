@@ -29,7 +29,6 @@ class ListaDemandaAdministrativos extends Component
 
     public function render()
     {
-
         $demanda_administrativos = DemandaAdministrativo::query()
             ->with('departamento', 'semestre')
             ->where('departamento_id', $this->depto->id);
@@ -40,5 +39,10 @@ class ListaDemandaAdministrativos extends Component
         $demanda_administrativos = $demanda_administrativos->paginate(15);
 
         return view('livewire.docente.lista-demanda-administrativos', compact('demanda_administrativos'));
+    }
+
+    public function eliminar($id)
+    {
+        DemandaAdministrativo::find($id)->delete();
     }
 }
