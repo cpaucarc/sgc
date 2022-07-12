@@ -1,5 +1,4 @@
 <x-utils.card class="border rounded-lg">
-
     <x-slot name="header">
         <h1 class="font-bold text-sm text-gray-800">
             Agregar información sobre la atención de los servicios
@@ -54,4 +53,23 @@
             </x-jet-button>
         </div>
     </div>
+
+    @push('js')
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Livewire.on('guardado', rspta => {
+                Swal.fire({
+                    html: `<b>!${rspta.titulo}!</b><br/><small>${rspta.mensaje}</small>`,
+                    icon: 'success'
+                });
+            });
+
+            Livewire.on('error', msg => {
+                Swal.fire({
+                    html: `<b>!Hubo un error!</b><br/><small>${msg}</small>`,
+                    icon: 'error'
+                });
+            });
+        </script>
+    @endpush
 </x-utils.card>

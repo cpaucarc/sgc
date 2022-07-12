@@ -62,28 +62,33 @@ class RegistrarPostulantes extends Component
     public function registrar()
     {
         $this->validate();
+        try {
+            $postulantes = BolsaPostulante::query()
+                ->where('escuela_id', $this->escuela)
+                ->whereBetween('fecha_inicio', [$this->inicio, $this->fin])
+                ->whereBetween('fecha_fin', [$this->inicio, $this->fin])
+                ->get();
 
-        $postulantes = BolsaPostulante::query()
-            ->where('escuela_id', $this->escuela)
-            ->whereBetween('fecha_inicio', [$this->inicio, $this->fin])
-            ->whereBetween('fecha_fin', [$this->inicio, $this->fin])
-            ->get();
+            if (count($postulantes) < 1) {
+                BolsaPostulante::create([
+                    'fecha_inicio' => $this->inicio,
+                    'fecha_fin' => $this->fin,
+                    'postulantes' => $this->postulantes,
+                    'beneficiados' => $this->beneficiados,
+                    'semestre_id' => $this->semestre,
+                    'escuela_id' => $this->escuela
+                ]);
+                $this->reset(['inicio', 'fin', 'postulantes', 'beneficiados']);
 
-        if (count($postulantes) < 1) {
-            BolsaPostulante::create([
-                'fecha_inicio' => $this->inicio,
-                'fecha_fin' => $this->fin,
-                'postulantes' => $this->postulantes,
-                'beneficiados' => $this->beneficiados,
-                'semestre_id' => $this->semestre,
-                'escuela_id' => $this->escuela
-            ]);
-            $this->reset(['inicio', 'fin', 'postulantes', 'beneficiados']);
-            $this->emit('guardado', 'Se registro los datos de bolsa de trabajo correctamente.');
-            return redirect()->route('btu.index');
+                $msg = 'La información de Bolsa de Trabajo se registró correctamente.';
+                $this->emit('guardado', ['titulo' => 'Bolsa de Trabajo agregado', 'mensaje' => $msg]);
+                return redirect()->route('btu.index');
 
-        } else {
-            $this->emit('error', 'Ya se registraron los datos de bolsa de trabajo en las fechas ingresadas.');
+            } else {
+                $this->emit('error', 'Ya se registraron los datos de Bolsa de Trabajo en las fechas ingresadas.');
+            }
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
         }
     }
 
