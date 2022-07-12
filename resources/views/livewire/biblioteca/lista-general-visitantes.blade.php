@@ -90,13 +90,20 @@
     @endif
 
     @push('js')
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             function eliminar(id, row) {
-                let res = confirm('¿Desea eliminar el registro número (' + row + ') de Visitantes a la Biblioteca?')
-
-                if (res) {
-                    window.livewire.emit('eliminar', id);
-                }
+                Swal.fire({
+                    text: "¿Desea eliminar el registro número (" + row + ") de Visitas a la Biblioteca?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, eliminar',
+                    cancelButtonText: `Cancelar`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('eliminar', id);
+                    }
+                })
             }
         </script>
     @endpush

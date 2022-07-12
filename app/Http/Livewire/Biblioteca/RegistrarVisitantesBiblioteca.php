@@ -75,15 +75,21 @@ class RegistrarVisitantesBiblioteca extends Component
     public function registrar()
     {
         $this->validate();
+        try {
+            BibliotecaVisitante::create([
+                'fecha_inicio' => $this->inicio,
+                'fecha_fin' => $this->fin,
+                'visitantes' => $this->visitantes,
+                'semestre_id' => $this->semestre,
+                'escuela_id' => $this->escuela
+            ]);
 
-        BibliotecaVisitante::create([
-            'fecha_inicio' => $this->inicio,
-            'fecha_fin' => $this->fin,
-            'visitantes' => $this->visitantes,
-            'semestre_id' => $this->semestre,
-            'escuela_id' => $this->escuela
-        ]);
+            $msg = 'El número de Visitas a la Biblioteca fue agregado correctamente';
+            $this->emit('guardado', ['titulo' => 'Número de Visitas a la Biblioteca agregado', 'mensaje' => $msg]);
+            return redirect()->route('biblioteca.visitante');
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
 
-        return redirect()->route('biblioteca.visitante');
+        }
     }
 }

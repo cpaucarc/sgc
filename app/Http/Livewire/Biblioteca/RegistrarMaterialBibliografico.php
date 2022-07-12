@@ -53,7 +53,7 @@ class RegistrarMaterialBibliografico extends Component
         $this->updatedFacultad($this->facultad);
 
         $this->semestres = Semestre::query()->orderBy('nombre', 'desc')->get();
-        $this->semestre=$this->semestres->where('activo',true)->first()->id;
+        $this->semestre = $this->semestres->where('activo', true)->first()->id;
 
         $this->inicio = Carbon::now()->startOfMonth()->format('Y-m-d');
         $this->fin = Carbon::now()->endOfMonth()->format('Y-m-d');
@@ -80,19 +80,24 @@ class RegistrarMaterialBibliografico extends Component
     public function registrar()
     {
         $this->validate();
+        try {
+            MaterialBibliografico::create([
+                'fecha_inicio' => $this->inicio,
+                'fecha_fin' => $this->fin,
+                'adquirido' => $this->adquirido,
+                'prestado' => $this->prestado,
+                'perdido' => $this->perdido,
+                'restaurados' => $this->restaurado,
+                'total_libros' => $this->total,
+                'semestre_id' => $this->semestre,
+                'facultad_id' => $this->facultad
+            ]);
 
-        MaterialBibliografico::create([
-            'fecha_inicio' => $this->inicio,
-            'fecha_fin' => $this->fin,
-            'adquirido' => $this->adquirido,
-            'prestado' => $this->prestado,
-            'perdido' => $this->perdido,
-            'restaurados' => $this->restaurado,
-            'total_libros' => $this->total,
-            'semestre_id' => $this->semestre,
-            'facultad_id' => $this->facultad
-        ]);
-
-        return redirect()->route('biblioteca.index');
+            $msg = 'El Material Bibliográfico fue agregado correctamente';
+            $this->emit('guardado', ['titulo' => 'Material Bibliográfico agregado', 'mensaje' => $msg]);
+            return redirect()->route('biblioteca.index');
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
+        }
     }
 }

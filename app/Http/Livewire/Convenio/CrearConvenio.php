@@ -43,25 +43,30 @@ class CrearConvenio extends Component
     public function registrar()
     {
         $this->validate();
+        try {
+            $convenios = Convenio::query()
+                ->where('facultad_id', $this->facultad)
+                ->where('semestre_id', $this->semestre)
+                ->get();
 
-        $convenios = Convenio::query()
-            ->where('facultad_id', $this->facultad)
-            ->where('semestre_id', $this->semestre)
-            ->get();
+            if (count($convenios) < 1) {
+                Convenio::create([
+                    'realizados' => $this->realizados,
+                    'vigentes' => $this->vigentes,
+                    'culminados' => $this->culminados,
+                    'semestre_id' => $this->semestre,
+                    'facultad_id' => $this->facultad
+                ]);
+                $this->reset(['realizados', 'vigentes', 'culminados']);
 
-        if (count($convenios) < 1) {
-            Convenio::create([
-                'realizados' => $this->realizados,
-                'vigentes' => $this->vigentes,
-                'culminados' => $this->culminados,
-                'semestre_id' => $this->semestre,
-                'facultad_id' => $this->facultad
-            ]);
-            $this->reset(['realizados', 'vigentes', 'culminados']);
-            $this->emit('guardado', 'Se registro la información de convenios correctamente.');
-            return redirect()->route('convenio.index');
-        } else {
-            $this->emit('error', 'Ya se registró la información de convenios en este ciclo.');
+                $msg = 'La información de convenios se registró correctamente.';
+                $this->emit('guardado', ['titulo' => 'Convenio agregado', 'mensaje' => $msg]);
+                return redirect()->route('convenio.index');
+            } else {
+                $this->emit('error', 'Ya se registró la información de Convenios en este ciclo.');
+            }
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
         }
     }
 
