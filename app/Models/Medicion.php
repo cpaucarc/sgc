@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Lib\MedicionHelper;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class Medicion
 {
@@ -316,7 +317,7 @@ class Medicion
                 foreach ($aprobados as $aprobado) {
                     if ($aprobado["codigo"] === $matriculado["codigo"]) {
                         $calculado[] = array(
-                            'curso_id' => $matriculado["codigo"],
+                            'codigo' => $matriculado["codigo"],
                             'curso' => $matriculado["curso"],
                             'total' => intval($matriculado["matriculados"]),
                             "interes" => intval($aprobado["aprobados"]),
@@ -978,20 +979,21 @@ class Medicion
 
     /* IND 67 - Docente
      * Objetivo: Medir la demanda de personal administrativo.
-     * Formula: X = (N° de estudiantes por programa)/(Total de administrativos por programa)
+     * Formula: X = (N° de docentes por departamento)/(Total de administrativos por programa)
      * */
-    public static function ind67($es_escuela, $entidad_id, $semestre, $depto_id = null)
+    public static function ind67($es_depto, $entidad_id, $semestre_id)
     {
         try {
-            $tipo = $es_escuela ? 'departamento' : 'facultad';
+            $deptos_id = $es_depto ? [$entidad_id] :
+                Departamento::query()->where('facultad_id', $entidad_id)->pluck('id');
 
-            // FIXME está devolviendo valores aleatorios (La API no está implementado 11/06/2022)
-            $administrativos = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/10?' . $tipo . '=' . MedicionHelper::normalizarID($entidad_id) . '&semestre=' . $semestre);
-            $interes = intval($administrativos->body());
+            $demanda = DemandaAdministrativo::query()
+                ->where('semestre_id', $semestre_id)
+                ->whereIn('departamento_id', $deptos_id)
+                ->get();
 
-            $total = $es_escuela ? MedicionHelper::cantidadEstudiantesPorEscuela($entidad_id, $semestre)
-                : MedicionHelper::cantidadEstudiantesPorFacultad($entidad_id, $semestre);
+            $interes = $demanda->sum('num_docentes');
+            $total = $demanda->sum('num_administrativos');
 
             return MedicionHelper::getArrayResultados($interes, $total);
         } catch (\Exception $e) {
@@ -1112,20 +1114,39 @@ class Medicion
      * Objetivo: Conocer el porcentaje de docentes capacitados.
      * Formula: X = (N° de docentes capacitados)/(Total de docentes por programa) x 100
      * */
-    public static function ind75($es_depto, $entidad_id, $semestre)
+    public static function ind75($es_depto, $entidad_id, $semestre_id)
     {
         try {
-            $tipo = $es_depto ? 'departamento' : 'facultad';
+            $deptos_id = $es_depto ? [$entidad_id] :
+                Departamento::query()->where('facultad_id', $entidad_id)->pluck('id');
 
-            // FIXME está retornando un valor aleatorio (Estado de la API: Pendiente)
-            $docentes_capacitados = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/09?' . $tipo . '=' . MedicionHelper::normalizarID($entidad_id) . '&semestre=' . $semestre);
-            $interes = intval($docentes_capacitados->body());
+            $docentes = DocenteSemestre::query()
+                ->where('semestre_id', $semestre_id)
+                ->whereIn('departamento_id', $deptos_id)
+                ->count();
 
-            $total = $es_depto ? MedicionHelper::cantidadDocentesPorDepto($entidad_id, $semestre)
-                : MedicionHelper::cantidadDocentesPorFacultad($entidad_id, $semestre);
+            $capacitaciones = Capacitacion::query()
+                ->where('semestre_id', $semestre_id)
+                ->whereIn('departamento_id', $deptos_id)
+                ->get();
 
-            return MedicionHelper::getArrayResultados($interes, $total);
+            $calculado = array();
+            foreach ($capacitaciones as $capacitacion){
+                $docentes_capacitados = CapacitacionDocente::query()
+                    ->where('capacitacion_id', $capacitacion->id)
+                    ->whereIn('departamento_id', $deptos_id)
+                    ->count();
+
+                $calculado[] = array(
+                    'codigo' => $capacitacion->id,
+                    'curso' => $capacitacion->nombre, // se queda como curso por motivos de que en la vista se maneja de esa manera
+                    'total' => $docentes,
+                    "interes" => $docentes_capacitados,
+                    "resultado" => intval($docentes_capacitados / $docentes * 100),
+                );
+            }
+
+            return $calculado;
         } catch (\Exception $e) {
             return null;
         }
@@ -1159,21 +1180,21 @@ class Medicion
      * Objetivo: Conocer el porcentaje de docentes ascendidos.
      * Formula: X = (N° de docentes ascendidos)/(Total de docentes por ascender por programa) x 100
      * */
-    public static function ind77($es_depto, $entidad_id, $semestre)
+    public static function ind77($es_depto, $entidad_id, $semestre_id)
     {
         try {
-            $tipo = $es_depto ? 'departamento' : 'facultad';
+            $deptos_id = $es_depto ? [$entidad_id] :
+                Departamento::query()->where('facultad_id', $entidad_id)->pluck('id');
 
-            // FIXME está retornando un valor aleatorio (Estado de la API: Pendiente)
-            $docentes_ascendidos = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/15?' . $tipo . '=' . MedicionHelper::normalizarID($entidad_id) . '&semestre=' . $semestre);
+            $interes = DocenteAscendido::query()
+                ->where('semestre_id', $semestre_id)
+                ->whereIn('departamento_id', $deptos_id)
+                ->count();
 
-            // FIXME está retornando un valor aleatorio (Estado de la API: Pendiente)
-            $docentes_por_ascender = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/14?' . $tipo . '=' . MedicionHelper::normalizarID($entidad_id) . '&semestre=' . $semestre);
-
-            $interes = intval($docentes_ascendidos->body());
-            $total = intval($docentes_por_ascender->body());
+            $total = DocenteSemestre::query()
+                ->where('semestre_id', $semestre_id)
+                ->whereIn('departamento_id', $deptos_id)
+                ->count();
 
             return MedicionHelper::getArrayResultados($interes, $total);
         } catch (\Exception $e) {
@@ -1185,18 +1206,21 @@ class Medicion
      * Objetivo: Conocer el porcentaje de docentes reconocidos.
      * Formula: X = (N° de docentes reconocidos)/(Total de docentes por programa) x 100
      * */
-    public static function ind78($es_depto, $entidad_id, $semestre)
+    public static function ind78($es_depto, $entidad_id, $semestre_id)
     {
         try {
-            $tipo = $es_depto ? 'departamento' : 'facultad';
+            $deptos_id = $es_depto ? [$entidad_id] :
+                Departamento::query()->where('facultad_id', $entidad_id)->pluck('id');
 
-            // FIXME está retornando un valor aleatorio (Estado de la API: Pendiente)
-            $docentes_reconocidos = Http::withToken(env('OGE_TOKEN'))
-                ->get(env('OGE_API') . 'proceso_docente/' . $tipo . '/16?' . $tipo . '=' . MedicionHelper::normalizarID($entidad_id) . '&semestre=' . $semestre);
-            $interes = intval($docentes_reconocidos->body());
+            $interes = DocenteReconocido::query()
+                ->where('semestre_id', $semestre_id)
+                ->whereIn('departamento_id', $deptos_id)
+                ->count();
 
-            $total = $es_depto ? MedicionHelper::cantidadDocentesPorDepto($entidad_id, $semestre)
-                : MedicionHelper::cantidadDocentesPorFacultad($entidad_id, $semestre);
+            $total = DocenteSemestre::query()
+                ->where('semestre_id', $semestre_id)
+                ->whereIn('departamento_id', $deptos_id)
+                ->count();
 
             return MedicionHelper::getArrayResultados($interes, $total);
         } catch (\Exception $e) {

@@ -22,6 +22,15 @@
                 </x-utils.forms.select>
             @endif
 
+            @if(!is_null($capacitaciones))
+                <x-utils.forms.select wire:model="capacitacion_seleccionado">
+                    <option value="0">Todos las capacitaciones</option>
+                    @foreach($capacitaciones as $cap)
+                        <option value="{{ $cap->id }}">{{ substr($cap->nombre, 0, 50) . '...' }}</option>
+                    @endforeach
+                </x-utils.forms.select>
+            @endif
+
             <x-utils.forms.select wire:model="semestre_seleccionado">
                 <option value="0">Todos</option>
                 @foreach($semestres as $sem)
@@ -50,6 +59,9 @@
                 <x-utils.tables.head>Periodo</x-utils.tables.head>
                 @if($tieneCursos)
                     <x-utils.tables.head>Curso</x-utils.tables.head>
+                @endif
+                @if($tieneCapacitaciones)
+                    <x-utils.tables.head>Capacitación</x-utils.tables.head>
                 @endif
                 @if($indicadorable->indicador->titulo_interes)
                     <x-utils.tables.head>{{ $indicadorable->indicador->titulo_interes }}</x-utils.tables.head>
@@ -85,6 +97,11 @@
                         @if($tieneCursos)
                             <x-utils.tables.body class="text-xs">
                                 {{ count($analisis->curso) ? $analisis->curso->first()->nombre : '-' }}
+                            </x-utils.tables.body>
+                        @endif
+                        @if($tieneCapacitaciones)
+                            <x-utils.tables.body class="text-xs">
+                                {{ count($analisis->capacitacion) ? substr($analisis->capacitacion->first()->nombre, 0, 40) . '...' : '-' }}
                             </x-utils.tables.body>
                         @endif
                         @if($indicadorable->indicador->titulo_interes)
@@ -134,7 +151,8 @@
         </x-utils.tables.table>
 
         <div class="mt-4 flex justify-end">
-            @if(!$tieneCursos || $curso_seleccionado > 0)
+
+            @if(!$tieneCursos && !$tieneCapacitaciones)
                 <x-utils.buttons.default wire:click="openGraph" class="group text-sm print:hidden">
                     <svg class="icon-5 mr-1 group-hover:text-gray-600" viewBox="0 0 20 20" fill="currentColor">
                         <path
@@ -143,10 +161,22 @@
                     Mostrar gráfico
                 </x-utils.buttons.default>
             @else
-                <p class="text-sm text-gray-700">
-                    Para ver el grafico, seleccione un curso en específico
-                </p>
+                @if($curso_seleccionado > 0 || $capacitacion_seleccionado > 0)
+                    <x-utils.buttons.default wire:click="openGraph" class="group text-sm print:hidden">
+                        <svg class="icon-5 mr-1 group-hover:text-gray-600" viewBox="0 0 20 20" fill="currentColor">
+                            <path
+                                d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+                        </svg>
+                        Mostrar gráfico
+                    </x-utils.buttons.default>
+                @else
+                    <p class="text-sm text-gray-700">
+                        Para ver el grafico, seleccione {{ $tieneCursos ? 'un curso' : 'una capacitacion' }} en
+                        específico
+                    </p>
+                @endif
             @endif
+
         </div>
 
         <livewire:indicador.grafico-general indicadorable_id="{{ $indicadorable->id }}"/>

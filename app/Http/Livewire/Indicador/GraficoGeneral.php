@@ -26,11 +26,11 @@ class GraficoGeneral extends Component
 
     /* Funciones */
 
-    public function mostrarGrafico($semestre = 0, $curso = 0)
+    public function mostrarGrafico($semestre = 0, $curso = 0, $capacitacion = 0)
     {
         $this->indicadorable = Indicadorable::query()
             ->with('indicador:id,cod_ind_inicial,titulo_interes,titulo_total,titulo_resultado')
-            ->with(['analisis' => function ($query) use ($semestre, $curso) {
+            ->with(['analisis' => function ($query) use ($semestre, $curso, $capacitacion) {
                 if ($semestre > 0) {
                     $query->where('semestre_id', $semestre);
                 }
@@ -39,6 +39,13 @@ class GraficoGeneral extends Component
                     $query->whereIn('id', function ($query2) use ($curso) {
                         $query2->select('analisis_indicador_id')->from('analisis_cursos')
                             ->where('curso_id', $curso);
+                    });
+                }
+
+                if ($capacitacion > 0) {
+                    $query->whereIn('id', function ($query2) use ($capacitacion) {
+                        $query2->select('analisis_indicador_id')->from('analisis_capacitaciones')
+                            ->where('capacitacion_id', $capacitacion);
                     });
                 }
 

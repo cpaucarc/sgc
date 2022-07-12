@@ -104,8 +104,8 @@
                         @if(!is_null($resultados))
                             <x-utils.tables.table>
                                 @slot('head')
-                                    @if(count($resultados) > 1)
-                                        <x-utils.tables.head>Curso</x-utils.tables.head>
+                                    @if(count($resultados) > 1 || isset($resultados[0]['codigo']))
+                                        <x-utils.tables.head><span class="sr-only">Item</span></x-utils.tables.head>
                                     @endif
                                     @if($indicadorable->indicador->titulo_interes)
                                         <x-utils.tables.head>
@@ -131,7 +131,7 @@
                                         <x-utils.tables.row>
                                             @if(!is_null($res['curso']))
                                                 <x-utils.tables.body>
-                                                    {{ $res['curso'] }}
+                                                    {{ substr($res['curso'], 0, 55) }}...
                                                 </x-utils.tables.body>
                                             @endif
 

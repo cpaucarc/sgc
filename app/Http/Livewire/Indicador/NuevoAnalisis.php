@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Indicador;
 
 use App\Lib\AnalisisHelper;
+use App\Models\AnalisisCapacitacion;
 use App\Models\AnalisisCurso;
 use App\Models\AnalisisIndicador;
 use App\Models\Curso;
@@ -13,6 +14,7 @@ use App\Models\Medicion;
 use App\Models\Semestre;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class NuevoAnalisis extends Component
@@ -149,6 +151,9 @@ class NuevoAnalisis extends Component
 
         $usuario_actual = Auth::user()->id;
         $analisis_cursos = array();
+        $analisis_capacitaciones = array();
+
+        Log::info('Resultados', $this->resultados);
 
         foreach ($this->resultados as $res) {
             $analisis_indicador = AnalisisIndicador::create([
@@ -177,10 +182,21 @@ class NuevoAnalisis extends Component
                     "curso_id" => Curso::query()->where('codigo', $res['codigo'])->first()->id
                 ];
             }
+
+            if (in_array($this->cod_ind, ['IND-075'])) {
+                $analisis_capacitaciones[] = [
+                    "analisis_indicador_id" => $analisis_indicador->id,
+                    "capacitacion_id" => $res['codigo']
+                ];
+            }
         }
 
         if (!is_null($analisis_cursos)) {
             AnalisisCurso::insert($analisis_cursos);
+        }
+
+        if (!is_null($analisis_capacitaciones)) {
+            AnalisisCapacitacion::insert($analisis_capacitaciones);
         }
 
         // Guardamos los nuevos valores de min, sat, sob si el checkbox está activo
@@ -310,17 +326,21 @@ class NuevoAnalisis extends Component
         } elseif ($this->cod_ind === "IND-066") {
             $res = Medicion::ind66($this->tipo == 1, $this->tipo == 1 ? $this->entidad->depto_id : $this->entidad->id, $this->semestre_id);
         } elseif ($this->cod_ind === "IND-067") {
-            $res = Medicion::ind67($this->tipo == 1, $this->entidad->id, $this->semestre_nombre, $this->tipo == 1 ? $this->entidad->depto_id : null);
+            // FIXME reemplazar directamente por el id del Depto
+            $res = Medicion::ind67($this->tipo == 1, $this->tipo == 1 ? $this->entidad->depto_id : $this->entidad->id, $this->semestre_id);
         } elseif ($this->cod_ind === "IND-074") {
             $res = Medicion::ind74($this->tipo == 1, $this->tipo == 1 ? $this->entidad->depto_id : $this->entidad->id, $this->semestre_nombre);
         } elseif ($this->cod_ind === "IND-075") {
-            $res = Medicion::ind75($this->tipo == 1, $this->tipo == 1 ? $this->entidad->depto_id : $this->entidad->id, $this->semestre_nombre);
+            // FIXME reemplazar directamente por el id del Depto
+            $res = Medicion::ind75($this->tipo == 1, $this->tipo == 1 ? $this->entidad->depto_id : $this->entidad->id, $this->semestre_id);
         } elseif ($this->cod_ind === "IND-076") {
             $res = Medicion::ind76($this->tipo == 1, $this->tipo == 1 ? $this->entidad->depto_id : $this->entidad->id, $this->semestre_nombre);
         } elseif ($this->cod_ind === "IND-077") {
-            $res = Medicion::ind77($this->tipo == 1, $this->tipo == 1 ? $this->entidad->depto_id : $this->entidad->id, $this->semestre_nombre);
+            // FIXME reemplazar directamente por el id del Depto
+            $res = Medicion::ind77($this->tipo == 1, $this->tipo == 1 ? $this->entidad->depto_id : $this->entidad->id, $this->semestre_id);
         } elseif ($this->cod_ind === "IND-078") {
-            $res = Medicion::ind78($this->tipo == 1, $this->tipo == 1 ? $this->entidad->depto_id : $this->entidad->id, $this->semestre_nombre);
+            // FIXME reemplazar directamente por el id del Depto
+            $res = Medicion::ind78($this->tipo == 1, $this->tipo == 1 ? $this->entidad->depto_id : $this->entidad->id, $this->semestre_id);
         } // Bolsa
         elseif ($this->cod_ind === "IND-021") {
             $res = Medicion::ind21($this->entidad->id, $this->inicio, $this->fin);

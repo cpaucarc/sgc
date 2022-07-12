@@ -1026,11 +1026,11 @@ class IndicadorSeeder extends Seeder
             //IND-067
             [
                 'objetivo' => 'Medir la demanda de personal administrativo.',
-                'titulo_interes' => 'N° Administrativos',
-                'titulo_total' => 'N° Estudiantes',
+                'titulo_interes' => 'N° Docentes',
+                'titulo_total' => 'N° Administrativos',
                 'titulo_resultado' => 'Resultado Indicador',
                 'cod_ind_inicial' => 'IND-067',
-                'formula' => 'X = (Total de administrativos por programa)/(N° de estudiantes por programa) x 100',
+                'formula' => 'X = (N° de docentes por departamento)/(Total de administrativos por programa) x 100',
                 'minimo' => 80,
                 'satisfactorio' => 90,
                 'sobresaliente' => 100,
