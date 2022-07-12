@@ -55,26 +55,30 @@ class CrearConvalidacion extends Component
     public function registrar()
     {
         $this->validate();
+        try {
+            $convalidaciones = Convalidacion::query()
+                ->where('escuela_id', $this->escuela)
+                ->where('semestre_id', $this->semestre)
+                ->get();
 
-        $convalidaciones = Convalidacion::query()
-            ->where('escuela_id', $this->escuela)
-            ->where('semestre_id', $this->semestre)
-            ->get();
+            if (count($convalidaciones) < 1) {
+                Convalidacion::create([
+                    'vacantes' => $this->vacantes,
+                    'postulantes' => $this->postulantes,
+                    'convalidados' => $this->convalidados,
+                    'semestre_id' => $this->semestre,
+                    'escuela_id' => $this->escuela
+                ]);
+                $this->reset(['vacantes', 'postulantes', 'convalidados']);
 
-        if (count($convalidaciones) < 1) {
-            Convalidacion::create([
-                'vacantes' => $this->vacantes,
-                'postulantes' => $this->postulantes,
-                'convalidados' => $this->convalidados,
-                'semestre_id' => $this->semestre,
-                'escuela_id' => $this->escuela
-            ]);
-            $this->reset(['vacantes', 'postulantes', 'convalidados']);
-            $this->emit('guardado', 'Se registro la convalidacion correctamente.');
-            return redirect()->route('convalidacion.index');
-
-        } else {
-            $this->emit('error', 'Ya se registraron las convalidaciones en este ciclo.');
+                $msg = 'La información de Convalidacion se registró correctamente.';
+                $this->emit('guardado', ['titulo' => 'Convalidación agregado', 'mensaje' => $msg]);
+                return redirect()->route('convalidacion.index');
+            } else {
+                $this->emit('error', 'Ya se registraron las convalidaciones en este ciclo.');
+            }
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
         }
     }
 

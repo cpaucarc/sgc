@@ -88,7 +88,7 @@
                     text: "¿Desea eliminar el registro número (" + row + ") de Convenio?",
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonText: 'Si, quitar',
+                    confirmButtonText: 'Si, eliminar',
                     cancelButtonText: `Cancelar`,
                 }).then((result) => {
                     if (result.isConfirmed) {
