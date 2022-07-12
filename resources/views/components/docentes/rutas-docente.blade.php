@@ -45,4 +45,14 @@
             </x-utils.links.nav-link>
         </div>
     </div>
+
+    <div class="flex flex-col items-start w-full gap-y-1 divide-gray-200 divide-y">
+        <p class="ml-3 text-sm text-gray-400 font-semibold tracking-wide">Administrativos</p>
+        <div class="px-2 flex flex-col items-start w-full gap-y-1 pt-1">
+            <x-utils.links.nav-link href="{{ route('docente.administrativos') }}"
+                                    :active="request()->routeIs('docente.administrativos')">
+                {{ __('Demanda Administrativos') }}
+            </x-utils.links.nav-link>
+        </div>
+    </div>
 </div>

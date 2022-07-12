@@ -28,8 +28,10 @@ class AgregarCapacitacion extends Component
     public function mount()
     {
         $this->depto = Departamento::query()
+            ->with('facultad')
             ->where('id', UsuarioHelper::escuelasDelUsuario()->pluck('depto_id')[0])
             ->first();
+
         $this->departamento = $this->depto->id;
 
         $this->semestres = Semestre::query()->orderBy('nombre', 'desc')->get();

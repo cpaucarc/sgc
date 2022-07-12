@@ -40,4 +40,9 @@ class DocenteController extends Controller
     {
         return view('docente.docentes-ascendidos');
     }
+
+    public function demanda_administrativos()
+    {
+        return view('docente.demanda-administrativos');
+    }
 }
