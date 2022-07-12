@@ -35,10 +35,10 @@
                         <x-utils.tables.body>
                             {{$capacitacion->nombre}}
                         </x-utils.tables.body>
-                        <x-utils.tables.body class="whitespace-nowrap">
+                        <x-utils.tables.body class="whitespace-nowrap text-zinc-400 text-sm">
                             {{$capacitacion->fecha_inicio}}
                         </x-utils.tables.body>
-                        <x-utils.tables.body class="whitespace-nowrap">
+                        <x-utils.tables.body class="whitespace-nowrap text-zinc-400 text-sm">
                             {{$capacitacion->fecha_fin}}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
@@ -81,18 +81,37 @@
     @endif
 
     @push('js')
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
-            function eliminar(id, name) {
-                let res = confirm('¿Desea eliminar el registro de capacitaciones ' + name + '?')
+            Livewire.on('guardado', rspta => {
+                Swal.fire({
+                    html: `<b>!${rspta.titulo}!</b><br/><small>${rspta.mensaje}</small>`,
+                    icon: 'success'
+                });
+            });
 
-                if (res) {
-                    window.livewire.emit('eliminar', id);
-                }
+            Livewire.on('error', msg => {
+                Swal.fire({
+                    html: `<b>!Hubo un error!</b><br/><small>${msg}</small>`,
+                    icon: 'error'
+                });
+            });
+
+            function eliminar(id,name) {
+                Swal.fire({
+                    text: "¿Desea eliminar el registro de capacitaciones " + name + "?",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, eliminar',
+                    cancelButtonText: `Cancelar`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('eliminar', id);
+                    }
+                })
             }
 
-            Livewire.on('error', function eliminar(msg) {
-                alert(msg)
-            });
         </script>
     @endpush
+
 </div>
