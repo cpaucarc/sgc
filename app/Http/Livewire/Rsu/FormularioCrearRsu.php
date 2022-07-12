@@ -68,32 +68,36 @@ class FormularioCrearRsu extends Component
     public function guardarRSU()
     {
         $this->validate();
-        $rsu = ResponsabilidadSocial::create([
-            'titulo' => $this->titulo,
-            'uuid' => Str::uuid(),
-            'descripcion' => $this->descripcion,
-            'lugar' => $this->lugar,
-            'fecha_inicio' => $this->fecha_de_inicio,
-            'fecha_fin' => $this->fecha_de_finalizacion,
-            'semestre_id' => Semestre::where('activo', 1)->first()->id,
-            'escuela_id' => $this->escuela,
-            'empresa_id' => $this->en_empresa ? $this->empresa_id : null
-        ]);
+        try {
+            $rsu = ResponsabilidadSocial::create([
+                'titulo' => $this->titulo,
+                'uuid' => Str::uuid(),
+                'descripcion' => $this->descripcion,
+                'lugar' => $this->lugar,
+                'fecha_inicio' => $this->fecha_de_inicio,
+                'fecha_fin' => $this->fecha_de_finalizacion,
+                'semestre_id' => Semestre::where('activo', 1)->first()->id,
+                'escuela_id' => $this->escuela,
+                'empresa_id' => $this->en_empresa ? $this->empresa_id : null
+            ]);
 
-        //Roles (antiguamente oficinas) al cual pertenece el usuario actual
+            //Roles (antiguamente oficinas) al cual pertenece el usuario actual
 //        $roles = Auth::user()->roles->pluck('id');
 
-        RsuParticipante::create([
-            'fecha_incorporacion' => now()->format('Y-m-d'),
-            'es_responsable' => true,
-            'es_estudiante' => Auth::user()->hasRole('Estudiante'), // Tabla Oficinas: 9-Estudiante
-            'dni_participante' => Auth::user()->persona->dni,
-            'responsabilidad_social_id' => $rsu->id
-        ]);
+            RsuParticipante::create([
+                'fecha_incorporacion' => now()->format('Y-m-d'),
+                'es_responsable' => true,
+                'es_estudiante' => Auth::user()->hasRole('Estudiante'), // Tabla Oficinas: 9-Estudiante
+                'dni_participante' => Auth::user()->persona->dni,
+                'responsabilidad_social_id' => $rsu->id
+            ]);
 
-        $this->emit('guardado', "La RSU llamada '" . $this->titulo . "' fue creado con éxito.");
-
-        return redirect()->route('rsu.index');
+            $msg = "La RSU llamada '" . $this->titulo . "' fue creado con éxito.";
+            $this->emit('guardado', ['titulo' => 'Investigación creado', 'mensaje' => $msg]);
+            return redirect()->route('rsu.index');
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
+        }
     }
 
 }
