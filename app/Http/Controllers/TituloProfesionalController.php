@@ -6,6 +6,7 @@ use App\Lib\UsuarioHelper;
 use App\Models\Entidad;
 use App\Models\Escuela;
 use App\Models\Facultad;
+use App\Models\GradoAcademico;
 use App\Models\GradoEstudiante;
 use App\Models\Solicitud;
 use App\Models\Tesis;
@@ -96,7 +97,27 @@ class TituloProfesionalController extends Controller
 
     public function request()
     {
-        return view('tpu.request');
+        $alumnos = Entidad::query()->where('role_id', 9)->pluck('id')->toArray();
+        $entidades = Auth::user()->entidades->pluck('id')->toArray();
+
+        //Si es un alumno, lo redirrecionamos
+        if (empty(array_intersect($alumnos, $entidades))) {
+            abort(403, 'No tienes los permisos para estar en esta página');
+        }
+
+        $gradoEstudiante = GradoEstudiante::query()->where('dni_estudiante', Auth::user()->persona->dni)->first();
+
+        if ($gradoEstudiante) {
+            $nombreGradoAcademico = $gradoEstudiante->gradoAcademico->nombre;
+        } else {
+            $nombreGradoAcademico = '';
+        }
+
+        if ($nombreGradoAcademico === 'Bachiller') {
+            return view('tpu.request');
+        } else {
+            abort(403, 'No tienes los permisos para estar en esta página');
+        }
     }
 
     public function requests()

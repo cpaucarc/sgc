@@ -18,4 +18,9 @@ class GradoEstudiante extends Model
         return $this->belongsTo(Escuela::class);
     }
 
+    public function gradoAcademico()
+    {
+        return $this->belongsTo(GradoAcademico::class);
+    }
+
 }
