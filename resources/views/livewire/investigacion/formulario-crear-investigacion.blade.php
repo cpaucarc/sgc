@@ -88,7 +88,6 @@
         </x-jet-button>
     </div>
 
-
     @push('js')
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
@@ -107,5 +106,4 @@
             });
         </script>
     @endpush
-
 </div>
