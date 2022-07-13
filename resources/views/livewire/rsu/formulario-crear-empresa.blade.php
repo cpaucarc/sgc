@@ -65,7 +65,7 @@
     <div class="flex justify-end pt-4">
         <x-jet-button wire:click="guardarEmpresa" wire:target="guardarEmpresa"
                       wire:loading.class="cursor-wait" wire:loading.attr="disabled">
-            <x-icons.load wire:loading wire:target="guardarEmpresa" class="h-5 w-5"/>
+            <x-icons.load wire:loading wire:target="guardarEmpresa" class="icon-5"/>
             {{ __('Registrar Empresa') }}
         </x-jet-button>
     </div>

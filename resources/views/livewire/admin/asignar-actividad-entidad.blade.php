@@ -70,7 +70,7 @@
                 wire:target="asignarActividades"
                 wire:loading.class="cursor-wait"
                 wire:loading.attr="disabled">
-                <x-icons.load wire:loading wire:target="asignarActividades" class="h-5 w-5"/>
+                <x-icons.load wire:loading wire:target="asignarActividades" class="icon-5"/>
                 Guardar
             </x-jet-button>
         </x-slot>

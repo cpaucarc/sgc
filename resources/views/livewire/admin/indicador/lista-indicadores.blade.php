@@ -188,8 +188,7 @@
             <x-jet-button
                 wire:click="actualizarIndicador"
                 wire:loading.class="bg-gray-800">
-                <x-icons.load wire:loading wire:target="actualizarIndicador" class="h-5 w-5"
-                              stroke="1.5"></x-icons.load>
+                <x-icons.load wire:loading wire:target="actualizarIndicador" class="icon-5" stroke="1.5"/>
                 {{ __('Guardar') }}
             </x-jet-button>
         @endslot

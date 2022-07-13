@@ -105,7 +105,7 @@
                 wire:target="guardarPresupuesto"
                 wire:loading.class="cursor-wait"
                 wire:loading.attr="disabled">
-                <x-icons.load class="h-4 w-4" wire:loading wire:target="guardarPresupuesto"></x-icons.load>
+                <x-icons.load class="icon-5" wire:loading wire:target="guardarPresupuesto"/>
                 {{ __('Guardar') }}
             </x-jet-button>
         </x-slot>

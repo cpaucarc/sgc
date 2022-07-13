@@ -19,8 +19,8 @@
                         <x-jet-input id="dni" autocomplete="off" maxlength="8" class="flex-1" type="search"
                                      wire:model.defer="dni"/>
                         <x-utils.buttons.default wire:click="buscar">
-                            <x-icons.search wire:loading.remove wire:target="buscar" class="icon-4"/>
-                            <svg wire:loading wire:target="buscar" class="animate-spin icon-4 text-blue-600"
+                            <x-icons.search wire:loading.remove wire:target="buscar" class="icon-5"/>
+                            <svg wire:loading wire:target="buscar" class="animate-spin icon-5 text-sky-600"
                                  fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                         stroke-width="4"></circle>
@@ -80,7 +80,7 @@
                 wire:target="crearUsuario"
                 wire:loading.class="cursor-wait"
                 wire:loading.attr="disabled">
-                <x-icons.load wire:loading wire:target="crearUsuario" class="h-5 w-5"/>
+                <x-icons.load wire:loading wire:target="crearUsuario" class="icon-5"/>
                 Registrar usuario
             </x-jet-button>
         </x-slot>

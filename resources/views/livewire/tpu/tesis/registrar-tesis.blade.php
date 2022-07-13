@@ -120,7 +120,7 @@
     <div class="flex justify-end">
         <x-jet-button wire:click="guardarTesis" wire:target="guardarTesis"
                       wire:loading.class="cursor-not-allowed" wire:loading.attr="disabled">
-            <x-icons.load wire:loading wire:target="guardarTesis" class="h-5 w-5"/>
+            <x-icons.load wire:loading wire:target="guardarTesis" class="icon-5"/>
             {{ __('Registrar') }}
         </x-jet-button>
     </div>

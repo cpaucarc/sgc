@@ -40,7 +40,7 @@
                 wire:target="agregarDocentes"
                 wire:loading.class="cursor-wait"
                 wire:loading.attr="disabled">
-                <x-icons.load wire:loading wire:target="agregarDocentes" class="h-5 w-5"/>
+                <x-icons.load wire:loading wire:target="agregarDocentes" class="icon-5"/>
                 Agregar docentes seleccionados
             </x-jet-button>
         </div>

@@ -132,7 +132,7 @@
                 wire:target="asignarEntradas"
                 wire:loading.class="cursor-wait"
                 wire:loading.attr="disabled">
-                <x-icons.load wire:loading wire:target="asignarEntradas" class="h-5 w-5"/>
+                <x-icons.load wire:loading wire:target="asignarEntradas" class="icon-5"/>
                 Guardar
             </x-jet-button>
         </x-slot>

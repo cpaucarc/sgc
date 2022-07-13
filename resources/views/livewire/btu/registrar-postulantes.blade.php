@@ -87,7 +87,7 @@
     <div class="flex justify-end pt-8">
         <x-jet-button wire:click="registrar" wire:target="registrar"
                       wire:loading.class="cursor-wait" wire:loading.attr="disabled">
-            <x-icons.load wire:loading wire:target="registrar" class="h-5 w-5"/>
+            <x-icons.load wire:loading wire:target="registrar" class="icon-5"/>
             {{ __('Registrar Información') }}
         </x-jet-button>
     </div>

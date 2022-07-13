@@ -81,7 +81,7 @@
                 wire:target="actualizarDocumento, archivo"
                 wire:loading.class="bg-gray-800"
                 wire:loading.attr="disabled">
-                <x-icons.load wire:loading wire:target="actualizarDocumento" class="h-5 w-5"
+                <x-icons.load wire:loading wire:target="actualizarDocumento" class="icon-5"
                               stroke="1.5"></x-icons.load>
                 {{ __('Guardar') }}
             </x-jet-button>

@@ -51,7 +51,7 @@
     <div class="flex justify-end pt-4">
         <x-jet-button wire:click="guardarAuditoria" wire:target="guardarAuditoria,archivos"
                       wire:loading.class="cursor-wait" wire:loading.attr="disabled">
-            <x-icons.load wire:loading wire:target="guardarAuditoria" class="h-5 w-5"/>
+            <x-icons.load wire:loading wire:target="guardarAuditoria" class="icon-5"/>
             {{ __('Registrar Auditoria') }}
         </x-jet-button>
     </div>

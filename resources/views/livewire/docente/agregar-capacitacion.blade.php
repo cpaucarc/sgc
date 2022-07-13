@@ -71,7 +71,7 @@
             </x-jet-secondary-button>
             <x-jet-button wire:click="guardar" wire:target="guardar"
                           wire:loading.class="cursor-wait" wire:loading.attr="disabled">
-                <x-icons.load class="h-4 w-4" wire:loading wire:target="guardar"></x-icons.load>
+                <x-icons.load class="icon-5" wire:loading wire:target="guardar"/>
                 {{ __('Guardar información') }}
             </x-jet-button>
         </x-slot>

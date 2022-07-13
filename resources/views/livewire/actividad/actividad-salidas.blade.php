@@ -153,7 +153,7 @@
                     wire:target="enviarArchivo, archivo"
                     wire:loading.class="cursor-wait"
                     wire:loading.attr="disabled">
-                    <x-icons.load class="h-4 w-4" wire:loading wire:target="enviarArchivo"></x-icons.load>
+                    <x-icons.load class="icon-5" wire:loading wire:target="enviarArchivo"/>
                     {{ __('Guardar') }}
                 </x-jet-button>
             </x-slot>

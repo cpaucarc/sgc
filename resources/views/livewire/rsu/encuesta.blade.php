@@ -93,8 +93,8 @@
                                  type="date" name="fecha_de_expiracion" required autofocus/>
 
                     <x-jet-button wire:click="crearEncuesta" wire:target="crearEncuesta" wire:loading.attr="disabled">
-                        <x-icons.load wire:loading wire:target="crearEncuesta" class="h-5 w-5"/>
-                        <x-icons.link wire:loading.remove wire:target="crearEncuesta" class="h-5 w-5 mr-2"/>
+                        <x-icons.load wire:loading wire:target="crearEncuesta" class="icon-5"/>
+                        <x-icons.link wire:loading.remove wire:target="crearEncuesta" class="icon-5 mr-2"/>
                         {{ __('Crear encuesta') }}
                     </x-jet-button>
                 </div>

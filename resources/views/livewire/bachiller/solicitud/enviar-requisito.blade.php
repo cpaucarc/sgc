@@ -42,7 +42,7 @@
                 wire:target="guardarDocumento, archivo"
                 wire:loading.class="bg-gray-800"
                 wire:loading.attr="disabled">
-                <x-icons.load wire:loading wire:target="guardarDocumento" class="h-5 w-5" stroke="1.5"></x-icons.load>
+                <x-icons.load wire:loading wire:target="guardarDocumento" class="icon-5" stroke="1.5"/>
                 {{ __('Guardar') }}
             </x-jet-button>
         @endslot

@@ -21,7 +21,8 @@
                         <x-utils.tables.body>
                             <x-utils.links.basic class="flex items-center"
                                                  href="{{ route('admin.panel.usuario', $usuario->uuid) }}">
-                                <img class="icon-6 rounded-full mr-2" src="{{ $usuario->profile_photo_url }}"
+                                <img class="h-7 w-7 flex-shrink-0 rounded-full mr-2"
+                                     src="{{ $usuario->profile_photo_url }}"
                                      alt="{{ $usuario->name }}">
                                 <p>{{$usuario->name}}</p>
                                 <x-utils.new-item date="{{$usuario->created_at}}"/>
