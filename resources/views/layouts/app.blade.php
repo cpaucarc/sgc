@@ -18,7 +18,7 @@
 </head>
 <body class="font-sans antialiased bg-zinc-50">
 
-<div class="min-h-screen">
+<div class="min-h-screen relative pb-4">
 
     @livewire('navigation-menu')
 
