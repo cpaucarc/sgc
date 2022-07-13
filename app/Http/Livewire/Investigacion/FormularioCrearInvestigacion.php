@@ -76,35 +76,38 @@ class FormularioCrearInvestigacion extends Component
     public function guardar()
     {
         $this->validate();
-
-        $investigacion = Investigacion::create([
-            'uuid' => Str::uuid(),
-            'titulo' => $this->titulo,
-            'resumen' => $this->resumen,
-            'fecha_publicacion' => null,
-            'semestre_id' => $this->semestre,
-            'escuela_id' => $this->escuela,
-            'sublinea_id' => $this->sublinea,
-            'estado_id' => 1, // Tabla Estados -> 1:En ejecución
-        ]);
-
-        $investigador = Investigador::query()->where('dni_investigador', Auth::user()->dni)->first();
-
-        if (!$investigador) {
-            $investigador = Investigador::create([
-                'es_docente' => !Auth::user()->hasRole('Estudiante'),
-                'dni_investigador' => Auth::user()->dni
+        try {
+            $investigacion = Investigacion::create([
+                'uuid' => Str::uuid(),
+                'titulo' => $this->titulo,
+                'resumen' => $this->resumen,
+                'fecha_publicacion' => null,
+                'semestre_id' => $this->semestre,
+                'escuela_id' => $this->escuela,
+                'sublinea_id' => $this->sublinea,
+                'estado_id' => 1, // Tabla Estados -> 1:En ejecución
             ]);
+
+            $investigador = Investigador::query()->where('dni_investigador', Auth::user()->persona->dni)->first();
+
+            if (!$investigador) {
+                $investigador = Investigador::create([
+                    'es_docente' => !Auth::user()->hasRole('Estudiante'),
+                    'dni_investigador' => Auth::user()->persona->dni
+                ]);
+            }
+
+            InvestigacionInvestigador::create([
+                'es_responsable' => true,
+                'investigacion_id' => $investigacion->id,
+                'investigador_id' => $investigador->id
+            ]);
+
+            $msg = "La investigación llamada '" . $this->titulo . "' fue creado con éxito.";
+            $this->emit('guardado', ['titulo' => 'Investigación creado', 'mensaje' => $msg]);
+            return redirect()->route('investigacion.index');
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
         }
-
-        InvestigacionInvestigador::create([
-            'es_responsable' => true,
-            'investigacion_id' => $investigacion->id,
-            'investigador_id' => $investigador->id
-        ]);
-
-        $this->emit('guardado', "La Investigación llamada '" . $this->titulo . "' fue creado con éxito.");
-
-        return redirect()->route('investigacion.index');
     }
 }

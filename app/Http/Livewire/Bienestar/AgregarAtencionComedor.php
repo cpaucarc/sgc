@@ -13,7 +13,7 @@ use Livewire\Component;
 
 class AgregarAtencionComedor extends Component
 {
-    public $fecha, $cantidad, $total=null, $escuela = 0, $escuelas = null;
+    public $fecha, $cantidad, $total = null, $escuela = 0, $escuelas = null;
     public $servicios = null, $servicio = 0, $selectComedor = false;
 
     protected $rules = [
@@ -45,15 +45,23 @@ class AgregarAtencionComedor extends Component
     public function guardar()
     {
         $this->validate();
-        BienestarAtencion::create([
-            'servicio_id' => $this->servicio,
-            'mes' => Carbon::createFromFormat('Y-m', $this->fecha)->month,
-            'anio' => Carbon::createFromFormat('Y-m', $this->fecha)->year,
-            'atenciones' => $this->cantidad,
-            'total' => $this->total,
-            'escuela_id' => $this->escuela
-        ]);
-        $this->reset('cantidad','total');
-        $this->emitTo('bienestar.lista-atencion-comedor', "cargarDatos");
+        try {
+            BienestarAtencion::create([
+                'servicio_id' => $this->servicio,
+                'mes' => Carbon::createFromFormat('Y-m', $this->fecha)->month,
+                'anio' => Carbon::createFromFormat('Y-m', $this->fecha)->year,
+                'atenciones' => $this->cantidad,
+                'total' => $this->total,
+                'escuela_id' => $this->escuela
+            ]);
+            $this->reset('cantidad', 'total');
+
+            $msg = 'El registro del servicio de Bienestar Universitario fue agregado correctamente';
+            $this->emit('guardado', ['titulo' => 'Registro de servicio de Bienestar agregado', 'mensaje' => $msg]);
+
+            $this->emitTo('bienestar.lista-atencion-comedor', "cargarDatos");
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
+        }
     }
 }

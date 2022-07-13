@@ -96,15 +96,23 @@
         </div>
     @endif
 
-    @push('js')
-        <script>
-            function eliminar(id, service) {
-                let res = confirm('¿Desea eliminar el registro de atenciones del servicio de ' + service + '?')
-
-                if (res) {
-                    window.livewire.emit('eliminar', id);
+        @push('js')
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+                function eliminar(id, nombre) {
+                    Swal.fire({
+                        text: "¿Desea eliminar el registro de atenciones del servicio de " + nombre + " ?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Si, eliminar',
+                        cancelButtonText: `Cancelar`,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.livewire.emit('eliminar', id);
+                        }
+                    })
                 }
-            }
-        </script>
-    @endpush
+
+            </script>
+        @endpush
 </div>

@@ -31,18 +31,22 @@ class FormularioCrearEmpresa extends Component
     public function guardarEmpresa()
     {
         $this->validate();
+        try {
+            Empresa::create([
+                'nombre' => $this->nombre,
+                'ruc' => $this->ruc,
+                'telefono' => $this->telefono,
+                'correo' => $this->correo,
+                'direccion' => $this->direccion,
+                'ubicacion' => $this->ubicacion,
+                'user_id' => Auth::user()->id
+            ]);
 
-        Empresa::create([
-            'nombre' => $this->nombre,
-            'ruc' => $this->ruc,
-            'telefono' => $this->telefono,
-            'correo' => $this->correo,
-            'direccion' => $this->direccion,
-            'ubicacion' => $this->ubicacion,
-            'user_id' => Auth::user()->id
-        ]);
-        $this->emit('guardado', "La empresa llamada '" . $this->nombre . "' fue creado con éxito.");
-
-        return redirect()->route('rsu.business');
+            $msg = "La empresa llamada '" . $this->nombre . "' fue creado con éxito.";
+            $this->emit('guardado', ['titulo' => 'Empresa creado', 'mensaje' => $msg]);
+            return redirect()->route('rsu.business');
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
+        }
     }
 }
