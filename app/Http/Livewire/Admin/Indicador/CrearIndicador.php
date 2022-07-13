@@ -57,26 +57,31 @@ class CrearIndicador extends Component
     public function crearIndicador()
     {
         $this->validate();
+        try {
+            Indicador::create([
+                'objetivo' => $this->objetivo,
+                'titulo_interes' => $this->interes,
+                'titulo_total' => $this->total,
+                'titulo_resultado' => $this->resultado,
+                'cod_ind_inicial' => $this->codigo,
+                'formula' => $this->formula,
+                'minimo' => $this->minimo,
+                'satisfactorio' => $this->satisfactorio,
+                'sobresaliente' => $this->sobresaliente,
+                'unidad_medida_id' => $this->unidad,
+                'frecuencia_medicion_id' => $this->medicion,
+                'frecuencia_reporte_id' => $this->reporte,
+                'proceso_id' => $this->proceso
+            ]);
 
-        Indicador::create([
-            'objetivo' => $this->objetivo,
-            'titulo_interes' => $this->interes,
-            'titulo_total' => $this->total,
-            'titulo_resultado' => $this->resultado,
-            'cod_ind_inicial' => $this->codigo,
-            'formula' => $this->formula,
-            'minimo' => $this->minimo,
-            'satisfactorio' => $this->satisfactorio,
-            'sobresaliente' => $this->sobresaliente,
-            'unidad_medida_id' => $this->unidad,
-            'frecuencia_medicion_id' => $this->medicion,
-            'frecuencia_reporte_id' => $this->reporte,
-            'proceso_id' => $this->proceso
-        ]);
+            $msg = "El indicador " . $this->codigo . " fue creado con éxito.";
+            $this->emit('guardado', ['titulo' => 'Indicador agregado', 'mensaje' => $msg]);
 
-        $this->emit('guardado', "El indicador " . $this->codigo . " fue creado con éxito.");
-        $this->reset('open', 'objetivo', 'interes', 'total', 'resultado', 'codigo', 'formula', 'minimo', 'satisfactorio', 'sobresaliente');
+            $this->reset('open', 'objetivo', 'interes', 'total', 'resultado', 'codigo', 'formula', 'minimo', 'satisfactorio', 'sobresaliente');
+            $this->emitTo('admin.indicador.lista-indicadores', 'render');
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
+        }
 
-        $this->emitTo('admin.indicador.lista-indicadores', 'render');
     }
 }
