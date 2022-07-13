@@ -58,7 +58,6 @@ class CrearEntidad extends Component
     public function guardarEntidad()
     {
         $this->validate();
-
         try {
             $entidad = Entidad::create([
                 'nombre' => $this->nombre,
@@ -73,7 +72,9 @@ class CrearEntidad extends Component
                 ]);
             }
 
-            $this->emit('guardado', "La nueva Entidad llamada '" . $this->nombre . "' fue creado con éxito.");
+            $msg = "La nueva Entidad llamada '" . $this->nombre . "' fue creado con éxito.";
+            $this->emit('guardado', ['titulo' => 'Entidad agregado', 'mensaje' => $msg]);
+
             $this->reset('nombre', 'rol', 'type', 'ents', 'seleccionado');
             $this->emitTo('admin.lista-entidades', 'render');
             $this->open = false;

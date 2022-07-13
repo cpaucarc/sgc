@@ -69,15 +69,22 @@
     <livewire:admin.asignar-actividad-entidad entidad_id="{{$entidad_id}}"/>
 
     @push('js')
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             function eliminar(id, nombre) {
-                let res = confirm('¿Desea quitar la actividad ' + nombre + ' de sus responsabilidades?')
-
-                if (res) {
-                    window.livewire.emit('eliminarActividad', id);
-                }
+                Swal.fire({
+                    text: "¿Desea quitar la actividad " + nombre + " de sus responsabilidades?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, quitar',
+                    cancelButtonText: `Cancelar`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('eliminarActividad', id);
+                    }
+                })
             }
+
         </script>
     @endpush
-
 </div>

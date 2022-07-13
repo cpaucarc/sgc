@@ -66,14 +66,22 @@
     <livewire:admin.asignar-salida-entidad entidad_id="{{$entidad_id}}"/>
 
     @push('js')
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             function eliminar(id, nombre) {
-                let res = confirm('¿Desea dejar de recibir la salida ' + nombre + '?')
-
-                if (res) {
-                    window.livewire.emit('eliminarActividad', id);
-                }
+                Swal.fire({
+                    text: "¿Desea dejar de recibir la salida " + nombre + "?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, quitar',
+                    cancelButtonText: `Cancelar`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('eliminarActividad', id);
+                    }
+                })
             }
+
         </script>
     @endpush
 </div>
