@@ -55,21 +55,19 @@
     @push('js')
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
-            Livewire.on('guardado', msg => {
+            Livewire.on('guardado', rspta => {
                 Swal.fire({
-                    icon: 'success',
-                    title: '',
-                    text: msg,
+                    html: `<b>!${rspta.titulo}!</b><br/><small>${rspta.mensaje}</small>`,
+                    icon: 'success'
                 });
             });
+
             Livewire.on('error', msg => {
                 Swal.fire({
-                    icon: 'error',
-                    title: '',
-                    text: msg,
+                    html: `<b>!Hubo un error!</b><br/><small>${msg}</small>`,
+                    icon: 'error'
                 });
             });
         </script>
     @endpush
-
 </div>
