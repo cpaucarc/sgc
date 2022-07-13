@@ -42,36 +42,41 @@ class CrearUsuario extends Component
     public function crearUsuario()
     {
         $this->validate();
+        try {
+            $this->nombre_usuario = explode(" ", $this->nombres)[0] . " " . $this->ap_paterno;
+            if (is_null($this->persona)) {
+                $this->persona = Persona::create([
+                    "dni" => $this->dni,
+                    "nombres" => $this->nombres,
+                    "apellido_paterno" => $this->ap_paterno,
+                    "apellido_materno" => $this->ap_materno,
+                    "correo" => $this->correo,
+                    "celular" => $this->celular,
+                ]);
+            }
 
-        $this->nombre_usuario = explode(" ", $this->nombres)[0] . " " . $this->ap_paterno;
+            $usuario = User::query()->where('persona_id', $this->persona->id)->exists();
 
-        if (is_null($this->persona)) {
-            $this->persona = Persona::create([
-                "dni" => $this->dni,
-                "nombres" => $this->nombres,
-                "apellido_paterno" => $this->ap_paterno,
-                "apellido_materno" => $this->ap_materno,
-                "correo" => $this->correo,
-                "celular" => $this->celular,
-            ]);
-        }
+            if ($usuario) {
+                $this->mensaje = "Esta persona ya tiene asignado un usuario en el sistema";
+            } else {
+                User::create([
+                    'name' => $this->nombre_usuario,
+                    'uuid' => Str::uuid(),
+                    'persona_id' => $this->persona->id,
+                    'email' => $this->correo,
+                    'password' => Hash::make($this->contrasena),
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
+                $msg = "El usuario " . $this->nombre_usuario . " fue creado corretamente";
+                $this->emit('guardado', ['titulo' => 'Usuario creado', 'mensaje' => $msg]);
 
-        $usuario = User::query()->where('persona_id', $this->persona->id)->exists();
-
-        if ($usuario) {
-            $this->mensaje = "Esta persona ya tiene asignado un usuario en el sistema";
-        } else {
-            User::create([
-                'name' => $this->nombre_usuario,
-                'uuid' => Str::uuid(),
-                'persona_id' => $this->persona->id,
-                'email' => $this->correo,
-                'password' => Hash::make($this->contrasena),
-                'created_at' => now(),
-                'updated_at' => now()
-            ]);
-            $this->reset('open', 'nombres', 'ap_paterno', 'ap_materno', 'dni', 'correo', 'celular', 'persona', 'contrasena');
-            $this->emitTo('admin.lista-usuarios', 'render');
+                $this->reset('open', 'nombres', 'ap_paterno', 'ap_materno', 'dni', 'correo', 'celular', 'persona', 'contrasena');
+                $this->emitTo('admin.lista-usuarios', 'render');
+            }
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
         }
     }
 

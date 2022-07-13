@@ -209,32 +209,44 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function eliminarRol(rol_nombre, rol_id) {
-            let res = confirm(`¿Desea quitar el rol ${rol_nombre} del usuario?\nNota: Se eliminarán las entidades correspondientes`)
-            if (res) {
-                window.livewire.emit('eliminarRol', rol_nombre, rol_id);
-            }
+            Swal.fire({
+                html: `<b>¿Desea quitar el rol ${rol_nombre} del usuario?</b><br/><small>Nota: Se eliminarán las entidades correspondientes</small>`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Si, eliminar',
+                cancelButtonText: `Cancelar`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.livewire.emit('eliminarRol',rol_nombre, rol_id);
+                }
+            })
         }
 
         function eliminarEntidad(entidad_id, entidad_nombre, rol_nombre) {
-            let res = confirm(`¿Desea quitar la entidad ${entidad_nombre} del usuario?\nNota: Se eliminará el rol correspondientes`)
-            if (res) {
-                window.livewire.emit('eliminarEntidad', entidad_id, entidad_nombre, rol_nombre);
-            }
+            Swal.fire({
+                html: `<b>¿Desea quitar la entidad ${entidad_nombre} del usuario?</b><br/><small>Nota: Se eliminará el rol correspondientes</small>`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Si, eliminar',
+                cancelButtonText: `Cancelar`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.livewire.emit('eliminarEntidad', entidad_id, entidad_nombre, rol_nombre);
+                }
+            })
         }
 
-        Livewire.on('guardado', msg => {
+        Livewire.on('guardado', rspta => {
             Swal.fire({
-                icon: 'success',
-                title: '',
-                text: msg,
+                html: `<b>!${rspta.titulo}!</b><br/><small>${rspta.mensaje}</small>`,
+                icon: 'success'
             });
         });
 
         Livewire.on('error', msg => {
             Swal.fire({
-                icon: 'error',
-                title: '',
-                text: msg,
+                html: `<b>!Hubo un error!</b><br/><small>${msg}</small>`,
+                icon: 'error'
             });
         });
     </script>

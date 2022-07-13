@@ -101,7 +101,7 @@ class ListaIndicadores extends Component
                 'frecuencia_reporte_id' => $this->reporte,
                 'proceso_id' => $this->proceso
             ]);
-            
+
             $msg = "El indicador " . $this->codigo . " fue actualizado con éxito.";
             $this->emit('guardado', ['titulo' => 'Indicador actualizado', 'mensaje' => $msg]);
 

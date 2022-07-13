@@ -59,12 +59,17 @@ class RolesDelUsuario extends Component
     public function asignarRol()
     {
         $this->validate();
+        try {
+            $this->usuario->assignRole($this->roles_selected);
+            $this->usuario->entidades()->attach($this->entidades_selected);
 
-        $this->usuario->assignRole($this->roles_selected);
-        $this->usuario->entidades()->attach($this->entidades_selected);
+            $msg = "Roles y entidades asignados con éxito.";
+            $this->emit('guardado', ['titulo' => 'Roles y entidades asignados', 'mensaje' => $msg]);
 
-        $this->emit('guardado', "Roles y entidades asignados con éxito.");
-        $this->reset(['roles_selected', 'entidades_selected', 'open']);
+            $this->reset(['roles_selected', 'entidades_selected', 'open']);
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
+        }
     }
 
     public function eliminarRol($rol_nombre, $rol_id)
@@ -82,7 +87,8 @@ class RolesDelUsuario extends Component
             // Quitar el rol al usuario
             $this->usuario->removeRole($rol_nombre);
 
-            $this->emit('guardado', "El rol '" . $rol_nombre . "' y cualquier entidad asociada a este fue quitado con éxito.");
+            $msg = "El rol '" . $rol_nombre . "' y cualquier entidad asociada a este fue quitado con éxito.";
+            $this->emit('guardado', ['titulo' => 'Roles quitado', 'mensaje' => $msg]);
         } catch (\Exception $e) {
             $this->emit('error', "Hubo un error inesperado \n " . $e);
         }
@@ -97,7 +103,8 @@ class RolesDelUsuario extends Component
             // Quitar el rol al usuario
             $this->usuario->removeRole($rol_nombre);
 
-            $this->emit('guardado', "La entidad '" . $entidad_nombre . "' y cualquier entidad asociada a este fue quitado con éxito.");
+            $msg = "La entidad '" . $entidad_nombre . "' y cualquier entidad asociada a este fue quitado con éxito.";
+            $this->emit('guardado', ['titulo' => 'Entidad quitado', 'mensaje' => $msg]);
         } catch (\Exception $e) {
             $this->emit('error', "Hubo un error inesperado \n " . $e);
         }

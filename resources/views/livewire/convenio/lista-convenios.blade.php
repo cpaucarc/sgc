@@ -96,7 +96,6 @@
                     }
                 })
             }
-
         </script>
     @endpush
 </div>
