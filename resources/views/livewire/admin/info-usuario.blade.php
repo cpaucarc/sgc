@@ -29,7 +29,7 @@
     <div>
         @if($usuario->activo)
             <x-utils.buttons.danger class="text-sm"
-                                    onclick="eliminar({{$usuario->activo}}, '{{$usuario->name}}')">
+                                    onclick="eliminar({{ $usuario->id }},{{$usuario->activo}}, '{{$usuario->name}}')">
                 <svg class="mr-1" fill="currentColor" viewBox="0 0 16 16" width="16" height="16">
                     <path fill-rule="evenodd"
                           d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
@@ -38,7 +38,7 @@
             </x-utils.buttons.danger>
         @else
             <x-utils.buttons.default class="text-sm"
-                                     onclick="eliminar({{$usuario->activo}}, '{{$usuario->name}}')">
+                                     onclick="eliminar({{ $usuario->id }},{{$usuario->activo}}, '{{$usuario->name}}')">
                 <svg class="mr-1" class="text-green-600 hover:text-green-700" fill="currentColor"
                      viewBox="0 0 16 16" width="16" height="16">
                     <path fill-rule="evenodd"
@@ -48,12 +48,13 @@
             </x-utils.buttons.default>
         @endif
     </div>
+
 </div>
 
 @push('js')
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        function eliminar(status, nombre) {
+        function eliminar(id, status, nombre) {
             let tipo = status ? 'inhabilitar' : 'habilitar';
             Swal.fire({
                 text: `¿Desea ${tipo} al usuario ${nombre}?`,
@@ -63,7 +64,7 @@
                 cancelButtonText: `Cancelar`,
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.livewire.emit('eliminar');
+                    window.livewire.emit('eliminar', id);
                 }
             })
         }

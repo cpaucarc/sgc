@@ -7,23 +7,25 @@ use Livewire\Component;
 
 class InfoUsuario extends Component
 {
-    public $usuario;
+    public $uuid;
 
-    public $listeners = ['eliminar'];
+    public $listeners = ['eliminar', 'render'];
 
     public function mount($uuid)
     {
-        $this->usuario = User::where('uuid', $uuid)->first();
+        $this->uuid = $uuid;
     }
 
     public function render()
     {
-        return view('livewire.admin.info-usuario');
+        $usuario = User::where('uuid', $this->uuid)->first();
+        return view('livewire.admin.info-usuario', compact('usuario'));
     }
 
-    public function eliminar()
+    public function eliminar($id)
     {
-        $this->usuario->activo = !$this->usuario->activo;
-        $this->usuario->save();
+        $user = User::find($id);
+        $user->activo = !$user->activo;
+        $user->save();
     }
 }
