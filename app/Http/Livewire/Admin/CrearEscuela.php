@@ -38,13 +38,20 @@ class CrearEscuela extends Component
     public function crearEscuela()
     {
         $this->validate();
-        Escuela::create([
-            'nombre' => $this->nombre,
-            'abrev' => $this->abrev,
-            'facultad_id' => $this->facultad,
-            'uuid' => Str::uuid()
-        ]);
-        $this->reset('open', 'nombre', 'abrev', 'facultad');
-        $this->emitTo('admin.lista-escuelas', 'render');
+        try {
+            Escuela::create([
+                'nombre' => $this->nombre,
+                'abrev' => $this->abrev,
+                'facultad_id' => $this->facultad,
+                'uuid' => Str::uuid()
+            ]);
+            $this->reset('open', 'nombre', 'abrev', 'facultad');
+
+            $msg = 'El programa académico se registró correctamente.';
+            $this->emit('guardado', ['titulo' => 'Programa académico agregado', 'mensaje' => $msg]);
+            $this->emitTo('admin.lista-escuelas', 'render');
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
+        }
     }
 }
