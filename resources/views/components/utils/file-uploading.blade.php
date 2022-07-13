@@ -15,9 +15,9 @@
          x-transition:leave="ease-in duration-200"
          x-transition:leave-start="opacity-100"
          x-transition:leave-end="opacity-0">
-        <div class="w-full bg-indigo-200 rounded-full mt-2 overflow-hidden">
+        <div class="w-full bg-sky-200 rounded-full mt-2 overflow-hidden">
             <div
-                class="bg-indigo-600 text-xs font-medium text-indigo-50 text-center p-0.5 leading-none rounded-full"
+                class="bg-sky-600 text-xs font-medium text-sky-50 text-center p-0.5 leading-none rounded-full"
                 :style="`width: ${progress}%;`" x-text="`${progress}%`">
             </div>
         </div>

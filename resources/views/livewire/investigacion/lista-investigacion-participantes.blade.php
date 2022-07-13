@@ -4,7 +4,7 @@
 
         @if(count($investigacion->investigadores) > 0)
             <x-utils.buttons.default class="text-sm" wire:click="abrirModal">
-                <x-icons.people class="icon-4 mr-1" stroke="1.75"></x-icons.people>
+                <x-icons.people class="icon-4 mr-1" stroke="1.5"></x-icons.people>
                 Añadir
             </x-utils.buttons.default>
         @endif

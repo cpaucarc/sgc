@@ -31,9 +31,9 @@
                         <x-utils.tables.body class="text-xs">{{ $indicador->medicion->nombre}}</x-utils.tables.body>
                         <x-utils.tables.body class="text-xs">{{ $indicador->reporte->nombre}}</x-utils.tables.body>
                         <x-utils.tables.body>
-                            <x-utils.buttons.warning wire:click="seleccionar(true,{{$indicador}})">
-                                <x-icons.edit class="h-3 w-3 mr-1"></x-icons.edit>
-                            </x-utils.buttons.warning>
+                            <x-utils.buttons.default wire:click="seleccionar(true,{{$indicador}})">
+                                <x-icons.edit class="h-4 mr-1" stroke="1.5"></x-icons.edit>
+                            </x-utils.buttons.default>
                         </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach

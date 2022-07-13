@@ -1,7 +1,7 @@
 <div>
     <x-utils.buttons.default wire:click="openModal"
                                   class="inline-flex items-center text-xs border-gray-300 active:border-gray-400">
-        <x-icons.open-modal class="w-4 h-4 mr-2" stroke="1.55"/>
+        <x-icons.open-modal class="icon-4 mr-2" stroke="1.5"/>
         Elegir jurado
     </x-utils.buttons.default>
 

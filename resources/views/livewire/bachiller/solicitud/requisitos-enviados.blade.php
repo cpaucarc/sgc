@@ -33,10 +33,10 @@
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             @if($documentos->estado->nombre ==="Denegado")
-                                <x-utils.buttons.warning
+                                <x-utils.buttons.default
                                     wire:click="seleccionar('true',{{$documentos->requisito->id}})">
-                                    <x-icons.edit class="h-4 w-4 mr-1"></x-icons.edit>
-                                </x-utils.buttons.warning>
+                                    <x-icons.edit class="h-4 mr-1" stroke="1.5"></x-icons.edit>
+                                </x-utils.buttons.default>
                             @endif
                         </x-utils.tables.body>
                     </x-utils.tables.row>

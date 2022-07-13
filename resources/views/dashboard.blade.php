@@ -4,15 +4,11 @@
         {{-- Bienvenida y Foto --}}
         <div class="grid grid-cols-5 gap-6">
             <div class="col-span-2 text-gray-800 font-semibold space-y-3">
-                <h3 class="text-5xl font-bold">
-                    Bienvenido
-                </h3>
-                <p class="inline-flex rounded bg-gradient-to-r from-indigo-700 to-indigo-500 text-white py-2 px-3 text-3xl">
+                <h3 class="text-5xl font-bold">Bienvenido</h3>
+                <p class="inline-flex rounded bg-gradient-to-r from-sky-600 to-sky-500 text-white py-3 px-4 text-3xl">
                     {{ Auth::user()->name }}
                 </p>
-                <h3 class="text-2xl">
-                    al Sistema de Gestión de Calidad
-                </h3>
+                <h3 class="text-2xl">al Sistema de Gestión de Calidad</h3>
             </div>
             <div class="col-span-3 relative">
                 <div class="absolute shadow right-2 top-2">
@@ -41,9 +37,9 @@
                     <x-utils.links.external
                         to="https://www.facebook.com/OGCU.UNASAM/">
                         <svg
-                            class="w-8 h-8 text-sky-600 group-hover:text-white transition ease-in-out duration-300 fill-current"
+                            class="w-8 h-8 text-sky-600 group-hover:text-white soft-transition fill-current"
                             xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0"
-                            x="0px" y="0px" width="50" height="50" viewBox="0 0 50 50" style="null">
+                            x="0px" y="0px" width="50" height="50" viewBox="0 0 50 50">
                             <path
                                 d="M40,0H10C4.486,0,0,4.486,0,10v30c0,5.514,4.486,10,10,10h30c5.514,0,10-4.486,10-10V10C50,4.486,45.514,0,40,0z M39,17h-3 c-2.145,0-3,0.504-3,2v3h6l-1,6h-5v20h-7V28h-3v-6h3v-3c0-4.677,1.581-8,7-8c2.902,0,6,1,6,1V17z"></path>
                         </svg>

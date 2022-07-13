@@ -25,7 +25,7 @@
                         </h2>
                     </div>
                     <x-utils.buttons.default wire:click="abrirModal({{$salida->id}})" class="text-xs">
-                        <x-icons.open-modal class="h-4 w-4 mr-1" stroke="1.5"/>
+                        <x-icons.open-modal class="icon-4 mr-1" stroke="1.5"/>
                         Revisar
                     </x-utils.buttons.default>
                 </div>

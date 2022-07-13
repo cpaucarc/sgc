@@ -1,5 +1,5 @@
 <button {{ $attributes->merge([
-    'class' => 'h-6 w-6 grid place-content-center flex-shrink-0 text-sm whitespace-nowrap transition rounded-full text-gray-400 hover:text-rose-600 bg-transparent hover:bg-rose-200 active:scale-90'
+    'class' => 'icon-6 grid place-content-center text-sm whitespace-nowrap soft-transition rounded-full text-zinc-400 hover:text-rose-600 bg-transparent hover:bg-rose-200 active:scale-90'
     ])}}>
     <svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16">
         <path fill-rule="evenodd"

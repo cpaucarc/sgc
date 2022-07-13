@@ -7,7 +7,7 @@
 
         @if($es_responsable and $rsu->links_count > 0)
             <x-utils.buttons.default wire:click="openModal" class="text-sm">
-                <x-icons.link class="h-5 w-5 mr-1" stroke="1.5"></x-icons.link>
+                <x-icons.link class="icon-5 mr-1" stroke="1.5"></x-icons.link>
                 Generar
             </x-utils.buttons.default>
         @endif
@@ -48,7 +48,7 @@
                         <x-utils.tables.body>
                             <x-utils.buttons.default class="active:scale-95"
                                                      onclick="copyToClipboard('{{ $link->link }}')">
-                                <x-icons.clipboard class="h-5 w-5" stroke="1.5"></x-icons.clipboard>
+                                <x-icons.clipboard class="icon-5" stroke="1.5"></x-icons.clipboard>
                             </x-utils.buttons.default>
                         </x-utils.tables.body>
                     </x-utils.tables.row>

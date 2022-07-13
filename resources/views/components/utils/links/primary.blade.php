@@ -1,6 +1,3 @@
-<a {{ $attributes->merge([
-    'class' => 'px-3 py-1 text-sm inline-flex items-center text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-600 font-bold whitespace-nowrap transition border border-indigo-600 rounded-md'
-    ])
-}}>
+<a {{ $attributes->merge([ 'class' => 'btn text-sm text-white bg-sky-600 hover:bg-sky-700 active:bg-sky-600 border border-sky-600' ]) }}>
     {{$slot}}
 </a>

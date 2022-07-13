@@ -1,6 +1,6 @@
 <div>
     <x-utils.buttons.default wire:click="openModal" class="text-xs">
-        <x-icons.open-modal class="w-4 h-4 mr-1" stroke="1.5"/>
+        <x-icons.open-modal class="icon-4 mr-1" stroke="1.5"/>
         Elegir empresa
     </x-utils.buttons.default>
 

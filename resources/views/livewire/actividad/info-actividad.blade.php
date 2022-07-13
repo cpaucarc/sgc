@@ -34,7 +34,7 @@
 
         @if(!$responsable->estado)
             <x-utils.buttons.default class="text-sm" wire:click="completarActividad">
-                <x-icons.load class="h-4 w-4 text-gray-600" wire:loading wire:loading.class="text-blue-600"
+                <x-icons.load class="icon-4 text-gray-600" wire:loading wire:loading.class="text-blue-600"
                               wire:target="completarActividad"/>
                 Marcar como completado
             </x-utils.buttons.default>

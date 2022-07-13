@@ -135,14 +135,14 @@
                         </x-utils.tables.body>
                         <x-utils.tables.body class="print:hidden">
                             <div class="flex items-center space-x-0">
-                                <x-utils.buttons.invisible title="Ver información"
+                                <x-utils.buttons.default title="Ver información"
                                                            wire:click="openEditModal({{$analisis->id}}, false)">
-                                    <x-icons.info class="icon-4" stroke="2"></x-icons.info>
-                                </x-utils.buttons.invisible>
-                                <x-utils.buttons.invisible title="Editar"
+                                    <x-icons.info class="icon-4" stroke="1.5"></x-icons.info>
+                                </x-utils.buttons.default>
+                                <x-utils.buttons.default title="Editar"
                                                            wire:click="openEditModal({{$analisis->id}}, true)">
-                                    <x-icons.edit class="icon-4" stroke="2"></x-icons.edit>
-                                </x-utils.buttons.invisible>
+                                    <x-icons.edit class="icon-4" stroke="1.5"></x-icons.edit>
+                                </x-utils.buttons.default>
                             </div>
                         </x-utils.tables.body>
                     </x-utils.tables.row>

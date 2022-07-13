@@ -5,12 +5,12 @@
 
         <div class="space-y-1">
             @if(isset($title))
-                <h2 class="font-bold text-gray-800 leading-snug">
+                <h2 class="font-bold text-zinc-800 leading-snug">
                     {{ $title }}
                 </h2>
             @endif
             @if(isset($text))
-                <h3 class="text-gray-900 text-sm mt-1 leading-snug">
+                <h3 class="text-zinc-900 text-sm mt-1 leading-snug">
                     {{ $text }}
                 </h3>
             @endif

@@ -12,7 +12,7 @@
         <x-utils.forms.search-input wire:model.debounce.500ms="search"/>
 
         <x-utils.buttons.default wire:click="abrirModal" class="text-sm">
-            <x-icons.refresh class="icon-5 mr-1" wire:loading.class="animate-spin" wire:target="abrirModal"/>
+            <x-icons.refresh class="icon-4 mr-1" stroke="1.5" wire:loading.class="animate-spin" wire:target="abrirModal"/>
             Actualizar docentes
         </x-utils.buttons.default>
     </div>

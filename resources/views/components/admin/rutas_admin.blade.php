@@ -1,7 +1,7 @@
 <div class="flex flex-col items-start gap-y-6">
 
-    <div class="flex flex-col items-start w-full gap-y-1 divide-gray-200 divide-y">
-        <p class="ml-3 text-sm text-gray-400 font-semibold tracking-wide">General</p>
+    <div class="flex flex-col items-start w-full gap-y-1 divide-zinc-200 divide-y">
+        <p class="ml-3 text-sm text-zinc-400 font-semibold tracking-wide">General</p>
 
         <div class="px-2 flex flex-col items-start w-full gap-y-1 pt-1">
             <x-utils.links.nav-link href="{{ route('admin.panel.facultades') }}"
@@ -21,8 +21,8 @@
         </div>
     </div>
 
-    <div class="flex flex-col items-start w-full gap-y-1 divide-gray-200 divide-y">
-        <p class="ml-3 text-sm text-gray-400 font-semibold tracking-wide">Gestión de procesos</p>
+    <div class="flex flex-col items-start w-full gap-y-1 divide-zinc-200 divide-y">
+        <p class="ml-3 text-sm text-zinc-400 font-semibold tracking-wide">Gestión de procesos</p>
 
         <div class="px-2 flex flex-col items-start w-full gap-y-1 pt-1">
             <x-utils.links.nav-link href="{{ route('admin.panel.procesos') }}"
@@ -52,8 +52,8 @@
         </div>
     </div>
 
-    <div class="flex flex-col items-start w-full gap-y-1 divide-gray-200 divide-y">
-        <p class="ml-3 text-sm text-gray-400 font-semibold tracking-wide">Gestión de RSU</p>
+    <div class="flex flex-col items-start w-full gap-y-1 divide-zinc-200 divide-y">
+        <p class="ml-3 text-sm text-zinc-400 font-semibold tracking-wide">Gestión de RSU</p>
         <div class="px-2 flex flex-col items-start w-full gap-y-1 pt-1">
             <x-utils.links.nav-link href="{{ route('admin.panel.empresas') }}"
                                     active="{{request()->routeIs('admin.panel.empresas')}}">
@@ -62,8 +62,8 @@
         </div>
     </div>
 
-    <div class="flex flex-col items-start w-full gap-y-1 divide-gray-200 divide-y">
-        <p class="ml-3 text-sm text-gray-400 font-semibold tracking-wide">Gestión de usuarios</p>
+    <div class="flex flex-col items-start w-full gap-y-1 divide-zinc-200 divide-y">
+        <p class="ml-3 text-sm text-zinc-400 font-semibold tracking-wide">Gestión de usuarios</p>
         <div class="px-2 flex flex-col items-start w-full gap-y-1 pt-1">
             <x-utils.links.nav-link href="{{ route('admin.panel.usuarios') }}"
                                     active="{{request()->routeIs('admin.panel.usuario') or request()->routeIs('admin.panel.usuarios')}}">

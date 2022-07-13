@@ -1,6 +1,6 @@
 <div class="flex flex-col items-start gap-y-6">
 
-    <div class="flex flex-col items-start w-full gap-y-1 divide-gray-200 divide-y">
+    <div class="flex flex-col items-start w-full gap-y-1 divide-zinc-200 divide-y">
 
         <div class="px-2 flex flex-col items-start w-full gap-y-1 pt-1">
 

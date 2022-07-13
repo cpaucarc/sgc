@@ -7,7 +7,7 @@
 
         @if($es_responsable and $rsu->documentos_count > 0)
             <x-utils.buttons.default wire:click="openModal" class="text-sm">
-                <x-icons.documents class="h-5 w-5 mr-1" stroke="1.5"></x-icons.documents>
+                <x-icons.documents class="icon-5 mr-1" stroke="1.5"></x-icons.documents>
                 Subir
             </x-utils.buttons.default>
         @endif
