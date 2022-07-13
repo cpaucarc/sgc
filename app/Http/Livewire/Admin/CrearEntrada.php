@@ -38,14 +38,22 @@ class CrearEntrada extends Component
     public function crearEntrada()
     {
         $this->validate();
-        Entrada::create([
-            'nombre' => $this->nombre,
-            'descripcion' => $this->descripcion ?? null,
-            'proceso_id' => $this->proceso,
-            'codigo' => strtoupper($this->codigo),
-        ]);
-        $this->reset('open', 'nombre', 'codigo', 'descripcion', 'proceso');
-        $this->emitTo('admin.lista-entradas', 'render');
+        try {
+            Entrada::create([
+                'nombre' => $this->nombre,
+                'descripcion' => $this->descripcion ?? null,
+                'proceso_id' => $this->proceso,
+                'codigo' => strtoupper($this->codigo),
+            ]);
+
+            $msg = 'La entrada ' . $this->nombre . ' se registró correctamente.';
+            $this->emit('guardado', ['titulo' => 'Entrada agregado', 'mensaje' => $msg]);
+
+            $this->reset('open', 'nombre', 'codigo', 'descripcion', 'proceso');
+            $this->emitTo('admin.lista-entradas', 'render');
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
+        }
     }
 
 }
