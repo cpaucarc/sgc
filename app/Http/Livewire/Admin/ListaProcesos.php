@@ -23,7 +23,6 @@ class ListaProcesos extends Component
     }
 
     /* Funciones */
-
     public function eliminar($id)
     {
         $dependientes = Proceso::query()
