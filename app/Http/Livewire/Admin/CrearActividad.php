@@ -41,13 +41,21 @@ class CrearActividad extends Component
     public function crearActividad()
     {
         $this->validate();
-        Actividad::create([
-            'nombre' => $this->nombre,
-            'descripcion' => $this->descripcion ?? null,
-            'proceso_id' => $this->proceso,
-            'tipo_actividad_id' => $this->tipo,
-        ]);
-        $this->reset('open', 'nombre', 'descripcion','proceso','tipo');
-        $this->emitTo('admin.lista-actividades', 'render');
+        try {
+            Actividad::create([
+                'nombre' => $this->nombre,
+                'descripcion' => $this->descripcion ?? null,
+                'proceso_id' => $this->proceso,
+                'tipo_actividad_id' => $this->tipo,
+            ]);
+
+            $msg = 'La actividad con nombre ' . $this->nombre . ' se registró correctamente.';
+            $this->emit('guardado', ['titulo' => 'Actividad agregado', 'mensaje' => $msg]);
+            $this->reset('open', 'nombre', 'descripcion', 'proceso', 'tipo');
+
+            $this->emitTo('admin.lista-actividades', 'render');
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
+        }
     }
 }
