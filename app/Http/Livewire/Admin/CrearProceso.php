@@ -28,10 +28,18 @@ class CrearProceso extends Component
     public function crearProceso()
     {
         $this->validate();
-        Proceso::create([
-            'nombre' => $this->nombre,
-        ]);
-        $this->reset('open', 'nombre');
-        $this->emitTo('admin.lista-procesos', 'render');
+        try {
+            Proceso::create([
+                'nombre' => $this->nombre,
+            ]);
+
+            $msg = 'El proceso ' . $this->nombre . ' se registró correctamente.';
+            $this->emit('guardado', ['titulo' => 'Proceso agregado', 'mensaje' => $msg]);
+
+            $this->reset('open', 'nombre');
+            $this->emitTo('admin.lista-procesos', 'render');
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
+        }
     }
 }

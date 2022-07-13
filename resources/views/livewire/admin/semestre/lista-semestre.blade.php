@@ -48,16 +48,23 @@
             </x-utils.message-no-items>
         </div>
     @endif
-
+    
     @push('js')
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             function activarSemestre(semestre_id, semestre_nombre) {
-                let res = confirm(`¿Desea asignar como activo al semestre ${semestre_nombre}?`)
-                if (res) {
-                    window.livewire.emit('activarSemestre', semestre_id);
-                }
+                Swal.fire({
+                    text: "¿Desea asignar como activo al semestre " + semestre_nombre + " ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, asignar',
+                    cancelButtonText: `Cancelar`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('activarSemestre', semestre_id);
+                    }
+                })
             }
         </script>
     @endpush
-
 </div>

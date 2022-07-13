@@ -30,15 +30,20 @@ class CrearSemestre extends Component
     public function crearSemestre()
     {
         $this->validate();
-        Semestre::create([
-            'nombre' => $this->nombre,
-            'fecha_inicio' => $this->fecha_inicio,
-            'fecha_fin' => $this->fecha_fin
-        ]);
-        $this->emit('guardado', "El semestre académico " . $this->nombre . " fue creado con éxito.");
-        $this->reset('open', 'nombre', 'fecha_inicio', 'fecha_fin');
+        try {
+            Semestre::create([
+                'nombre' => $this->nombre,
+                'fecha_inicio' => $this->fecha_inicio,
+                'fecha_fin' => $this->fecha_fin
+            ]);
+            $this->reset('open', 'nombre', 'fecha_inicio', 'fecha_fin');
 
-        $this->emitTo('admin.semestre.lista-semestre', 'render');
-        $this->emitTo('admin.semestre.ultimo-semestre', 'render');
+            $msg = "El semestre académico " . $this->nombre . " se registró correctamente.";
+            $this->emit('guardado', ['titulo' => 'Semestre académico agregado', 'mensaje' => $msg]);
+            $this->emitTo('admin.semestre.lista-semestre', 'render');
+            $this->emitTo('admin.semestre.ultimo-semestre', 'render');
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
+        }
     }
 }

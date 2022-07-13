@@ -51,14 +51,28 @@
     @endif
 
     @push('js')
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             function eliminar(id, nombre) {
-                let res = confirm('¿Desea eliminar la entrada ' + nombre + '?')
-
-                if (res) {
-                    window.livewire.emit('eliminar', id);
-                }
+                Swal.fire({
+                    text: "¿Desea eliminar la entrada " + nombre + " ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, eliminar',
+                    cancelButtonText: `Cancelar`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('eliminar', id);
+                    }
+                })
             }
+
+            Livewire.on('error', msg => {
+                Swal.fire({
+                    html: `<b>!Hubo un error!</b><br/><small>${msg}</small>`,
+                    icon: 'error'
+                });
+            });
         </script>
     @endpush
 </div>

@@ -84,27 +84,32 @@ class ListaIndicadores extends Component
         ];
 
         $this->validate($rules);
-
         $indicador = Indicador::find($this->indicador_id);
+        try {
+            $indicador->update([
+                'objetivo' => $this->objetivo,
+                'titulo_interes' => $this->interes,
+                'titulo_total' => $this->total,
+                'titulo_resultado' => $this->resultado,
+                'cod_ind_inicial' => $this->codigo,
+                'formula' => $this->formula,
+                'minimo' => $this->minimo,
+                'satisfactorio' => $this->satisfactorio,
+                'sobresaliente' => $this->sobresaliente,
+                'unidad_medida_id' => $this->unidad,
+                'frecuencia_medicion_id' => $this->medicion,
+                'frecuencia_reporte_id' => $this->reporte,
+                'proceso_id' => $this->proceso
+            ]);
 
-        $indicador->update([
-            'objetivo' => $this->objetivo,
-            'titulo_interes' => $this->interes,
-            'titulo_total' => $this->total,
-            'titulo_resultado' => $this->resultado,
-            'cod_ind_inicial' => $this->codigo,
-            'formula' => $this->formula,
-            'minimo' => $this->minimo,
-            'satisfactorio' => $this->satisfactorio,
-            'sobresaliente' => $this->sobresaliente,
-            'unidad_medida_id' => $this->unidad,
-            'frecuencia_medicion_id' => $this->medicion,
-            'frecuencia_reporte_id' => $this->reporte,
-            'proceso_id' => $this->proceso
-        ]);
+            $msg = "El indicador " . $this->codigo . " fue actualizado con éxito.";
+            $this->emit('guardado', ['titulo' => 'Indicador actualizado', 'mensaje' => $msg]);
 
-        $this->emit('guardado', "El indicador " . $this->codigo . " fue actualizado con éxito.");
-        $this->reset('modal', 'objetivo', 'interes', 'total', 'resultado', 'codigo', 'formula', 'minimo', 'satisfactorio', 'sobresaliente', 'indicador_id');
+
+            $this->reset('modal', 'objetivo', 'interes', 'total', 'resultado', 'codigo', 'formula', 'minimo', 'satisfactorio', 'sobresaliente', 'indicador_id');
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
+        }
 
     }
 }

@@ -38,13 +38,21 @@ class CrearSalida extends Component
     public function crearSalida()
     {
         $this->validate();
-        Salida::create([
-            'nombre' => $this->nombre,
-            'descripcion' => $this->descripcion ?? null,
-            'proceso_id' => $this->proceso,
-            'codigo' => strtoupper($this->codigo),
-        ]);
-        $this->reset('open', 'nombre', 'codigo', 'descripcion', 'proceso');
-        $this->emitTo('admin.lista-salidas', 'render');
+        try {
+            Salida::create([
+                'nombre' => $this->nombre,
+                'descripcion' => $this->descripcion ?? null,
+                'proceso_id' => $this->proceso,
+                'codigo' => strtoupper($this->codigo),
+            ]);
+
+            $msg = 'La salida ' . $this->nombre . ' se registró correctamente.';
+            $this->emit('guardado', ['titulo' => 'Salida agregado', 'mensaje' => $msg]);
+
+            $this->reset('open', 'nombre', 'codigo', 'descripcion', 'proceso');
+            $this->emitTo('admin.lista-salidas', 'render');
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
+        }
     }
 }
