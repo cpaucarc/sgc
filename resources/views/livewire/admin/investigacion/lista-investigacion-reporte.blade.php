@@ -81,7 +81,7 @@
                             class="text-xs">{{ $inv->escuela->nombre }}</x-utils.tables.body>
                         <x-utils.tables.body class="whitespace-nowrap text-xs">
                             <x-utils.badge
-                                class="text-xs font-bold bg-{{ $inv->estado->color }}-100 text-{{ $inv->estado->color }}-700">
+                                class="bg-{{ $inv->estado->color }}-100 text-{{ $inv->estado->color }}-600">
                                 {{ $inv->estado->nombre }}
                             </x-utils.badge>
                         </x-utils.tables.body>

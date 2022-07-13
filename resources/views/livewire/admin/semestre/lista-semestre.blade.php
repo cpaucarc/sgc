@@ -19,7 +19,7 @@
                         <x-utils.tables.body>{{$semestre->fecha_fin->format('d-m-Y')}}</x-utils.tables.body>
                         <x-utils.tables.body>
                             @if($semestre->activo)
-                                <x-utils.badge class="bg-lime-200 text-lime-800 font-bold">
+                                <x-utils.badge class="bg-lime-100 text-lime-600">
                                     Activo
                                 </x-utils.badge>
                             @else

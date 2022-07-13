@@ -44,7 +44,7 @@
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             <x-utils.badge
-                                class="text-xs font-bold {{$usuario->activo ? 'bg-green-100 text-green-700':'bg-red-100 text-red-700'}}">
+                                class="{{$usuario->activo ? 'bg-green-100 text-green-600':'bg-rose-100 text-rose-600'}}">
                                 {{$usuario->activo ? 'Activo':'Inactivo'}}
                             </x-utils.badge>
                         </x-utils.tables.body>

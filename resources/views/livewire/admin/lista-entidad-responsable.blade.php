@@ -29,10 +29,10 @@
                                 <x-utils.tables.body>{{$actividad->nombre}}</x-utils.tables.body>
                                 <x-utils.tables.body>
                                     <x-utils.badge
-                                        class="font-semibold text-xs {{
-                            $actividad->tipo->id === 1 ? 'bg-indigo-100 text-indigo-700' :
-                            ($actividad->tipo->id === 2 ? 'bg-amber-100 text-amber-700' :
-                            ($actividad->tipo->id === 3 ? 'bg-rose-100 text-rose-700' :'bg-lime-100 text-lime-700'))}}">
+                                        class="{{
+                            $actividad->tipo->id === 1 ? 'bg-indigo-100 text-indigo-600' :
+                            ($actividad->tipo->id === 2 ? 'bg-amber-100 text-amber-600' :
+                            ($actividad->tipo->id === 3 ? 'bg-rose-100 text-rose-600' :'bg-lime-100 text-lime-600'))}}">
                                         {{ $actividad->tipo->nombre }}
                                     </x-utils.badge>
                                 </x-utils.tables.body>

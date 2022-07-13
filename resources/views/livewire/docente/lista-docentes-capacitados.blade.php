@@ -48,7 +48,7 @@
                             </x-utils.tables.body>
                             <x-utils.tables.body class="text-xs font-bold">
                                 @if(!is_null($docente->participa_id) and $docente->participa_id)
-                                    <x-utils.badge class="whitespace-nowrap bg-green-200 text-green-700 text-xs">
+                                    <x-utils.badge class="bg-green-100 text-green-600">
                                         <svg class="fill-current mr-1" viewBox="0 0 16 16" width="16" height="16">
                                             <path fill-rule="evenodd"
                                                   d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM0 8a8 8 0 1116 0A8 8 0 010 8zm11.78-1.72a.75.75 0 00-1.06-1.06L6.75 9.19 5.28 7.72a.75.75 0 00-1.06 1.06l2 2a.75.75 0 001.06 0l4.5-4.5z"></path>
@@ -56,7 +56,7 @@
                                         Participó
                                     </x-utils.badge>
                                 @else
-                                    <x-utils.badge class="whitespace-nowrap text-zinc-400 text-xs">
+                                    <x-utils.badge class="text-zinc-400">
                                         <svg class="fill-current mr-1" viewBox="0 0 16 16" width="16" height="16">
                                             <path fill-rule="evenodd"
                                                   d="M3.404 12.596a6.5 6.5 0 119.192-9.192 6.5 6.5 0 01-9.192 9.192zM2.344 2.343a8 8 0 1011.313 11.314A8 8 0 002.343 2.343zM6.03 4.97a.75.75 0 00-1.06 1.06L6.94 8 4.97 9.97a.75.75 0 101.06 1.06L8 9.06l1.97 1.97a.75.75 0 101.06-1.06L9.06 8l1.97-1.97a.75.75 0 10-1.06-1.06L8 6.94 6.03 4.97z"></path>

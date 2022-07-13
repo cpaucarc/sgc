@@ -54,7 +54,7 @@
                     </x-utils.tables.body>
                     <x-utils.tables.body>
                         <x-utils.badge
-                            class="whitespace-nowrap text-xs {{$prov->cantidad > 0 ? 'bg-green-100 text-green-700' : 'bg-rose-100 text-rose-700'}}">
+                            class="{{$prov->cantidad > 0 ? 'bg-green-100 text-green-600' : 'bg-rose-100 text-rose-600'}}">
                             {{ $prov->cantidad > 0  ? 'Completado' : 'Sin completar' }}
                         </x-utils.badge>
                     </x-utils.tables.body>

@@ -16,12 +16,12 @@
 
             <ul class="flex flex-wrap gap-2 text-xs">
                 <li>
-                    <x-utils.badge class="bg-stone-100 text-gray-600 font-semibold">
+                    <x-utils.badge class="bg-zinc-100 text-zinc-600">
                         Medición: {{ $medicion }}
                     </x-utils.badge>
                 </li>
                 <li>
-                    <x-utils.badge class="bg-stone-100 text-gray-600 font-semibold">
+                    <x-utils.badge class="bg-zinc-100 text-zinc-600">
                         Reporte: {{ $reporte }}
                     </x-utils.badge>
                 </li>

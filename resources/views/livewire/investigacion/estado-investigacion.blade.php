@@ -3,7 +3,7 @@
         <h3 class="font-bold text-gray-400">Estado</h3>
         <div class="flex items-center gap-x-2">
             <x-utils.badge
-                class="font-semibold bg-{{$investigacion->estado->color}}-100 text-{{$investigacion->estado->color}}-700">
+                class="bg-{{$investigacion->estado->color}}-100 text-{{$investigacion->estado->color}}-600">
                 {{$investigacion->estado->nombre}}
             </x-utils.badge>
 

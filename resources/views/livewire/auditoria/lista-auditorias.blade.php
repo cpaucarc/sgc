@@ -46,7 +46,7 @@
                             </x-utils.tables.body>
                             <x-utils.tables.body>
                                 <x-utils.badge
-                                    class="font-bold {{ $auditoria->es_auditoria_interno ? 'bg-blue-100 text-blue-600' : 'bg-amber-100 text-amber-600' }}">
+                                    class="{{ $auditoria->es_auditoria_interno ? 'bg-blue-100 text-blue-600' : 'bg-amber-100 text-amber-600' }}">
                                     {{ $auditoria->es_auditoria_interno ? 'Auditoria Interna' : 'Auditoria Externa' }}
                                 </x-utils.badge>
                             </x-utils.tables.body>

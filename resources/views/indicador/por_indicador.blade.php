@@ -28,7 +28,7 @@
                     <li>
                         <x-utils.links.basic href="{{ route('indicador.index') }}">
                             <x-utils.badge
-                                class="bg-sky-50 text-sky-700 hover:underline soft-transition">
+                                class="bg-sky-50 text-sky-600 hover:underline soft-transition">
                                 Oficina:&nbsp;<strong> {{ $nombre }}  </strong>
                             </x-utils.badge>
                         </x-utils.links.basic>
@@ -38,7 +38,7 @@
                         <x-utils.links.basic
                             href="{{ route('indicador.proceso', [$indicadorable->indicador->proceso_id, $tipo, $uuid]) }}">
                             <x-utils.badge
-                                class="bg-sky-50 text-sky-700 hover:underline soft-transition">
+                                class="bg-sky-50 text-sky-600 hover:underline soft-transition">
                                 Proceso:&nbsp;<strong>{{ $indicadorable->indicador->proceso->nombre }}</strong>
                             </x-utils.badge>
                         </x-utils.links.basic>
@@ -46,12 +46,12 @@
                 </ul>
                 <ul class="flex gap-2 pl-4 font-semibold text-sm">
                     <li>
-                        <x-utils.badge class="bg-stone-100 text-stone-800 font-semibold">
+                        <x-utils.badge class="bg-stone-100 text-stone-700">
                             Medición: {{ $indicadorable->indicador->medicion->nombre }}
                         </x-utils.badge>
                     </li>
                     <li>
-                        <x-utils.badge class="bg-stone-100 text-stone-800 font-semibold">
+                        <x-utils.badge class="bg-stone-100 text-stone-700">
                             Reporte: {{ $indicadorable->indicador->reporte->nombre }}
                         </x-utils.badge>
                     </li>

@@ -54,7 +54,7 @@
                         <x-utils.tables.body>{{$investigacion->escuela->nombre}}</x-utils.tables.body>
                         <x-utils.tables.body>
                             <x-utils.badge
-                                class="whitespace-nowrap bg-{{$investigacion->estado->color}}-100 text-{{$investigacion->estado->color}}-700">
+                                class="bg-{{$investigacion->estado->color}}-100 text-{{$investigacion->estado->color}}-600">
                                 {{$investigacion->estado->nombre}}
                             </x-utils.badge>
                         </x-utils.tables.body>

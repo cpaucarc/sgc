@@ -55,7 +55,7 @@
                             @if($salida->documentos_count)
                                 {{ $salida->documentos_count }} documento(s)
                             @else
-                                <x-utils.badge class="bg-rose-100 text-rose-700 text-xs">
+                                <x-utils.badge class="bg-rose-100 text-rose-600">
                                     Aún nada
                                 </x-utils.badge>
                             @endif

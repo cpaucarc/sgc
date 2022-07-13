@@ -51,17 +51,17 @@
                                     </x-utils.buttons.danger>
                                 @else
                                     @if($dcsm->cumplio_40h)
-                                        <x-utils.badge class="bg-green-100 text-green-700 font-semibold">
+                                        <x-utils.badge class="bg-green-100 text-green-600">
                                             Cumplió
                                         </x-utils.badge>
                                     @else
-                                        <x-utils.badge class="bg-rose-100 text-rose-600 font-semibold">
+                                        <x-utils.badge class="bg-rose-100 text-rose-600">
                                             No cumplió
                                         </x-utils.badge>
                                     @endif
                                 @endif
                             @else
-                                <x-utils.badge class="bg-zinc-100 text-zinc-500">
+                                <x-utils.badge class="bg-zinc-100 text-zinc-600">
                                     No le corresponde
                                 </x-utils.badge>
                             @endif
@@ -84,11 +84,11 @@
                                 </x-utils.buttons.danger>
                             @else
                                 @if($dcsm->cumplio_labores)
-                                    <x-utils.badge class="bg-green-100 text-green-700 font-semibold">
+                                    <x-utils.badge class="bg-green-100 text-green-600">
                                         Cumplió
                                     </x-utils.badge>
                                 @else
-                                    <x-utils.badge class="bg-rose-100 text-rose-600 font-semibold">
+                                    <x-utils.badge class="bg-rose-100 text-rose-600">
                                         No cumplió
                                     </x-utils.badge>
                                 @endif
