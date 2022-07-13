@@ -31,13 +31,20 @@ class CrearFacultad extends Component
     public function crearFacultad()
     {
         $this->validate();
-        Facultad::create([
-            'nombre' => $this->nombre,
-            'abrev' => $this->abrev,
-            'direccion' => $this->direccion,
-            'uuid' => Str::uuid()
-        ]);
-        $this->reset('open', 'nombre', 'abrev', 'direccion');
-        $this->emitTo('admin.lista-facultades', 'render');
+        try {
+            Facultad::create([
+                'nombre' => $this->nombre,
+                'abrev' => $this->abrev,
+                'direccion' => $this->direccion,
+                'uuid' => Str::uuid()
+            ]);
+            $this->reset('open', 'nombre', 'abrev', 'direccion');
+            
+            $msg = 'La facultad se registró correctamente.';
+            $this->emit('guardado', ['titulo' => 'Facultad agregado', 'mensaje' => $msg]);
+            $this->emitTo('admin.lista-facultades', 'render');
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado: \n" . $e);
+        }
     }
 }
