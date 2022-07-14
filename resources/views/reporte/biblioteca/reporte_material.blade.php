@@ -78,11 +78,13 @@
         </tbody>
     </table>
 
-    <p class="font-weight-bold mb-4" style="font-size: 15px">Semestre: {{ $semestre }}</p>
+    <p class="font-weight-bold mb-4" style="font-size: 15px">Semestre: <span
+            style="text-transform: uppercase">{{ $semestre }}</span></p>
 
     @foreach($facultades as $fac)
         @if(count($fac->materialBibliografico))
-            <p class="font-weight-bold mt-5 mb-3" style="font-size: 16px"> {{strtoupper($fac->nombre) }}</p>
+            <p class="font-weight-bold mt-5 mb-3" style="font-size: 16px"><span
+                    style="text-transform: uppercase">{{$fac->nombre}}</span></p>
             <table class="table table-sm table-bordered">
                 <thead>
                 <tr>
