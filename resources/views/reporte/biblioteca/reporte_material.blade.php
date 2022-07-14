@@ -84,7 +84,7 @@
     @foreach($facultades as $fac)
         @if(count($fac->materialBibliografico))
             <p class="font-weight-bold mt-5 mb-3" style="font-size: 16px"><span
-                    style="text-transform: uppercase">{{$fac->nombre}}</span></p>
+                    style="text-transform: uppercase">{{ strtoupper($fac->nombre) }}</span></p>
             <table class="table table-sm table-bordered">
                 <thead>
                 <tr>

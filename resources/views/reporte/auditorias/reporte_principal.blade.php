@@ -84,7 +84,7 @@
 
     @foreach($facultades as $facultad)
         <p class="font-weight-bold mt-5 mb-3" style="font-size: 16px;">
-            <span style="text-transform: uppercase">{{$facultad->nombre}}</span>
+            <span style="text-transform: uppercase">{{ strtoupper($facultad->nombre) }}</span>
             <span class="font-weight-normal"
                   style="font-size: 0.75rem">{{ '('.count($facultad->auditorias) .' auditorias)' }}</span>
         </p>
@@ -112,7 +112,7 @@
                 </tbody>
             </table>
         @else
-            <p style="font-size: 0.8rem">No hay ninguna auditoria realizada en la facultad de {{$facultad->nombre}}</p>
+            <p style="font-size: 0.8rem">No hay ninguna auditoria realizada en la Facultad de {{$facultad->nombre}}</p>
         @endif
     @endforeach
 </main>
