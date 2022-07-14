@@ -59,8 +59,8 @@ class RegistrarVisitantesBiblioteca extends Component
             abort(403, 'No tienes los permisos para estar en esta página');
         }
 
-        $this->semestres = Semestre::query()->orderBy('nombre', 'desc')->get();
-        $this->semestre = $this->semestres->where('activo', true)->first()->id;
+        $this->semestres = Semestre::orderByDesc('nombre')->get();
+        $this->semestre = $this->semestres->firstWhere('activo', true)->id;
 
         $this->inicio = Carbon::now()->startOfMonth()->format('Y-m-d');
         $this->fin = Carbon::now()->endOfMonth()->format('Y-m-d');
