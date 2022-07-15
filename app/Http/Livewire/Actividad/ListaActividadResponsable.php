@@ -20,8 +20,8 @@ class ListaActividadResponsable extends Component
 
     public function mount()
     {
-        $this->semestres = Semestre::orderBy('nombre', 'desc')->get();
-        $this->semestre_seleccionado = $this->semestres->where('activo', 1)->first()->id;
+        $this->semestres = Semestre::orderByDesc('nombre')->get();
+        $this->semestre_seleccionado = $this->semestres->firstWhere('activo', true)->id;
 
         $this->entidades = Auth::user()->entidades->pluck('id');
 

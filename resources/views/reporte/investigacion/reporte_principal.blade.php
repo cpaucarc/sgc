@@ -77,12 +77,12 @@
         </tbody>
     </table>
 
-    <p class="font-weight-bold my-0" style="font-size: 13px">Facultad: {{ $facultad }}</p>
-    <p class="font-weight-bold my-0" style="font-size: 13px">Programa Académico: {{ $escuela }}</p>
-    <p class="font-weight-bold mb-4" style="font-size: 13px">Estado de la investigación: {{ $estado }}</p>
+    <p class="font-weight-bold my-0" style="font-size: 13px">Facultad: <span style="text-transform: uppercase">{{ $facultad }}</span></p>
+    <p class="font-weight-bold my-0" style="font-size: 13px">Programa Académico: <span style="text-transform: uppercase">{{ $escuela }}</span></p>
+    <p class="font-weight-bold mb-4" style="font-size: 13px">Estado de la investigación: <span style="text-transform: uppercase">{{ $estado }}</span></p>
 
     @foreach($facultades as $facultad)
-        <p class="font-weight-bold mt-5 mb-3" style="font-size: 16px"> {{strtoupper($facultad->nombre) }}</p>
+        <p class="font-weight-bold mt-5 mb-3" style="font-size: 16px"><span style="text-transform: uppercase">{{strtoupper($facultad->nombre) }}</span></p>
         @foreach($facultad->escuelas as $esc)
             @if(count($esc->investigaciones))
                 <div class="mb-4">
@@ -115,6 +115,9 @@
                         </tbody>
                     </table>
                 </div>
+            @else
+                <p style="font-size: 0.8rem">No hay información sobre Investigación del Programa
+                    Académico de {{$esc->nombre}}</p>
             @endif
         @endforeach
     @endforeach

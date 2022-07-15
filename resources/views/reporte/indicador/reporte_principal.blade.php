@@ -79,10 +79,11 @@
     </table>
 
     <p class="font-weight-bold mb-4" style="font-size: 15px">
-        Semestre: {{ $semestre }} {{ $semestre_count > 1 ?  '('.$semestre_count . ' semestres)' : ''}}
+        <span style="text-transform: uppercase">Semestre: {{ $semestre }} {{ $semestre_count > 1 ?  '('.$semestre_count . ' semestres)' : ''}}</span>
     </p>
 
-    <p class="font-weight-bold mt-5 mb-3" style="font-size: 16px"> {{strtoupper($entidad->nombre) }}</p>
+    <p class="font-weight-bold mt-5 mb-3" style="font-size: 16px"><span
+            style="text-transform: uppercase">{{strtoupper($entidad->nombre) }}</span></p>
     <p class="mb-4" style="font-size: 0.8rem;">
         Se encontró un total de {{$entidad->indicadores_count}} indicadores asignados
     </p>

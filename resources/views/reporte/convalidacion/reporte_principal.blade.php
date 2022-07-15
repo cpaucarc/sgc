@@ -78,14 +78,14 @@
         </tbody>
     </table>
 
-    <p class="font-weight-bold mb-4" style="font-size: 13px">Semestre: {{ $semestre }}</p>
+    <p class="font-weight-bold mb-4" style="font-size: 13px">Semestre: <span style="text-transform: uppercase">{{ $semestre }}</span></p>
 
     {{--  Datos AQUI  --}}
     @foreach($facultades as $fac)
-        <p class="font-weight-bold mt-5 mb-3" style="font-size: 16px"> {{strtoupper($fac->nombre) }}</p>
+        <p class="font-weight-bold mt-5 mb-3" style="font-size: 16px"><span style="text-transform: uppercase">{{strtoupper($fac->nombre) }}</span></p>
         @foreach($fac->escuelas as $esc)
             @if(count($esc->convalidacion))
-                <p class="font-weight-normal my-1" style="font-size: 14px">{{ strtoupper($esc->nombre) }}</p>
+                <p class="font-weight-normal my-1" style="font-size: 14px"><span style="text-transform: uppercase">{{ strtoupper($esc->nombre) }}</span></p>
 
                 <table class="table table-sm table-bordered">
                     <thead>
@@ -111,6 +111,9 @@
                     @endforeach
                     </tbody>
                 </table>
+            @else
+                <p style="font-size: 0.8rem">No hay información sobre Convalidación del Programa
+                    Académico de {{$esc->nombre}}</p>
             @endif
         @endforeach
     @endforeach
