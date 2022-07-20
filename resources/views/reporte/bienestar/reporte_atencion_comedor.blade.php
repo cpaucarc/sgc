@@ -69,7 +69,7 @@
         <tbody>
         <tr>
             <td style="width: 80%; text-align: left;">
-                <h4 class="font-weight-bold">Comedor Universitario</h4>
+                <h4 class="font-weight-bold">Bienestar Universitario</h4>
             </td>
             <td style="width: 20%; text-align: right; margin: auto">
                 <p style="font-size: 12px; margin-top: 2px">@php echo now() @endphp</p>
@@ -78,22 +78,26 @@
         </tbody>
     </table>
 
-    <p class="font-weight-bold mb-4" style="font-size: 15px">Año: {{ $anio }}</p>
+    <p class="font-weight-bold mb-4" style="font-size: 15px">Año: <span
+            style="text-transform: uppercase">{{ $anio }}</span></p>
     <p class="font-weight-bold mb-4 inline-block" style="font-size: 15px">Servicio:
         @foreach($servicios as $servicio)
             @if ($loop->even)
-                <span class="bg-gray-200 p-2 rounded-lg"> {{$servicio->nombre}}</span>
+                <span
+                    style="text-transform: uppercase; margin-right: 3px; text-decoration: overline;"> {{$servicio->nombre}}</span>
             @endif
             @if ($loop->odd)
-                <span class="border border-gray-200 p-2 rounded-lg"> {{$servicio->nombre}}</span>
+                <span style="text-transform: uppercase;  text-decoration: underline;"> {{$servicio->nombre}}</span>
             @endif
         @endforeach
     </p>
     @foreach($facultades as $fac)
-        <p class="font-weight-bold mt-5 mb-3" style="font-size: 16px"> {{strtoupper($fac->nombre) }}</p>
+        <p class="font-weight-bold mt-5 mb-3" style="font-size: 16px"><span
+                style="text-transform: uppercase">{{strtoupper($fac->nombre) }}</span></p>
         @foreach($fac->escuelas as $esc)
             @if(count($esc->atenciones))
-                <p class="font-weight-normal my-1" style="font-size: 14px">{{ strtoupper($esc->nombre) }}</p>
+                <p class="font-weight-normal my-1" style="font-size: 14px"><span
+                        style="text-transform: uppercase">{{ strtoupper($esc->nombre) }}</span></p>
                 <table class="table table-sm table-bordered">
                     <thead>
                     <tr>
@@ -128,6 +132,9 @@
                     @endforeach
                     </tbody>
                 </table>
+            @else
+                <p style="font-size: 0.8rem">No hay información sobre los Servicios de Bienestar del Programa
+                    Académico de {{$esc->nombre}}</p>
             @endif
 
         @endforeach

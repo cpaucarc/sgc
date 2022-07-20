@@ -78,10 +78,11 @@
         </tbody>
     </table>
 
-    <p class="font-weight-bold my-0" style="font-size: 13px">Facultad: {{ $facultad }}</p>
-    <p class="font-weight-bold mb-4" style="font-size: 13px">Semestre: {{ $semestre }}</p>
+    <p class="font-weight-bold my-0" style="font-size: 13px">Facultad: <span style="text-transform: uppercase">{{ $facultad }}</span></p>
+    <p class="font-weight-bold mb-4" style="font-size: 13px">Semestre: <span style="text-transform: uppercase">{{ $semestre }}</span></p>
 
     {{--  Datos AQUI  --}}
+    @if(count($convenios))
     <table class="table table-sm table-bordered">
         <thead>
         <tr>
@@ -108,6 +109,9 @@
         @endforeach
         </tbody>
     </table>
+    @else
+        <p style="font-size: 0.8rem">No hay información sobre Convenios.</p>
+    @endif
 </main>
 
 </body>

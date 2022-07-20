@@ -17,8 +17,8 @@ class ListaGeneralMaterialBibliografico extends Component
 
     public function mount($facultad_ids)
     {
-        $this->semestres = Semestre::query()->orderBy('nombre', 'desc')->get();
-        $this->semestre = $this->semestres->where('activo', true)->first()->id;
+        $this->semestres = Semestre::orderByDesc('nombre')->get();
+        $this->semestre = $this->semestres->firstWhere('activo', true)->id;
 
         $this->facultad_ids = $facultad_ids;
 
