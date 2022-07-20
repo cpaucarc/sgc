@@ -17,3 +17,7 @@ yarn-error.log
 /public/js/app.js
 /public/js/app.js.LICENSE.txt
 /public/mix-manifest.json
+package-lock.json
+public/js/app.js
+public/mix-manifest.json
+/public/mix-manifest.json

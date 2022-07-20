@@ -11,7 +11,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+                sans: ['Albert Sans', ...defaultTheme.fontFamily.sans],
             },
             animation: {
                 'pulse-fast': 'pulse 0.5s infinite',
