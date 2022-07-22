@@ -20,7 +20,7 @@ class ListaMisInvestigaciones extends Component
             ->withCount('investigadores')
             ->withSum('financiaciones as presupuesto_sum', 'investigacion_financiacion.presupuesto')
             ->whereHas('investigadores', function ($query) {
-                $query->where("dni_investigador", Auth::user()->dni);
+                $query->where("dni_investigador", Auth::user()->persona->dni);
             })
             ->orderBy('created_at', 'desc')
             ->get();

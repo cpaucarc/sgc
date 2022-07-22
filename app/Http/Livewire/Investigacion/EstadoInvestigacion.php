@@ -17,7 +17,7 @@ class EstadoInvestigacion extends Component
         $this->es_responsable = InvestigacionInvestigador::query()
             ->where('investigacion_id', $this->investigacion_id)
             ->where('investigador_id', function ($query){
-                $query->select('id')->from('investigadores')->where('dni_investigador', Auth::user()->dni);
+                $query->select('id')->from('investigadores')->where('dni_investigador', Auth::user()->persona->dni);
             })->exists();
     }
 

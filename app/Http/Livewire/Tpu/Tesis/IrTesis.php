@@ -15,9 +15,9 @@ class IrTesis extends Component
     public function obtenerTesis()
     {
         $this->tesis = Tesis::query()
-            ->where('dni_estudiante', Auth::user()->dni)->first();
+            ->where('dni_estudiante', Auth::user()->persona->dni)->first();
         $this->solicitud = Solicitud::query()
-            ->where('dni_estudiante', Auth::user()->dni)->first();
+            ->where('dni_estudiante', Auth::user()->persona->dni)->first();
     }
 
     public function render()

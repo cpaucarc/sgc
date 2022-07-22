@@ -21,7 +21,7 @@ class ListaMisRsu extends Component
             })
             ->whereIn('id', function ($query) {
                 $query->select('responsabilidad_social_id')->from('rsu_participantes')
-                    ->where('dni_participante', Auth::user()->dni);
+                    ->where('dni_participante', Auth::user()->persona->dni);
             });
 
         if (intval($this->estado) === 1) // Sin iniciar

@@ -32,7 +32,7 @@
                             </x-utils.buttons.invisible>
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            @if($es_responsable && $participante->dni_participante !== auth()->user()->dni)
+                            @if($es_responsable && $participante->dni_participante !== auth()->user()->persona->dni)
                                 @livewire('rsu.cargo-participante',['participante'=>$participante],key($participante->id))
                             @else
                                 <p class="{{ $participante->es_responsable ? 'font-bold':'' }} ml-2">
@@ -47,7 +47,7 @@
                             {{$participante->fecha_incorporacion->format('d-m-Y') }}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            @if($es_responsable && $participante->dni_participante !== auth()->user()->dni)
+                            @if($es_responsable && $participante->dni_participante !== auth()->user()->persona->dni)
                                 <x-utils.buttons.danger class="text-sm"
                                                         onclick="quitarParticipante({{ $participante->id }},'{{ $participante->dni_participante }}')">
                                     <x-icons.person-remove class="icon-4" stroke="2"/>
@@ -113,18 +113,19 @@
                 <div class="flex items-center justify-start">
                     <button
                         wire:click="buscarEnDocentes(false)"
-                        class="px-3 py-1.5 border-b-2 soft-transition {{ $en_docentes ? 'hover:bg-zinc-50 border-zinc-300 text-zinc-500' : 'bg-indigo-50 border-indigo-600 text-indigo-600 font-semibold' }}">
+                        class="px-3 py-1 border-b-2 soft-transition {{ $en_docentes ? 'hover:bg-zinc-50 border-zinc-300 text-zinc-500' : 'bg-sky-50 border-sky-600 text-sky-600 font-semibold' }}">
                         Añadir estudiantes
                     </button>
                     <button
                         wire:click="buscarEnDocentes(true)"
-                        class="px-3 py-1.5 border-b-2 soft-transition {{ $en_docentes ? 'bg-indigo-50 border-indigo-600 text-indigo-600 font-semibold' : 'hover:bg-zinc-50 border-zinc-300 text-zinc-500' }}">
+                        class="px-3 py-1 border-b-2 soft-transition {{ $en_docentes ? 'bg-sky-50 border-sky-600 text-sky-600 font-semibold' : 'hover:bg-zinc-50 border-zinc-300 text-zinc-500' }}">
                         Añadir docentes
                     </button>
                 </div>
 
                 @if($en_docentes)
-                    <livewire:rsu.agregar-participante-docente :rsu_id="$rsu_id" :depto_id="$depto_id" :semestre="$semestre"/>
+                    <livewire:rsu.agregar-participante-docente :rsu_id="$rsu_id" :depto_id="$depto_id"
+                                                               :semestre="$semestre"/>
                 @else
                     <livewire:rsu.agregar-participante-estudiante :rsu_id="$rsu_id"/>
                 @endif
