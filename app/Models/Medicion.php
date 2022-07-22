@@ -139,12 +139,18 @@ class Medicion
      * Objetivo: Medir el porcentaje de comersales atendidos del total de comesales.
      * Formula: X = (N° de comensales atendidos por programa)/(Total de comensales por programa) x 100
      * */
-    public static function ind17($escuela_id, $fecha_inicio, $fecha_fin)
+    public static function ind17($escuela_id, $mes, $anio)
     {
-        $comedor = MedicionHelper::medicionComedor($escuela_id, $fecha_inicio, $fecha_fin)
-            ->first(array(DB::raw('SUM(atenciones) as sum_atenciones'), DB::raw('SUM(total) as sum_total')));
-        $interes = $comedor->sum_atenciones;
-        $total = $comedor->sum_total;
+        $atencion = BienestarAtencion::query()
+            ->where('servicio_id', 5) // 5: Comedor
+            ->where('escuela_id', $escuela_id)->where('mes', $mes)->where('anio', $anio)->first();
+
+        if (is_null($atencion)) {
+            return null;
+        }
+
+        $interes = $atencion->atenciones;
+        $total = $atencion->total;
 
         return MedicionHelper::getArrayResultados($interes, $total);
     }

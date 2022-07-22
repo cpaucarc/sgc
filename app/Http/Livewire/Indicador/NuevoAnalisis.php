@@ -232,7 +232,7 @@ class NuevoAnalisis extends Component
     {
         // Bienestar: 019 - 020
         if ($this->cod_ind === "IND-017") {
-            $res = Medicion::ind17($this->entidad->id, $this->inicio, $this->fin);
+            $res = Medicion::ind17($this->entidad->id, explode("-", $this->inicio)[1], explode("-", $this->inicio)[0]);
         } elseif ($this->cod_ind === "IND-019") {
             $res = Medicion::ind19($this->entidad->id, explode("-", $this->inicio)[1], explode("-", $this->inicio)[0]);
         } // RSU: 048 - 053
