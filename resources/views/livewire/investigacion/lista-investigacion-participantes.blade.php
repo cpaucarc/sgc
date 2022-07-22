@@ -98,12 +98,12 @@
                 <div class="flex items-center justify-start">
                     <button
                         wire:click="buscarEnDocentes(false)"
-                        class="px-3 py-1.5 border-b-2 soft-transition {{ $en_docentes ? 'hover:bg-zinc-50 border-zinc-300 text-zinc-500' : 'bg-indigo-50 border-indigo-600 text-indigo-600 font-semibold' }}">
+                        class="px-3 py-1 border-b-2 soft-transition {{ $en_docentes ? 'hover:bg-zinc-50 border-zinc-300 text-zinc-500' : 'bg-sky-50 border-sky-600 text-sky-600 font-semibold' }}">
                         Añadir estudiantes
                     </button>
                     <button
                         wire:click="buscarEnDocentes(true)"
-                        class="px-3 py-1.5 border-b-2 soft-transition {{ $en_docentes ? 'bg-indigo-50 border-indigo-600 text-indigo-600 font-semibold' : 'hover:bg-zinc-50 border-zinc-300 text-zinc-500' }}">
+                        class="px-3 py-1 border-b-2 soft-transition {{ $en_docentes ? 'bg-sky-50 border-sky-600 text-sky-600 font-semibold' : 'hover:bg-zinc-50 border-zinc-300 text-zinc-500' }}">
                         Añadir docentes
                     </button>
                 </div>
