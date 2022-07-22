@@ -6,6 +6,7 @@ use App\Lib\AnalisisHelper;
 use App\Models\AnalisisCapacitacion;
 use App\Models\AnalisisCurso;
 use App\Models\AnalisisIndicador;
+use App\Models\AnalisisServicio;
 use App\Models\Curso;
 use App\Models\Escuela;
 use App\Models\Facultad;
@@ -152,6 +153,7 @@ class NuevoAnalisis extends Component
         $usuario_actual = Auth::user()->id;
         $analisis_cursos = array();
         $analisis_capacitaciones = array();
+        $analisis_servicios = array();
 
         Log::info('Resultados', $this->resultados);
 
@@ -163,8 +165,8 @@ class NuevoAnalisis extends Component
                 'minimo' => $this->min,
                 'satisfactorio' => $this->sat,
                 'sobresaliente' => $this->sob,
-                'interes' => $res['interes'],
-                'total' => $res['total'],
+                'interes' => $res['interes'] ?? null,
+                'total' => $res['total'] ?? null,
                 'resultado' => $res['resultado'],
                 'interpretacion' => $this->analisis,
                 'observacion' => $this->observacion,
@@ -189,6 +191,13 @@ class NuevoAnalisis extends Component
                     "capacitacion_id" => $res['codigo']
                 ];
             }
+
+            if (in_array($this->cod_ind, ['IND-019'])) {
+                $analisis_servicios[] = [
+                    "analisis_indicador_id" => $analisis_indicador->id,
+                    "servicio_id" => $res['codigo']
+                ];
+            }
         }
 
         if (!is_null($analisis_cursos)) {
@@ -197,6 +206,10 @@ class NuevoAnalisis extends Component
 
         if (!is_null($analisis_capacitaciones)) {
             AnalisisCapacitacion::insert($analisis_capacitaciones);
+        }
+
+        if (!is_null($analisis_servicios)) {
+            AnalisisServicio::insert($analisis_servicios);
         }
 
         // Guardamos los nuevos valores de min, sat, sob si el checkbox está activo
@@ -221,7 +234,7 @@ class NuevoAnalisis extends Component
         if ($this->cod_ind === "IND-017") {
             $res = Medicion::ind17($this->entidad->id, $this->inicio, $this->fin);
         } elseif ($this->cod_ind === "IND-019") {
-            $res = Medicion::ind19($this->entidad->id, $this->inicio, $this->fin);
+            $res = Medicion::ind19($this->entidad->id, explode("-", $this->inicio)[1], explode("-", $this->inicio)[0]);
         } // RSU: 048 - 053
         elseif ($this->cod_ind === "IND-048") {
             $res = Medicion::ind48($this->tipo == 1, $this->entidad->id, $this->semestre_id);

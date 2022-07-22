@@ -33,4 +33,9 @@ class AnalisisIndicador extends Model
     {
         return $this->belongsToMany(Capacitacion::class, 'analisis_capacitaciones');
     }
+
+    public function servicio()
+    {
+        return $this->belongsToMany(Servicio::class, 'analisis_servicios');
+    }
 }

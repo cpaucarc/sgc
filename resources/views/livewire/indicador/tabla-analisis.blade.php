@@ -24,9 +24,18 @@
 
             @if(!is_null($capacitaciones))
                 <x-utils.forms.select wire:model="capacitacion_seleccionado">
-                    <option value="0">Todos las capacitaciones</option>
+                    <option value="0">Todas las capacitaciones</option>
                     @foreach($capacitaciones as $cap)
                         <option value="{{ $cap->id }}">{{ substr($cap->nombre, 0, 50) . '...' }}</option>
+                    @endforeach
+                </x-utils.forms.select>
+            @endif
+
+            @if(!is_null($servicios))
+                <x-utils.forms.select wire:model="servicio_seleccionado">
+                    <option value="0">Todos los servicios</option>
+                    @foreach($servicios as $sv)
+                        <option value="{{ $sv->id }}">{{ $sv->nombre }}</option>
                     @endforeach
                 </x-utils.forms.select>
             @endif
@@ -63,6 +72,9 @@
                 @if($tieneCapacitaciones)
                     <x-utils.tables.head>Capacitación</x-utils.tables.head>
                 @endif
+                @if($tieneServicios)
+                    <x-utils.tables.head>Servicio</x-utils.tables.head>
+                @endif
                 @if($indicadorable->indicador->titulo_interes)
                     <x-utils.tables.head>{{ $indicadorable->indicador->titulo_interes }}</x-utils.tables.head>
                 @endif
@@ -90,18 +102,25 @@
                             {{ $analisis->semestre->nombre }}
                         </x-utils.tables.body>
                         <x-utils.tables.body class="whitespace-nowrap text-xs">
-                            {{ $analisis->fecha_medicion_inicio->format('d-m-Y') }}
-                            &nbsp;hasta&nbsp;
-                            {{ $analisis->fecha_medicion_fin->format('d-m-Y') }}
+                            <div>
+                                Inicio: <b>{{ $analisis->fecha_medicion_inicio->format('d-m-Y') }}</b>
+                                <br>
+                                Fin: <b>{{ $analisis->fecha_medicion_fin->format('d-m-Y') }}</b>
+                            </div>
                         </x-utils.tables.body>
                         @if($tieneCursos)
-                            <x-utils.tables.body class="text-xs">
+                            <x-utils.tables.body>
                                 {{ count($analisis->curso) ? $analisis->curso->first()->nombre : '-' }}
                             </x-utils.tables.body>
                         @endif
                         @if($tieneCapacitaciones)
-                            <x-utils.tables.body class="text-xs">
+                            <x-utils.tables.body>
                                 {{ count($analisis->capacitacion) ? substr($analisis->capacitacion->first()->nombre, 0, 40) . '...' : '-' }}
+                            </x-utils.tables.body>
+                        @endif
+                        @if($tieneServicios)
+                            <x-utils.tables.body>
+                                {{ count($analisis->servicio) ?$analisis->servicio->first()->nombre : '-' }}
                             </x-utils.tables.body>
                         @endif
                         @if($indicadorable->indicador->titulo_interes)
@@ -135,14 +154,14 @@
                         </x-utils.tables.body>
                         <x-utils.tables.body class="print:hidden">
                             <div class="flex items-center space-x-0">
-                                <x-utils.buttons.default title="Ver información"
+                                <x-utils.buttons.invisible title="Ver información"
                                                            wire:click="openEditModal({{$analisis->id}}, false)">
                                     <x-icons.info class="icon-4" stroke="1.5"></x-icons.info>
-                                </x-utils.buttons.default>
-                                <x-utils.buttons.default title="Editar"
+                                </x-utils.buttons.invisible>
+                                <x-utils.buttons.invisible title="Editar"
                                                            wire:click="openEditModal({{$analisis->id}}, true)">
                                     <x-icons.edit class="icon-4" stroke="1.5"></x-icons.edit>
-                                </x-utils.buttons.default>
+                                </x-utils.buttons.invisible>
                             </div>
                         </x-utils.tables.body>
                     </x-utils.tables.row>
@@ -152,7 +171,7 @@
 
         <div class="mt-4 flex justify-end">
 
-            @if(!$tieneCursos && !$tieneCapacitaciones)
+            @if(!$tieneCursos && !$tieneCapacitaciones && !$tieneServicios)
                 <x-utils.buttons.default wire:click="openGraph" class="group text-sm print:hidden">
                     <svg class="icon-5 mr-1 group-hover:text-gray-600" viewBox="0 0 20 20" fill="currentColor">
                         <path
@@ -161,7 +180,7 @@
                     Mostrar gráfico
                 </x-utils.buttons.default>
             @else
-                @if($curso_seleccionado > 0 || $capacitacion_seleccionado > 0)
+                @if($curso_seleccionado > 0 || $capacitacion_seleccionado > 0 || $servicio_seleccionado > 0)
                     <x-utils.buttons.default wire:click="openGraph" class="group text-sm print:hidden">
                         <svg class="icon-5 mr-1 group-hover:text-gray-600" viewBox="0 0 20 20" fill="currentColor">
                             <path
@@ -171,7 +190,9 @@
                     </x-utils.buttons.default>
                 @else
                     <p class="text-sm text-gray-700">
-                        Para ver el grafico, seleccione {{ $tieneCursos ? 'un curso' : 'una capacitacion' }} en
+                        Para ver el grafico,
+                        seleccione {{ $tieneCursos ? 'un curso' : ($tieneCapacitaciones ? 'una capacitacion': 'un servicio') }}
+                        en
                         específico
                     </p>
                 @endif

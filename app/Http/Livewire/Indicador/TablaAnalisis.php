@@ -8,6 +8,7 @@ use App\Models\Curso;
 use App\Models\Indicador;
 use App\Models\Indicadorable;
 use App\Models\Semestre;
+use App\Models\Servicio;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -20,7 +21,8 @@ class TablaAnalisis extends Component
     public $interpretacion = null, $observacion = null, $elaborado_por = null, $revisado_por = null, $aprobado_por = null;
     public $tieneCursos = false, $cursos = null, $semestres = null;
     public $tieneCapacitaciones = false, $capacitaciones = null;
-    public $curso_seleccionado = 0, $capacitacion_seleccionado = 0, $semestre_seleccionado = 0;
+    public $tieneServicios = false, $servicios = null;
+    public $curso_seleccionado = 0, $capacitacion_seleccionado = 0, $servicio_seleccionado = 0, $semestre_seleccionado = 0;
 
     protected $listeners = ['renderizarTabla' => 'render'];
 
@@ -56,7 +58,14 @@ class TablaAnalisis extends Component
                     });
                 }
 
-                $query->with(['semestre', 'curso', 'capacitacion']);
+                if ($this->servicio_seleccionado > 0) {
+                    $query->whereIn('id', function ($query2) {
+                        $query2->select('analisis_indicador_id')->from('analisis_servicios')
+                            ->where('servicio_id', $this->servicio_seleccionado);
+                    });
+                }
+
+                $query->with(['semestre', 'curso', 'capacitacion', 'servicio']);
             }])->findOrFail($this->indicadorable_id);
 
         if (in_array($this->indicadorable->indicador->cod_ind_inicial, ['IND-032', 'IND-033', 'IND-034'])) {
@@ -65,6 +74,10 @@ class TablaAnalisis extends Component
 
         if (in_array($this->indicadorable->indicador->cod_ind_inicial, ['IND-075'])) {
             $this->tieneCapacitaciones = true;
+        }
+
+        if (in_array($this->indicadorable->indicador->cod_ind_inicial, ['IND-019'])) {
+            $this->tieneServicios = true;
         }
 
         if ($this->tieneCursos && is_null($this->cursos)) {
@@ -89,6 +102,17 @@ class TablaAnalisis extends Component
                 })->get();
         }
 
+        if ($this->tieneServicios && is_null($this->servicios)) {
+            $this->servicios = Servicio::query()
+                ->whereIn('id', function ($query) {
+                    $query->select('servicio_id')->from('analisis_servicios')
+                        ->whereIn('analisis_indicador_id', function ($quuer2) {
+                            $quuer2->select('id')->from('analisis_indicador')
+                                ->where('indicadorable_id', $this->indicadorable->id);
+                        });
+                })->get();
+        }
+
         return view('livewire.indicador.tabla-analisis');
     }
 
@@ -100,7 +124,7 @@ class TablaAnalisis extends Component
 
     public function openGraph()
     {
-        $this->emitTo('indicador.grafico-general', 'renderizarGrafico', $this->semestre_seleccionado, $this->curso_seleccionado, $this->capacitacion_seleccionado);
+        $this->emitTo('indicador.grafico-general', 'renderizarGrafico', $this->semestre_seleccionado, $this->curso_seleccionado, $this->capacitacion_seleccionado, $this->servicio_seleccionado);
     }
 
     public function openEditModal($analisis_id, $modoEdit)

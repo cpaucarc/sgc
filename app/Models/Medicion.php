@@ -153,12 +153,29 @@ class Medicion
      * Objetivo: Conocer el número total de atenciones por servicios por programa de estudios.
      * Formula: X = ∑ atenciones por servicio por programa
      * */
-    public static function ind19($escuela_id, $fecha_inicio, $fecha_fin)
+    public static function ind19($escuela_id, $mes, $anio)
     {
-        $resultado = MedicionHelper::medicionComedor($escuela_id, $fecha_inicio, $fecha_fin)
-            ->sum('atenciones');
+        try {
+            $servicios = Servicio::query()->orderBy('nombre')->get();
+            $atenciones = BienestarAtencion::query()
+                ->where('escuela_id', $escuela_id)->where('mes', $mes)->where('anio', $anio)->get();
 
-        return MedicionHelper::getArrayResultados(null, null, $resultado);
+            $calculado = array();
+            foreach ($servicios as $servicio) {
+                $at = $atenciones->where('servicio_id', $servicio->id)->first();
+
+                $sv = array();
+                $sv['codigo'] = $servicio->id;
+                $sv['curso'] = $servicio->nombre;
+                $sv['resultado'] = $at ? $at->atenciones : 0;
+
+                $calculado[] = $sv;
+            }
+
+            return $calculado;
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 
     /* IND 21 - Bolsa de Trabajo
@@ -1131,7 +1148,7 @@ class Medicion
                 ->get();
 
             $calculado = array();
-            foreach ($capacitaciones as $capacitacion){
+            foreach ($capacitaciones as $capacitacion) {
                 $docentes_capacitados = CapacitacionDocente::query()
                     ->where('capacitacion_id', $capacitacion->id)
                     ->whereIn('departamento_id', $deptos_id)
