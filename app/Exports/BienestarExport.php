@@ -2,9 +2,11 @@
 
 namespace App\Exports;
 
+use App\Models\BienestarAtencion;
 use App\Models\Comedor;
 use App\Models\Escuela;
 use App\Models\Facultad;
+use App\Models\Servicio;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -31,43 +33,45 @@ class BienestarExport implements FromCollection, WithMapping, WithHeadings, With
      * */
     public function collection()
     {
-        $comds = Comedor::query()
-            ->with('escuela', 'escuela.facultad');
+        $atenciones = BienestarAtencion::query()
+            ->with('escuela', 'escuela.facultad', 'servicio');
 
         if ($this->anio > 0) {
-            $comds = $comds->where('anio', $this->anio);
+            $atenciones = $atenciones->where('anio', $this->anio);
         }
 
         if ($this->escuela > 0) {
-            $comds = $comds->where('escuela_id', $this->escuela);
+            $atenciones = $atenciones->where('escuela_id', $this->escuela);
         } else {
             if ($this->facultad > 0) {
-                $comds = $comds->whereIn('escuela_id', function ($q) {
+                $atenciones = $atenciones->whereIn('escuela_id', function ($q) {
                     $q->select('id')->from('escuelas')->where('facultad_id', $this->facultad);
                 });
             }
         }
 
-        $comds = $comds->orderBy(Escuela::select('nombre')->whereColumn('escuelas.id', 'comedor.escuela_id'))
+        $atenciones = $atenciones->orderBy(Escuela::select('nombre')->whereColumn('escuelas.id', 'bienestar_atenciones.escuela_id'))
             ->orderBy('anio')
             ->orderBy('mes')
+            ->orderBy(Servicio::select('nombre')->whereColumn('servicios.id', 'bienestar_atenciones.servicio_id'))
             ->get();
 
-        return $comds;
+        return $atenciones;
     }
 
     /*
      * Recorremos cada registro recuperado en collection()
      * y definimos los registros para cada fila del excel
      * */
-    public function map($comedor): array
+    public function map($atencion): array
     {
         return [
-            $this->meses[$comedor->mes - 1],
-            $comedor->anio,
-            $comedor->atenciones ? $comedor->atenciones : '0',
-            $comedor->escuela->nombre,
-            $comedor->escuela->facultad->nombre
+            $atencion->servicio->nombre,
+            $this->meses[$atencion->mes - 1],
+            $atencion->anio,
+            $atencion->atenciones ? $atencion->atenciones : '0',
+            $atencion->escuela->nombre,
+            $atencion->escuela->facultad->nombre
         ];
     }
 
@@ -83,7 +87,7 @@ class BienestarExport implements FromCollection, WithMapping, WithHeadings, With
             ['Año', $this->anio === 0 ? 'Todos' : $this->anio],
             ['Fecha', now()->format('d/m/Y h:i:s a')],
             ['', ''],
-            ['Mes', 'Año', 'Atenciones', 'Programa de Estudios', 'Facultad']
+            ['Servicio', 'Mes', 'Año', 'Atenciones', 'Programa de Estudios', 'Facultad']
         ];
     }
 
