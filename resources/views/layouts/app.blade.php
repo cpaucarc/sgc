@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <title>{{ config('app.name', 'SGC') }}</title>
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
@@ -39,7 +39,7 @@
         </main>
     </div>
     <!-- Page Footer -->
-    <x-utils.footer />
+    <x-utils.footer/>
 </div>
 
 @stack('modals')
