@@ -10,6 +10,7 @@ use App\Models\Semestre;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -100,7 +101,7 @@ class ListaActividadProveedor extends Component
     public function enviarArchivo()
     {
         $this->validate();
-        $rutaCarpeta = '/public/entradas';
+        $rutaCarpeta = 'public/';
 
         //verificar si existe la carpeta storage/app/public/entradas, crear si no existe
         if (!Storage::exists($rutaCarpeta)) {
@@ -108,29 +109,15 @@ class ListaActividadProveedor extends Component
         }
 
         //copiar archivo a la carpeta storage/app/public/entradas
+        $extensionArchivo = $this->archivo->getClientOriginalExtension();
         $nombreArchivo = $this->archivo->getClientOriginalName();
-        if (!$nombreArchivo) {
-            $nombreArchivo = "Archivo adjunto";
-        }
-
-        $existe = Storage::disk('public')->exists('entradas/' . $nombreArchivo);
-        $num = 0;
-        if ($existe) {
-            $aux = $nombreArchivo;
-            while ($existe) {
-                $num++;
-                $aux = $num . '_' . $aux;
-                $existe = Storage::disk('public')->exists('entradas/' . $aux);
-                $aux = $nombreArchivo;
-            }
-            $nombreArchivo = $num . '_' . $nombreArchivo;
-        }
-
-        $this->archivo->storeAs($rutaCarpeta, $nombreArchivo);
+        $nuevo_nombre = 'entrada-' . Str::uuid() . '.' . $extensionArchivo;
+        
+        $this->archivo->storeAs($rutaCarpeta, $nuevo_nombre);
 
         $documento = Documento::create([
             'nombre' => $nombreArchivo,
-            'enlace_interno' => 'entradas' . '/' . $nombreArchivo,
+            'enlace_interno' => $nuevo_nombre,
             'entidad_id' => $this->proveedor_seleccionado->entidad_id,
             'semestre_id' => $this->semestre_seleccionado,
             'user_id' => Auth::user()->id,

@@ -10,6 +10,7 @@ use App\Models\Salida;
 use Database\Seeders\SalidaSeeder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -79,7 +80,7 @@ class ActividadSalidas extends Component
     public function enviarArchivo()
     {
         $this->validate();
-        $rutaCarpeta = '/public/salidas';
+        $rutaCarpeta = 'public/';
 
         //verificar si existe la carpeta storage/app/public/salidas, crear si no existe
         if (!Storage::exists($rutaCarpeta)) {
@@ -87,29 +88,15 @@ class ActividadSalidas extends Component
         }
 
         //copiar archivo a la carpeta storage/app/public/salidas
+        $extensionArchivo = $this->archivo->getClientOriginalExtension();
         $nombreArchivo = $this->archivo->getClientOriginalName();
-        if (!$nombreArchivo) {
-            $nombreArchivo = "Archivo adjunto";
-        }
+        $nuevo_nombre = 'salida-' . Str::uuid() . '.' . $extensionArchivo;
 
-        $existe = Storage::disk('public')->exists('salidas/' . $nombreArchivo);
-        $num = 0;
-        if ($existe) {
-            $aux = $nombreArchivo;
-            while ($existe) {
-                $num++;
-                $aux = $num . '_' . $aux;
-                $existe = Storage::disk('public')->exists('salidas/' . $aux);
-                $aux = $nombreArchivo;
-            }
-            $nombreArchivo = $num . '_' . $nombreArchivo;
-        }
-
-        $this->archivo->storeAs($rutaCarpeta, $nombreArchivo);
+        $this->archivo->storeAs($rutaCarpeta, $nuevo_nombre);
 
         $documento = Documento::create([
             'nombre' => $nombreArchivo,
-            'enlace_interno' => 'salidas' . '/' . $nombreArchivo,
+            'enlace_interno' => $nuevo_nombre,
             'entidad_id' => $this->responsable->entidad_id,
             'semestre_id' => $this->semestre_id,
             'user_id' => Auth::user()->id,

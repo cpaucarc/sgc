@@ -48,7 +48,8 @@ class RegistrarAuditoria extends Component
     {
         $this->validate();
         try {
-            $rutaCarpeta = '/public/auditoria';
+            $rutaCarpeta = 'public/';
+            
             if (!Storage::exists($rutaCarpeta))
                 Storage::makeDirectory($rutaCarpeta);
 
@@ -69,11 +70,15 @@ class RegistrarAuditoria extends Component
 
             foreach ($this->archivos as $archivo) {
 
-                $archivo->storeAs($rutaCarpeta, $archivo->getClientOriginalName());
+                $extensionArchivo = $archivo->getClientOriginalExtension();
+                $nombreArchivo = $archivo->getClientOriginalName();
+                $nuevo_nombre = 'auditoria-' . Str::uuid() . '.' . $extensionArchivo;
+
+                $archivo->storeAs($rutaCarpeta, $nuevo_nombre);
 
                 $documento = Documento::create([
-                    'nombre' => $archivo->getClientOriginalName(),
-                    'enlace_interno' => 'auditoria' . '/' . $archivo->getClientOriginalName(),
+                    'nombre' => $nombreArchivo,
+                    'enlace_interno' => $nuevo_nombre,
                     'entidad_id' => $entidad_id,
                     'semestre_id' => $semestre_id,
                     'user_id' => $user_id,

@@ -8,6 +8,7 @@ use App\Models\ResponsabilidadSocial;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -54,7 +55,7 @@ class DocumentosRsu extends Component
     public function enviarArchivo()
     {
         $this->validate();
-        $rutaCarpeta = '/public/rsu';
+        $rutaCarpeta = 'public/';
 
         //verificar si existe la carpeta storage/app/public/rsu, crear si no existe
         if (!Storage::exists($rutaCarpeta)) {
@@ -62,32 +63,18 @@ class DocumentosRsu extends Component
         }
 
         //copiar archivo a la carpeta storage/app/public/entradas
+        $extensionArchivo = $this->archivo->getClientOriginalExtension();
         $nombreArchivo = $this->archivo->getClientOriginalName();
-        if (!$nombreArchivo) {
-            $nombreArchivo = "Archivo adjunto";
-        }
-
-        $existe = Storage::disk('public')->exists('rsu/' . $nombreArchivo);
-        $num = 0;
-        if ($existe) {
-            $aux = $nombreArchivo;
-            while ($existe) {
-                $num++;
-                $aux = $num . '_' . $aux;
-                $existe = Storage::disk('public')->exists('rsu/' . $aux);
-                $aux = $nombreArchivo;
-            }
-            $nombreArchivo = $num . '_' . $nombreArchivo;
-        }
-
-        $this->archivo->storeAs($rutaCarpeta, $nombreArchivo);
+        $nuevo_nombre = 'rsu-' . Str::uuid() . '.' . $extensionArchivo;
+        
+        $this->archivo->storeAs($rutaCarpeta, $nuevo_nombre);
 
         $rsu = ResponsabilidadSocial::find($this->rsu_id);
         $entidad = Auth::user()->entidades()->first();
 
         $documento = Documento::create([
             'nombre' => $nombreArchivo,
-            'enlace_interno' => 'rsu' . '/' . $nombreArchivo,
+            'enlace_interno' => $nuevo_nombre,
             'entidad_id' => $entidad->id,
             'semestre_id' => $rsu->semestre_id,
             'user_id' => Auth::user()->id,
