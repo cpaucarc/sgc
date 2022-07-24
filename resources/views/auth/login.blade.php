@@ -6,7 +6,7 @@
             <div class="grid place-items-center">
                 <img class="w-14 mb-2" src="{{ asset('images/unasam_escudo.svg') }}"
                      alt="Escudo de la Unasam">
-                <h1 class="text-gray-700 text-xl font-thin">Iniciar Sesión</h1>
+                <h1 class="text-gray-700 text-xl">Iniciar Sesión</h1>
             </div>
         </x-slot>
 
