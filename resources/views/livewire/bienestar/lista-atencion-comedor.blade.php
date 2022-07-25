@@ -34,7 +34,7 @@
         <x-utils.tables.table>
             @slot('head')
                 <x-utils.tables.head>Servicio</x-utils.tables.head>
-                <x-utils.tables.head>Fecha</x-utils.tables.head>
+                <x-utils.tables.head class="text-center">Fecha</x-utils.tables.head>
                 <x-utils.tables.head>Atenciones</x-utils.tables.head>
                 <x-utils.tables.head>Total</x-utils.tables.head>
                 <x-utils.tables.head>% Atención</x-utils.tables.head>
@@ -47,8 +47,8 @@
                         <x-utils.tables.body>
                             {{$atencion->servicio->nombre}}
                         </x-utils.tables.body>
-                        <x-utils.tables.body>
-                            {{$atencion->anio}} - {{ \App\Models\Fecha::nombreDeMes($atencion->mes)  }}
+                        <x-utils.tables.body class="text-right">
+                            {{ \App\Models\Fecha::nombreDeMes($atencion->mes)  }} de {{$atencion->anio}}
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-center">
                             {{$atencion->atenciones}}
@@ -96,23 +96,23 @@
         </div>
     @endif
 
-        @push('js')
-            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            <script>
-                function eliminar(id, nombre) {
-                    Swal.fire({
-                        text: "¿Desea eliminar el registro de atenciones del servicio de " + nombre + " ?",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonText: 'Si, eliminar',
-                        cancelButtonText: `Cancelar`,
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.livewire.emit('eliminar', id);
-                        }
-                    })
-                }
+    @push('js')
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            function eliminar(id, nombre) {
+                Swal.fire({
+                    text: "¿Desea eliminar el registro de atenciones del servicio de " + nombre + " ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, eliminar',
+                    cancelButtonText: `Cancelar`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('eliminar', id);
+                    }
+                })
+            }
 
-            </script>
-        @endpush
+        </script>
+    @endpush
 </div>

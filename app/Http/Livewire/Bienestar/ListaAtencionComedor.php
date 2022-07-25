@@ -12,6 +12,7 @@ use Livewire\Component;
 class ListaAtencionComedor extends Component
 {
     public $mes, $anios = null, $anio, $escuelas, $servicios, $servicio = 0;
+
     protected $listeners = [
         "cargarDatos" => "render",
         "eliminar"
@@ -22,7 +23,7 @@ class ListaAtencionComedor extends Component
         $this->mes = 0;
         $this->anio = now()->year;
         $this->escuelas = User::escuelas_id(Auth::user()->id);
-        $this->servicios = Servicio::query()->select('id', 'nombre')->get();
+        $this->servicios = Servicio::query()->select('id', 'nombre')->orderBy('nombre', 'desc')->get();
     }
 
     public function render()
@@ -40,7 +41,9 @@ class ListaAtencionComedor extends Component
                 $query->from('servicios')->select('id')->where('id', $this->servicio);
             });
 
-        $atenciones = $atenciones->orderBy('anio', 'desc')->orderBy('mes', 'desc')->paginate(15);
+        $atenciones = $atenciones->orderBy('anio', 'desc')->orderBy('mes', 'desc')
+            ->orderBy(Servicio::select('nombre')->whereColumn('servicios.id', 'bienestar_atenciones.servicio_id'))
+            ->paginate(15);
 
         $this->anios = BienestarAtencion::query()->orderBy('anio')->distinct()->pluck('anio');
 

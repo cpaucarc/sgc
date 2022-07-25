@@ -4,7 +4,7 @@
         Servicios del Bienestar Universitario
     </h1>
 
-    <div class="grid grid-cols-3 gap-x-8">
+    <div class="grid grid-cols-3 gap-x-8 items-start">
         <livewire:bienestar.agregar-atencion-comedor/>
         <div class="col-span-2">
             <livewire:bienestar.lista-atencion-comedor/>
