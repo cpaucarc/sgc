@@ -47,6 +47,7 @@
 
             <div class="pt-4">
                 <livewire:investigacion.lista-investigacion-participantes investigacion_id="{{$investigacion->id}}"
+                                                                          :es_responsable="$es_responsable"
                                                                           :depto_id="$investigacion->escuela->depto_id"
                                                                           :semestre="$investigacion->semestre->nombre"/>
             </div>

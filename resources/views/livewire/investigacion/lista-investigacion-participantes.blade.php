@@ -35,10 +35,15 @@
                             @endif
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            @if($investigador->pivot->es_responsable)
-                                <span class="font-bold">Responsable</span>
+                            @if($es_responsable && $investigador->dni_investigador !== auth()->user()->persona->dni)
+                                <livewire:investigacion.cargo-participante :investigacion_id="$investigacion->id"
+                                                                           :investigador_id="$investigador->id"
+
+                                                                           :wire:key="$investigador->id"/>
                             @else
-                                Corresponsable
+                                <p class="{{ $investigador->pivot->es_responsable ? 'font-bold':'' }} ml-2">
+                                    {{ $investigador->pivot->es_responsable ? 'Responsable':'Corresponsable' }}
+                                </p>
                             @endif
                         </x-utils.tables.body>
                     </x-utils.tables.row>
