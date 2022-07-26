@@ -27,6 +27,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 10,
                 'satisfactorio' => 20,
                 'sobresaliente' => 40,
+                'esta_implementado' => true,
                 'proceso_id' => 9,
                 'unidad_medida_id' => 1,
                 'frecuencia_medicion_id' => 2,
@@ -43,6 +44,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 10,
                 'satisfactorio' => 20,
                 'sobresaliente' => 40,
+                'esta_implementado' => true,
                 'proceso_id' => 9,
                 'unidad_medida_id' => 1,
                 'frecuencia_medicion_id' => 2,
@@ -59,6 +61,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 25,
                 'satisfactorio' => 50,
                 'sobresaliente' => 80,
+                'esta_implementado' => true,
                 'proceso_id' => 9,
                 'unidad_medida_id' => 2,
                 'frecuencia_medicion_id' => 2,
@@ -75,6 +78,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 20,
                 'satisfactorio' => 40,
                 'sobresaliente' => 80,
+                'esta_implementado' => true,
                 'proceso_id' => 9,
                 'unidad_medida_id' => 2,
                 'frecuencia_medicion_id' => 2,
@@ -91,6 +95,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 5,
                 'satisfactorio' => 10,
                 'sobresaliente' => 20,
+                'esta_implementado' => true,
                 'proceso_id' => 9,
                 'unidad_medida_id' => 1,
                 'frecuencia_medicion_id' => 2,
@@ -107,6 +112,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 20,
                 'satisfactorio' => 40,
                 'sobresaliente' => 80,
+                'esta_implementado' => false,
                 'proceso_id' => 9,
                 'unidad_medida_id' => 2,
                 'frecuencia_medicion_id' => 2,
@@ -125,6 +131,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 20,
                 'satisfactorio' => 30,
                 'sobresaliente' => 50,
+                'esta_implementado' => true,
                 'proceso_id' => 8, //DB: procesos: 8:Investigacion
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -141,6 +148,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 0.5,
                 'satisfactorio' => 1,
                 'sobresaliente' => 2,
+                'esta_implementado' => true,
                 'proceso_id' => 8, //DB: procesos: 8:Investigacion
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -157,6 +165,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 2,
                 'satisfactorio' => 4,
                 'sobresaliente' => 6,
+                'esta_implementado' => true,
                 'proceso_id' => 8, //DB: procesos: 8:Investigacion
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -173,6 +182,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 2,
                 'satisfactorio' => 4,
                 'sobresaliente' => 6,
+                'esta_implementado' => true,
                 'proceso_id' => 8, //DB: procesos: 8:Investigacion
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -191,6 +201,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 60,
                 'satisfactorio' => 80,
                 'sobresaliente' => 90,
+                'esta_implementado' => true,
                 'proceso_id' => 12, //DB: procesos: 12: Bachiller
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -209,6 +220,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 70,
                 'satisfactorio' => 80,
                 'sobresaliente' => 98,
+                'esta_implementado' => true,
                 'proceso_id' => 5, //DB: procesos: 5: Titulo Profesional
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -225,6 +237,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 30,
                 'satisfactorio' => 40,
                 'sobresaliente' => 95,
+                'esta_implementado' => true,
                 'proceso_id' => 5, //DB: procesos: 5: Titulo Profesional
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -241,6 +254,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 30,
                 'satisfactorio' => 50,
                 'sobresaliente' => 90,
+                'esta_implementado' => true,
                 'proceso_id' => 5, //DB: procesos: 5: Titulo Profesional
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -262,6 +276,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 1,
                 'satisfactorio' => 2,
                 'sobresaliente' => 3,
+                'esta_implementado' => true,
                 'proceso_id' => 16, //DB: procesos: 16: Convalidaciones
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -278,6 +293,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 1,
                 'satisfactorio' => 2,
                 'sobresaliente' => 3,
+                'esta_implementado' => true,
                 'proceso_id' => 16, //DB: procesos: 16: Convalidaciones
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -294,6 +310,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 0,
                 'satisfactorio' => 0,
                 'sobresaliente' => 0,
+                'esta_implementado' => true,
                 'proceso_id' => 16, //DB: procesos: 16: Convalidaciones
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -312,6 +329,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 20,
                 'satisfactorio' => 25,
                 'sobresaliente' => 30,
+                'esta_implementado' => true,
                 'proceso_id' => 11, //DB: procesos: 11: Gestion de Calidad
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -328,6 +346,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 5,
                 'satisfactorio' => 10,
                 'sobresaliente' => 15,
+                'esta_implementado' => true,
                 'proceso_id' => 11, //DB: procesos: 11: Gestion de Calidad
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -344,6 +363,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 25,
                 'satisfactorio' => 30,
                 'sobresaliente' => 39,
+                'esta_implementado' => true,
                 'proceso_id' => 11, //DB: procesos: 11: Gestion de Calidad
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -360,6 +380,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 5,
                 'satisfactorio' => 10,
                 'sobresaliente' => 20,
+                'esta_implementado' => true,
                 'proceso_id' => 11, //DB: procesos: 11: Gestion de Calidad
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 1,
@@ -376,6 +397,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 5,
                 'satisfactorio' => 10,
                 'sobresaliente' => 15,
+                'esta_implementado' => false,
                 'proceso_id' => 11, //DB: procesos: 11: Gestion de Calidad
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -394,6 +416,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 0,
                 'satisfactorio' => 0,
                 'sobresaliente' => 0,
+                'esta_implementado' => true,
                 'proceso_id' => 13, //DB: procesos: 13: Bolsa de Trabajo
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 1,
@@ -410,6 +433,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 0,
                 'satisfactorio' => 0,
                 'sobresaliente' => 0,
+                'esta_implementado' => false,
                 'proceso_id' => 13, //DB: procesos: 13: Bolsa de Trabajo
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 1,
@@ -426,6 +450,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 0,
                 'satisfactorio' => 0,
                 'sobresaliente' => 0,
+                'esta_implementado' => false,
                 'proceso_id' => 13, //DB: procesos: 13: Bolsa de Trabajo
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 1,
@@ -444,6 +469,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 50,
                 'satisfactorio' => 80,
                 'sobresaliente' => 100,
+                'esta_implementado' => false,
                 'proceso_id' => 14, //DB: procesos: 14: Bienestar Universitario
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 1,
@@ -460,6 +486,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 1,
                 'satisfactorio' => 2,
                 'sobresaliente' => 3,
+                'esta_implementado' => true,
                 'proceso_id' => 14, //DB: procesos: 14: Bienestar Universitario
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 1,
@@ -476,6 +503,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 20,
                 'satisfactorio' => 50,
                 'sobresaliente' => 100,
+                'esta_implementado' => true,
                 'proceso_id' => 14, //DB: procesos: 14: Bienestar Universitario
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 1,
@@ -492,6 +520,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 50,
                 'satisfactorio' => 80,
                 'sobresaliente' => 100,
+                'esta_implementado' => false,
                 'proceso_id' => 14, //DB: procesos: 14: Bienestar Universitario
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 1,
@@ -510,6 +539,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 70,
                 'satisfactorio' => 80,
                 'sobresaliente' => 90,
+                'esta_implementado' => true,
                 'proceso_id' => 15, //DB: procesos: 15: Convenio
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -526,6 +556,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 70,
                 'satisfactorio' => 80,
                 'sobresaliente' => 90,
+                'esta_implementado' => true,
                 'proceso_id' => 15, //DB: procesos: 15: Convenio
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -542,6 +573,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 70,
                 'satisfactorio' => 80,
                 'sobresaliente' => 90,
+                'esta_implementado' => true,
                 'proceso_id' => 15, //DB: procesos: 15: Convenio
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -558,6 +590,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 70,
                 'satisfactorio' => 80,
                 'sobresaliente' => 90,
+                'esta_implementado' => true,
                 'proceso_id' => 15, //DB: procesos: 15: Convenio
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -574,6 +607,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 60,
                 'satisfactorio' => 70,
                 'sobresaliente' => 80,
+                'esta_implementado' => false,
                 'proceso_id' => 15, //DB: procesos: 15: Convenio
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -592,6 +626,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 30,
                 'satisfactorio' => 50,
                 'sobresaliente' => 80,
+                'esta_implementado' => true,
                 'proceso_id' => 7, //DB: procesos: 7: Biblioteca
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -608,6 +643,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 600,
                 'satisfactorio' => 650,
                 'sobresaliente' => 700,
+                'esta_implementado' => true,
                 'proceso_id' => 7, //DB: procesos: 7: Biblioteca
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 1,
@@ -624,6 +660,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 0,
                 'satisfactorio' => 0,
                 'sobresaliente' => 0,
+                'esta_implementado' => true,
                 'proceso_id' => 7, //DB: procesos: 7: Biblioteca
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 1,
@@ -640,6 +677,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 300,
                 'satisfactorio' => 350,
                 'sobresaliente' => 400,
+                'esta_implementado' => true,
                 'proceso_id' => 7, //DB: procesos: 7: Biblioteca
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 1,
@@ -656,6 +694,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 100,
                 'satisfactorio' => 110,
                 'sobresaliente' => 120,
+                'esta_implementado' => true,
                 'proceso_id' => 7, //DB: procesos: 7: Biblioteca
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -672,6 +711,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 150,
                 'satisfactorio' => 155,
                 'sobresaliente' => 160,
+                'esta_implementado' => true,
                 'proceso_id' => 7, //DB: procesos: 7: Biblioteca
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 1,
@@ -688,6 +728,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 50,
                 'satisfactorio' => 55,
                 'sobresaliente' => 60,
+                'esta_implementado' => false,
                 'proceso_id' => 7, //DB: procesos: 7: Biblioteca
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 1,
@@ -706,6 +747,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 70,
                 'satisfactorio' => 80,
                 'sobresaliente' => 90,
+                'esta_implementado' => true,
                 'proceso_id' => 1, //DB: procesos: 1: Enseñanza y Aprendizaje
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -722,6 +764,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 10,
                 'satisfactorio' => 4,
                 'sobresaliente' => 2,
+                'esta_implementado' => true,
                 'proceso_id' => 1, //DB: procesos: 1: Enseñanza y Aprendizaje
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -738,6 +781,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 8,
                 'satisfactorio' => 6,
                 'sobresaliente' => 4,
+                'esta_implementado' => true,
                 'proceso_id' => 1, //DB: procesos: 1: Enseñanza y Aprendizaje
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -754,6 +798,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 0,
                 'satisfactorio' => 0,
                 'sobresaliente' => 0,
+                'esta_implementado' => true,
                 'proceso_id' => 1, //DB: procesos: 1: Enseñanza y Aprendizaje
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -770,6 +815,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 70,
                 'satisfactorio' => 80,
                 'sobresaliente' => 90,
+                'esta_implementado' => true,
                 'proceso_id' => 1, //DB: procesos: 1: Enseñanza y Aprendizaje
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -786,6 +832,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 0,
                 'satisfactorio' => 0,
                 'sobresaliente' => 0,
+                'esta_implementado' => true,
                 'proceso_id' => 1, //DB: procesos: 1: Enseñanza y Aprendizaje
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 3,
@@ -802,6 +849,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 0,
                 'satisfactorio' => 0,
                 'sobresaliente' => 0,
+                'esta_implementado' => true,
                 'proceso_id' => 1, //DB: procesos: 1: Enseñanza y Aprendizaje
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -820,6 +868,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 30,
                 'satisfactorio' => 70,
                 'sobresaliente' => 80,
+                'esta_implementado' => true,
                 'proceso_id' => 2, //DB: procesos: 2: Tutoria
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -836,6 +885,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 60,
                 'satisfactorio' => 80,
                 'sobresaliente' => 95,
+                'esta_implementado' => true,
                 'proceso_id' => 2, //DB: procesos: 2: Tutoria
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -852,6 +902,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 3,
                 'satisfactorio' => 4,
                 'sobresaliente' => 5,
+                'esta_implementado' => true,
                 'proceso_id' => 2, //DB: procesos: 2: Tutoria
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -868,6 +919,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 5,
                 'satisfactorio' => 10,
                 'sobresaliente' => 14,
+                'esta_implementado' => true,
                 'proceso_id' => 2, //DB: procesos: 2: Tutoria
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -886,6 +938,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 200,
                 'satisfactorio' => 210,
                 'sobresaliente' => 215,
+                'esta_implementado' => true,
                 'proceso_id' => 4, //DB: procesos: 4: Matricula
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -902,6 +955,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 5,
                 'satisfactorio' => 3,
                 'sobresaliente' => 2,
+                'esta_implementado' => true,
                 'proceso_id' => 4, //DB: procesos: 4: Matricula
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -918,6 +972,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 8,
                 'satisfactorio' => 4,
                 'sobresaliente' => 2,
+                'esta_implementado' => true,
                 'proceso_id' => 4, //DB: procesos: 4: Matricula
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -934,6 +989,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 6,
                 'satisfactorio' => 4,
                 'sobresaliente' => 0,
+                'esta_implementado' => true,
                 'proceso_id' => 4, //DB: procesos: 4: Matricula
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -950,6 +1006,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 85,
                 'satisfactorio' => 90,
                 'sobresaliente' => 95,
+                'esta_implementado' => true,
                 'proceso_id' => 4, //DB: procesos: 4: Matricula
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -968,6 +1025,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 60,
                 'satisfactorio' => 80,
                 'sobresaliente' => 100,
+                'esta_implementado' => true,
                 'proceso_id' => 6, //DB: procesos: 6: Docente
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -984,6 +1042,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 70,
                 'satisfactorio' => 80,
                 'sobresaliente' => 100,
+                'esta_implementado' => true,
                 'proceso_id' => 6, //DB: procesos: 6: Docente
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -1002,6 +1061,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 80,
                 'satisfactorio' => 90,
                 'sobresaliente' => 100,
+                'esta_implementado' => true,
                 'proceso_id' => 6, //DB: procesos: 6: Docente
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -1018,6 +1078,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 80,
                 'satisfactorio' => 90,
                 'sobresaliente' => 100,
+                'esta_implementado' => true,
                 'proceso_id' => 6, //DB: procesos: 6: Docente
                 'unidad_medida_id' => 1, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -1034,6 +1095,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 80,
                 'satisfactorio' => 90,
                 'sobresaliente' => 100,
+                'esta_implementado' => true,
                 'proceso_id' => 6, //DB: procesos: 6: Docente
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -1051,6 +1113,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 80,
                 'satisfactorio' => 90,
                 'sobresaliente' => 100,
+                'esta_implementado' => true,
                 'proceso_id' => 6, //DB: procesos: 6: Docente
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -1067,6 +1130,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 80,
                 'satisfactorio' => 90,
                 'sobresaliente' => 100,
+                'esta_implementado' => true,
                 'proceso_id' => 6, //DB: procesos: 6: Docente
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -1083,6 +1147,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 70,
                 'satisfactorio' => 80,
                 'sobresaliente' => 90,
+                'esta_implementado' => true,
                 'proceso_id' => 6, //DB: procesos: 6: Docente
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -1099,6 +1164,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 50,
                 'satisfactorio' => 70,
                 'sobresaliente' => 80,
+                'esta_implementado' => true,
                 'proceso_id' => 6, //DB: procesos: 6: Docente
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,
@@ -1115,6 +1181,7 @@ class IndicadorSeeder extends Seeder
                 'minimo' => 70,
                 'satisfactorio' => 80,
                 'sobresaliente' => 90,
+                'esta_implementado' => true,
                 'proceso_id' => 6, //DB: procesos: 6: Docente
                 'unidad_medida_id' => 2, //1: Numero | 2:Porcentaje
                 'frecuencia_medicion_id' => 2,

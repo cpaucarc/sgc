@@ -24,6 +24,7 @@ return new class extends Migration
             $table->decimal('minimo', 4, 1);
             $table->decimal('satisfactorio', 4, 1);
             $table->decimal('sobresaliente', 4, 1);
+            $table->boolean('esta_implementado')->default(true);
 
             $table->foreignId('unidad_medida_id')->constrained('unidad_medida')
                 ->cascadeOnUpdate()

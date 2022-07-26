@@ -80,6 +80,7 @@ class IndicadorController extends Controller
 
         $indicadores = Indicador::query()
             ->with('medicion', 'reporte')
+            ->where('esta_implementado', true)
             ->where('proceso_id', $proceso_id);
 
         if ($tipo == 1) { // 1: escuela

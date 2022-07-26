@@ -35,8 +35,11 @@ class BuscadorIndicadores extends Component
             $this->escuelas = Escuela::query()
                 ->with(['indicadores' => function ($query) {
                     return $query->select('indicadores.id', 'objetivo', 'cod_ind_inicial')
-                        ->where('objetivo', 'like', '%' . $this->search . '%')
-                        ->orWhere('cod_ind_inicial', 'like', '%' . $this->search . '%')
+                        ->where('esta_implementado', true)
+                        ->where(function ($query) {
+                            $query->where('objetivo', 'like', '%' . $this->search . '%')
+                                ->orWhere('cod_ind_inicial', 'like', '%' . $this->search . '%');
+                        })
                         ->take(5);
                 }])
                 ->find($this->escuelas_id);
@@ -46,8 +49,11 @@ class BuscadorIndicadores extends Component
             $this->facultades = Facultad::query()
                 ->with(['indicadores' => function ($query) {
                     return $query->select('indicadores.id', 'objetivo', 'cod_ind_inicial')
-                        ->where('objetivo', 'like', '%' . $this->search . '%')
-                        ->orWhere('cod_ind_inicial', 'like', '%' . $this->search . '%')
+                        ->where('esta_implementado', true)
+                        ->where(function ($query) {
+                            $query->where('objetivo', 'like', '%' . $this->search . '%')
+                                ->orWhere('cod_ind_inicial', 'like', '%' . $this->search . '%');
+                        })
                         ->take(5);
                 }])
                 ->find($this->facultades_id);

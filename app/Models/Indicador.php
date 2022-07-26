@@ -14,7 +14,7 @@ class Indicador extends Model
     public $timestamps = false;
     public $fillable = ['objetivo', 'titulo_interes', 'titulo_total', 'titulo_resultado',
         'cod_ind_inicial', 'formula', 'minimo', 'satisfactorio', 'sobresaliente', 'unidad_medida_id',
-        'frecuencia_medicion_id', 'frecuencia_reporte_id', 'proceso_id'];
+        'esta_implementado', 'frecuencia_medicion_id', 'frecuencia_reporte_id', 'proceso_id'];
 
     public function medicion()
     {

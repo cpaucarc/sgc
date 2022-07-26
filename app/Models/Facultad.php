@@ -34,8 +34,8 @@ class Facultad extends Model
     public function indicadores()
     {
         return $this->morphToMany(Indicador::class, 'indicadorable')
-            ->with('proceso')
-            ->with('medicion')
+            ->with('proceso', 'medicion')
+            ->where('esta_implementado', true)
             ->orderBy('proceso_id')
             ->orderBy('cod_ind_inicial');
     }
