@@ -33,7 +33,8 @@
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             @if($es_responsable && $participante->dni_participante !== auth()->user()->persona->dni)
-                                @livewire('rsu.cargo-participante',['participante'=>$participante],key($participante->id))
+                                <livewire:rsu.cargo-participante :participante="$participante"
+                                                                 :wire:key="$participante->id"/>
                             @else
                                 <p class="{{ $participante->es_responsable ? 'font-bold':'' }} ml-2">
                                     {{ $participante->es_responsable ? 'Responsable':'Participante' }}
@@ -154,11 +155,17 @@
             });
 
             function quitarParticipante(id, dni) {
-                let res = confirm('¿Desea quitar al participante con DNI ' + dni + ' de la responsabilidad social?')
-
-                if (res)
-                    window.livewire.emit('quitarParticipante', id);
-
+                Swal.fire({
+                    text: "¿Desea quitar al participante con DNI " + dni + " de la responsabilidad social?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, quitar',
+                    cancelButtonText: `Cancelar`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('quitarParticipante', id);
+                    }
+                })
             }
         </script>
     @endpush

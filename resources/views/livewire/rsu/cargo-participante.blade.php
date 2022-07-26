@@ -9,10 +9,17 @@
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             function cambiarCargo(dni) {
-                let res = confirm('¿Desea cambiar de cargo a participante con DNI ' + dni + ' de la responsabilidad social?')
-
-                if (res)
-                    window.livewire.emit('cambiarCargo');
+                Swal.fire({
+                    text: "¿Desea cambiar de cargo a participante con DNI " + dni + " de la responsabilidad social?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, cambiar',
+                    cancelButtonText: `Cancelar`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('cambiarCargo');
+                    }
+                })
             }
         </script>
     @endpush
