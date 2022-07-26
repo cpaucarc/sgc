@@ -14,11 +14,9 @@ return new class extends Migration {
     {
         Schema::create('analisis_indicador', function (Blueprint $table) {
             $table->id();
-            $table->string('cod_ind_final', 15);
             $table->date('fecha_medicion_inicio')->nullable();
             $table->date('fecha_medicion_fin')->nullable();
             $table->decimal('minimo', 4, 1);
-            $table->decimal('satisfactorio', 4, 1);
             $table->decimal('sobresaliente', 4, 1);
             $table->smallInteger('interes')->nullable();
             $table->smallInteger('total')->nullable();
