@@ -144,22 +144,50 @@
     </x-jet-dialog-modal>
 
     @push('js')
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             function denegarDocumentoRequisito(id, name) {
-                let res = confirm('¿Desea denegar el requisito ' + name + '?')
-
-                if (res) {
-                    window.livewire.emit('denegarDocumentoRequisito', id);
-                }
+                Swal.fire({
+                    text: "¿Desea denegar el requisito " + name + " ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, denegar',
+                    cancelButtonText: `Cancelar`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('denegarDocumentoRequisito', id);
+                    }
+                })
             }
 
             function aprobarDocumentoRequisito(id, name) {
-                let res = confirm('¿Desea aprobar el requisito ' + name + '?')
-
-                if (res) {
-                    window.livewire.emit('aprobarDocumentoRequisito', id);
-                }
+                Swal.fire({
+                    text: "¿Desea aprobar el requisito " + name + " ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, aprobar',
+                    cancelButtonText: `Cancelar`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('aprobarDocumentoRequisito', id);
+                    }
+                })
             }
+
+            Livewire.on('guardado', msg => {
+                Swal.fire({
+                    icon: 'success',
+                    title: '',
+                    text: msg,
+                });
+            });
+            Livewire.on('error', msg => {
+                Swal.fire({
+                    icon: 'error',
+                    title: '',
+                    text: msg,
+                });
+            });
         </script>
     @endpush
 </div>
