@@ -19,7 +19,7 @@ class ListaInvestigacionParticipantes extends Component
     public $en_docentes = false; // Variable para saber en que API buscar, y que vista mostrar (Estudiantes, Docentes)
     public $depto_id, $semestre;
 
-    protected $listeners = ["render","cerrarModal"];
+    protected $listeners = ["render","quitarParticipante", "cerrarModal"];
 
     public function mount($investigacion_id, $es_responsable, $depto_id, $semestre)
     {
@@ -61,5 +61,13 @@ class ListaInvestigacionParticipantes extends Component
         $this->en_docentes = $es_docente; // Para cambiar de pestaña entre 'Añadir estudiantes' y 'Añadir docentes'
         if ($es_docente)
             $this->emitTo("investigacion.agregar-investigador-docente", "cargarDocentes");
+    }
+
+    public function quitarParticipante($investigador_id, $investigacion_id)
+    {
+        InvestigacionInvestigador::query()
+            ->where('investigador_id', $investigador_id)
+            ->where('investigacion_id', $investigacion_id)
+            ->delete();
     }
 }

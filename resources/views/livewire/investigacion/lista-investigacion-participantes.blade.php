@@ -45,6 +45,14 @@
                                 </p>
                             @endif
                         </x-utils.tables.body>
+                        <x-utils.tables.body>
+                            @if($es_responsable && $investigador->dni_investigador !== auth()->user()->persona->dni)
+                                <x-utils.buttons.danger class="text-sm"
+                                                        onclick="quitarParticipante({{ $investigador->id }},'{{ $investigador->dni_investigador }}',{{ $investigacion->id }})">
+                                    <x-icons.person-remove class="icon-4" stroke="2"/>
+                                </x-utils.buttons.danger>
+                            @endif
+                        </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach
             @endslot
@@ -140,6 +148,20 @@
                     text: msg,
                 });
             });
+
+            function quitarParticipante(investigador_id, dni, investigacion_id) {
+                Swal.fire({
+                    text: "¿Desea quitar al participante con DNI " + dni + " de la investigación?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, quitar',
+                    cancelButtonText: `Cancelar`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('quitarParticipante', investigador_id, investigacion_id);
+                    }
+                })
+            }
         </script>
     @endpush
 </div>
