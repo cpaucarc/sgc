@@ -15,6 +15,15 @@
         <x-utils.forms.search-input wire:model.debounce.500ms="search"/>
 
         <div class="flex items-center gap-x-2">
+            @if(count($entidad_facultad)>0)
+                <x-utils.forms.select wire:model="escuela_seleccionado">
+                    <option value="0">Todos los programas</option>
+                    @foreach($escuelas as $esc)
+                        <option value="{{$esc->id}}">{{$esc->nombre}}</option>
+                    @endforeach
+                </x-utils.forms.select>
+            @endif
+
             <x-utils.forms.select wire:model="estado">
                 <option value="0">Todos</option>
                 <option value="1">Sin Iniciar</option>
