@@ -25,7 +25,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-048',
                 'formula' => 'X = N° de estudiantes que realizan RSU por programa',
                 'minimo' => 10,
-                'satisfactorio' => 20,
                 'sobresaliente' => 40,
                 'esta_implementado' => true,
                 'proceso_id' => 9,
@@ -42,7 +41,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-049',
                 'formula' => 'X = N° de docentes que realizan RSU por programa',
                 'minimo' => 10,
-                'satisfactorio' => 20,
                 'sobresaliente' => 40,
                 'esta_implementado' => true,
                 'proceso_id' => 9,
@@ -59,7 +57,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-050',
                 'formula' => 'X = (N° de docentes que realizan RSU)/(Total de docentes por programa) x 100',
                 'minimo' => 25,
-                'satisfactorio' => 50,
                 'sobresaliente' => 80,
                 'esta_implementado' => true,
                 'proceso_id' => 9,
@@ -76,7 +73,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-051',
                 'formula' => 'X = (N° de estudiantes que realizan RSU)/(Total de estudiantes por programa) x 100',
                 'minimo' => 20,
-                'satisfactorio' => 40,
                 'sobresaliente' => 80,
                 'esta_implementado' => true,
                 'proceso_id' => 9,
@@ -93,7 +89,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-052',
                 'formula' => 'X = N° de proyectos de RSU por programa',
                 'minimo' => 5,
-                'satisfactorio' => 10,
                 'sobresaliente' => 20,
                 'esta_implementado' => true,
                 'proceso_id' => 9,
@@ -110,7 +105,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-053',
                 'formula' => 'X = (Total satisfechos por RSU)/(Total de encuestados por RSU ) x 100',
                 'minimo' => 20,
-                'satisfactorio' => 40,
                 'sobresaliente' => 80,
                 'esta_implementado' => false,
                 'proceso_id' => 9,
@@ -129,7 +123,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-044',
                 'formula' => 'X = (N° de docentes que participan en PI)/(Total de docentes del programa) x 100',
                 'minimo' => 20,
-                'satisfactorio' => 30,
                 'sobresaliente' => 50,
                 'esta_implementado' => true,
                 'proceso_id' => 8, //DB: procesos: 8:Investigacion
@@ -146,7 +139,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-045',
                 'formula' => 'X = (N° de estudiantes que participan en PI)/(Total de estudiantes del programa) x 100',
                 'minimo' => 0.5,
-                'satisfactorio' => 1,
                 'sobresaliente' => 2,
                 'esta_implementado' => true,
                 'proceso_id' => 8, //DB: procesos: 8:Investigacion
@@ -163,7 +155,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-046',
                 'formula' => 'X = N° de trabajos de investigación publicados por programa de estudios',
                 'minimo' => 2,
-                'satisfactorio' => 4,
                 'sobresaliente' => 6,
                 'esta_implementado' => true,
                 'proceso_id' => 8, //DB: procesos: 8:Investigacion
@@ -180,7 +171,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-047',
                 'formula' => 'X = N° de Proyectos de Investigación presentados por programa',
                 'minimo' => 2,
-                'satisfactorio' => 4,
                 'sobresaliente' => 6,
                 'esta_implementado' => true,
                 'proceso_id' => 8, //DB: procesos: 8:Investigacion
@@ -199,7 +189,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-058',
                 'formula' => 'X = (N° de bachilleres)/(Total de egresados del programa) x 100',
                 'minimo' => 60,
-                'satisfactorio' => 80,
                 'sobresaliente' => 90,
                 'esta_implementado' => true,
                 'proceso_id' => 12, //DB: procesos: 12: Bachiller
@@ -218,7 +207,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-059',
                 'formula' => 'X = (N° de egresados que logran titularse)/(Total de graduados en bachiller por  programa) x 100',
                 'minimo' => 70,
-                'satisfactorio' => 80,
                 'sobresaliente' => 98,
                 'esta_implementado' => true,
                 'proceso_id' => 5, //DB: procesos: 5: Titulo Profesional
@@ -235,7 +223,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-060',
                 'formula' => 'X = N° de titulados por programa de estudios',
                 'minimo' => 30,
-                'satisfactorio' => 40,
                 'sobresaliente' => 95,
                 'esta_implementado' => true,
                 'proceso_id' => 5, //DB: procesos: 5: Titulo Profesional
@@ -252,7 +239,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-061',
                 'formula' => 'X = (N° de PI aprobados)/(Total de PI presentados por  programa) x 100',
                 'minimo' => 30,
-                'satisfactorio' => 50,
                 'sobresaliente' => 90,
                 'esta_implementado' => true,
                 'proceso_id' => 5, //DB: procesos: 5: Titulo Profesional
@@ -274,7 +260,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-024',
                 'formula' => 'X = N° de convalidaciones realizadas por programa',
                 'minimo' => 1,
-                'satisfactorio' => 2,
                 'sobresaliente' => 3,
                 'esta_implementado' => true,
                 'proceso_id' => 16, //DB: procesos: 16: Convalidaciones
@@ -291,7 +276,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-025',
                 'formula' => 'X = N° vacantes para convalidación por programa de estudio',
                 'minimo' => 1,
-                'satisfactorio' => 2,
                 'sobresaliente' => 3,
                 'esta_implementado' => true,
                 'proceso_id' => 16, //DB: procesos: 16: Convalidaciones
@@ -308,7 +292,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-026',
                 'formula' => 'X = (N° de postulantes para convalidar por programa)/(Total de vacantes para convalidar por programa) x 100',
                 'minimo' => 0,
-                'satisfactorio' => 0,
                 'sobresaliente' => 0,
                 'esta_implementado' => true,
                 'proceso_id' => 16, //DB: procesos: 16: Convalidaciones
@@ -327,7 +310,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-001',
                 'formula' => 'X = (N° de actividades cumplidas)/(Total de actividades programadas) x 100',
                 'minimo' => 20,
-                'satisfactorio' => 25,
                 'sobresaliente' => 30,
                 'esta_implementado' => true,
                 'proceso_id' => 11, //DB: procesos: 11: Gestion de Calidad
@@ -344,7 +326,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-068',
                 'formula' => 'X=(N° de indicadores con estado malo)/(Total de indicadores evaluados) x 100',
                 'minimo' => 5,
-                'satisfactorio' => 10,
                 'sobresaliente' => 15,
                 'esta_implementado' => true,
                 'proceso_id' => 11, //DB: procesos: 11: Gestion de Calidad
@@ -361,7 +342,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-069',
                 'formula' => 'X = N° de auditorias de calidad realizada',
                 'minimo' => 25,
-                'satisfactorio' => 30,
                 'sobresaliente' => 39,
                 'esta_implementado' => true,
                 'proceso_id' => 11, //DB: procesos: 11: Gestion de Calidad
@@ -378,7 +358,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-070',
                 'formula' => 'X = (N° de actividades cumplidas)/(Total de actividades programadas) x 100',
                 'minimo' => 5,
-                'satisfactorio' => 10,
                 'sobresaliente' => 20,
                 'esta_implementado' => true,
                 'proceso_id' => 11, //DB: procesos: 11: Gestion de Calidad
@@ -395,7 +374,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-071',
                 'formula' => 'X = (N° de quejas)/(Total de encuestados) x 100',
                 'minimo' => 5,
-                'satisfactorio' => 10,
                 'sobresaliente' => 15,
                 'esta_implementado' => false,
                 'proceso_id' => 11, //DB: procesos: 11: Gestion de Calidad
@@ -414,7 +392,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-021',
                 'formula' => 'X = (N° de beneficiados por programa)/(Total de postulantes del programa) x 100',
                 'minimo' => 0,
-                'satisfactorio' => 0,
                 'sobresaliente' => 0,
                 'esta_implementado' => true,
                 'proceso_id' => 13, //DB: procesos: 13: Bolsa de Trabajo
@@ -431,7 +408,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-022',
                 'formula' => 'X = (N° usuarios satisfechos por programa)/(Total de encuestados por programa) x 100',
                 'minimo' => 0,
-                'satisfactorio' => 0,
                 'sobresaliente' => 0,
                 'esta_implementado' => false,
                 'proceso_id' => 13, //DB: procesos: 13: Bolsa de Trabajo
@@ -448,7 +424,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-023',
                 'formula' => 'X = (N° usuarios satisfechos con trabajo de estudiantes)/(Total de encuestados por programa) x 100',
                 'minimo' => 0,
-                'satisfactorio' => 0,
                 'sobresaliente' => 0,
                 'esta_implementado' => false,
                 'proceso_id' => 13, //DB: procesos: 13: Bolsa de Trabajo
@@ -467,7 +442,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-016',
                 'formula' => 'X = (N° usuarios satisfechos por programa)/(Total de encuestados por programa) x 100',
                 'minimo' => 50,
-                'satisfactorio' => 80,
                 'sobresaliente' => 100,
                 'esta_implementado' => false,
                 'proceso_id' => 14, //DB: procesos: 14: Bienestar Universitario
@@ -484,7 +458,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-017',
                 'formula' => 'X = (N° de comensales atendidos por programa)/(Total de comensales por programa) x 100',
                 'minimo' => 1,
-                'satisfactorio' => 2,
                 'sobresaliente' => 3,
                 'esta_implementado' => true,
                 'proceso_id' => 14, //DB: procesos: 14: Bienestar Universitario
@@ -501,7 +474,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-019',
                 'formula' => 'X = ∑ atenciones por servicio por programa',
                 'minimo' => 20,
-                'satisfactorio' => 50,
                 'sobresaliente' => 100,
                 'esta_implementado' => true,
                 'proceso_id' => 14, //DB: procesos: 14: Bienestar Universitario
@@ -518,7 +490,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-020',
                 'formula' => 'X = (N° usuarios satisfechos por programa)/(Total de encuestados por programa) x 100',
                 'minimo' => 50,
-                'satisfactorio' => 80,
                 'sobresaliente' => 100,
                 'esta_implementado' => false,
                 'proceso_id' => 14, //DB: procesos: 14: Bienestar Universitario
@@ -537,7 +508,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-027',
                 'formula' => 'X = N° de convenios realizados por programa',
                 'minimo' => 70,
-                'satisfactorio' => 80,
                 'sobresaliente' => 90,
                 'esta_implementado' => true,
                 'proceso_id' => 15, //DB: procesos: 15: Convenio
@@ -554,7 +524,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-028',
                 'formula' => 'X = N° de convenios vigentes por programa',
                 'minimo' => 70,
-                'satisfactorio' => 80,
                 'sobresaliente' => 90,
                 'esta_implementado' => true,
                 'proceso_id' => 15, //DB: procesos: 15: Convenio
@@ -571,7 +540,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-029',
                 'formula' => 'X = (N° de convenios cumplidos por programa)/(Total de convenios vigentes por programa) x 100',
                 'minimo' => 70,
-                'satisfactorio' => 80,
                 'sobresaliente' => 90,
                 'esta_implementado' => true,
                 'proceso_id' => 15, //DB: procesos: 15: Convenio
@@ -588,7 +556,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-030',
                 'formula' => 'X = N° de convenios culminados por programa de estudios',
                 'minimo' => 70,
-                'satisfactorio' => 80,
                 'sobresaliente' => 90,
                 'esta_implementado' => true,
                 'proceso_id' => 15, //DB: procesos: 15: Convenio
@@ -605,7 +572,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-031',
                 'formula' => 'X = (N° usuarios satisfechos por convenio)/(Total de encuestados por convenio) x 100',
                 'minimo' => 60,
-                'satisfactorio' => 70,
                 'sobresaliente' => 80,
                 'esta_implementado' => false,
                 'proceso_id' => 15, //DB: procesos: 15: Convenio
@@ -624,7 +590,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-009',
                 'formula' => 'X = N° de material bibliográfico adquirido',
                 'minimo' => 30,
-                'satisfactorio' => 50,
                 'sobresaliente' => 80,
                 'esta_implementado' => true,
                 'proceso_id' => 7, //DB: procesos: 7: Biblioteca
@@ -641,7 +606,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-010',
                 'formula' => 'X = Total de material bibliográfico prestado',
                 'minimo' => 600,
-                'satisfactorio' => 650,
                 'sobresaliente' => 700,
                 'esta_implementado' => true,
                 'proceso_id' => 7, //DB: procesos: 7: Biblioteca
@@ -658,7 +622,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-011',
                 'formula' => 'X = Total de material bibliográfico perdidos',
                 'minimo' => 0,
-                'satisfactorio' => 0,
                 'sobresaliente' => 0,
                 'esta_implementado' => true,
                 'proceso_id' => 7, //DB: procesos: 7: Biblioteca
@@ -675,7 +638,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-012',
                 'formula' => 'X = N° de visitantes a la biblioteca por programa de estudios',
                 'minimo' => 300,
-                'satisfactorio' => 350,
                 'sobresaliente' => 400,
                 'esta_implementado' => true,
                 'proceso_id' => 7, //DB: procesos: 7: Biblioteca
@@ -692,7 +654,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-013',
                 'formula' => 'X = (N° de libros adquiridos)/(Total de libros en colección) x 100',
                 'minimo' => 100,
-                'satisfactorio' => 110,
                 'sobresaliente' => 120,
                 'esta_implementado' => true,
                 'proceso_id' => 7, //DB: procesos: 7: Biblioteca
@@ -709,7 +670,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-014',
                 'formula' => 'X = Total de material bibliográfico restaurado',
                 'minimo' => 150,
-                'satisfactorio' => 155,
                 'sobresaliente' => 160,
                 'esta_implementado' => true,
                 'proceso_id' => 7, //DB: procesos: 7: Biblioteca
@@ -726,7 +686,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-015',
                 'formula' => 'X = (Total satisfechos con servicio de biblioteca)/(Total de encuestados) x 100',
                 'minimo' => 50,
-                'satisfactorio' => 55,
                 'sobresaliente' => 60,
                 'esta_implementado' => false,
                 'proceso_id' => 7, //DB: procesos: 7: Biblioteca
@@ -745,7 +704,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-032',
                 'formula' => 'X = (N° de estudiantes que lograron competencias)/(Total de estudiantes) x 100',
                 'minimo' => 70,
-                'satisfactorio' => 80,
                 'sobresaliente' => 90,
                 'esta_implementado' => true,
                 'proceso_id' => 1, //DB: procesos: 1: Enseñanza y Aprendizaje
@@ -762,7 +720,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-033',
                 'formula' => 'X = N° de estudiantes desaprobados por curso',
                 'minimo' => 10,
-                'satisfactorio' => 4,
                 'sobresaliente' => 2,
                 'esta_implementado' => true,
                 'proceso_id' => 1, //DB: procesos: 1: Enseñanza y Aprendizaje
@@ -779,7 +736,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-034',
                 'formula' => 'X = N° estudiantes en riesgo académico por curso',
                 'minimo' => 8,
-                'satisfactorio' => 6,
                 'sobresaliente' => 4,
                 'esta_implementado' => true,
                 'proceso_id' => 1, //DB: procesos: 1: Enseñanza y Aprendizaje
@@ -796,7 +752,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-035',
                 'formula' => 'X = (Total docentes con evaluación de cumplimiento)/(Total de docentes evaluados por programa) x 100',
                 'minimo' => 0,
-                'satisfactorio' => 0,
                 'sobresaliente' => 0,
                 'esta_implementado' => true,
                 'proceso_id' => 1, //DB: procesos: 1: Enseñanza y Aprendizaje
@@ -813,7 +768,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-036',
                 'formula' => 'X = (Total satisfechos con el proceso E-A)/(Total de encuestados ) x 100',
                 'minimo' => 70,
-                'satisfactorio' => 80,
                 'sobresaliente' => 90,
                 'esta_implementado' => true,
                 'proceso_id' => 1, //DB: procesos: 1: Enseñanza y Aprendizaje
@@ -830,7 +784,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-037',
                 'formula' => 'X = (∑ asistencia a clases de docentes por semana)/(Total de clases programadas por semana)',
                 'minimo' => 0,
-                'satisfactorio' => 0,
                 'sobresaliente' => 0,
                 'esta_implementado' => true,
                 'proceso_id' => 1, //DB: procesos: 1: Enseñanza y Aprendizaje
@@ -847,7 +800,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-038',
                 'formula' => 'X = (Total sílabos publicados por programa)/(Total de sílabos por programa ) x 100',
                 'minimo' => 0,
-                'satisfactorio' => 0,
                 'sobresaliente' => 0,
                 'esta_implementado' => true,
                 'proceso_id' => 1, //DB: procesos: 1: Enseñanza y Aprendizaje
@@ -866,7 +818,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-054',
                 'formula' => 'X = (N° de docentes que realizan tutoría)/(Total de docentes del programa) x 100',
                 'minimo' => 30,
-                'satisfactorio' => 70,
                 'sobresaliente' => 80,
                 'esta_implementado' => true,
                 'proceso_id' => 2, //DB: procesos: 2: Tutoria
@@ -883,7 +834,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-055',
                 'formula' => 'X = (N° de estudiantes que asisten a tutoría)/(Total de estudiantes del programa) x 100',
                 'minimo' => 60,
-                'satisfactorio' => 80,
                 'sobresaliente' => 95,
                 'esta_implementado' => true,
                 'proceso_id' => 2, //DB: procesos: 2: Tutoria
@@ -900,7 +850,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-056',
                 'formula' => 'X = (N° de estudiantes con problemas de aprendizaje)/(Total de estudiantes del programa) x 100',
                 'minimo' => 3,
-                'satisfactorio' => 4,
                 'sobresaliente' => 5,
                 'esta_implementado' => true,
                 'proceso_id' => 2, //DB: procesos: 2: Tutoria
@@ -917,7 +866,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-057',
                 'formula' => 'X = N° de estudiantes con riesgo académico por programa de estudios',
                 'minimo' => 5,
-                'satisfactorio' => 10,
                 'sobresaliente' => 14,
                 'esta_implementado' => true,
                 'proceso_id' => 2, //DB: procesos: 2: Tutoria
@@ -936,7 +884,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-039',
                 'formula' => 'X = N° de estudiantes matriculados por programa de estudios',
                 'minimo' => 200,
-                'satisfactorio' => 210,
                 'sobresaliente' => 215,
                 'esta_implementado' => true,
                 'proceso_id' => 4, //DB: procesos: 4: Matricula
@@ -953,7 +900,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-040',
                 'formula' => 'X = N° de estudiantes no matriculados por programa de estudios',
                 'minimo' => 5,
-                'satisfactorio' => 3,
                 'sobresaliente' => 2,
                 'esta_implementado' => true,
                 'proceso_id' => 4, //DB: procesos: 4: Matricula
@@ -970,7 +916,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-041',
                 'formula' => 'X = N° de estudiantes con reserva de matrícula por programa de estudio',
                 'minimo' => 8,
-                'satisfactorio' => 4,
                 'sobresaliente' => 2,
                 'esta_implementado' => true,
                 'proceso_id' => 4, //DB: procesos: 4: Matricula
@@ -987,7 +932,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-042',
                 'formula' => 'X = (N° de estudiantes no matriculados)/(Total de estudiantes matriculados por programa) x 100',
                 'minimo' => 6,
-                'satisfactorio' => 4,
                 'sobresaliente' => 0,
                 'esta_implementado' => true,
                 'proceso_id' => 4, //DB: procesos: 4: Matricula
@@ -1004,7 +948,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-043',
                 'formula' => 'X = (Total usuarios satisfechos por matrícula)/(Total de usuarios encuestados por el proceso matrícula) x 100',
                 'minimo' => 85,
-                'satisfactorio' => 90,
                 'sobresaliente' => 95,
                 'esta_implementado' => true,
                 'proceso_id' => 4, //DB: procesos: 4: Matricula
@@ -1023,7 +966,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-062',
                 'formula' => 'X = (N° de docentes cumplimiento de 40h)/(Total de docentes de 40h) x 100',
                 'minimo' => 60,
-                'satisfactorio' => 80,
                 'sobresaliente' => 100,
                 'esta_implementado' => true,
                 'proceso_id' => 6, //DB: procesos: 6: Docente
@@ -1040,7 +982,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-063',
                 'formula' => 'X = (N° de docentes que cumplen con sus labores)/(Total de docentes del programa) x 100',
                 'minimo' => 70,
-                'satisfactorio' => 80,
                 'sobresaliente' => 100,
                 'esta_implementado' => true,
                 'proceso_id' => 6, //DB: procesos: 6: Docente
@@ -1059,7 +1000,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-065',
                 'formula' => 'X = (N° de docentes con legajo actualizado)/(Total de docentes por programa) x 100',
                 'minimo' => 80,
-                'satisfactorio' => 90,
                 'sobresaliente' => 100,
                 'esta_implementado' => true,
                 'proceso_id' => 6, //DB: procesos: 6: Docente
@@ -1076,7 +1016,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-066',
                 'formula' => 'X = N° de capacitaciones para mejorar las capacidades de los directivos por programa',
                 'minimo' => 80,
-                'satisfactorio' => 90,
                 'sobresaliente' => 100,
                 'esta_implementado' => true,
                 'proceso_id' => 6, //DB: procesos: 6: Docente
@@ -1093,7 +1032,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-067',
                 'formula' => 'X = (N° de docentes por departamento)/(Total de administrativos por programa) x 100',
                 'minimo' => 80,
-                'satisfactorio' => 90,
                 'sobresaliente' => 100,
                 'esta_implementado' => true,
                 'proceso_id' => 6, //DB: procesos: 6: Docente
@@ -1111,7 +1049,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-074',
                 'formula' => 'X = (N° de docentes que cumplen con el perfil)/(Total de docentes por programa) x 100',
                 'minimo' => 80,
-                'satisfactorio' => 90,
                 'sobresaliente' => 100,
                 'esta_implementado' => true,
                 'proceso_id' => 6, //DB: procesos: 6: Docente
@@ -1128,7 +1065,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-075',
                 'formula' => 'X = (N° de docentes capacitados)/(Total de docentes por programa) x 100',
                 'minimo' => 80,
-                'satisfactorio' => 90,
                 'sobresaliente' => 100,
                 'esta_implementado' => true,
                 'proceso_id' => 6, //DB: procesos: 6: Docente
@@ -1145,7 +1081,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-076',
                 'formula' => 'X = (N° de docentes con evaluación satisfactoria)/(Total de docentes evaluados por programa) x 100',
                 'minimo' => 70,
-                'satisfactorio' => 80,
                 'sobresaliente' => 90,
                 'esta_implementado' => true,
                 'proceso_id' => 6, //DB: procesos: 6: Docente
@@ -1162,7 +1097,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-077',
                 'formula' => 'X = (N° de docentes ascendidos)/(Total de docentes por ascender por programa) x 100',
                 'minimo' => 50,
-                'satisfactorio' => 70,
                 'sobresaliente' => 80,
                 'esta_implementado' => true,
                 'proceso_id' => 6, //DB: procesos: 6: Docente
@@ -1179,7 +1113,6 @@ class IndicadorSeeder extends Seeder
                 'cod_ind_inicial' => 'IND-078',
                 'formula' => 'X = (N° de docentes reconocidos)/(Total de docentes por programa) x 100',
                 'minimo' => 70,
-                'satisfactorio' => 80,
                 'sobresaliente' => 90,
                 'esta_implementado' => true,
                 'proceso_id' => 6, //DB: procesos: 6: Docente

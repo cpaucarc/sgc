@@ -19,10 +19,9 @@ return new class extends Migration
             $table->string('titulo_interes')->nullable();
             $table->string('titulo_total')->nullable();
             $table->string('titulo_resultado');
-            $table->string('cod_ind_inicial', 15);
+            $table->string('cod_ind_inicial', 8);
             $table->string('formula')->nullable();
             $table->decimal('minimo', 4, 1);
-            $table->decimal('satisfactorio', 4, 1);
             $table->decimal('sobresaliente', 4, 1);
             $table->boolean('esta_implementado')->default(true);
 
