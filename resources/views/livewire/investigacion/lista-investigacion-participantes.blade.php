@@ -2,7 +2,7 @@
     <div class="flex justify-between items-center mb-2">
         <h2 class="text-zinc-600 text-base font-bold leading-tight">Investigadores</h2>
 
-        @if(count($investigacion->investigadores) > 0)
+        @if($es_responsable and count($investigacion->investigadores) > 0)
             <x-utils.buttons.default class="text-sm" wire:click="abrirModal">
                 <x-icons.people class="icon-4 mr-1" stroke="1.5"></x-icons.people>
                 Añadir
@@ -70,10 +70,11 @@
                             d="M17.29 8c-.148 0-.292.01-.434.03a.75.75 0 11-.212-1.484 4.53 4.53 0 013.38 8.097 6.69 6.69 0 013.956 6.107.75.75 0 01-1.5 0 5.193 5.193 0 00-3.696-4.972l-.534-.16v-1.676l.41-.209A3.03 3.03 0 0017.29 8z"></path>
                     </svg>
                 @endslot
-
-                <x-jet-button class="text-sm">
-                    Añadir investigadores
-                </x-jet-button>
+                @if($es_responsable)
+                    <x-jet-button class="text-sm">
+                        Añadir investigadores
+                    </x-jet-button>
+                @endif
             </x-utils.message-no-items>
         </div>
     @endif

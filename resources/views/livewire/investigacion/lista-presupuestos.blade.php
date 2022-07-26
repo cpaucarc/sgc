@@ -3,7 +3,7 @@
     <div class="flex justify-between items-center mb-2">
         <h2 class="text-zinc-500 text-base font-bold leading-tight">Financiación</h2>
 
-        @if(count($investigacion->financiaciones) > 0)
+        @if($es_responsable and count($investigacion->financiaciones) > 0)
             <x-utils.buttons.default class="text-sm" wire:click="openModal">
                 Nueva fuente
             </x-utils.buttons.default>
@@ -64,10 +64,11 @@
                               d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                 @endslot
-
-                <x-jet-button class="text-sm" wire:click="openModal">
-                    Registrar fuentes
-                </x-jet-button>
+                @if($es_responsable)
+                    <x-jet-button class="text-sm" wire:click="openModal">
+                        Registrar fuentes
+                    </x-jet-button>
+                @endif
             </x-utils.message-no-items>
         </div>
     @endif
