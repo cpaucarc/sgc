@@ -105,6 +105,7 @@ class AgregarInvestigadorEstudiante extends Component
                 InvestigacionInvestigador::insert($arrayDniExistente);
                 $this->emit('guardado', "Se añadieron correctamente " . count($arrayDniExistente) . " de " . count($arrayDni) . " nuevos investigadores.");
                 $this->emitTo("investigacion.lista-investigacion-participantes", "render");
+                $this->emitTo("investigacion.lista-investigacion-participantes", "cerrarModal");
                 $this->dni = implode(',', $array_aux);
                 $this->mensaje_estudiantes = null;
             }

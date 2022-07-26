@@ -93,6 +93,7 @@ class AgregarInvestigadorDocente extends Component
                 InvestigacionInvestigador::insert($arrayParticipantes);
                 $this->emit('guardado', "Se añadieron correctamente " . count($arrayParticipantes) . " nuevos docentes investigadores.");
                 $this->emitTo("investigacion.lista-investigacion-participantes", "render");
+                $this->emitTo("investigacion.lista-investigacion-participantes", "cerrarModal");
                 $this->mensaje_docentes = null;
                 $this->reset(['docentes_seleccionados', 'docentes']);
                 $this->cargarDatosDocentes();

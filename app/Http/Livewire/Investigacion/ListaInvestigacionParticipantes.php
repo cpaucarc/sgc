@@ -19,7 +19,7 @@ class ListaInvestigacionParticipantes extends Component
     public $en_docentes = false; // Variable para saber en que API buscar, y que vista mostrar (Estudiantes, Docentes)
     public $depto_id, $semestre;
 
-    protected $listeners = ["render"];
+    protected $listeners = ["render","cerrarModal"];
 
     public function mount($investigacion_id, $es_responsable, $depto_id, $semestre)
     {
@@ -49,6 +49,11 @@ class ListaInvestigacionParticipantes extends Component
     public function abrirModal()
     {
         $this->add = true;
+    }
+
+    public function cerrarModal()
+    {
+        $this->add = false;
     }
 
     public function buscarEnDocentes($es_docente)
