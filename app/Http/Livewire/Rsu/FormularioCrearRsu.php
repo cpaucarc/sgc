@@ -29,7 +29,7 @@ class FormularioCrearRsu extends Component
         'titulo' => 'required',
         'descripcion' => 'nullable',
         'lugar' => 'required',
-        'fecha_de_inicio' => 'required|date|after:now',
+        'fecha_de_inicio' => 'required|date',
         'fecha_de_finalizacion' => 'required|date|after:fecha_de_inicio',
         'escuela' => 'required|integer|gt:0',
         'empresa_id' => 'required_if:en_empresa,1|nullable|integer'
