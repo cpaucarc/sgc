@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Investigacion;
 
 use App\Models\Entidadable;
+use App\Models\Escuela;
 use App\Models\Investigacion;
 use App\Models\Semestre;
 use Carbon\Carbon;
@@ -14,6 +15,8 @@ class ListaInvestigacionGeneral extends Component
     public $search;
     public $escuelas_id, $facultades_id;
     public $estado = 1, $semestres = null, $semestre = 0;
+
+    public $escuelas = null, $escuela_seleccionado = 0;
 
     public function mount()
     {
@@ -33,6 +36,10 @@ class ListaInvestigacionGeneral extends Component
 
         $this->semestres = Semestre::query()->orderBy('nombre', 'desc')->get();
         $this->semestre = $this->semestres->where('activo', true)->first()->id;
+
+        if (count($this->facultades_id)) {
+            $this->escuelas = Escuela::query()->whereIn('facultad_id', $this->facultades_id)->get();
+        }
     }
 
     public function render()
@@ -55,6 +62,11 @@ class ListaInvestigacionGeneral extends Component
                 $query->select('id')->from('escuelas')
                     ->whereIn('facultad_id', $this->facultades_id);
             });
+
+            //Si la escuela seleccionada es mayor que cero.
+            if ($this->escuela_seleccionado > 0) {
+                $investigaciones = $investigaciones->where('escuela_id', $this->escuela_seleccionado);
+            }
         } else { // El usuario NO pertenece a ninguna facultad
             $investigaciones = $investigaciones->whereIn('escuela_id', $this->escuelas_id);
         }
