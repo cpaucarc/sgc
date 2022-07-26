@@ -83,6 +83,7 @@ class AgregarParticipanteDocente extends Component
                 RsuParticipante::insert($arrayParticipantes);
                 $this->emit('guardado', "Se añadieron correctamente " . count($arrayParticipantes) . " nuevos docentes participantes.");
                 $this->emitTo("rsu.participantes", "render");
+                $this->emitTo("rsu.participantes", "cerrarModal");
                 $this->reset(['docentes_seleccionados', 'docentes']);
                 $this->cargarDatosDocentes();
             }
