@@ -1,11 +1,10 @@
 <div>
-    <x-utils.forms.select wire:model="cargo_participante"
-                          onchange="cambiarCargo('{{ $participante->dni_participante }}')">
+    <x-utils.forms.select wire:model="cargo_participante" wire:click="cambiarCargo()">
         <option value="0">Participante</option>
         <option value="1">Responsable</option>
     </x-utils.forms.select>
 
-    @push('js')
+    {{--@push('js')
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             function cambiarCargo(dni) {
@@ -22,5 +21,5 @@
                 })
             }
         </script>
-    @endpush
+    @endpush--}}
 </div>

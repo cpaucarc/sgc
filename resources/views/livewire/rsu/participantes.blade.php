@@ -33,7 +33,7 @@
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             @if($es_responsable && $participante->dni_participante !== auth()->user()->persona->dni)
-                                <livewire:rsu.cargo-participante :participante="$participante"
+                                <livewire:rsu.cargo-participante :participante_id="$participante->id"
                                                                  :wire:key="$participante->id"/>
                             @else
                                 <p class="{{ $participante->es_responsable ? 'font-bold':'' }} ml-2">
