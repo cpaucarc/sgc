@@ -32,6 +32,16 @@
                         <x-utils.tables.body>
                             {{$financiador->pivot->created_at->format('d-m-Y h:ia')}}
                         </x-utils.tables.body>
+                        <x-utils.tables.body>
+                            @if($es_responsable )
+                                <x-utils.buttons.danger class="text-sm"
+                                                        onclick="eliminarFinanciacion({{ $financiador->id  }},'{{$financiador->nombre}}',{{$investigacion->id}})">
+                                    <x-icons.delete class="h-5 w-5" stroke="1.55"/>
+                                </x-utils.buttons.danger>
+                            @else
+                                <span></span>
+                            @endif
+                        </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach
             @endslot
@@ -111,4 +121,22 @@
         </x-slot>
 
     </x-jet-dialog-modal>
+
+    @push('js')
+        <script>
+            function eliminarFinanciacion($financiador_id, nombre, $investigacion_id) {
+                Swal.fire({
+                    text: "¿Desea eliminar la fuente de financiación de " + nombre + " de esta investigación?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, eliminar',
+                    cancelButtonText: `Cancelar`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('eliminarFinanciacion', $financiador_id, $investigacion_id);
+                    }
+                })
+            }
+        </script>
+    @endpush
 </div>
