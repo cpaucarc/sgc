@@ -1,4 +1,14 @@
 <div>
+    <div class="flex justify-end items-center mb-4">
+        @if(count($escuelas_id)>0)
+            <x-utils.forms.select wire:model="escuela_seleccionado">
+                <option value="0">Todos los programas</option>
+                @foreach($escuelas as $esc)
+                    <option value="{{$esc->id}}">{{$esc->nombre}}</option>
+                @endforeach
+            </x-utils.forms.select>
+        @endif
+    </div>
     <div class="grid grid-cols-6 gap-12">
         @forelse( $solicitudesCompletas as $soli)
             <div
