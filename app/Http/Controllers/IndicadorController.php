@@ -83,23 +83,24 @@ class IndicadorController extends Controller
             ->where('esta_implementado', true)
             ->where('proceso_id', $proceso_id);
 
+        $abrev = "";
         if ($tipo == 1) { // 1: escuela
             $escuela = Escuela::where('uuid', $uuid)->first();
-
+            $abrev = $escuela->abrev;
             $indicadores = $indicadores->whereHas('escuelas', function ($query) use ($escuela) {
                 $query->where('escuelas.id', $escuela->id);
             })->get();
 
-            return view('indicador.por_proceso', compact('proceso', 'uuid', 'tipo', 'indicadores', 'escuela'));
+            return view('indicador.por_proceso', compact('proceso', 'uuid', 'tipo', 'indicadores', 'escuela', 'abrev'));
 
         } else { // 2: facultad
             $facultad = Facultad::where('uuid', $uuid)->first();
-
+            $abrev = $facultad->abrev;
             $indicadores = $indicadores->whereHas('facultades', function ($query) use ($facultad) {
                 $query->where('facultades.id', $facultad->id);
             })->get();
 
-            return view('indicador.por_proceso', compact('proceso', 'uuid', 'tipo', 'indicadores', 'facultad'));
+            return view('indicador.por_proceso', compact('proceso', 'uuid', 'tipo', 'indicadores', 'facultad', 'abrev'));
         }
     }
 

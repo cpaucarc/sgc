@@ -23,7 +23,7 @@ class NuevoAnalisis extends Component
     public $open = false;
     public $tipo, $medicionEnSemanas = 4;
     public $indicadorable, $entidad, $type, $oficina;
-    public $min, $sat, $sob;
+    public $min, $sob;
     public $semestres = null, $semestre_id = 0, $semestre_nombre = null, $semestre_inicio = null, $semestre_fin = null;
     public $inicio, $fin, $diffInDays, $diffIsOk = true;
     public $resultados = null;
@@ -37,7 +37,6 @@ class NuevoAnalisis extends Component
 
     protected $rules = [
         'min' => 'required',
-        'sat' => 'required',
         'sob' => 'required',
     ];
 
@@ -59,7 +58,6 @@ class NuevoAnalisis extends Component
         $this->categorizarPorTipo($tipo, $uuid);
 
         $this->min = $this->indicadorable->indicador->minimo;
-        $this->sat = $this->indicadorable->indicador->satisfactorio;
         $this->sob = $this->indicadorable->indicador->sobresaliente;
 
         $this->cod_ind = $this->indicadorable->indicador->cod_ind_inicial;
@@ -161,9 +159,7 @@ class NuevoAnalisis extends Component
             $analisis_indicador = AnalisisIndicador::create([
                 'fecha_medicion_inicio' => $this->inicio,
                 'fecha_medicion_fin' => $this->fin,
-                'cod_ind_final' => $this->indicadorable->indicador->cod_ind_inicial . '_' . $this->entidad->abrev,
                 'minimo' => $this->min,
-                'satisfactorio' => $this->sat,
                 'sobresaliente' => $this->sob,
                 'interes' => $res['interes'] ?? null,
                 'total' => $res['total'] ?? null,
@@ -212,11 +208,10 @@ class NuevoAnalisis extends Component
             AnalisisServicio::insert($analisis_servicios);
         }
 
-        // Guardamos los nuevos valores de min, sat, sob si el checkbox está activo
+        // Guardamos los nuevos valores de min, sob si el checkbox está activo
         if ($this->guardar) {
-            $this->indicadorable->indicador->minimo = $this->min;
-            $this->indicadorable->indicador->satisfactorio = $this->sat;
-            $this->indicadorable->indicador->sobresaliente = $this->sob;
+            $this->indicadorable->minimo = $this->min;
+            $this->indicadorable->sobresaliente = $this->sob;
             $this->indicadorable->indicador->save();
         }
 

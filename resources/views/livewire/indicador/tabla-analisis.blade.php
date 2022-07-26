@@ -88,7 +88,6 @@
                     }}
                 </x-utils.tables.head>
                 <x-utils.tables.head>Mínimo</x-utils.tables.head>
-                <x-utils.tables.head>Satisfactorio</x-utils.tables.head>
                 <x-utils.tables.head>Sobresaliente</x-utils.tables.head>
                 <x-utils.tables.head>Creación</x-utils.tables.head>
                 <x-utils.tables.head class="print:hidden">
@@ -138,9 +137,6 @@
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             {{ floatval($analisis->minimo) }}
-                        </x-utils.tables.body>
-                        <x-utils.tables.body>
-                            {{ floatval($analisis->satisfactorio) }}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             {{ floatval($analisis->sobresaliente) }}

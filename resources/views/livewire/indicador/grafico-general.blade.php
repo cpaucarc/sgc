@@ -17,11 +17,10 @@
         <script>
             Livewire.on('eventRenderGraph', datos => {
 
-                let sobresaliente, satisfactorio, minimo, bar;
+                let sobresaliente, minimo, bar;
                 let labels, colores;
 
                 sobresaliente = datos.sobresaliente;
-                satisfactorio = datos.satisfactorio;
                 minimo = datos.minimo;
                 bar = datos.bar;
                 labels = datos.labels;
@@ -39,14 +38,6 @@
                                 data: sobresaliente,
                                 fill: false,
                                 borderColor: lineas['sobresaliente'],
-                                tension: 0.1,
-                                pointBorderWidth: 7,
-                            }, {
-                                type: 'line',
-                                label: 'Satisfactorio',
-                                data: satisfactorio,
-                                fill: false,
-                                borderColor: lineas['satisfactorio'],
                                 tension: 0.1,
                                 pointBorderWidth: 7,
                             }, {
