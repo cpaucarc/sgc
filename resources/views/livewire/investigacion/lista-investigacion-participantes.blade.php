@@ -38,8 +38,7 @@
                             @if($es_responsable && $investigador->dni_investigador !== auth()->user()->persona->dni)
                                 <livewire:investigacion.cargo-participante :investigacion_id="$investigacion->id"
                                                                            :investigador_id="$investigador->id"
-
-                                                                           :wire:key="$investigador->id"/>
+                                                                           :wire:key="$investigacion->id.$investigador->id"/>
                             @else
                                 <p class="{{ $investigador->pivot->es_responsable ? 'font-bold':'' }} ml-2">
                                     {{ $investigador->pivot->es_responsable ? 'Responsable':'Corresponsable' }}
