@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Bachiller\Solicitudes;
 
 use App\Models\DocumentoSolicitud;
+use App\Models\Escuela;
 use App\Models\Oge;
 use App\Models\Solicitud;
 use Livewire\Component;
@@ -12,6 +13,8 @@ class Incompletas extends Component
     public $solicitudSeleccionado = null, $openModelRequisitos = false;
     public $datos_estudiante = null, $openModalEstudiante = false;
     public $escuelas_id = [];
+
+    public $escuelas = null, $escuela_seleccionado = 0;
 
     public $listeners = [
         'documentoAprobado' => 'render',
@@ -23,6 +26,10 @@ class Incompletas extends Component
     public function mount($escuelas_id)
     {
         $this->escuelas_id = $escuelas_id;
+
+        if (count($this->escuelas_id) > 0) {
+            $this->escuelas = Escuela::query()->whereIn('id', $this->escuelas_id)->get();
+        }
     }
 
     public function modalRequisitos($id)
@@ -79,9 +86,14 @@ class Incompletas extends Component
             ->where('tipo_solicitud_id', 1)// 1 : Bachiller
             ->whereIn('escuela_id', $this->escuelas_id)
             ->having('documentos_count', '>', 0)
-            ->having('documentos_count', '<', 15) // 15 : Requisitos para bachiller
-            ->orderBy('updated_at', 'desc')
-            ->get();
+            ->having('documentos_count', '<', 15);// 15 : Requisitos para bachiller
+
+        //Si la escuela seleccionada es mayor que cero.
+        if ($this->escuela_seleccionado > 0) {
+            $solicitudesIncompletas = $solicitudesIncompletas->where('escuela_id', $this->escuela_seleccionado);
+        }
+
+        $solicitudesIncompletas = $solicitudesIncompletas->orderBy('updated_at', 'desc')->get();
 
         return view('livewire.bachiller.solicitudes.incompletas', compact('solicitudesIncompletas'));
     }

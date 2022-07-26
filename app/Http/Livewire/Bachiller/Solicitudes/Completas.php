@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Bachiller\Solicitudes;
 
 use App\Models\DocumentoSolicitud;
+use App\Models\Escuela;
 use App\Models\GradoEstudiante;
 use App\Models\Oge;
 use App\Models\Solicitud;
@@ -13,6 +14,8 @@ class Completas extends Component
     public $solicitudSeleccionado = null, $openModelRequisitos = false;
     public $openModalEstudiante = false, $datos_estudiante = null;
     public $escuelas_id = [];
+
+    public $escuelas = null, $escuela_seleccionado = 0;
 
     protected $listeners = [
         'documentoAprobado' => 'render',
@@ -25,6 +28,10 @@ class Completas extends Component
     public function mount($escuelas_id)
     {
         $this->escuelas_id = $escuelas_id;
+
+        if (count($this->escuelas_id) > 0) {
+            $this->escuelas = Escuela::query()->whereIn('id', $this->escuelas_id)->get();
+        }
     }
 
     public function modalRequisitos($id)
@@ -104,9 +111,14 @@ class Completas extends Component
             ->withCount('documentos')
             ->where('tipo_solicitud_id', 1)// 1 : Bachiller
             ->whereIn('escuela_id', $this->escuelas_id)
-            ->having('documentos_count', '=', 15) // 15 : Requisitos para bachiller
-            ->orderBy('updated_at', 'desc')
-            ->get();
+            ->having('documentos_count', '=', 15); // 15 : Requisitos para bachiller
+
+        //Si la escuela seleccionada es mayor que cero.
+        if ($this->escuela_seleccionado > 0) {
+            $solicitudesCompletas = $solicitudesCompletas->where('escuela_id', $this->escuela_seleccionado);
+        }
+
+        $solicitudesCompletas = $solicitudesCompletas->orderBy('updated_at', 'desc')->get();
 
         return view('livewire.bachiller.solicitudes.completas', compact('solicitudesCompletas'));
     }
