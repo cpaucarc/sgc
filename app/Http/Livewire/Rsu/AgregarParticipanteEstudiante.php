@@ -96,6 +96,7 @@ class AgregarParticipanteEstudiante extends Component
                 RsuParticipante::insert($arrayDniExistente);
                 $this->emit('guardado', "Se añadieron correctamente " . count($arrayDniExistente) . " de " . count($arrayDni) . " nuevos participantes.");
                 $this->emitTo("rsu.participantes", "render");
+                $this->emitTo("rsu.participantes", "cerrarModal");
                 $this->dni = implode(',', $array_aux);
                 $this->mensaje_estudiantes = null;
             }
