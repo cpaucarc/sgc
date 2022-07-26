@@ -11,7 +11,7 @@ class Indicadorable extends Model
 
     protected $table = "indicadorables";
     public $timestamps = false;
-    public $fillable = ['indicadorable_id', 'indicadorable_type', 'indicador_id'];
+    public $fillable = ['cod_ind_final', 'minimo', 'sobresaliente', 'indicadorable_id', 'indicadorable_type', 'indicador_id'];
 
     public function indicador()
     {

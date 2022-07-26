@@ -14,6 +14,9 @@ return new class extends Migration {
     {
         Schema::create('indicadorables', function (Blueprint $table) {
             $table->id();
+            $table->string('cod_ind_final', 15);
+            $table->decimal('minimo', 4, 1);
+            $table->decimal('sobresaliente', 4, 1);
             $table->unsignedBigInteger('indicadorable_id');
             $table->string('indicadorable_type');
             $table->foreignId('indicador_id')->constrained('indicadores')
