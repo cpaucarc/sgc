@@ -1,40 +1,32 @@
 <div class="space-y-4">
 
-    <x-utils.card>
-        <div class="flex justify-between items-center space-x-2">
-            <div class="pr-4 flex-1">
-                <h1 class="text-xl font-bold text-gray-700">
-                    Postulantes y beneficiarios en Bolsa de Trabajo
-                </h1>
-            </div>
+    <x-utils.titulo
+        titulo="Postulantes y Beneficiarios en Bolsa de Trabajo">
+        @slot('items')
+            <x-utils.forms.select class="w-52" wire:model="semestre">
+                <option value="0">Todos los semestres</option>
+                @foreach($semestres as $sm)
+                    <option value="{{ $sm->id }}">{{$sm->nombre}}</option>
+                @endforeach
+            </x-utils.forms.select>
 
-            <div class="inline-flex space-x-2 items-center">
-                <x-utils.forms.select class="w-52" wire:model="semestre">
-                    <option value="0">Todos los semestres</option>
-                    @foreach($semestres as $sm)
-                        <option value="{{ $sm->id }}">{{$sm->nombre}}</option>
-                    @endforeach
-                </x-utils.forms.select>
+            <x-utils.forms.select class="w-52" wire:model="escuela">
+                <option value="0">Todos los programas</option>
+                @foreach($escuelas as $esc)
+                    <option value="{{ $esc->id }}">{{$esc->nombre}}</option>
+                @endforeach
+            </x-utils.forms.select>
 
-                <x-utils.forms.select class="w-52" wire:model="escuela">
-                    <option value="0">Todos los programas</option>
-                    @foreach($escuelas as $esc)
-                        <option value="{{ $esc->id }}">{{$esc->nombre}}</option>
-                    @endforeach
-                </x-utils.forms.select>
-
-                @if(count($postulantes) > 0)
-                    <x-utils.links.primary class="text-sm" href="{{ route('btu.registrar.postulante') }}">
-                        <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
-                        Nuevo
-                    </x-utils.links.primary>
-                @endif
-            </div>
-        </div>
-    </x-utils.card>
+            @if(count($postulantes) > 0)
+                <x-utils.links.primary class="text-sm" href="{{ route('btu.registrar.postulante') }}">
+                    <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
+                    Nuevo
+                </x-utils.links.primary>
+            @endif
+        @endslot
+    </x-utils.titulo>
 
     @if(count($postulantes) > 0)
-
         <div class="py-4">
             <x-utils.tables.table>
                 @slot('head')

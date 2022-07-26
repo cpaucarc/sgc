@@ -1,17 +1,9 @@
 <div class="space-y-4">
 
-    <x-utils.card>
-        <div class="flex justify-between items-center space-x-2">
-            <div class="pr-4 flex-1">
-                <h1 class="text-xl font-bold text-gray-800">
-                    Información a proveer
-                </h1>
-                <p class="text-sm text-gray-400">
-                    En esta sección usted podrá ver la lista de documentos con las que debe proveer a los diferentes
-                    actividades.
-                </p>
-            </div>
-
+    <x-utils.titulo
+        titulo="Información a proveer"
+        subtitulo="En esta sección usted podrá ver la lista de documentos con las que debe proveer a los diferentes actividades.">
+        @slot('items')
             <x-utils.forms.select class="w-24" wire:model="semestre_seleccionado">
                 @forelse($semestres as $semestre)
                     <option value="{{ $semestre->id }}">{{$semestre->nombre}}</option>
@@ -27,8 +19,8 @@
                     <option value="0">No hay datos</option>
                 @endforelse
             </x-utils.forms.select>
-        </div>
-    </x-utils.card>
+        @endslot
+    </x-utils.titulo>
 
     <x-utils.tables.table>
         @slot('head')

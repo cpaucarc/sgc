@@ -1,28 +1,22 @@
 <div class="space-y-4">
-    <x-utils.card>
-        <div class="flex justify-between items-center space-x-2">
-            <div class="pr-4 flex-1">
-                <h1 class="text-xl font-bold text-gray-700">
-                    Registros de Auditorias
-                </h1>
-            </div>
 
-            <div class="inline-flex space-x-2 items-center">
-                <x-utils.forms.select class="w-52" wire:model="auditoria">
-                    <option value="-1">Todas las auditorias</option>
-                    <option value="0">Auditoria Externa</option>
-                    <option value="1">Auditoria Interna</option>
-                </x-utils.forms.select>
+    <x-utils.titulo
+        titulo="Lista de Auditorias">
+        @slot('items')
+            <x-utils.forms.select class="w-52" wire:model="auditoria">
+                <option value="-1">Todas las auditorias</option>
+                <option value="0">Auditoria Externa</option>
+                <option value="1">Auditoria Interna</option>
+            </x-utils.forms.select>
 
-                @if(count($auditorias) > 0)
-                    <x-utils.links.primary class="text-sm" href="{{ route('auditoria.create') }}">
-                        <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
-                        Registrar
-                    </x-utils.links.primary>
-                @endif
-            </div>
-        </div>
-    </x-utils.card>
+            @if(count($auditorias) > 0)
+                <x-utils.links.primary class="text-sm" href="{{ route('auditoria.create') }}">
+                    <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
+                    Registrar
+                </x-utils.links.primary>
+            @endif
+        @endslot
+    </x-utils.titulo>
 
     @if(count($auditorias) > 0)
         <div class="py-4">

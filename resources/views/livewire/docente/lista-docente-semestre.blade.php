@@ -1,22 +1,22 @@
 <div class="space-y-6">
 
-    <section class="flex items-center justify-between gap-x-2">
-        <div class="space-y-2">
-            <h1 class="text-zinc-800 text-xl font-bold">Docentes por semestre</h1>
+    <x-utils.titulo titulo="Docentes por semestre">
+        @slot('items')
+            <x-utils.forms.select wire:model="semestre">
+                @forelse($semestres as $sm)
+                    <option value="{{ $sm->id }}">{{ $sm->nombre }}</option>
+                @empty
+                    <option value="0">No hay datos</option>
+                @endforelse
+            </x-utils.forms.select>
+        @endslot
+        @slot('subtitulo')
             <p class="text-sm text-amber-700 bg-amber-100 rounded-md inline-flex px-3 py-1.5 font-semibold">
                 <x-icons.info class="icon-5 mr-2" stroke="1.75"/>
                 Se recomienda que esta sección sea atendida a inicios del semestre académico.
             </p>
-        </div>
-
-        <x-utils.forms.select wire:model="semestre">
-            @forelse($semestres as $sm)
-                <option value="{{ $sm->id }}">{{ $sm->nombre }}</option>
-            @empty
-                <option value="0">No hay datos</option>
-            @endforelse
-        </x-utils.forms.select>
-    </section>
+        @endslot
+    </x-utils.titulo>
 
     @if(count($docentes))
         <x-utils.tables.table>

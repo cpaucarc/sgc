@@ -1,40 +1,33 @@
 <div class="space-y-4">
-    <x-utils.card>
-        <div class="flex justify-between items-center space-x-2">
-            <div class="flex-1">
-                <h1 class="text-xl font-bold text-gray-800">
-                    Visitas a la Biblioteca
-                </h1>
-            </div>
 
-            <div class="inline-flex space-x-2 items-center">
-                <x-utils.forms.select class="w-24" wire:model="semestre">
-                    @forelse($semestres as $sm)
-                        <option value="{{ $sm->id }}">{{$sm->nombre}}</option>
-                    @empty
-                        <option value="0">No hay datos</option>
-                    @endforelse
-                </x-utils.forms.select>
+    <x-utils.titulo
+        titulo="Visitas a la Biblioteca">
+        @slot('items')
+            <x-utils.forms.select class="w-24" wire:model="semestre">
+                @forelse($semestres as $sm)
+                    <option value="{{ $sm->id }}">{{$sm->nombre}}</option>
+                @empty
+                    <option value="0">No hay datos</option>
+                @endforelse
+            </x-utils.forms.select>
 
-                <x-utils.forms.select class="w-28" wire:model="escuela">
-                    <option value="0">Todos</option>
-                    @foreach($escuelas as $esc)
-                        <option value="{{ $esc->id }}">{{$esc->nombre}}</option>
-                    @endforeach
-                </x-utils.forms.select>
+            <x-utils.forms.select class="w-28" wire:model="escuela">
+                <option value="0">Todos</option>
+                @foreach($escuelas as $esc)
+                    <option value="{{ $esc->id }}">{{$esc->nombre}}</option>
+                @endforeach
+            </x-utils.forms.select>
 
-                @if(count($visitantes) > 0)
-                    <x-utils.links.primary class="text-sm" href="{{ route('biblioteca.registrar.visitante') }}">
-                        <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
-                        Nuevo
-                    </x-utils.links.primary>
-                @endif
-            </div>
-        </div>
-    </x-utils.card>
+            @if(count($visitantes) > 0)
+                <x-utils.links.primary class="text-sm" href="{{ route('biblioteca.registrar.visitante') }}">
+                    <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
+                    Nuevo
+                </x-utils.links.primary>
+            @endif
+        @endslot
+    </x-utils.titulo>
 
     @if(count($visitantes) > 0)
-
         <div class="py-4">
             <x-utils.tables.table>
                 @slot('head')

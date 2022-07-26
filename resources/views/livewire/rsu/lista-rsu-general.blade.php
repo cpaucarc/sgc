@@ -1,19 +1,15 @@
 <div class="space-y-4">
-
-    <x-utils.card>
-        <div class="flex justify-between items-center space-x-2">
-            <h1 class="pr-4 flex-1 text-xl font-bold text-gray-700">
-                Responsabilidad Social Universitario
-            </h1>
-
+    <x-utils.titulo
+        titulo="Responsabilidad Social Universitario">
+        @slot('items')
             @if(count($rsu) > 0)
                 <x-utils.links.primary class="text-sm" href="{{ route('rsu.create') }}">
-                    <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
+                    <x-icons.plus class="icon-5 mr-1" stroke="1.5"></x-icons.plus>
                     Nuevo
                 </x-utils.links.primary>
             @endif
-        </div>
-    </x-utils.card>
+        @endslot
+    </x-utils.titulo>
 
     <div class="flex items-center justify-between">
         <x-utils.forms.search-input wire:model.debounce.500ms="search"/>
@@ -42,7 +38,6 @@
                 <x-utils.tables.head>Título</x-utils.tables.head>
                 <x-utils.tables.head>Programa</x-utils.tables.head>
                 <x-utils.tables.head>Lugar</x-utils.tables.head>
-                <x-utils.tables.head>Empresa</x-utils.tables.head>
                 <x-utils.tables.head>Inicio</x-utils.tables.head>
                 <x-utils.tables.head>Fin</x-utils.tables.head>
                 <x-utils.tables.head>Estado</x-utils.tables.head>
@@ -63,16 +58,6 @@
                             <p class="line-clamp-1" title="{{ $resp_social->lugar }}">
                                 {{ $resp_social->lugar }}
                             </p>
-                        </x-utils.tables.body>
-                        <x-utils.tables.body>
-                            <p class="block line-clamp-1">
-                                {{ $resp_social->empresa_id ? $resp_social->empresa->nombre : '--'}}
-                            </p>
-                            @if($resp_social->empresa_id)
-                                <p class="text-gray-600 text-xs whitespace-nowrap">
-                                    RUC: {{  $resp_social->empresa->ruc }}
-                                </p>
-                            @endif
                         </x-utils.tables.body>
                         <x-utils.tables.body class="text-xs whitespace-nowrap">
                             {{ $resp_social->fecha_inicio->format('d-m-Y') }}

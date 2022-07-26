@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <div class="grid grid-cols-6 gap-12">
+    <div class="grid grid-cols-6 gap-16">
 
         <div class="col-span-2 text-right space-y-4">
 
@@ -16,8 +16,8 @@
 
             <hr>
 
-            <p class="text-gray-500 font-semibold text-sm">
-                {{ count($indicadores) }} indicadores en este proceso
+            <p class="text-gray-500 text-sm">
+                <b>{{ count($indicadores) }}</b> indicadores en este proceso
             </p>
 
         </div>

@@ -1,39 +1,32 @@
 <div class="space-y-4">
-    <x-utils.card>
-        <div class="flex justify-between items-center space-x-2">
-            <div class="pr-4 flex-1">
-                <h1 class="text-xl font-bold text-gray-700">
-                    Registros de información de Convalidaciones
-                </h1>
-            </div>
 
-            <div class="inline-flex space-x-2 items-center">
-                <x-utils.forms.select class="w-52" wire:model="semestre">
-                    <option value="0">Todos los semestres</option>
-                    @foreach($semestres as $sm)
-                        <option value="{{ $sm->id }}">{{$sm->nombre}}</option>
-                    @endforeach
-                </x-utils.forms.select>
+    <x-utils.titulo
+        titulo="Registros de información de Convalidaciones">
+        @slot('items')
+            <x-utils.forms.select class="w-52" wire:model="semestre">
+                <option value="0">Todos los semestres</option>
+                @foreach($semestres as $sm)
+                    <option value="{{ $sm->id }}">{{$sm->nombre}}</option>
+                @endforeach
+            </x-utils.forms.select>
 
-                <x-utils.forms.select class="w-52" wire:model="escuela">
-                    <option value="0">Todos los programas</option>
-                    @foreach($escuelas as $esc)
-                        <option value="{{ $esc->id }}">{{$esc->nombre}}</option>
-                    @endforeach
-                </x-utils.forms.select>
+            <x-utils.forms.select class="w-52" wire:model="escuela">
+                <option value="0">Todos los programas</option>
+                @foreach($escuelas as $esc)
+                    <option value="{{ $esc->id }}">{{$esc->nombre}}</option>
+                @endforeach
+            </x-utils.forms.select>
 
-                @if(count($convalidaciones)>0)
-                    <x-utils.links.primary class="text-sm" href="{{ route('convalidacion.registrar') }}">
-                        <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
-                        Nuevo
-                    </x-utils.links.primary>
-                @endif
-            </div>
-        </div>
-    </x-utils.card>
+            @if(count($convalidaciones)>0)
+                <x-utils.links.primary class="text-sm" href="{{ route('convalidacion.registrar') }}">
+                    <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
+                    Nuevo
+                </x-utils.links.primary>
+            @endif
+        @endslot
+    </x-utils.titulo>
 
     @if(count($convalidaciones)>0)
-
         <div class="py-4">
             <x-utils.tables.table>
                 @slot('head')

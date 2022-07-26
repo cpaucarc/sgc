@@ -1,17 +1,9 @@
 <div class="space-y-4">
 
-    <x-utils.card>
-        <div class="flex justify-between items-center space-x-2">
-            <div class="flex-1">
-                <h1 class="text-xl font-bold text-gray-800">
-                    Mis actividades
-                </h1>
-                <p class="text-sm text-gray-600">
-                    En esta sección usted podrá ver la lista de actividades que le corresponde realizar
-                    durante el semestre.
-                </p>
-            </div>
-
+    <x-utils.titulo
+        titulo="Mis actividades"
+        subtitulo="En esta sección usted podrá ver la lista de actividades que le corresponde realizar durante el semestre.">
+        @slot('items')
             <x-utils.forms.select class="w-24" wire:model="semestre_seleccionado">
                 @forelse($semestres as $semestre)
                     <option value="{{ $semestre->id }}">{{$semestre->nombre}}</option>
@@ -29,8 +21,8 @@
                     @endforelse
                 </x-utils.forms.select>
             @endif
-        </div>
-    </x-utils.card>
+        @endslot
+    </x-utils.titulo>
 
     @if(count($procesos))
         <x-utils.tables.table>

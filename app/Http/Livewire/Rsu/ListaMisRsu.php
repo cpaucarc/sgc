@@ -13,8 +13,8 @@ class ListaMisRsu extends Component
     public function render()
     {
         $rsu = ResponsabilidadSocial::query()
-            ->select('id', 'uuid', 'titulo', 'lugar', 'fecha_inicio', 'fecha_fin', 'escuela_id', 'empresa_id')
-            ->with('escuela:id,nombre', 'empresa:id,nombre,ruc')
+            ->select('id', 'uuid', 'titulo', 'lugar', 'fecha_inicio', 'fecha_fin', 'escuela_id')
+            ->with('escuela:id,nombre')
             ->where(function ($query) {
                 $query->where('titulo', 'like', '%' . $this->search . '%')
                     ->orWhere('lugar', 'like', '%' . $this->search . '%');

@@ -8,9 +8,6 @@ use App\Models\Docente;
 use App\Models\Oge;
 use App\Models\Persona;
 use App\Models\Semestre;
-use Database\Seeders\DepartamentoSeeder;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class ListaDocentesDepto extends Component

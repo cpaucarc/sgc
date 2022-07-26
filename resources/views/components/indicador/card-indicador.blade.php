@@ -14,14 +14,14 @@
                 {{ $objetivo }}
             </p>
 
-            <ul class="flex flex-wrap gap-2 text-xs">
+            <ul class="flex flex-wrap gap-2 text-sm">
                 <li>
-                    <x-utils.badge class="bg-zinc-100 text-zinc-600">
+                    <x-utils.badge class="text-sm bg-zinc-100 text-zinc-600">
                         Medición: {{ $medicion }}
                     </x-utils.badge>
                 </li>
                 <li>
-                    <x-utils.badge class="bg-zinc-100 text-zinc-600">
+                    <x-utils.badge class="text-sm bg-zinc-100 text-zinc-600">
                         Reporte: {{ $reporte }}
                     </x-utils.badge>
                 </li>

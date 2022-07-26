@@ -1,8 +1,6 @@
 <x-app-layout>
 
-    <h1 class="font-bold text-gray-800 text-xl mb-8">
-        Servicios del Bienestar Universitario
-    </h1>
+    <x-utils.titulo titulo="Servicios del Bienestar Universitario"/>
 
     <div class="grid grid-cols-3 gap-x-8 items-start">
         <livewire:bienestar.agregar-atencion-comedor/>

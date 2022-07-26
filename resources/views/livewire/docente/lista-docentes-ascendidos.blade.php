@@ -1,18 +1,15 @@
-<div class="space-y-6">
-
-    <section class="flex items-center justify-between gap-x-2">
-        <h1 class="text-zinc-800 text-xl font-bold">Docentes Ascendidos</h1>
-
-        <x-utils.forms.select wire:model="semestre">
-            @forelse($semestres as $sm)
-                <option value="{{ $sm->id }}">{{ $sm->nombre }}</option>
-            @empty
-                <option value="0">No hay datos</option>
-            @endforelse
-        </x-utils.forms.select>
-    </section>
-
-    <hr class="border-dashed border-zinc-300"/>
+<div>
+    <x-utils.titulo titulo="Docentes Ascendidos">
+        @slot('items')
+            <x-utils.forms.select wire:model="semestre">
+                @forelse($semestres as $sm)
+                    <option value="{{ $sm->id }}">{{ $sm->nombre }}</option>
+                @empty
+                    <option value="0">No hay datos</option>
+                @endforelse
+            </x-utils.forms.select>
+        @endslot
+    </x-utils.titulo>
 
     @if(count($docentes))
         <x-utils.tables.table>

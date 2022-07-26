@@ -1,18 +1,17 @@
 <div class="space-y-6">
-    <div>
-        <h2 class="text-zinc-800 text-xl font-bold">
+
+    <x-utils.titulo subtitulo="Facultad de {{ $depto->facultad->nombre }}">
+        @slot('titulo')
             Docentes del departamento académico <span class="font-black">{{ $depto->nombre }}</span>
-        </h2>
-        <h3 class="text-zinc-600">
-            Facultad de {{ $depto->facultad->nombre }}
-        </h3>
-    </div>
+        @endslot
+    </x-utils.titulo>
 
     <div class="flex items-center justify-between">
         <x-utils.forms.search-input wire:model.debounce.500ms="search"/>
 
         <x-utils.buttons.default wire:click="abrirModal" class="text-sm">
-            <x-icons.refresh class="icon-4 mr-1" stroke="1.5" wire:loading.class="animate-spin" wire:target="abrirModal"/>
+            <x-icons.refresh class="icon-4 mr-1" stroke="2" wire:loading.class="animate-spin"
+                             wire:target="abrirModal"/>
             Actualizar docentes
         </x-utils.buttons.default>
     </div>

@@ -1,12 +1,8 @@
-<div class="w-full md:w-9/12 lg:w-6/12 mx-auto divide-y divide-stone-200 space-y-6 mb-8">
+<div class="w-full md:w-9/12 lg:w-6/12 mx-auto space-y-6 mb-8">
+    <x-utils.titulo
+        titulo="Registrar nueva Auditoria"/>
 
-    <div class="flex-col">
-        <h2 class="font-bold text-stone-700 text-xl">
-            Registrar nueva Auditoria
-        </h2>
-    </div>
-
-    <div class="space-y-4 divide-y divide-dashed divide-stone-200 pt-4">
+    <div class="space-y-4 pt-4">
         <div>
             <x-jet-label for="responsable" value="Responsable de la auditoria"/>
             <x-jet-input id="responsable" type="text" class="mt-1 block w-full"

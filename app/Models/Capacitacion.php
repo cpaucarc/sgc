@@ -10,7 +10,12 @@ class Capacitacion extends Model
     use HasFactory;
 
     public $table = 'capacitaciones';
-    public $fillable = ['uuid', 'nombre','fecha_inicio','fecha_fin', 'departamento_id', 'semestre_id'];
+    public $fillable = ['uuid', 'nombre', 'fecha_inicio', 'fecha_fin', 'departamento_id', 'semestre_id'];
+
+    protected $casts = [
+        'fecha_inicio' => 'date',
+        'fecha_fin' => 'date',
+    ];
 
     public function departamento()
     {

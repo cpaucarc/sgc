@@ -1,16 +1,9 @@
 <div class="space-y-4">
 
-    <x-utils.card>
-        <div class="flex justify-between items-center space-x-2">
-            <div class="pr-4 flex-1">
-                <h1 class="text-xl font-bold text-gray-800">
-                    Documentos recibidos
-                </h1>
-                <p class="text-sm text-gray-400">
-                    En esta sección usted podrá encontrar los documentos que los responsables de cada actividad envió.
-                </p>
-            </div>
-
+    <x-utils.titulo
+        titulo="Documentos recibidos"
+        subtitulo="En esta sección usted podrá encontrar los documentos que los responsables de cada actividad envió.">
+        @slot('items')
             <x-utils.forms.select wire:model="semestre">
                 @forelse($semestres as $smt)
                     <option value="{{ $smt->id }}">{{$smt->nombre}}</option>
@@ -26,8 +19,8 @@
                     <option value="0">No hay datos</option>
                 @endforelse
             </x-utils.forms.select>
-        </div>
-    </x-utils.card>
+        @endslot
+    </x-utils.titulo>
 
     @if(count($salidas))
         <x-utils.tables.table>
@@ -44,7 +37,7 @@
                     <x-utils.tables.row>
                         <x-utils.tables.body>
                             <div
-                                class="w-6 h-6 rounded-full font-semibold text-xs grid place-items-center text-blue-800 bg-blue-100">
+                                class="icon-6 rounded-full font-semibold text-xs grid place-items-center text-blue-800 bg-blue-100">
                                 {{ $salida->codigo }}
                             </div>
                         </x-utils.tables.body>
@@ -56,7 +49,7 @@
                                 {{ $salida->documentos_count }} documento(s)
                             @else
                                 <x-utils.badge class="bg-rose-100 text-rose-600">
-                                    Aún nada
+                                    Ninguno
                                 </x-utils.badge>
                             @endif
                         </x-utils.tables.body>

@@ -1,21 +1,18 @@
-<div class="space-y-6">
-
-    <section class="flex items-center justify-between gap-x-2">
-        <h1 class="text-zinc-800 text-xl font-bold">Docentes Capacitados</h1>
-
-        <x-utils.forms.select wire:model="semestre">
-            @forelse($semestres as $sm)
-                <option value="{{ $sm->id }}">{{ $sm->nombre }}</option>
-            @empty
-                <option value="0">No hay datos</option>
-            @endforelse
-        </x-utils.forms.select>
-    </section>
-
-    <hr class="border-dashed border-zinc-300"/>
+<div>
+    <x-utils.titulo titulo="Docentes Capacitados">
+        @slot('items')
+            <x-utils.forms.select wire:model="semestre">
+                @forelse($semestres as $sm)
+                    <option value="{{ $sm->id }}">{{ $sm->nombre }}</option>
+                @empty
+                    <option value="0">No hay datos</option>
+                @endforelse
+            </x-utils.forms.select>
+        @endslot
+    </x-utils.titulo>
 
     @if(count($capacitaciones))
-        <section class="space-y-3 bg-zinc-200/70 rounded-md p-4">
+        <section class="space-y-3 bg-zinc-100/70 rounded-md p-4">
             <h2 class="font-bold text-zinc-600">Capacitaciones</h2>
             <x-utils.forms.select wire:model="capacitacion" class="w-full font-bold">
                 @foreach($capacitaciones as $cpc)
@@ -23,11 +20,9 @@
                 @endforeach
             </x-utils.forms.select>
             <div class="flex items-center justify-center gap-x-4 w-full">
-                <x-utils.badge class="bg-zinc-100 text-zinc-800">
-                    Fecha de Inicio de la Capacitación:&nbsp;<b>{{ $inicio }}</b>
-                </x-utils.badge>
-                <x-utils.badge class="bg-zinc-100 text-zinc-800">
-                    Fecha de Finalización de la Capacitación:&nbsp;<b>{{ $fin }}</b>
+                <x-utils.badge class="bg-sky-100 text-sky-800">
+                    Desarrollado desde
+                    el&nbsp;<b>{{ $inicio->format('d M, Y') }}</b>&nbsp;al&nbsp;<b>{{ $fin->format('d M, Y') }}</b>
                 </x-utils.badge>
             </div>
         </section>

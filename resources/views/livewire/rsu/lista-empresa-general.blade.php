@@ -1,26 +1,21 @@
 <div>
-    <x-utils.card>
-        <div class="flex justify-between items-center space-x-2">
-            <h1 class="pr-4 flex-1 text-xl font-bold text-gray-700">
-                Registros de Empresas
-            </h1>
-
-            <div class="inline-flex space-x-2 items-center">
-                @if(count($empresas) > 0)
-                    <x-utils.links.primary class="text-sm" href="{{ route('rsu.business.create') }}">
-                        <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
-                        Nuevo
-                    </x-utils.links.primary>
-                @endif
-            </div>
-        </div>
-    </x-utils.card>
+    <x-utils.titulo
+        titulo="Registros de Empresas">
+        @slot('items')
+            @if(count($empresas) > 0)
+                <x-utils.links.primary class="text-sm" href="{{ route('rsu.business.create') }}">
+                    <x-icons.plus class="h-5 w-5 mr-1" stroke="1.5"></x-icons.plus>
+                    Nuevo
+                </x-utils.links.primary>
+            @endif
+        @endslot
+    </x-utils.titulo>
 
     <div class="flex justify-between mt-4">
         <x-utils.forms.search-input wire:model.debounce.500ms="search"/>
     </div>
-    @if(count($empresas)>0)
 
+    @if(count($empresas)>0)
         <div class="py-4">
             <x-utils.tables.table>
                 @slot('head')

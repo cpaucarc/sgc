@@ -1,7 +1,6 @@
 <div>
-    <div class="flex justify-between items-center gap-x-8 mb-4">
-        <h1 class="text-zinc-800 text-xl font-bold">Información de capacitaciones</h1>
-        <div class="flex justify-between items-center gap-x-2">
+    <x-utils.titulo titulo="Capacitaciones">
+        @slot('items')
             <x-utils.forms.select class="w-52" wire:model="semestre">
                 <option value="0">Todos las semestres</option>
                 @foreach($semestres as $smt)
@@ -12,8 +11,8 @@
             @if(count($capacitaciones))
                 <livewire:docente.agregar-capacitacion/>
             @endif
-        </div>
-    </div>
+        @endslot
+    </x-utils.titulo>
 
     @if(count($capacitaciones))
         <x-utils.tables.table>
@@ -27,7 +26,7 @@
                 <x-utils.tables.head><span class="sr-only">Acciones</span></x-utils.tables.head>
             @endslot
             @slot('body')
-                @foreach($capacitaciones as $i=>$capacitacion)
+                @foreach($capacitaciones as $i => $capacitacion)
                     <x-utils.tables.row>
                         <x-utils.tables.body>
                             {{($i+1)}}
@@ -35,11 +34,11 @@
                         <x-utils.tables.body>
                             {{$capacitacion->nombre}}
                         </x-utils.tables.body>
-                        <x-utils.tables.body class="whitespace-nowrap text-zinc-400 text-sm">
-                            {{$capacitacion->fecha_inicio}}
+                        <x-utils.tables.body class="whitespace-nowrap">
+                            {{$capacitacion->fecha_inicio->format('d-m-Y')}}
                         </x-utils.tables.body>
-                        <x-utils.tables.body class="whitespace-nowrap text-zinc-400 text-sm">
-                            {{$capacitacion->fecha_fin}}
+                        <x-utils.tables.body class="whitespace-nowrap">
+                            {{$capacitacion->fecha_fin->format('d-m-Y')}}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             {{$capacitacion->departamento->nombre}}
@@ -97,7 +96,7 @@
                 });
             });
 
-            function eliminar(id,name) {
+            function eliminar(id, name) {
                 Swal.fire({
                     text: "¿Desea eliminar el registro de capacitaciones " + name + "?",
                     icon: 'question',
