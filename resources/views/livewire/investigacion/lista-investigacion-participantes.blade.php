@@ -2,7 +2,7 @@
     <div class="flex justify-between items-center mb-2">
         <h2 class="text-zinc-600 text-base font-bold leading-tight">Investigadores</h2>
 
-        @if(count($investigacion->investigadores) > 0)
+        @if($es_responsable and count($investigacion->investigadores) > 0)
             <x-utils.buttons.default class="text-sm" wire:click="abrirModal">
                 <x-icons.people class="icon-4 mr-1" stroke="1.5"></x-icons.people>
                 Añadir
@@ -38,12 +38,19 @@
                             @if($es_responsable && $investigador->dni_investigador !== auth()->user()->persona->dni)
                                 <livewire:investigacion.cargo-participante :investigacion_id="$investigacion->id"
                                                                            :investigador_id="$investigador->id"
-
-                                                                           :wire:key="$investigador->id"/>
+                                                                           :wire:key="$investigacion->id.$investigador->id"/>
                             @else
                                 <p class="{{ $investigador->pivot->es_responsable ? 'font-bold':'' }} ml-2">
                                     {{ $investigador->pivot->es_responsable ? 'Responsable':'Corresponsable' }}
                                 </p>
+                            @endif
+                        </x-utils.tables.body>
+                        <x-utils.tables.body>
+                            @if($es_responsable && $investigador->dni_investigador !== auth()->user()->persona->dni)
+                                <x-utils.buttons.danger class="text-sm"
+                                                        onclick="quitarParticipante({{ $investigador->id }},'{{ $investigador->dni_investigador }}',{{ $investigacion->id }})">
+                                    <x-icons.person-remove class="icon-4" stroke="2"/>
+                                </x-utils.buttons.danger>
                             @endif
                         </x-utils.tables.body>
                     </x-utils.tables.row>
@@ -63,10 +70,11 @@
                             d="M17.29 8c-.148 0-.292.01-.434.03a.75.75 0 11-.212-1.484 4.53 4.53 0 013.38 8.097 6.69 6.69 0 013.956 6.107.75.75 0 01-1.5 0 5.193 5.193 0 00-3.696-4.972l-.534-.16v-1.676l.41-.209A3.03 3.03 0 0017.29 8z"></path>
                     </svg>
                 @endslot
-
-                <x-jet-button class="text-sm">
-                    Añadir investigadores
-                </x-jet-button>
+                @if($es_responsable)
+                    <x-jet-button class="text-sm">
+                        Añadir investigadores
+                    </x-jet-button>
+                @endif
             </x-utils.message-no-items>
         </div>
     @endif
@@ -141,6 +149,20 @@
                     text: msg,
                 });
             });
+
+            function quitarParticipante(investigador_id, dni, investigacion_id) {
+                Swal.fire({
+                    text: "¿Desea quitar al participante con DNI " + dni + " de la investigación?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, quitar',
+                    cancelButtonText: `Cancelar`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('quitarParticipante', investigador_id, investigacion_id);
+                    }
+                })
+            }
         </script>
     @endpush
 </div>

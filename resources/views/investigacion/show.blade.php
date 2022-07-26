@@ -53,7 +53,8 @@
             </div>
 
             <div class="pt-4">
-                <livewire:investigacion.lista-presupuestos investigacion_id="{{$investigacion->id}}"/>
+                <livewire:investigacion.lista-presupuestos investigacion_id="{{$investigacion->id}}"
+                                                           :es_responsable="$es_responsable"/>
             </div>
 
         </div>
