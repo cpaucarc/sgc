@@ -4,6 +4,7 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 @import "scrollbar.css";
+@import "stripes.css";
 
 @layer components {
     .input {
@@ -36,5 +37,9 @@
 
     .btn {
         @apply px-3 py-1.5 inline-flex items-center font-bold whitespace-nowrap soft-transition rounded-md;
+    }
+
+    .input-none {
+        @apply appearance-none border-none bg-transparent ring-0 focus:border-none focus:ring-0;
     }
 }
