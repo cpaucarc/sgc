@@ -1,6 +1,7 @@
+@props(['placement'=>'top'])
 @php
     $class_svg = "h-5 w-5 text-gray-500 hover:text-gray-700 transition";
-    $class_tooltip="absolute top-0 right-6 z-10 border border-zinc-200 bg-white rounded-sm"
+    $class_tooltip="absolute {{$placement}}-0 right-6 z-10 border border-zinc-200 bg-white rounded-sm"
 @endphp
 
 <div x-data="{ tooltip: false }" class="relative z-30 inline-flex">
