@@ -20,7 +20,7 @@ use Livewire\Component;
 
 class NuevoAnalisis extends Component
 {
-    public $open = true;
+    public $open = false;
 
     public $semestre_seleccionado = null;
     public $fecha_semana, $fecha_mes;
