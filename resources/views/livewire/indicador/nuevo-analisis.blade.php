@@ -1,6 +1,6 @@
 <div>
     {{--    @if($indicador)--}}
-    <x-jet-dialog-modal wire:model="open" maxWidth="3xl">
+    <x-jet-dialog-modal wire:model="open" maxWidth="4xl">
         <x-slot name="title">
             <div class="flex justify-between items-center w-full pb-3 border-b border-dashed border-zinc-300">
                 <div class="flex items-center gap-x-2 text-sm">
