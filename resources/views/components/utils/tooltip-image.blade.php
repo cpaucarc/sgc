@@ -16,7 +16,7 @@
     <div class="flex flex-col gap-y-2 items-center justify-center">
 
         @if(isset($image))
-            <img class="object-cover w-60 h-36" src="{{ $image }}" alt="Imagen tooltip">
+            <img class="object-cover w-60 h-36 rounded-t-sm" src="{{ $image }}" alt="Imagen tooltip">
         @endif
 
         @if(isset($title) or isset($description))
