@@ -45,9 +45,13 @@
                             @endif
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            <x-utils.buttons.invisible title="Editar" wire:click="seleccionar(true,{{$indicador}})">
+{{--                            <x-utils.buttons.invisible title="Editar" wire:click="seleccionar(true,{{$indicador}})">--}}
+{{--                                <x-icons.edit class="h-5" stroke="1.6"/>--}}
+{{--                            </x-utils.buttons.invisible>--}}
+                            <x-utils.links.basic class="flex items-center"
+                                                 href="{{ route('admin.panel.indicadores.editar', $indicador->id) }}">
                                 <x-icons.edit class="h-5" stroke="1.6"/>
-                            </x-utils.buttons.invisible>
+                            </x-utils.links.basic>
                         </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach
