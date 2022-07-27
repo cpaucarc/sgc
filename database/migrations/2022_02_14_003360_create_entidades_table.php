@@ -15,6 +15,9 @@ return new class extends Migration {
         Schema::create('entidades', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->foreignId('facultad_id')->nullable()->constrained('facultades')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->foreignId('role_id')->constrained('roles')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();

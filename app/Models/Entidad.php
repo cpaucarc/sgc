@@ -12,11 +12,16 @@ class Entidad extends Model
 
     protected $table = "entidades";
     public $timestamps = false;
-    public $fillable = ['nombre', 'role_id'];
+    public $fillable = ['nombre', 'facultad_id', 'role_id'];
 
     public function rol()
     {
         return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
+
+    public function facultad()
+    {
+        return $this->belongsTo(Facultad::class, 'facultad_id', 'id');
     }
 
     // relación uno a muchos polimorfica
