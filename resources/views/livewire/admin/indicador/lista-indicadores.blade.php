@@ -8,12 +8,11 @@
             @slot('head')
                 <x-utils.tables.head class="text-xs">Código</x-utils.tables.head>
                 <x-utils.tables.head class="text-xs">Objetivo</x-utils.tables.head>
-                <x-utils.tables.head class="text-xs">Mín.</x-utils.tables.head>
-                <x-utils.tables.head class="text-xs">Stf.</x-utils.tables.head>
-                <x-utils.tables.head class="text-xs">Sbs.</x-utils.tables.head>
+                <x-utils.tables.head class="text-xs">Rangos</x-utils.tables.head>
+                <x-utils.tables.head class="text-xs">Frecuencia</x-utils.tables.head>
                 <x-utils.tables.head class="text-xs">Unidad</x-utils.tables.head>
-                <x-utils.tables.head class="text-xs">Medición</x-utils.tables.head>
-                <x-utils.tables.head class="text-xs">Reporte</x-utils.tables.head>
+                <x-utils.tables.head class="text-xs">Proceso</x-utils.tables.head>
+                <x-utils.tables.head class="text-xs"><span class="sr-only">Estado</span></x-utils.tables.head>
                 <x-utils.tables.head class="text-right">
                     <span class="hidden">Acciones</span>
                 </x-utils.tables.head>
@@ -21,19 +20,34 @@
             @slot('body')
                 @foreach($indicadores as $indicador)
                     <x-utils.tables.row>
-                        <x-utils.tables.body class="text-xs">{{ $indicador->cod_ind_inicial }}</x-utils.tables.body>
-                        <x-utils.tables.body class="text-xs">{{ $indicador->objetivo}}</x-utils.tables.body>
-                        <x-utils.tables.body class="text-xs">{{ $indicador->minimo}}</x-utils.tables.body>
-                        <x-utils.tables.body class="text-xs">{{ $indicador->satisfactorio}}</x-utils.tables.body>
-                        <x-utils.tables.body class="text-xs">{{ $indicador->sobresaliente}}</x-utils.tables.body>
                         <x-utils.tables.body
-                            class="text-xs">{{ $indicador->unidadMedida->nombre}}</x-utils.tables.body>
-                        <x-utils.tables.body class="text-xs">{{ $indicador->medicion->nombre}}</x-utils.tables.body>
-                        <x-utils.tables.body class="text-xs">{{ $indicador->reporte->nombre}}</x-utils.tables.body>
+                            class="whitespace-nowrap">{{ $indicador->cod_ind_inicial }}</x-utils.tables.body>
+                        <x-utils.tables.body>{{ $indicador->objetivo}}</x-utils.tables.body>
                         <x-utils.tables.body>
-                            <x-utils.buttons.default wire:click="seleccionar(true,{{$indicador}})">
-                                <x-icons.edit class="h-4 mr-1" stroke="1.5"></x-icons.edit>
-                            </x-utils.buttons.default>
+                            <p class="block whitespace-nowrap">Min: <b>{{ round($indicador->minimo, 2) }}</b></p>
+                            <p class="block whitespace-nowrap">Sob: <b>{{ round($indicador->sobresaliente, 2) }}</b></p>
+                        </x-utils.tables.body>
+                        <x-utils.tables.body>
+                            <p class="block whitespace-nowrap">Medición: <b>{{ $indicador->medicion->nombre }}</b></p>
+                            <p class="block whitespace-nowrap">Reporte: <b>{{ $indicador->reporte->nombre }}</b></p>
+                        </x-utils.tables.body>
+                        <x-utils.tables.body>{{ $indicador->unidadMedida->nombre}}</x-utils.tables.body>
+                        <x-utils.tables.body>{{ $indicador->proceso->nombre}}</x-utils.tables.body>
+                        <x-utils.tables.body>
+                            @if($indicador->esta_implementado)
+                                <x-utils.forms.checkbox checked title="Implementado"
+                                                        wire:change="cambiarEstado({{ $indicador->id }}, false)">
+                                </x-utils.forms.checkbox>
+                            @else
+                                <x-utils.forms.checkbox title="Sin implementar"
+                                                        wire:change="cambiarEstado({{ $indicador->id }}, true)">
+                                </x-utils.forms.checkbox>
+                            @endif
+                        </x-utils.tables.body>
+                        <x-utils.tables.body>
+                            <x-utils.buttons.invisible title="Editar" wire:click="seleccionar(true,{{$indicador}})">
+                                <x-icons.edit class="h-5" stroke="1.6"/>
+                            </x-utils.buttons.invisible>
                         </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach
@@ -68,7 +82,7 @@
         @endslot
         @slot('content')
 
-            <div class="space-y-6">
+            <div class="space-y-8">
                 <div class="flex items-center justify-between gap-6">
                     <div class="w-full">
                         <x-jet-label for="objetivo" value="Objetivo"/>
@@ -123,11 +137,6 @@
                         <x-jet-input-error for="proceso"/>
                     </div>
                 </div>
-                <div class="w-full">
-                    <x-jet-label for="formula" value="Fórmula"/>
-                    <x-jet-input id="formula" class="w-full" type="text" wire:model.defer="formula"/>
-                    <x-jet-input-error for="formula"/>
-                </div>
                 <div class="flex items-center justify-between gap-6">
                     <div class="w-full">
                         <x-jet-label for="minimo" value="Mínimo"/>
@@ -136,17 +145,16 @@
                         <x-jet-input-error for="minimo"/>
                     </div>
                     <div class="w-full">
-                        <x-jet-label for="satisfactorio" value="Satisfactorio"/>
-                        <x-jet-input id="satisfactorio" type="text" class="mt-1 w-full"
-                                     wire:model.defer="satisfactorio" autocomplete="off"/>
-                        <x-jet-input-error for="satisfactorio"/>
-                    </div>
-                    <div class="w-full">
                         <x-jet-label for="sobresaliente" value="Sobresaliente"/>
                         <x-jet-input id="sobresaliente" type="text" class="mt-1 w-full"
                                      wire:model.defer="sobresaliente" autocomplete="off"/>
                         <x-jet-input-error for="sobresaliente"/>
                     </div>
+                </div>
+                <div class="w-full">
+                    <x-jet-label for="formula" value="Fórmula"/>
+                    <x-jet-input id="formula" class="w-full" type="text" wire:model.defer="formula"/>
+                    <x-jet-input-error for="formula"/>
                 </div>
                 <div class="flex items-center justify-between gap-6">
                     <div class="w-full">
