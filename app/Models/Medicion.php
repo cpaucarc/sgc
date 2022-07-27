@@ -139,13 +139,16 @@ class Medicion
      * Objetivo: Medir el porcentaje de comersales atendidos del total de comesales.
      * Formula: X = (N° de comensales atendidos por programa)/(Total de comensales por programa) x 100
      * */
-    public static function ind17($escuela_id, $mes, $anio)
+    public static function ind17($escuela_id, $anio_mes)
     {
+        $anio = intval(explode('-', $anio_mes)[0]);
+        $mes = intval(explode('-', $anio_mes)[1]);
         $atencion = BienestarAtencion::query()
             ->where('servicio_id', 5) // 5: Comedor
             ->where('escuela_id', $escuela_id)->where('mes', $mes)->where('anio', $anio)->first();
-
+        Log::info('Datos calculados', $atencion ? $atencion->toArray() : []);
         if (is_null($atencion)) {
+            Log::info('Es null', []);
             return null;
         }
 
@@ -159,9 +162,12 @@ class Medicion
      * Objetivo: Conocer el número total de atenciones por servicios por programa de estudios.
      * Formula: X = ∑ atenciones por servicio por programa
      * */
-    public static function ind19($escuela_id, $mes, $anio)
+    public static function ind19($escuela_id, $anio_mes)
     {
         try {
+            $anio = intval(explode('-', $anio_mes)[0]);
+            $mes = intval(explode('-', $anio_mes)[1]);
+
             $servicios = Servicio::query()->orderBy('nombre')->get();
             $atenciones = BienestarAtencion::query()
                 ->where('escuela_id', $escuela_id)->where('mes', $mes)->where('anio', $anio)->get();
