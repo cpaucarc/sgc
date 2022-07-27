@@ -21,7 +21,7 @@ class Participantes extends Component
     public $add = false; // Abrir modal para agregar participantes
     public $depto_id, $semestre;
 
-    protected $listeners = ["render", "quitarParticipante"];
+    protected $listeners = ["render", "quitarParticipante", "cerrarModal"];
 
     public function mount($rsu_id, $es_responsable, $depto_id, $semestre)
     {
@@ -47,6 +47,11 @@ class Participantes extends Component
     public function abrirModal()
     {
         $this->add = true;
+    }
+
+    public function cerrarModal()
+    {
+        $this->add = false;
     }
 
     public function mostrarDatos($dni)

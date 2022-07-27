@@ -3,7 +3,7 @@
     <div class="flex justify-between items-center mb-2">
         <h2 class="text-zinc-500 text-base font-bold leading-tight">Financiación</h2>
 
-        @if(count($investigacion->financiaciones) > 0)
+        @if($es_responsable and count($investigacion->financiaciones) > 0)
             <x-utils.buttons.default class="text-sm" wire:click="openModal">
                 Nueva fuente
             </x-utils.buttons.default>
@@ -32,6 +32,16 @@
                         <x-utils.tables.body>
                             {{$financiador->pivot->created_at->format('d-m-Y h:ia')}}
                         </x-utils.tables.body>
+                        <x-utils.tables.body>
+                            @if($es_responsable )
+                                <x-utils.buttons.danger class="text-sm"
+                                                        onclick="eliminarFinanciacion({{ $financiador->id  }},'{{$financiador->nombre}}',{{$investigacion->id}})">
+                                    <x-icons.delete class="h-5 w-5" stroke="1.55"/>
+                                </x-utils.buttons.danger>
+                            @else
+                                <span></span>
+                            @endif
+                        </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach
             @endslot
@@ -54,10 +64,11 @@
                               d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                 @endslot
-
-                <x-jet-button class="text-sm" wire:click="openModal">
-                    Registrar fuentes
-                </x-jet-button>
+                @if($es_responsable)
+                    <x-jet-button class="text-sm" wire:click="openModal">
+                        Registrar fuentes
+                    </x-jet-button>
+                @endif
             </x-utils.message-no-items>
         </div>
     @endif
@@ -111,4 +122,22 @@
         </x-slot>
 
     </x-jet-dialog-modal>
+
+    @push('js')
+        <script>
+            function eliminarFinanciacion($financiador_id, nombre, $investigacion_id) {
+                Swal.fire({
+                    text: "¿Desea eliminar la fuente de financiación de " + nombre + " de esta investigación?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, eliminar',
+                    cancelButtonText: `Cancelar`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('eliminarFinanciacion', $financiador_id, $investigacion_id);
+                    }
+                })
+            }
+        </script>
+    @endpush
 </div>

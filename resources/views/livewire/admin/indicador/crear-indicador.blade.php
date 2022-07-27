@@ -31,26 +31,28 @@
                         <x-jet-input-error for="codigo"/>
                     </div>
                 </div>
-                <div class="flex items-center justify-between gap-6">
-                    <div class="w-full">
-                        <div class="flex gap-x-2">
-                            <x-jet-label for="interes" value="Título interes"/>
-                            <x-utils.optional-badge/>
+                @if($unidad==2)
+                    <div class="flex items-center justify-between gap-6">
+                        <div class="w-full">
+                            <div class="flex gap-x-2">
+                                <x-jet-label for="interes" value="Título interes"/>
+                                <x-utils.optional-badge/>
+                            </div>
+                            <x-jet-input id="interes" type="text" class="mt-1 w-full"
+                                         wire:model.defer="interes" autocomplete="off"/>
+                            <x-jet-input-error for="interes"/>
                         </div>
-                        <x-jet-input id="interes" type="text" class="mt-1 w-full"
-                                     wire:model.defer="interes" autocomplete="off"/>
-                        <x-jet-input-error for="interes"/>
-                    </div>
-                    <div class="w-full">
-                        <div class="flex gap-x-2">
-                            <x-jet-label for="total" value="Título total"/>
-                            <x-utils.optional-badge/>
+                        <div class="w-full">
+                            <div class="flex gap-x-2">
+                                <x-jet-label for="total" value="Título total"/>
+                                <x-utils.optional-badge/>
+                            </div>
+                            <x-jet-input id="total" type="text" class="mt-1 w-full"
+                                         wire:model.defer="total" autocomplete="off"/>
+                            <x-jet-input-error for="total"/>
                         </div>
-                        <x-jet-input id="total" type="text" class="mt-1 w-full"
-                                     wire:model.defer="total" autocomplete="off"/>
-                        <x-jet-input-error for="total"/>
                     </div>
-                </div>
+                @endif
                 <div class="flex items-center justify-between gap-6">
                     <div class="w-full">
                         <x-jet-label for="resultado" value="Título resultado"/>
@@ -99,7 +101,7 @@
                     <div class="w-full">
                         <x-jet-label for="unidad" value="Unidad"/>
                         <x-utils.forms.select id="unidad" class="mt-1 block w-full"
-                                              wire:model.defer="unidad">
+                                              wire:model="unidad">
                             @foreach($unidades as $unidad)
                                 <option value="{{ $unidad->id }}">{{ $unidad->nombre}}</option>
                             @endforeach

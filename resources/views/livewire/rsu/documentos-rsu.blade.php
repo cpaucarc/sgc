@@ -103,11 +103,17 @@
     @push('js')
         <script>
             function eliminarArchivo(id, nombre) {
-                let res = confirm('¿Desea eliminar el archivo con el nombre de ' + nombre + ' de Documentos?')
-
-                if (res) {
-                    window.livewire.emit('eliminarArchivo', id);
-                }
+                Swal.fire({
+                    text: "¿Desea eliminar el archivo con el nombre de " + nombre + " de Documentos?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si, eliminar',
+                    cancelButtonText: `Cancelar`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('eliminarArchivo', id);
+                    }
+                })
             }
         </script>
     @endpush

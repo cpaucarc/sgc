@@ -12,7 +12,7 @@
                 <h1 class="font-bold text-xl text-black">
                     Indicadores
                 </h1>
-                <livewire:admin.indicador.crear-indicador/>
+                {{--                <livewire:admin.indicador.crear-indicador/>--}}
             </div>
 
             <hr/>

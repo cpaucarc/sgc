@@ -1,6 +1,6 @@
 <div>
-    <x-utils.forms.select wire:model="cargo_participante" wire:click="cambiarCargo()">
-        <option value="0">Participante</option>
+    <x-utils.forms.select wire:model="cargo_participante" wire:click="cambiarCargo({{ $participante->id }})">
+        <option value="0">Corresponsable</option>
         <option value="1">Responsable</option>
     </x-utils.forms.select>
 

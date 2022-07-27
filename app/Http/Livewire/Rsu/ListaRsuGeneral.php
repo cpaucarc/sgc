@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Rsu;
 
 use App\Models\Entidadable;
+use App\Models\Escuela;
 use App\Models\ResponsabilidadSocial;
 use App\Models\Semestre;
 use Illuminate\Support\Facades\Auth;
@@ -17,10 +18,28 @@ class ListaRsuGeneral extends Component
     public $semestre_seleccionado;
     public $search = "", $estado = 0;
 
+    public $escuelas = null, $escuela_seleccionado = 0;
+
     public function mount()
     {
         $this->semestres = Semestre::orderBy('nombre', 'desc')->get();
         $this->semestre_seleccionado = $this->semestres->where('activo', 1)->first()->id;
+
+        $entidades = Auth::user()->entidades->pluck('id');
+
+        $callback = function ($query) use ($entidades) {
+            $query->whereIn('id', $entidades);
+        };
+
+        $entidad_facultad = Entidadable::query()
+            ->where('entidadable_type', "App\\Models\\Facultad")
+            ->whereHas('entidad', $callback)
+            ->pluck('entidadable_id');
+
+        if ($entidad_facultad) {
+            $this->escuelas = Escuela::query()->whereIn('facultad_id', $entidad_facultad)->get();
+        }
+
     }
 
     public function render()
@@ -54,6 +73,10 @@ class ListaRsuGeneral extends Component
             $rsu = $rsu->whereIn('escuela_id', function ($query) use ($entidad_facultad) {
                 $query->select('id')->from('escuelas')->whereIn('facultad_id', $entidad_facultad);
             });
+            //Si la escuela seleccionada es mayor que cero.
+            if ($this->escuela_seleccionado > 0) {
+                $rsu = $rsu->where('escuela_id', $this->escuela_seleccionado);
+            }
         } else { // El usuario NO pertenece a ninguna facultad
             $rsu = $rsu->whereIn('escuela_id', $entidad_escuela);
         }
@@ -69,7 +92,7 @@ class ListaRsuGeneral extends Component
 
         $rsu = $rsu->orderBy('created_at', 'desc')->paginate(10);
 
-        return view('livewire.rsu.lista-rsu-general', compact('rsu'));
+        return view('livewire.rsu.lista-rsu-general', compact('rsu', 'entidad_facultad'));
     }
 
     public function updatingSearch()

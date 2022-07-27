@@ -7,29 +7,28 @@ use Livewire\Component;
 
 class CargoParticipante extends Component
 {
-    public $participante;
+    public $participante_id;
 
     public $cargo_participante;
 
     protected $listeners = ["render", "cambiarCargo"];
 
-    public function mount(RsuParticipante $participante)
+    public function mount($participante_id)
     {
-        $this->participante = $participante;
-
-        $this->cargo_participante = $this->participante->es_responsable;
+        $this->participante_id = $participante_id;
+        $this->cargo_participante = RsuParticipante::query()->where('id', $this->participante_id)->first()->es_responsable;
     }
 
     public function render()
     {
-        return view('livewire.rsu.cargo-participante');
+        $participante = RsuParticipante::query()->where('id', $this->participante_id)->first();
+        return view('livewire.rsu.cargo-participante', compact('participante'));
     }
 
     public function cambiarCargo()
     {
-        $this->participante->update([
-            'es_responsable' => $this->cargo_participante
-        ]);
+        RsuParticipante::where('id', $this->participante_id)
+            ->update(['es_responsable' => $this->cargo_participante]);
     }
 
     /* public function updatedcargo_participante($estado)
