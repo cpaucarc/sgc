@@ -14,7 +14,17 @@
         <x-slot name="content">
             <div class="space-y-6">
                 <div class="w-full">
-                    <x-jet-label for="dni" value="DNI del usuario"/>
+                    <div class="flex justify-between">
+                        <x-jet-label for="dni" value="DNI del usuario"/>
+                        <x-utils.tooltip-modal>
+                            <x-slot name="title">Búsqueda</x-slot>
+                            <x-slot name="description">
+                                Ingrese el DNI del nuevo usuario y pulse en el botón de la lupa para buscar directamente
+                                personas registradas en el SGA.
+                            </x-slot>
+                            <x-slot name="image">{{ asset('images/tooltip/search.jpg')  }}</x-slot>
+                        </x-utils.tooltip-modal>
+                    </div>
                     <div class="flex gap-x-2">
                         <x-jet-input id="dni" autocomplete="off" maxlength="8" class="flex-1" type="search"
                                      wire:model.defer="dni"/>
@@ -66,7 +76,16 @@
                     <x-jet-input-error for="correo"/>
                 </div>
                 <div class="w-full">
-                    <x-jet-label for="contrasena" value="Contraseña del Usuario (por defecto es el DNI)"/>
+                    <div class="flex justify-between">
+                        <x-jet-label for="contrasena" value="Contraseña del Usuario (por defecto es el DNI)"/>
+                        <x-utils.tooltip-modal placement="bottom">
+                            <x-slot name="title">Contraseña</x-slot>
+                            <x-slot name="description">
+                                La contraseña del nuevo usuario se toma por defecto su DNI.
+                            </x-slot>
+                            <x-slot name="image">{{ asset('images/tooltip/password.jpg')  }}</x-slot>
+                        </x-utils.tooltip-modal>
+                    </div>
                     <x-jet-input id="contrasena" autocomplete="off" class="w-full" type="password"
                                  wire:model.defer="contrasena"/>
                     <x-jet-input-error for="contrasena"/>

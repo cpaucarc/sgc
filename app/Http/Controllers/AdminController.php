@@ -80,6 +80,11 @@ class AdminController extends Controller
         return view('admin.indicadores');
     }
 
+    public function editar_endicador($id)
+    {
+        return view('admin.editar-indicador', compact('id'));
+    }
+
     public function usuarios()
     {
         return view('admin.usuarios');

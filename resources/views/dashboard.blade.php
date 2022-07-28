@@ -17,7 +17,6 @@
                 <x-utils.dashboard-image :user="Auth::user()->id"></x-utils.dashboard-image>
             </div>
         </div>
-
         <hr>
         {{-- Enlaces --}}
         <div class="bg-gray-100 rounded-lg p-4">
