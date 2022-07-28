@@ -6,6 +6,7 @@ use App\Models\Cliente;
 use App\Models\Documento;
 use App\Models\DocumentoEnviado;
 use App\Models\Responsable;
+use App\Models\ResponsableSalida;
 use App\Models\Salida;
 use Database\Seeders\SalidaSeeder;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +43,7 @@ class ActividadSalidas extends Component
     {
         $salidas = Salida::query()
             ->whereIn('id', function ($query) {
-                $query->select('salida_id')->from('clientes')
+                $query->select('salida_id')->from('responsables_salidas')
                     ->where('responsable_id', $this->responsable->id);
             })
             ->get();
@@ -69,12 +70,11 @@ class ActividadSalidas extends Component
             })
             ->get();
 
-        $this->clientes = Cliente::query()
-            ->with('entidad')
-            ->where('salida_id', $salida_id)
+        $this->clientes = ResponsableSalida::query()
+            ->with('clientes')
             ->where('responsable_id', $this->responsable->id)
-            ->get()
-            ->pluck('entidad.nombre');
+            ->where('salida_id', $salida_id)
+            ->first()->clientes;
     }
 
     public function enviarArchivo()

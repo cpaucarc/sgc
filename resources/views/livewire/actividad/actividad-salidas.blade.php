@@ -133,8 +133,8 @@
                         </h2>
                         <ul class="mt-1 flex flex-wrap gap-2">
                             @foreach($clientes as $cliente)
-                                <li class="bg-gray-100 text-xs rounded-full text-gray-900 font-medium px-3 py-1">
-                                    {{ $cliente }}
+                                <li class="bg-gray-100 text-sm rounded-full text-gray-900 font-medium px-3 py-1">
+                                    {{ $cliente->entidad->nombre }}
                                 </li>
                             @endforeach
                         </ul>

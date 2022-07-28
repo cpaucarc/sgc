@@ -21,4 +21,14 @@ class Responsable extends Model
     {
         return $this->belongsTo(Entidad::class);
     }
+
+    public function clientes()
+    {
+        return $this->hasMany(Cliente::class);
+    }
+
+    public function salidas()
+    {
+        return $this->hasManyThrough(Salida::class, Cliente::class, 'salida_id', 'id');
+    }
 }

@@ -81,7 +81,7 @@
     @endif
 
     @if($salida_seleccionada)
-        <x-jet-dialog-modal wire:model="open" maxWidth="3xl">
+        <x-jet-dialog-modal wire:model="open" maxWidth="4xl">
             <x-slot name="title">
                 <div class="flex items-center gap-x-2">
                     <div
@@ -96,16 +96,13 @@
             </x-slot>
 
             <x-slot name="content">
-                {{--                {{ $salida_seleccionada }}--}}
                 <div class="space-y-8">
                     <x-utils.tables.table>
                         @slot('head')
                             <x-utils.tables.head>Nombre del documento</x-utils.tables.head>
                             <x-utils.tables.head>Enviado por</x-utils.tables.head>
-                            <x-utils.tables.head>Fecha</x-utils.tables.head>
-                            <x-utils.tables.head>
-                                <span class=" sr-only">Acciones</span>
-                            </x-utils.tables.head>
+                            <x-utils.tables.head class="text-right">Fecha de envío</x-utils.tables.head>
+                            <x-utils.tables.head><span class="sr-only">Acciones</span></x-utils.tables.head>
                         @endslot
                         @slot('body')
                             @foreach($salida_seleccionada->documentos as $doc)

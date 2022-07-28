@@ -13,13 +13,12 @@ use Livewire\Component;
 
 class ListaDocumentosRecibidos extends Component
 {
-    public $semestres = null;
-    public $semestre = 0;
-    public $procesos = null;
+    public $open = false;
+    public $semestres = null, $semestre = 0;
+    public $procesos = null, $proceso = 0;
     public $entidades = [];
-    public $proceso = 0;
 
-    public $salida_seleccionada = null, $open = false;
+    public $salida_seleccionada = null;
 
     public function mount()
     {
@@ -30,15 +29,14 @@ class ListaDocumentosRecibidos extends Component
 
         $this->procesos = Proceso::query()
             ->whereIn('id', function ($query) {
-                $query->select('proceso_id')->from('actividades')
-                    ->whereIn('id', function ($query2) {
-                        $query2->select('actividad_id')->from('responsables')
-                            ->whereIn('id', function ($query3) {
-                                $query3->select('responsable_id')->from('clientes')->whereIn('entidad_id', $this->entidades);
-                            });
+                $query->select('proceso_id')->from('actividades')->whereIn('id', function ($query2) {
+                    $query2->select('actividad_id')->from('responsables')->whereIn('id', function ($query3) {
+                        $query3->select('responsable_id')->from('responsables_salidas')->whereIn('id', function ($query4) {
+                            $query4->select('responsable_salida_id')->from('clientes')->whereIn('entidad_id', $this->entidades);
+                        });
                     });
-            })
-            ->orderBy('nombre')->get();
+                });
+            })->orderBy('nombre')->get();
         $this->proceso = $this->procesos->first()->id;
     }
 
@@ -51,16 +49,16 @@ class ListaDocumentosRecibidos extends Component
                 });
             }])
             ->whereIn('id', function ($query) {
-                $query->select('salida_id')->from('clientes')
-                    ->whereIn('entidad_id', $this->entidades)
+                $query->select('salida_id')->from('responsables_salidas')
+                    ->whereIn('id', function ($query2) {
+                        $query2->select('responsable_salida_id')->from('clientes')->whereIn('entidad_id', $this->entidades);
+                    })
                     ->whereIn('responsable_id', function ($query2) {
-                        $query2->select('id')->from('responsables')
-                            ->whereIn('actividad_id', function ($query3) {
-                                $query3->select('id')->from('actividades')->where('proceso_id', $this->proceso);
-                            });
+                        $query2->select('id')->from('responsables')->whereIn('actividad_id', function ($query3) {
+                            $query3->select('id')->from('actividades')->where('proceso_id', $this->proceso);
+                        });
                     });
-            })
-            ->get();
+            })->get();
 
         return view('livewire.actividad.lista-documentos-recibidos', compact('salidas'));
     }
@@ -72,8 +70,8 @@ class ListaDocumentosRecibidos extends Component
                 $query->whereHas('documento', function ($query2) {
                     $query2->where('semestre_id', $this->semestre);
                 });
-            }])
-            ->find($salida_id);
+            }])->find($salida_id);
+
 //            ->with('documentos', 'documentos.documento.entidad')
 //            ->whereIn('id', function ($query) {
 //                $query->select('salida_id')
