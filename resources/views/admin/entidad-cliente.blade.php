@@ -4,7 +4,7 @@
         {{-- Rutas --}}
         <div class="col-span-2">
             <div class="space-y-4 divide-y divide-dashed divide-gray-200">
-                <a class="font-bold text-sm text-gray-400 hover:text-blue-600 inline-flex items-center hover:underline"
+                <a class="font-bold text-sm text-zinc-500 hover:text-sky-600 inline-flex items-center hover:underline"
                    href="{{route('admin.panel.entidades')}}">
                     <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
