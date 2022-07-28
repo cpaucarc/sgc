@@ -9,8 +9,8 @@
             <livewire:admin.info-indicador indicador_id="{{$id}}"/>
             <hr/>
 
-            <div class="w-3/4 mx-auto">
-                Lista
+            <div class="mx-auto">
+                <livewire:admin.asignar-indicador indicador_id="{{$id}}"/>
             </div>
         </div>
     </div>
