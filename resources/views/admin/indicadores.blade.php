@@ -12,7 +12,10 @@
                 <h1 class="font-bold text-xl text-black">
                     Indicadores
                 </h1>
-                {{--                <livewire:admin.indicador.crear-indicador/>--}}
+                <x-utils.links.primary class="flex items-center"
+                              href="{{ route('admin.panel.indicadores.crear') }}">
+                    Registrar nuevo
+                </x-utils.links.primary>
             </div>
 
             <hr/>
