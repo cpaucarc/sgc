@@ -1,11 +1,9 @@
 <div>
-
     <div class="flex items-center justify-end mb-4">
         <x-utils.buttons.default wire:click="openModal" class="text-sm">
             Asignar indicador
         </x-utils.buttons.default>
     </div>
-
 
     <div class="grid grid-cols-2 gap-x-4">
         {{-- Facultades --}}
@@ -36,11 +34,12 @@
             @else
                 <div class="border border-zinc-300 rounded-md">
                     <x-utils.message-no-items
-                        text="Este indicador no está asignado a una facultad.">
+                        text="El indicador {{$indicador->cod_ind_inicial}} no está asignado a una facultad.">
                         @slot('icon')
-                            <svg class="text-zinc-400" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
-                                <path fill-rule="evenodd"
-                                      d="M12.077 2.563a.25.25 0 00-.154 0L3.673 5.24a.249.249 0 00-.173.237V10.5c0 5.461 3.28 9.483 8.43 11.426a.2.2 0 00.14 0c5.15-1.943 8.43-5.965 8.43-11.426V5.476a.25.25 0 00-.173-.237l-8.25-2.676zm-.617-1.426a1.75 1.75 0 011.08 0l8.25 2.675A1.75 1.75 0 0122 5.476V10.5c0 6.19-3.77 10.705-9.401 12.83a1.699 1.699 0 01-1.198 0C5.771 21.204 2 16.69 2 10.5V5.476c0-.76.49-1.43 1.21-1.664l8.25-2.675zM13 12.232A2 2 0 0012 8.5a2 2 0 00-1 3.732V15a1 1 0 102 0v-2.768z"></path>
+                            <svg class="h-6 w-6 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                 stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z"/>
                             </svg>
                         @endslot
                     </x-utils.message-no-items>
@@ -76,11 +75,12 @@
             @else
                 <div class="border border-zinc-300 rounded-md">
                     <x-utils.message-no-items
-                        text="Este indicador no está asignado a un programa de estudios.">
+                        text="El indicador {{$indicador->cod_ind_inicial}}  no está asignado a un programa de estudios.">
                         @slot('icon')
-                            <svg class="text-zinc-400" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
-                                <path fill-rule="evenodd"
-                                      d="M12.077 2.563a.25.25 0 00-.154 0L3.673 5.24a.249.249 0 00-.173.237V10.5c0 5.461 3.28 9.483 8.43 11.426a.2.2 0 00.14 0c5.15-1.943 8.43-5.965 8.43-11.426V5.476a.25.25 0 00-.173-.237l-8.25-2.676zm-.617-1.426a1.75 1.75 0 011.08 0l8.25 2.675A1.75 1.75 0 0122 5.476V10.5c0 6.19-3.77 10.705-9.401 12.83a1.699 1.699 0 01-1.198 0C5.771 21.204 2 16.69 2 10.5V5.476c0-.76.49-1.43 1.21-1.664l8.25-2.675zM13 12.232A2 2 0 0012 8.5a2 2 0 00-1 3.732V15a1 1 0 102 0v-2.768z"></path>
+                            <svg class="h-6 w-6 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                 stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z"/>
                             </svg>
                         @endslot
                     </x-utils.message-no-items>
@@ -89,13 +89,18 @@
         </div>
     </div>
 
-    @if(!is_null($facultades_not_indicador) or !is_null($escuelas_not_indicador))
+    @if(!is_null($facultades) or !is_null($escuelas_not_indicador))
         <x-jet-dialog-modal wire:model="open" maxWidth="4xl">
             <x-slot name="title">
                 <div class="flex justify-between w-full">
-                    <h1 class="font-bold text-zinc-700">
-                        Asignar el indicador a facultades y/o escuela
-                    </h1>
+                    <div class="flex flex-col">
+                        <h1 class="font-semibold text-zinc-700">
+                            Asignar el indicador <span class="font-bold">{{$indicador->cod_ind_inicial}}</span> a
+                            facultades
+                            y/o programa de estudios
+                        </h1>
+                        <p class="text-sm text-zinc-400 font-light">({{$indicador->objetivo}})</p>
+                    </div>
                     <x-utils.buttons.close-button wire:click="$set('open', false)"/>
                 </div>
             </x-slot>
@@ -121,7 +126,7 @@
                         <div class="divide-y divide-zinc-300">
                             <table class="divide-y divide-zinc-300 w-full overflow-hidden">
                                 <tbody class="text-sm text-zinc-700 divide-y divide-zinc-300">
-                                @foreach($facultades_not_indicador as $facultad)
+                                @foreach($facultades as $facultad)
                                     <tr class="hover:bg-zinc-100 soft-transition">
                                         <td class="px-3 py-1.5 text-left ">
                                             <x-utils.forms.checkbox wire:model="facultades_selected"
@@ -136,23 +141,26 @@
                         </div>
                     </section>
 
-                    {{-- Sección de entidades --}}
+                    {{-- Sección de escuelas --}}
                     <section class="border border-zinc-300 divide-y divide-zinc-300 rounded-md text-zinc-700">
                         <header class="px-3 py-2 rounded-t-md bg-stone-100">
-                            <h2 class="font-bold text-zinc-600 mr-1">Sección de Entidades</h2>
+                            <h2 class="font-bold text-zinc-600 mr-1">Sección de Programas de Estudio</h2>
                             <p class="text-sm">
                                 @if(count($escuelas_selected))
                                     (
                                     {{ count($escuelas_selected) }} {{ count($escuelas_selected) == 1 ? 'programa de estudio seleccionado' : 'programa des estudios seleccionados' }}
                                     )
                                 @else
-                                    (No haz seleccionado ninguna escuela)
+                                    (No haz seleccionado ningún programa de estudio)
                                 @endif
                             </p>
                         </header>
 
                         <div class="divide-y divide-zinc-300">
                             @if($escuelas_not_indicador)
+                                <x-utils.dd>
+                                    {{$escuelas_not_indicador}}
+                                </x-utils.dd>
                                 <table class="divide-y divide-zinc-300 w-full overflow-hidden">
                                     <tbody class="text-sm text-zinc-700 divide-y divide-zinc-300">
                                     @foreach($escuelas_not_indicador as $escuelas)
@@ -179,6 +187,9 @@
                                         </svg>
                                         <p class="text-zinc-800 leading-5 text-center mt-2">
                                             Seleccione una facultad para visualizar escuelas
+                                            <x-utils.dd>
+                                                {{$escuelas_not_indicador}}
+                                            </x-utils.dd>
                                         </p>
                                     </div>
                                 </div>

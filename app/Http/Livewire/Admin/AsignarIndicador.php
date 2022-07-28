@@ -17,14 +17,14 @@ class AsignarIndicador extends Component
     public $indicador_en_facultades = null, $ind_fac_actual = [];
     public $indicador_en_escuelas = null, $ind_esc_actual = [];
 
-    public $facultades_not_indicador = null, $facultades_selected = [];
+    public $facultades = null, $facultades_selected = [];
     public $escuelas_not_indicador = null, $escuelas_selected = [];
 
 
     public function mount($indicador_id)
     {
         $this->indicador_id = $indicador_id;
-        $this->indicador = Indicador::query()->where('id', $this->indicador_id)->first();
+        $this->indicador = Indicador::find($this->indicador_id);
     }
 
     public function render()
@@ -48,8 +48,7 @@ class AsignarIndicador extends Component
     public function openModal()
     {
         $this->open = true;
-        $this->facultades_not_indicador = Facultad::query()
-            ->whereNotIn('id', $this->ind_fac_actual)->get();
+        $this->facultades = Facultad::all();
     }
 
     public function updatedFacultadesSelected()
