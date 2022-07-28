@@ -20,6 +20,7 @@ class AsignarIndicador extends Component
     public $facultades = null, $facultades_selected = [];
     public $escuelas_not_indicador = null, $escuelas_selected = [];
 
+    public $fac_repetidos = [];
 
     public function mount($indicador_id)
     {
@@ -33,7 +34,7 @@ class AsignarIndicador extends Component
             ->where('indicador_id', $this->indicador_id)
             ->where('indicadorable_type', 'App\Models\Facultad');
         $this->indicador_en_facultades = $query_fac->get();
-        $this->ind_fac_actual = $query_fac->pluck('indicadorable_id');
+        $this->ind_fac_actual = $query_fac->pluck('id');
 
         $query_esc = Indicadorable::query()
             ->where('indicador_id', $this->indicador_id)
@@ -66,32 +67,63 @@ class AsignarIndicador extends Component
 
     public function asignarIndicador()
     {
-        if (count($this->facultades_selected) > 0) {
-            foreach ($this->facultades_selected as $facultad) {
-                $fac_abrev = Facultad::select('abrev')->where('id', $facultad)->first();
-                Indicadorable::create([
-                    'cod_ind_final' => ($this->indicador->cod_ind_inicial . '-' . $fac_abrev->abrev),
-                    'minimo' => $this->indicador->minimo,
-                    'sobresaliente' => $this->indicador->sobresaliente,
-                    'indicadorable_id' => $facultad,
-                    'indicadorable_type' => 'App\Models\Facultad',
-                    'indicador_id' => $this->indicador_id
-                ]);
+        try {
+            if (count($this->facultades_selected) > 0 or count($this->escuelas_selected) > 0) {
+                if (count($this->facultades_selected) > 0) {
+                    foreach ($this->facultades_selected as $facultad_id) {
+                        $facultad = Facultad::select(['abrev', 'nombre'])->where('id', $facultad_id)->first();
+                        $exists = Indicadorable::query()
+                            ->where('indicador_id', $this->indicador_id)
+                            ->where('indicadorable_type', 'App\Models\Facultad')
+                            ->where('indicadorable_id', $facultad_id)
+                            ->whereIn('id', $this->ind_fac_actual)->get();
+
+                        $this->emit('error', "Hubo un error inesperado " . count($exists));
+
+                        if (count($exists) === 0) {
+                            Indicadorable::create([
+                                'cod_ind_final' => ($this->indicador->cod_ind_inicial . '-' . $facultad->abrev),
+                                'minimo' => $this->indicador->minimo,
+                                'sobresaliente' => $this->indicador->sobresaliente,
+                                'indicadorable_id' => $facultad_id,
+                                'indicadorable_type' => 'App\Models\Facultad',
+                                'indicador_id' => $this->indicador_id
+                            ]);
+                        } else {
+                            array_push($this->fac_repetidos, $facultad->nombre);
+                        }
+
+                    }
+                }
+                if (count($this->escuelas_selected) > 0) {
+                    foreach ($this->escuelas_selected as $escuela_id) {
+                        $escuela = Escuela::select('abrev')->where('id', $escuela_id)->first();
+                        Indicadorable::create([
+                            'cod_ind_final' => ($this->indicador->cod_ind_inicial . '-' . $escuela->abrev),
+                            'minimo' => $this->indicador->minimo,
+                            'sobresaliente' => $this->indicador->sobresaliente,
+                            'indicadorable_id' => $escuela_id,
+                            'indicadorable_type' => 'App\Models\Escuela',
+                            'indicador_id' => $this->indicador_id
+                        ]);
+                    }
+                }
+                if (count($this->fac_repetidos) > 0) {
+                    $msg = "El indicador " . $this->indicador->cod_ind_inicial . " fue asignado con éxito.\n Ya agregados anteriormente:";
+                    foreach ($this->fac_repetidos as $reptido) {
+                        $msg .= $reptido . "\n";
+                    }
+                } else {
+                    $msg = "El indicador " . $this->indicador->cod_ind_inicial . " fue asignado con éxito.";
+                }
+                $this->emit('guardado', ['titulo' => 'Indicador asignado', 'mensaje' => $msg]);
+                $this->reset(['facultades_selected', 'escuelas_selected', 'open']);
+            } else {
+                $this->emit('error', "No ha seleccionado una facultad o un programa de estudio");
             }
+
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado \n " . $e);
         }
-        if (count($this->escuelas_selected) > 0) {
-            foreach ($this->escuelas_selected as $escuela) {
-                $esc_abrev = Escuela::select('abrev')->where('id', $escuela)->first();
-                Indicadorable::create([
-                    'cod_ind_final' => ($this->indicador->cod_ind_inicial . '-' . $esc_abrev->abrev),
-                    'minimo' => $this->indicador->minimo,
-                    'sobresaliente' => $this->indicador->sobresaliente,
-                    'indicadorable_id' => $facultad,
-                    'indicadorable_type' => 'App\Models\Escuela',
-                    'indicador_id' => $this->indicador_id
-                ]);
-            }
-        }
-        $this->emit('guardado', ['titulo' => 'Entidad quitado', 'mensaje' => 'guardado']);
     }
 }

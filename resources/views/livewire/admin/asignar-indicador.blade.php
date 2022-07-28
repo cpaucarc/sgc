@@ -158,9 +158,6 @@
 
                         <div class="divide-y divide-zinc-300">
                             @if($escuelas_not_indicador)
-                                <x-utils.dd>
-                                    {{$escuelas_not_indicador}}
-                                </x-utils.dd>
                                 <table class="divide-y divide-zinc-300 w-full overflow-hidden">
                                     <tbody class="text-sm text-zinc-700 divide-y divide-zinc-300">
                                     @foreach($escuelas_not_indicador as $escuelas)
@@ -186,10 +183,7 @@
                                                 d="M6.25 7a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm-.75 4.75a.75.75 0 01.75-.75h4.5a.75.75 0 010 1.5h-4.5a.75.75 0 01-.75-.75zm16.28 4.53a.75.75 0 10-1.06-1.06l-4.97 4.97-1.97-1.97a.75.75 0 10-1.06 1.06l2.5 2.5a.75.75 0 001.06 0l5.5-5.5z"></path>
                                         </svg>
                                         <p class="text-zinc-800 leading-5 text-center mt-2">
-                                            Seleccione una facultad para visualizar escuelas
-                                            <x-utils.dd>
-                                                {{$escuelas_not_indicador}}
-                                            </x-utils.dd>
+                                            Seleccione una facultad para visualizar escuelas.
                                         </p>
                                     </div>
                                 </div>
