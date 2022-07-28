@@ -4,6 +4,9 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Entrada;
 use App\Models\Proceso;
+use App\Models\Proveedor;
+use App\Models\ResponsableSalida;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class ListaEntradas extends Component
@@ -23,6 +26,10 @@ class ListaEntradas extends Component
     {
         if ($value > 0) {
             $this->entradas = Entrada::query()
+                ->addSelect(['cantidad' => Proveedor::select(DB::raw('count(1)'))
+                    ->whereColumn('entrada_id', 'entradas.id')
+                    ->take(1)
+                ])
                 ->where('nombre', 'like', '%' . $this->search . '%')
                 ->where('proceso_id', $value)
                 ->orderBy('codigo')

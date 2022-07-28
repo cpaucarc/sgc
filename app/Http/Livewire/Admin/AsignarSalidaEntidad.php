@@ -6,6 +6,7 @@ use App\Models\Cliente;
 use App\Models\Entidad;
 use App\Models\Proceso;
 use App\Models\Responsable;
+use App\Models\ResponsableSalida;
 use App\Models\Salida;
 use Livewire\Component;
 
@@ -69,9 +70,9 @@ class AsignarSalidaEntidad extends Component
             $this->salidas = Salida::query()
                 ->where('proceso_id', $this->proceso)
                 ->whereNotIn('id', function ($query) {
-                    $query->select('salida_id')->from('clientes')
-                        ->where('responsable_id', $this->actividad)
-                        ->where('entidad_id', $this->entidad_id);
+                    $query->select('salida_id')->from('responsables_salidas')->where('responsable_id', $this->actividad)->whereIn('id', function ($query2) {
+                        $query2->select('responsable_salida_id')->from('clientes')->where('entidad_id', $this->entidad_id);
+                    });
                 })->get();
         }
 
@@ -90,10 +91,21 @@ class AsignarSalidaEntidad extends Component
         $this->validate();
 
         foreach ($this->selected as $salida_id) {
+            $resp_salida = ResponsableSalida::query()
+                ->where('responsable_id', $this->actividad)
+                ->where('salida_id', intval($salida_id))
+                ->first();
+
+            if (is_null($resp_salida)) {
+                $resp_salida = ResponsableSalida::create([
+                    'responsable_id' => $this->actividad,
+                    'salida_id' => intval($salida_id)
+                ]);
+            }
+
             $clientes[] = [
-                'responsable_id' => $this->actividad,
-                'entidad_id' => $this->entidad_id,
-                'salida_id' => intval($salida_id)
+                'responsable_salida_id' => $resp_salida->id,
+                'entidad_id' => $this->entidad_id
             ];
         }
 

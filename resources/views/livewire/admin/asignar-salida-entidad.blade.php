@@ -8,9 +8,9 @@
 
         <x-slot name="content">
 
-            <div class="space-y-4 divide-y divide-dashed divide-gray-200">
+            <div class="space-y-1">
 
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-center gap-x-4 border-b border-dashed border-zinc-300 pb-3">
                     <p class="font-light text-sm text-gray-600">
                         @if(count($selected))
                             {{ count($selected) }} {{ count($selected) == 1 ? 'salida seleccionado' : 'salidas seleccionados' }}
@@ -59,7 +59,7 @@
                                     @slot('head')
                                         <x-utils.tables.head><span class="sr-only">Seleccionar</span>
                                         </x-utils.tables.head>
-                                        <x-utils.tables.head>Código</x-utils.tables.head>
+                                        <x-utils.tables.head>Cód.</x-utils.tables.head>
                                         <x-utils.tables.head>Salida</x-utils.tables.head>
                                     @endslot
                                     @slot('body')
@@ -70,10 +70,8 @@
                                                                             wire:loading.attr="disabled"
                                                                             value="{{ $salida->id }}"/>
                                                 </x-utils.tables.body>
-                                                <x-utils.tables.body
-                                                    class="text-xs">{{ $salida->codigo }}</x-utils.tables.body>
-                                                <x-utils.tables.body
-                                                    class="text-xs">{{ $salida->nombre }}</x-utils.tables.body>
+                                                <x-utils.tables.body><b>{{ $salida->codigo }}</b></x-utils.tables.body>
+                                                <x-utils.tables.body>{{ $salida->nombre }}</x-utils.tables.body>
                                             </x-utils.tables.row>
                                         @endforeach
                                     @endslot

@@ -3,7 +3,9 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Proceso;
+use App\Models\ResponsableSalida;
 use App\Models\Salida;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class ListaSalidas extends Component
@@ -23,6 +25,10 @@ class ListaSalidas extends Component
     {
         if ($value > 0) {
             $this->salidas = Salida::query()
+                ->addSelect(['cantidad' => ResponsableSalida::select(DB::raw('count(1)'))
+                    ->whereColumn('salida_id', 'salidas.id')
+                    ->take(1)
+                ])
                 ->where('nombre', 'like', '%' . $this->search . '%')
                 ->where('proceso_id', $value)
                 ->orderBy('codigo')

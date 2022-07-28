@@ -4,9 +4,12 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Entidad;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ListaEntidades extends Component
 {
+    use WithPagination;
+
     public $search = "";
     public $listeners = ['render'];
 
@@ -17,7 +20,12 @@ class ListaEntidades extends Component
             ->where('nombre', 'like', '%' . $this->search . '%')
             ->withCount('salidas', 'entradas', 'actividades')
             ->orderBy('nombre')
-            ->get();
+            ->paginate(10);
         return view('livewire.admin.lista-entidades', compact('entidades'));
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
     }
 }

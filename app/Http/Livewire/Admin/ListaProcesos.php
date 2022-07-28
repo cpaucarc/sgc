@@ -53,7 +53,7 @@ class ListaProcesos extends Component
             ->count();
 
         if ($dependientes > 0) {
-            $this->emit('error', 'No es posible eliminar este proceso porque está asociado a una activiad o un módulo.');
+            $this->emit('error', 'No es posible eliminar este proceso porque está asociado a una actividad o un módulo.');
         } else {
             Proceso::find($id)->delete();
         }

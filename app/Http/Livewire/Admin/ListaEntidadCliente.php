@@ -23,7 +23,7 @@ class ListaEntidadCliente extends Component
     public function render()
     {
         $salidas = Cliente::query()
-            ->with('salida', 'entidad', 'responsable')
+            ->with('respsalida')
             ->where('entidad_id', $this->entidad_id)
             ->paginate(10);
         return view('livewire.admin.lista-entidad-cliente', compact('salidas'));

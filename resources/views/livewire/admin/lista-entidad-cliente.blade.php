@@ -16,24 +16,33 @@
             <div class="pt-4">
                 <x-utils.tables.table>
                     @slot('head')
-                        <x-utils.tables.head>N°</x-utils.tables.head>
                         <x-utils.tables.head>Salida</x-utils.tables.head>
                         <x-utils.tables.head>Actividad</x-utils.tables.head>
+                        <x-utils.tables.head>Proceso</x-utils.tables.head>
                         <x-utils.tables.head><span class="sr-only">Acciones</span></x-utils.tables.head>
                     @endslot
                     @slot('body')
-                        @foreach($salidas as $i => $salida)
+                        @foreach($salidas as $cliente)
                             <x-utils.tables.row>
-                                <x-utils.tables.body>{{$i + 1}}</x-utils.tables.body>
-                                <x-utils.tables.body>{{$salida->salida->nombre}}</x-utils.tables.body>
                                 <x-utils.tables.body>
-                                    <h3>{{$salida->responsable->actividad->nombre}}</h3>
-                                    <p class="text-xs">Responsable: {{$salida->responsable->entidad->nombre}}</p>
+                                    <div class="flex gap-x-4 items-center">
+                                        <b>{{ $cliente->respsalida->salida->codigo }}</b>
+                                        {{ $cliente->respsalida->salida->nombre }}
+                                    </div>
+                                </x-utils.tables.body>
+                                <x-utils.tables.body>
+                                    <h3><b>{{ $cliente->respsalida->responsable->actividad->nombre }}</b></h3>
+                                    <p class="text-sm text-zinc-500">
+                                        Responsable: <b>{{ $cliente->respsalida->responsable->entidad->nombre }}</b>
+                                    </p>
+                                </x-utils.tables.body>
+                                <x-utils.tables.body>
+                                    {{$cliente->respsalida->responsable->actividad->proceso->nombre}}
                                 </x-utils.tables.body>
                                 <x-utils.tables.body>
                                     <x-utils.buttons.danger
-                                        onclick="eliminar({{ $salida->id }}, '{{$salida->salida->nombre}}')">
-                                        <x-icons.delete class="h-4 w-4" stroke="1.5"/>
+                                        onclick="eliminar({{ $cliente->id }}, '{{ $cliente->respsalida->salida->nombre }}')">
+                                        <x-icons.delete class="icon-4" stroke="1.5"/>
                                     </x-utils.buttons.danger>
                                 </x-utils.tables.body>
                             </x-utils.tables.row>
@@ -81,7 +90,6 @@
                     }
                 })
             }
-
         </script>
     @endpush
 </div>

@@ -16,14 +16,22 @@
                 <x-utils.tables.head>N°</x-utils.tables.head>
                 <x-utils.tables.head>Código</x-utils.tables.head>
                 <x-utils.tables.head>Entrada</x-utils.tables.head>
+                <x-utils.tables.head>Usos</x-utils.tables.head>
                 <x-utils.tables.head><span class="sr-only">Acciones</span></x-utils.tables.head>
             @endslot
             @slot('body')
                 @foreach($salidas as $i => $salida)
                     <x-utils.tables.row>
                         <x-utils.tables.body>{{($i + 1)}}</x-utils.tables.body>
-                        <x-utils.tables.body>{{$salida->codigo}}</x-utils.tables.body>
-                        <x-utils.tables.body class="font-semibold">{{$salida->nombre}}</x-utils.tables.body>
+                        <x-utils.tables.body><b>{{$salida->codigo}}</b></x-utils.tables.body>
+                        <x-utils.tables.body>{{$salida->nombre}}</x-utils.tables.body>
+                        <x-utils.tables.body class="whitespace-nowrap">
+                            @if($salida->cantidad > 0)
+                                Salida de {{$salida->cantidad}} actividades
+                            @else
+                                <p class="text-rose-400 font-semibold">Sin asignar</p>
+                            @endif
+                        </x-utils.tables.body>
                         <x-utils.tables.body>
                             <x-utils.buttons.danger class="text-sm"
                                                     onclick="eliminar({{ $salida->id }}, '{{$salida->nombre}}')">
@@ -37,7 +45,7 @@
     @else
         <div class="border border-gray-300 rounded-md">
             <x-utils.message-no-items
-                title="Para iniciar, seleccione un proceso"
+                title="{{ $proceso > 0 ? 'Este proceso no tiene ningún elemento' : 'Para iniciar, seleccione un proceso' }}"
                 text="Elija el proceso, en la esquina superior derecha, para cargar las salidas">
                 @slot('icon')
                     <svg class="text-gray-400" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">

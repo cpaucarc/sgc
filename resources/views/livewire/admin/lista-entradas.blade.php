@@ -16,14 +16,22 @@
                 <x-utils.tables.head>N°</x-utils.tables.head>
                 <x-utils.tables.head>Código</x-utils.tables.head>
                 <x-utils.tables.head>Entrada</x-utils.tables.head>
+                <x-utils.tables.head>Uso</x-utils.tables.head>
                 <x-utils.tables.head><span class="sr-only">Acciones</span></x-utils.tables.head>
             @endslot
             @slot('body')
                 @foreach($entradas as $i => $entrada)
                     <x-utils.tables.row>
                         <x-utils.tables.body>{{($i + 1)}}</x-utils.tables.body>
-                        <x-utils.tables.body>{{$entrada->codigo}}</x-utils.tables.body>
-                        <x-utils.tables.body class="font-semibold">{{$entrada->nombre}}</x-utils.tables.body>
+                        <x-utils.tables.body><b>{{$entrada->codigo}}</b></x-utils.tables.body>
+                        <x-utils.tables.body>{{$entrada->nombre}}</x-utils.tables.body>
+                        <x-utils.tables.body class="whitespace-nowrap">
+                            @if($entrada->cantidad > 0)
+                                Entrada en {{$entrada->cantidad}} actividades
+                            @else
+                                <p class="text-rose-400 font-semibold">Sin asignar</p>
+                            @endif
+                        </x-utils.tables.body>
                         <x-utils.tables.body>
                             <x-utils.buttons.danger class="text-sm"
                                                     onclick="eliminar({{ $entrada->id }}, '{{$entrada->nombre}}')">

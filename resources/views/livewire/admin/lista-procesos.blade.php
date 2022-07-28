@@ -17,7 +17,11 @@
                         <x-utils.tables.body>{{($i + 1)}}</x-utils.tables.body>
                         <x-utils.tables.body class="font-semibold">{{$proceso->nombre}}</x-utils.tables.body>
                         <x-utils.tables.body>
-                            {{$proceso->actividades_count ? $proceso->actividades_count . ' actividades' : 'Ninguno'}}
+                            @if($proceso->actividades_count)
+                                {{$proceso->actividades_count}} actividades
+                            @else
+                                <p class="text-rose-400 font-semibold">Sin actividades</p>
+                            @endif
                         </x-utils.tables.body>
                         <x-utils.tables.body>
                             <x-utils.buttons.danger class="text-sm"
