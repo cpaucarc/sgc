@@ -55,6 +55,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('salida', 'salidas')->name('admin.panel.salidas');
         Route::get('entidad', 'entidades')->name('admin.panel.entidades');
         Route::get('indicador', 'indicadores')->name('admin.panel.indicadores');
+        Route::get('indicador/ver/{id}', 'indicador')->name('admin.panel.indicadores.indicador');
         Route::get('indicador/crear', 'crear_indicador')->name('admin.panel.indicadores.crear');
         Route::get('indicador/editar/{id}', 'editar_indicador')->name('admin.panel.indicadores.editar');
         Route::get('usuario', 'usuarios')->name('admin.panel.usuarios');
