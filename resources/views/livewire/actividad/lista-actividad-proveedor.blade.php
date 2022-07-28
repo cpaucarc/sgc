@@ -24,6 +24,7 @@
 
     <x-utils.tables.table>
         @slot('head')
+            <x-utils.tables.head>N°</x-utils.tables.head>
             <x-utils.tables.head>Entrada</x-utils.tables.head>
             <x-utils.tables.head>Actividad</x-utils.tables.head>
             <x-utils.tables.head>Estado</x-utils.tables.head>
@@ -32,17 +33,17 @@
             </x-utils.tables.head>
         @endslot
         @slot('body')
-            @foreach($proveer as $prov)
+            @foreach($proveer as $i => $prov)
                 <x-utils.tables.row>
+                    <x-utils.tables.body>{{ $i + 1 }}</x-utils.tables.body>
                     <x-utils.tables.body class="font-semibold">
                         <h2 class="font-bold">
                             {{ $prov->entrada->nombre }}
                         </h2>
                     </x-utils.tables.body>
                     <x-utils.tables.body>
-                        <p class="text-gray-500">
-                            {{ $prov->responsable->actividad->nombre }}
-                        </p>
+                        <p>{{ $prov->responsable->actividad->nombre }}</p>
+                        <p class="text-zinc-500">Responsable: <b>{{ $prov->responsable->entidad->nombre }}</b></p>
                     </x-utils.tables.body>
                     <x-utils.tables.body>
                         <x-utils.badge
@@ -64,10 +65,10 @@
         <x-jet-dialog-modal wire:model="open" maxWidth="3xl">
             <x-slot name="title">
                 <div class="flex-col">
-                    <h1 class="font-bold text-gray-700">
+                    <h1 class="font-bold text-zinc-700">
                         {{ $proveedor_seleccionado->entrada->nombre }}
                     </h1>
-                    <p class="text-gray-500 text-sm">
+                    <p class="text-zinc-500 text-sm">
                         Actividad: {{ $proveedor_seleccionado->responsable->actividad->nombre }}
                     </p>
                 </div>
@@ -78,7 +79,7 @@
 
                 <div class="space-y-8">
                     <div class="space-y-2">
-                        <h2 class="text-gray-800 text-sm font-bold">Subir archivo:</h2>
+                        <h2 class="text-zinc-800 text-sm font-bold">Subir archivo:</h2>
                         <x-jet-label for="archivo" value="{{ __('Archivo Adjunto. (Peso max: 25Mb)') }}"/>
                         <x-utils.file-uploading>
                             <x-utils.forms.file-input id="archivo" class="w-full block" wire:model.defer="archivo"/>
@@ -88,18 +89,18 @@
 
                     <details class="space-y-2">
                         <summary class="flex items-center space-x-2 cursor-pointer">
-                            <h2 class="text-gray-800 text-sm font-bold">Documentos enviados:</h2>
-                            <span class="text-gray-500 hover:text-sky-700 text-sm">[Ver]</span>
+                            <h2 class="text-zinc-800 text-sm font-bold">Documentos enviados:</h2>
+                            <span class="text-zinc-500 hover:text-sky-700 text-sm">[Ver]</span>
                         </summary>
                         @if(count($documentos) > 0)
-                            <div class="table w-full text-gray-700">
+                            <div class="table w-full text-zinc-700">
                                 <x-utils.tables.table>
                                     @slot('body')
                                         @foreach($documentos as $documento_enviado)
                                             <x-utils.tables.row class="p-1">
                                                 <x-utils.tables.body class="text-left">
                                                     <div class="flex items-center gap-x-2">
-                                                        <svg class="text-gray-400" viewBox="0 0 16 16" width="16"
+                                                        <svg class="text-zinc-400" viewBox="0 0 16 16" width="16"
                                                              height="16" fill="currentColor">
                                                             <path fill-rule="evenodd"
                                                                   d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"></path>
@@ -139,7 +140,7 @@
                                 title="Aún no has enviado ningún documento"
                                 text="Es importante proveer los documentos correspondiente para completar las actividades.">
                                 @slot('icon')
-                                    <svg class="text-gray-400" fill="currentColor" viewBox="0 0 24 24" width="24"
+                                    <svg class="text-zinc-400" fill="currentColor" viewBox="0 0 24 24" width="24"
                                          height="24">
                                         <path fill-rule="evenodd"
                                               d="M3 3a2 2 0 012-2h9.982a2 2 0 011.414.586l4.018 4.018A2 2 0 0121 7.018V21a2 2 0 01-2 2H4.75a.75.75 0 010-1.5H19a.5.5 0 00.5-.5V8.5h-4a2 2 0 01-2-2v-4H5a.5.5 0 00-.5.5v6.25a.75.75 0 01-1.5 0V3zm12-.5v4a.5.5 0 00.5.5h4a.5.5 0 00-.146-.336l-4.018-4.018A.5.5 0 0015 2.5zm-5.692 12l-2.104-2.236a.75.75 0 111.092-1.028l3.294 3.5a.75.75 0 010 1.028l-3.294 3.5a.75.75 0 11-1.092-1.028L9.308 16H4.09a2.59 2.59 0 00-2.59 2.59v3.16a.75.75 0 01-1.5 0v-3.16a4.09 4.09 0 014.09-4.09h5.218z"></path>
@@ -150,11 +151,11 @@
                     </details>
 
                     <div class="space-y-2">
-                        <h2 class="text-gray-800 text-sm font-bold">
+                        <h2 class="text-zinc-800 text-sm font-bold">
                             Esta información será visto por las siguientes entidades:
                         </h2>
                         <ul class="mt-1 flex flex-wrap gap-2">
-                            <li class="bg-gray-100 text-sm rounded-full text-gray-800 font-medium px-3 py-1">
+                            <li class="bg-zinc-100 text-sm rounded-full text-zinc-800 font-medium px-3 py-1">
                                 {{ $proveedor_seleccionado->responsable->entidad->nombre }}
                             </li>
                         </ul>

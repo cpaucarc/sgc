@@ -25,6 +25,7 @@
     @if(count($salidas))
         <x-utils.tables.table>
             @slot('head')
+                <x-utils.tables.head>N°</x-utils.tables.head>
                 <x-utils.tables.head>Código</x-utils.tables.head>
                 <x-utils.tables.head>Salida</x-utils.tables.head>
                 <x-utils.tables.head>N° Documentos</x-utils.tables.head>
@@ -33,8 +34,9 @@
                 </x-utils.tables.head>
             @endslot
             @slot('body')
-                @foreach($salidas as $salida)
+                @foreach($salidas as $i => $salida)
                     <x-utils.tables.row>
+                        <x-utils.tables.body>{{ $i + 1 }}</x-utils.tables.body>
                         <x-utils.tables.body>
                             <div
                                 class="icon-6 rounded-full font-semibold text-xs grid place-items-center text-blue-800 bg-blue-100">

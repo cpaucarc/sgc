@@ -72,30 +72,6 @@ class ListaDocumentosRecibidos extends Component
                 });
             }])->find($salida_id);
 
-//            ->with('documentos', 'documentos.documento.entidad')
-//            ->whereIn('id', function ($query) {
-//                $query->select('salida_id')
-//                    ->from('clientes')
-//                    ->whereIn('entidad_id', $this->entidades)
-//                    ->whereIn('responsable_id', function ($query) {
-//                        $query->select('id')
-//                            ->from('responsables')
-//                            ->whereIn('actividad_id', function ($query) {
-//                                $query->select('id')
-//                                    ->from('actividades')
-//                                    ->where('proceso_id', $this->proceso_seleccionado);
-//                            });
-//                    });
-//            })
-//            ->whereHas('documentos', function ($query) {
-//                $query->whereColumn('documentable_id', 'salidas.id')
-//                    ->whereHas('documento', function ($q) {
-//                        $q->where('semestre_id', $this->semestre_seleccionado);
-//                    });
-//            })
-//            ->where('id', $salida_id)
-//            ->first();
-//
         $this->open = true;
     }
 }
