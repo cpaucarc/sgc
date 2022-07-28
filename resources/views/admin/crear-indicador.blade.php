@@ -7,14 +7,13 @@
         </div>
 
         <div class="col-span-3 space-y-4  divide-gray-300 divide-dashed">
-
             <div class="flex justify-between items-center">
                 <h1 class="font-bold text-xl text-black">
-                    Actualizar indicadores
+                    Crear indicadores
                 </h1>
             </div>
             <hr/>
-            <livewire:admin.indicador.editar-indicador indicador_id="{{$id}}"/>
+            <livewire:admin.indicador.crear-indicador/>
         </div>
     </div>
 </x-app-layout>

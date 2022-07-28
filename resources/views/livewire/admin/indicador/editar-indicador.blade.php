@@ -58,7 +58,17 @@
     @endif
     <div class="flex items-center justify-between gap-6">
         <div class="w-full">
-            <x-jet-label for="resultado" value="Título resultado"/>
+            <div class="flex justify-between">
+                <x-jet-label for="resultado" value="Título resultado"/>
+                <x-utils.tooltip-modal>
+                    <x-slot name="title">Resultado</x-slot>
+                    <x-slot name="description">
+                        Es el indicador que buscamos calcular para posteriores mediciones, puede ser resultados directos
+                        (números) o operaciones (porcentaje).
+                    </x-slot>
+                    <x-slot name="image">{{ asset('images/tooltip/seleccionar_datos.gif')  }}</x-slot>
+                </x-utils.tooltip-modal>
+            </div>
             <x-jet-input id="resultado" class="w-full" type="text" wire:model="resultado"/>
             <x-jet-input-error for="resultado"/>
         </div>
@@ -89,7 +99,7 @@
     </div>
     <div class="w-full">
         <x-jet-label for="formula" value="Fórmula"/>
-        <x-jet-input id="formula" class="w-full" type="text" wire:model="formula"/>
+        <x-jet-input id="formula" disabled class="w-full" type="text" wire:model="formula"/>
         <x-jet-input-error for="formula"/>
     </div>
     <div class="flex items-center justify-between gap-6">
