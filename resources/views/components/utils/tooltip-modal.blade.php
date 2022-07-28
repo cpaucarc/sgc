@@ -1,7 +1,7 @@
 @props(['placement'=>'top'])
 @php
     $class_svg = "h-5 w-5 text-gray-500 hover:text-gray-700 transition";
-    $class_tooltip="absolute {{$placement}}-0 right-6 z-10 border border-zinc-200 bg-white rounded-sm"
+    $class_tooltip="absolute {{$placement}}-0 right-6 z-10 border border-zinc-200 bg-white rounded-sm";
 @endphp
 
 <div x-data="{ tooltip: false }" class="relative z-30 inline-flex">
@@ -14,7 +14,7 @@
     </button>
 
     <div class="relative" x-cloak x-show.transition.origin.top="tooltip">
-        <div {{$attributes->merge(['class'=>$class_tooltip])}}>
+        <div class="absolute {{$placement}}-0 right-6 z-10 border border-zinc-200 bg-white rounded-sm">
             <div class="flex flex-col gap-y-2 items-center justify-center">
                 @if(isset($image))
                     <img class="object-cover w-60 h-36 rounded-t-sm" src="{{ $image }}" alt="Imagen tooltip">

@@ -7,7 +7,7 @@
         </div>
         <div class="col-span-2">
             <x-jet-label for="codigo" value="Código"/>
-            <x-jet-input id="codigo" type="text" class="mt-1 w-full"
+            <x-jet-input id="codigo" type="text" class="mt-1 w-full" disabled
                          wire:model.defer="codigo" autocomplete="off"/>
             <x-jet-input-error for="codigo"/>
         </div>
@@ -20,7 +20,7 @@
                         <x-jet-label for="interes" value="Título interes"/>
                         <x-utils.optional-badge/>
                     </div>
-                    <x-utils.tooltip-modal placement="bottom">
+                    <x-utils.tooltip-modal>
                         <x-slot name="title">Título interes</x-slot>
                         <x-slot name="description">
                             Representa la descripción del número registros actuales para la
@@ -40,7 +40,7 @@
                         <x-jet-label for="total" value="Título total"/>
                         <x-utils.optional-badge/>
                     </div>
-                    <x-utils.tooltip-modal placement="left">
+                    <x-utils.tooltip-modal>
                         <x-slot name="title">Título total</x-slot>
                         <x-slot name="description">
                             Representa la descripción del número total de registros para la
