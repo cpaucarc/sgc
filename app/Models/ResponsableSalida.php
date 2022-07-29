@@ -36,4 +36,14 @@ class ResponsableSalida extends Model
         return $this->morphMany(DocumentoEnviado::class, 'documentable')
             ->with('documento');
     }
+
+    public static function cant_documentos_por_semestre($semestre, $entidades, $resp_salida)
+    {
+        return DocumentoEnviado::query()
+            ->where('documentable_id', $resp_salida)
+            ->where('documentable_type', 'App\\Models\\ResponsableSalida')
+            ->whereIn('documento_id', function ($query) use ($semestre, $entidades) {
+                $query->select('id')->from('documentos')->where('semestre_id', $semestre)->whereIn('entidad_id', $entidades);
+            })->count();
+    }
 }

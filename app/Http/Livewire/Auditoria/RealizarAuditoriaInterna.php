@@ -99,14 +99,13 @@ class RealizarAuditoriaInterna extends Component
                             $salida['responsable_salida_id'] = $respsalida->id;
                             $salida['codigo'] = $respsalida->salida->codigo;
                             $salida['salida'] = $respsalida->salida->nombre;
-                            $salida['descripcion'] = $respsalida->salida->descripcion;
-                            $salida['documentos_count'] = \App\Models\Salida::documentos_por_semestre($this->semestre_id, $this->entidades, $respsalida->salida_id);
+                            $salida['documentos_count'] = \App\Models\ResponsableSalida::cant_documentos_por_semestre($this->semestre_id, $this->entidades, $respsalida->id);
                             if ($salida['documentos_count'] > 0) {
                                 $salidas_completados++;
                             }
                             $salidas[] = $salida;
+                            $this->cantSalidas++;
                         }
-                        $this->cantSalidas++;
 
                         $nueva_actividad['salidas_completados_count'] = $salidas_completados;
                         $nueva_actividad['salidas'] = $salidas;

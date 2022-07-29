@@ -27,14 +27,4 @@ class Salida extends Model
                 $query->where('user_id', Auth::user()->id);
             });
     }
-
-    public static function documentos_por_semestre($semestre, $entidades, $salida)
-    {
-        return DocumentoEnviado::query()
-            ->where('documentable_id', $salida)
-            ->where('documentable_type', 'App\\Models\\Salida')
-            ->whereIn('documento_id', function ($query) use ($semestre, $entidades) {
-                $query->select('id')->from('documentos')->where('semestre_id', $semestre)->whereIn('entidad_id', $entidades);
-            })->count();
-    }
 }
