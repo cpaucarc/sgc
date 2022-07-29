@@ -90,7 +90,7 @@
                                 </x-utils.tables.body>
                                 <x-utils.tables.body>
                                     <a target="_blank" href="{{ route('archivos', $doc->documento->enlace_interno) }}"
-                                       class="hover:text-sky-600 hover:underline font-bold line-clamp-1">
+                                       class="hover:text-sky-600 hover:underline font-bold">
                                         {{ $doc->requisito->nombre }}
                                     </a>
                                 </x-utils.tables.body>
