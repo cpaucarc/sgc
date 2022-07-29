@@ -5,7 +5,9 @@ namespace App\Http\Livewire\Actividad;
 use App\Models\Cliente;
 use App\Models\Documento;
 use App\Models\DocumentoEnviado;
+use App\Models\Escuela;
 use App\Models\Proceso;
+use App\Models\ResponsableSalida;
 use App\Models\Salida;
 use App\Models\Semestre;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +20,7 @@ class ListaDocumentosRecibidos extends Component
     public $procesos = null, $proceso = 0;
     public $entidades = [];
 
-    public $salida_seleccionada = null;
+    public $resp_salida_seleccionada = null;
 
     public function mount()
     {
@@ -42,35 +44,33 @@ class ListaDocumentosRecibidos extends Component
 
     public function render()
     {
-        $salidas = Salida::query()
+        $responsable_salidas = ResponsableSalida::query()
+            ->with('salida')
             ->withCount(['documentos' => function ($query) {
                 $query->whereHas('documento', function ($query2) {
                     $query2->where('semestre_id', $this->semestre);
                 });
             }])
+            ->whereIn('responsable_id', function ($query) {
+                $query->select('id')->from('responsables')->whereIn('actividad_id', function ($query2) {
+                    $query2->select('id')->from('actividades')->where('proceso_id', $this->proceso);
+                });
+            })
             ->whereIn('id', function ($query) {
-                $query->select('salida_id')->from('responsables_salidas')
-                    ->whereIn('id', function ($query2) {
-                        $query2->select('responsable_salida_id')->from('clientes')->whereIn('entidad_id', $this->entidades);
-                    })
-                    ->whereIn('responsable_id', function ($query2) {
-                        $query2->select('id')->from('responsables')->whereIn('actividad_id', function ($query3) {
-                            $query3->select('id')->from('actividades')->where('proceso_id', $this->proceso);
-                        });
-                    });
-            })->get();
+                $query->select('responsable_salida_id')->from('clientes')->whereIn('entidad_id', $this->entidades);
+            })->orderBy(Salida::select('nombre')->whereColumn('salidas.id', 'responsables_salidas.salida_id'))->get();
 
-        return view('livewire.actividad.lista-documentos-recibidos', compact('salidas'));
+        return view('livewire.actividad.lista-documentos-recibidos', compact('responsable_salidas'));
     }
 
-    public function abrirModal($salida_id)
+    public function abrirModal($resp_salida_id)
     {
-        $this->salida_seleccionada = Salida::query()
-            ->with(['documentos' => function ($query) {
+        $this->resp_salida_seleccionada = ResponsableSalida::query()
+            ->with(['salida', 'documentos' => function ($query) {
                 $query->whereHas('documento', function ($query2) {
                     $query2->where('semestre_id', $this->semestre);
                 });
-            }])->find($salida_id);
+            }])->find($resp_salida_id);
 
         $this->open = true;
     }

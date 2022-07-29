@@ -1,4 +1,4 @@
-<div class="space-y-4">
+<div class="space-y-4" xmlns="http://www.w3.org/1999/html">
 
     <x-utils.titulo
         titulo="Documentos recibidos"
@@ -22,7 +22,7 @@
         @endslot
     </x-utils.titulo>
 
-    @if(count($salidas))
+    @if(count($responsable_salidas))
         <x-utils.tables.table>
             @slot('head')
                 <x-utils.tables.head>N°</x-utils.tables.head>
@@ -34,21 +34,21 @@
                 </x-utils.tables.head>
             @endslot
             @slot('body')
-                @foreach($salidas as $i => $salida)
+                @foreach($responsable_salidas as $i => $responsable_salida)
                     <x-utils.tables.row>
                         <x-utils.tables.body>{{ $i + 1 }}</x-utils.tables.body>
                         <x-utils.tables.body>
                             <div
                                 class="icon-6 rounded-full font-semibold text-xs grid place-items-center text-blue-800 bg-blue-100">
-                                {{ $salida->codigo }}
+                                {{ $responsable_salida->salida->codigo }}
                             </div>
                         </x-utils.tables.body>
                         <x-utils.tables.body class="font-semibold">
-                            {{ $salida->nombre }}
+                            {{ $responsable_salida->salida->nombre }}
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            @if($salida->documentos_count)
-                                {{ $salida->documentos_count }} documento(s)
+                            @if($responsable_salida->documentos_count)
+                                {{ $responsable_salida->documentos_count }} documento(s)
                             @else
                                 <x-utils.badge class="bg-rose-100 text-rose-600">
                                     Ninguno
@@ -56,10 +56,12 @@
                             @endif
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            @if($salida->documentos_count)
-                                <x-utils.buttons.invisible wire:click="abrirModal({{$salida->id}})">
+                            @if($responsable_salida->documentos_count)
+                                <x-utils.buttons.invisible wire:click="abrirModal({{$responsable_salida->id}})">
                                     Revisar
                                 </x-utils.buttons.invisible>
+                            @else
+                                <span class="sr-only">Ninguno</span>
                             @endif
                         </x-utils.tables.body>
                     </x-utils.tables.row>
@@ -82,16 +84,16 @@
         </div>
     @endif
 
-    @if($salida_seleccionada)
+    @if($resp_salida_seleccionada)
         <x-jet-dialog-modal wire:model="open" maxWidth="4xl">
             <x-slot name="title">
                 <div class="flex items-center gap-x-2">
                     <div
                         class="w-10 h-10 rounded-full font-semibold text-sm grid place-items-center text-blue-800 bg-blue-100">
-                        {{ $salida_seleccionada->codigo }}
+                        {{ $resp_salida_seleccionada->salida->codigo }}
                     </div>
                     <h1 class="font-bold text-gray-700">
-                        {{ $salida_seleccionada->nombre }}
+                        {{ $resp_salida_seleccionada->salida->nombre }}
                     </h1>
                 </div>
                 <x-utils.buttons.close-button wire:click="$set('open', false)"/>
@@ -107,7 +109,7 @@
                             <x-utils.tables.head><span class="sr-only">Acciones</span></x-utils.tables.head>
                         @endslot
                         @slot('body')
-                            @foreach($salida_seleccionada->documentos as $doc)
+                            @foreach($resp_salida_seleccionada->documentos as $doc)
                                 <x-utils.tables.row class="p-1">
                                     <x-utils.tables.body class="text-left">
                                         {{ $doc->documento->nombre }}
