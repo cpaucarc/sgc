@@ -17,7 +17,7 @@ class ResponsableSalida extends Model
     public function responsable()
     {
         return $this->belongsTo(Responsable::class)
-            ->with('actividad', 'entidad');
+            ->with('actividad', 'actividad.proceso', 'entidad');
     }
 
     public function salida()

@@ -34,11 +34,11 @@
             @if($tipo == 1 && !is_null($uuid))
                 <div class="flex justify-end mt-2">
                     @if($auditoria_interna)
-                        <x-utils.links.primary
-                            target="_blank"
+                        <x-utils.links.danger
                             href="{{ route('auditoria.internapdf', ['facultad' => $facultad, 'semestre' => $semestre_activo]) }}">
-                            Descargar
-                        </x-utils.links.primary>
+                            <x-icons.download class="icon-5 mr-2" stroke="2"/>
+                            Descargar auditoria
+                        </x-utils.links.danger>
                     @else
                         <x-utils.links.primary href="{{ route('auditoria.interna', $uuid) }}">
                             Crear
