@@ -39,7 +39,7 @@
                         <x-utils.tables.body>{{ $i + 1 }}</x-utils.tables.body>
                         <x-utils.tables.body>
                             <div
-                                class="icon-6 rounded-full font-semibold text-xs grid place-items-center text-blue-800 bg-blue-100">
+                                class="icon-6 rounded-full font-semibold text-xs grid place-items-center text-sky-800 bg-sky-100">
                                 {{ $responsable_salida->salida->codigo }}
                             </div>
                         </x-utils.tables.body>
@@ -89,7 +89,7 @@
             <x-slot name="title">
                 <div class="flex items-center gap-x-2">
                     <div
-                        class="w-10 h-10 rounded-full font-semibold text-sm grid place-items-center text-blue-800 bg-blue-100">
+                        class="w-10 h-10 rounded-full font-semibold text-sm grid place-items-center text-sky-800 bg-sky-100">
                         {{ $resp_salida_seleccionada->salida->codigo }}
                     </div>
                     <h1 class="font-bold text-gray-700">
