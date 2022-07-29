@@ -20,9 +20,18 @@
             @slot('body')
                 @foreach($indicadores as $indicador)
                     <x-utils.tables.row>
-                        <x-utils.tables.body
-                            class="whitespace-nowrap">{{ $indicador->cod_ind_inicial }}</x-utils.tables.body>
-                        <x-utils.tables.body>{{ $indicador->objetivo}}</x-utils.tables.body>
+                        <x-utils.tables.body class="whitespace-nowrap">
+                            <x-utils.links.basic class="flex items-center"
+                                                 href="{{ route('admin.panel.indicadores.indicador', $indicador->id) }}">
+                                {{ $indicador->cod_ind_inicial }}
+                            </x-utils.links.basic>
+                        </x-utils.tables.body>
+                        <x-utils.tables.body>
+                            <x-utils.links.basic class="flex items-center"
+                                                 href="{{ route('admin.panel.indicadores.indicador', $indicador->id) }}">
+                                {{ $indicador->objetivo}}
+                            </x-utils.links.basic>
+                        </x-utils.tables.body>
                         <x-utils.tables.body>
                             <p class="block whitespace-nowrap">Min: <b>{{ round($indicador->minimo, 2) }}</b></p>
                             <p class="block whitespace-nowrap">Sob: <b>{{ round($indicador->sobresaliente, 2) }}</b></p>
@@ -45,9 +54,9 @@
                             @endif
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-{{--                            <x-utils.buttons.invisible title="Editar" wire:click="seleccionar(true,{{$indicador}})">--}}
-{{--                                <x-icons.edit class="h-5" stroke="1.6"/>--}}
-{{--                            </x-utils.buttons.invisible>--}}
+                            {{--                            <x-utils.buttons.invisible title="Editar" wire:click="seleccionar(true,{{$indicador}})">--}}
+                            {{--                                <x-icons.edit class="h-5" stroke="1.6"/>--}}
+                            {{--                            </x-utils.buttons.invisible>--}}
                             <x-utils.links.basic class="flex items-center"
                                                  href="{{ route('admin.panel.indicadores.editar', $indicador->id) }}">
                                 <x-icons.edit class="h-5" stroke="1.6"/>

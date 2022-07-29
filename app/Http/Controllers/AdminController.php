@@ -80,6 +80,11 @@ class AdminController extends Controller
         return view('admin.indicadores');
     }
 
+    public function indicador($id)
+    {
+        return view('admin.indicador', compact('id'));
+    }
+
     public function crear_indicador()
     {
         return view('admin.crear-indicador');
