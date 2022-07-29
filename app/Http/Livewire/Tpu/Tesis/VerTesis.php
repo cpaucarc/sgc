@@ -9,7 +9,6 @@ use Livewire\Component;
 
 class VerTesis extends Component
 {
-    public $solicitud = null;
     public $tesis = null;
     public $sustentacion = null;
     public $jurados = null;

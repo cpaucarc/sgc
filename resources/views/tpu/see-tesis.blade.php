@@ -1,3 +1,3 @@
 <x-app-layout>
-    <livewire:tpu.tesis.ver-tesis :solicitud="$solicitud" :tesis="$tesis"/>
+    <livewire:tpu.tesis.ver-tesis :tesis="$tesis"/>
 </x-app-layout>

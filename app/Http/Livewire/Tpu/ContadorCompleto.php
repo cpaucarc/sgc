@@ -24,7 +24,7 @@ class ContadorCompleto extends Component
             ->whereIn('escuela_id', $this->escuelas_id)->get();
 
         $cantidad = $solicitudes->filter(function ($item) {
-            return $item->documentos_count == 8; // 8 : Requisitos de titulo profesional
+            return $item->documentos_count == 14; // 14 : Requisitos de titulo profesional
         })->count();
 
         return view('livewire.tpu.contador-completo', compact('cantidad'));

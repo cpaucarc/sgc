@@ -32,6 +32,29 @@ class Incompletas extends Component
         }
     }
 
+    public function render()
+    {
+        // ya no es necesario verificar su rol, ya se hizo en el controller
+        // se supone que si puede ver el componente, es director o decano
+
+        $solicitudesIncompletas = Solicitud::query()
+            ->with('escuela:id,nombre')
+            ->withCount('documentos')
+            ->where('tipo_solicitud_id', 3)// 3 : Título
+            ->whereIn('escuela_id', $this->escuelas_id)
+            ->having('documentos_count', '>', 0)
+            ->having('documentos_count', '<', 14); // 14 : Requisitos de titulo profesional
+
+        //Si la escuela seleccionada es mayor que cero.
+        if ($this->escuela_seleccionado > 0) {
+            $solicitudesIncompletas = $solicitudesIncompletas->where('escuela_id', $this->escuela_seleccionado);
+        }
+
+        $solicitudesIncompletas = $solicitudesIncompletas->orderBy('updated_at', 'desc')->get();
+
+        return view('livewire.tpu.solicitudes.incompletas', compact('solicitudesIncompletas'));
+    }
+
     public function modalRequisitos($id)
     {
         $this->solicitudSeleccionado = Solicitud::query()
@@ -73,28 +96,5 @@ class Incompletas extends Component
         $documentoSolicitud->save();
 
         $this->emit('documentoDenegado');
-    }
-
-    public function render()
-    {
-        // ya no es necesario verificar su rol, ya se hizo en el controller
-        // se supone que si puede ver el componente, es director o decano
-
-        $solicitudesIncompletas = Solicitud::query()
-            ->with('escuela:id,nombre')
-            ->withCount('documentos')
-            ->where('tipo_solicitud_id', 3)// 3 : Título
-            ->whereIn('escuela_id', $this->escuelas_id)
-            ->having('documentos_count', '>', 0)
-            ->having('documentos_count', '<', 8); // 8 : Requisitos de titulo profesional
-
-        //Si la escuela seleccionada es mayor que cero.
-        if ($this->escuela_seleccionado > 0) {
-            $solicitudesIncompletas = $solicitudesIncompletas->where('escuela_id', $this->escuela_seleccionado);
-        }
-
-        $solicitudesIncompletas = $solicitudesIncompletas->orderBy('updated_at', 'desc')->get();
-
-        return view('livewire.tpu.solicitudes.incompletas', compact('solicitudesIncompletas'));
     }
 }

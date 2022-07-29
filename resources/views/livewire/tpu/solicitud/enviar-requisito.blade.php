@@ -49,7 +49,7 @@
                                             <p class="font-bold text-gray-600">
                                                 Tesis N° {{$tesis->numero_registro}} registrado con titulo
                                             </p>
-                                            <a target="_blank" href="{{route('tpu.seeTesis', [$solicitud,$tesis])}}"
+                                            <a target="_blank" href="{{route('tpu.seeTesis', [$tesis])}}"
                                                class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                                 <span>{{substr($tesis->titulo, 1, 70)}}...</span>
                                                 <input id="file-upload" name="file-upload" type="file" class="sr-only">
@@ -63,15 +63,17 @@
                             </div>
                         </div>
                     </x-utils.badge>
+                @else
+                    <div class="space-y-2">
+                        <x-jet-label for="archivo" value="{{ __('Archivo Adjunto. (Peso max: 25Mb)') }}"/>
+                        <x-utils.file-uploading>
+                            <x-utils.forms.file-input class="w-full block" wire:model.defer="archivo"
+                                                      id="{{ $randomID }}"/>
+                        </x-utils.file-uploading>
+                        {{--<x-utils.loading-file wire:loading wire:target="archivo"></x-utils.loading-file>--}}
+                        <x-jet-input-error for="archivo"></x-jet-input-error>
+                    </div>
                 @endif
-                <div class="space-y-2">
-                    <x-jet-label for="archivo" value="{{ __('Archivo Adjunto. (Peso max: 25Mb)') }}"/>
-                    <x-utils.file-uploading>
-                        <x-utils.forms.file-input class="w-full block" wire:model.defer="archivo" id="{{ $randomID }}"/>
-                    </x-utils.file-uploading>
-                    {{--<x-utils.loading-file wire:loading wire:target="archivo"></x-utils.loading-file>--}}
-                    <x-jet-input-error for="archivo"></x-jet-input-error>
-                </div>
             </div>
         @endslot
         @slot('footer')

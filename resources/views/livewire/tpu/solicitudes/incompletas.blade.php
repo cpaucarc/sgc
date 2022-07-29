@@ -22,7 +22,7 @@
                         {{ $solicitud->escuela->nombre }}
                     </h3>
                     <h3 class="text-gray-500 group-hover:text-gray-600 text-sm">
-                        {{ $solicitud->documentos_count }} de 8 requisitos enviados
+                        {{ $solicitud->documentos_count }} de 14 requisitos enviados
                     </h3>
                     <h4 class="whitespace-nowrap text-gray-400 text-sm mt-2">
                         @if($solicitud->updated_at->diffInDays(\Carbon\Carbon::now()) <= 7)
@@ -91,7 +91,7 @@
                                 </x-utils.tables.body>
                                 <x-utils.tables.body>
                                     <a target="_blank" href="{{ route('archivos', $doc->documento->enlace_interno) }}"
-                                       class="hover:text-sky-600 hover:underline font-bold line-clamp-1">
+                                       class="hover:text-sky-600 hover:underline font-bold">
                                         {{ $doc->requisito->nombre }}
                                     </a>
                                 </x-utils.tables.body>
