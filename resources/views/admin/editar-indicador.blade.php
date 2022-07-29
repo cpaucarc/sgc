@@ -10,19 +10,11 @@
 
             <div class="flex justify-between items-center">
                 <h1 class="font-bold text-xl text-black">
-                    Indicadores
+                    Actualizar indicadores
                 </h1>
-                <x-utils.links.primary class="flex items-center"
-                              href="{{ route('admin.panel.indicadores.crear') }}">
-                    Registrar nuevo
-                </x-utils.links.primary>
             </div>
-
             <hr/>
-
-            <livewire:admin.indicador.lista-indicadores/>
+            <livewire:admin.indicador.editar-indicador indicador_id="{{$id}}"/>
         </div>
     </div>
-
-
 </x-app-layout>

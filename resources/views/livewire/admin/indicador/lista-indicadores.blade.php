@@ -45,9 +45,13 @@
                             @endif
                         </x-utils.tables.body>
                         <x-utils.tables.body>
-                            <x-utils.buttons.invisible title="Editar" wire:click="seleccionar(true,{{$indicador}})">
+{{--                            <x-utils.buttons.invisible title="Editar" wire:click="seleccionar(true,{{$indicador}})">--}}
+{{--                                <x-icons.edit class="h-5" stroke="1.6"/>--}}
+{{--                            </x-utils.buttons.invisible>--}}
+                            <x-utils.links.basic class="flex items-center"
+                                                 href="{{ route('admin.panel.indicadores.editar', $indicador->id) }}">
                                 <x-icons.edit class="h-5" stroke="1.6"/>
-                            </x-utils.buttons.invisible>
+                            </x-utils.links.basic>
                         </x-utils.tables.body>
                     </x-utils.tables.row>
                 @endforeach
@@ -99,9 +103,19 @@
                 @if($unidad==2)
                     <div class="flex items-center justify-between gap-6">
                         <div class="w-full">
-                            <div class="flex gap-x-2">
-                                <x-jet-label for="interes" value="Título interes"/>
-                                <x-utils.optional-badge/>
+                            <div class="flex justify-between">
+                                <div class="flex gap-x-2">
+                                    <x-jet-label for="interes" value="Título interes"/>
+                                    <x-utils.optional-badge/>
+                                </div>
+                                <x-utils.tooltip-modal>
+                                    <x-slot name="title">Título interes</x-slot>
+                                    <x-slot name="description">
+                                        Representa la descripción del número registros actuales para la
+                                        operación (representa al cociente)
+                                    </x-slot>
+                                    <x-slot name="image">{{ asset('images/tooltip/formula_indicador.jpg')  }}</x-slot>
+                                </x-utils.tooltip-modal>
                             </div>
                             <x-jet-input id="interes" type="text" class="mt-1 w-full"
                                          wire:model.defer="interes" placeholder="Campo registrado vacío"
@@ -109,9 +123,19 @@
                             <x-jet-input-error for="interes"/>
                         </div>
                         <div class="w-full">
-                            <div class="flex gap-x-2">
-                                <x-jet-label for="total" value="Título total"/>
-                                <x-utils.optional-badge/>
+                            <div class="flex justify-between">
+                                <div class="flex gap-x-2">
+                                    <x-jet-label for="total" value="Título total"/>
+                                    <x-utils.optional-badge/>
+                                </div>
+                                <x-utils.tooltip-modal>
+                                    <x-slot name="title">Título total</x-slot>
+                                    <x-slot name="description">
+                                        Representa la descripción del número total de registros para la
+                                        operación (representa al divisor)
+                                    </x-slot>
+                                    <x-slot name="image">{{ asset('images/tooltip/formula_indicador.jpg')  }}</x-slot>
+                                </x-utils.tooltip-modal>
                             </div>
                             <x-jet-input id="total" type="text" class="mt-1 w-full"
                                          wire:model.defer="total" placeholder="Campo registrado vacío"

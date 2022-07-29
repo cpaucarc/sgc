@@ -7,22 +7,13 @@
         </div>
 
         <div class="col-span-3 space-y-4  divide-gray-300 divide-dashed">
-
             <div class="flex justify-between items-center">
                 <h1 class="font-bold text-xl text-black">
-                    Indicadores
+                    Crear indicadores
                 </h1>
-                <x-utils.links.primary class="flex items-center"
-                              href="{{ route('admin.panel.indicadores.crear') }}">
-                    Registrar nuevo
-                </x-utils.links.primary>
             </div>
-
             <hr/>
-
-            <livewire:admin.indicador.lista-indicadores/>
+            <livewire:admin.indicador.crear-indicador/>
         </div>
     </div>
-
-
 </x-app-layout>
