@@ -24,11 +24,28 @@
 
         <div class="pt-4">
             <x-jet-label for="tipo" value="Tipo de Auditoria"/>
-            <x-utils.forms.select id="tipo" class="mt-1 block w-full" wire:model.defer="tipo">
+            <x-utils.forms.select id="tipo" class="mt-1 block w-full" wire:model="tipo">
                 <option value="1">Auditoria Interna</option>
                 <option value="0">Auditoria Externa</option>
             </x-utils.forms.select>
+
             <x-jet-input-error for="tipo"/>
+
+            @if($tipo == 1 && !is_null($uuid))
+                <div class="flex justify-end mt-2">
+                    @if($auditoria_interna)
+                        <x-utils.links.primary
+                            target="_blank"
+                            href="{{ route('auditoria.internapdf', ['facultad' => $facultad, 'semestre' => $semestre_activo]) }}">
+                            Descargar
+                        </x-utils.links.primary>
+                    @else
+                        <x-utils.links.primary href="{{ route('auditoria.interna', $uuid) }}">
+                            Crear
+                        </x-utils.links.primary>
+                    @endif
+                </div>
+            @endif
         </div>
     </div>
 

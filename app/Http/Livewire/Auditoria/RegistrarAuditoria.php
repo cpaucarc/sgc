@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Auditoria;
 
 use App\Models\Auditoria;
+use App\Models\AuditoriaInterna;
 use App\Models\Documento;
 use App\Models\DocumentoEnviado;
 use App\Models\Entidadable;
@@ -22,7 +23,7 @@ class RegistrarAuditoria extends Component
     public $responsable = null, $archivos = [];
     public $tipo = 1; // 1:interno, 0:externo
     public $facultad_id = [];
-    public $facultad = 0, $facultades = null;
+    public $facultad = 0, $facultades = null, $uuid = null, $semestre_activo = null;
     public $mensaje = null;
 
     protected $rules = [
@@ -37,11 +38,16 @@ class RegistrarAuditoria extends Component
         $this->facultad_id = User::facultades_id(Auth::user()->id);
         $this->facultades = Facultad::query()->findOrFail($this->facultad_id);
         $this->facultad = count($this->facultades) ? $this->facultades->first()->id : 0;
+        $this->uuid = count($this->facultades) ? explode('-', $this->facultades->first()->uuid)[0] : null;
+        $this->semestre_activo = Semestre::query()->where('activo', true)->first()->id;
     }
 
     public function render()
     {
-        return view('livewire.auditoria.registrar-auditoria');
+        $auditoria_interna = $this->tipo == 1 ? AuditoriaInterna::query()
+            ->where('semestre_id', $this->semestre_activo)->where('facultad_id', $this->facultad)->first() : null;
+
+        return view('livewire.auditoria.registrar-auditoria', compact('auditoria_interna'));
     }
 
     public function guardarAuditoria()
@@ -49,7 +55,7 @@ class RegistrarAuditoria extends Component
         $this->validate();
         try {
             $rutaCarpeta = 'public/';
-            
+
             if (!Storage::exists($rutaCarpeta))
                 Storage::makeDirectory($rutaCarpeta);
 
@@ -101,5 +107,10 @@ class RegistrarAuditoria extends Component
             $this->emit('error', 'Hubo un problema:\\n' . $e);
             return;
         }
+    }
+
+    public function updatedFacultad($fac_id)
+    {
+        $this->uuid = explode('-', $this->facultades->where('id', $fac_id)->first()->uuid)[0];
     }
 }

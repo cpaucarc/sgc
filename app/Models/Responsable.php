@@ -27,8 +27,13 @@ class Responsable extends Model
         return $this->hasMany(Cliente::class);
     }
 
-    public function salidas()
+//    public function salidas()
+//    {
+//        return $this->hasManyThrough(Salida::class, ResponsableSalida::class, 'salida_id', 'id', 'id', 'salida_id');
+//    }
+
+    public function respsalidas()
     {
-        return $this->hasManyThrough(Salida::class, Cliente::class, 'salida_id', 'id');
+        return $this->hasMany(ResponsableSalida::class)->with('salida');
     }
 }

@@ -209,6 +209,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     /*Todo: Auditorias (Internas y Externas)*/
     Route::prefix('auditoria')->controller(AuditoriaController::class)->group(function () {
         Route::get('/', 'index')->name('auditoria.index');
+        Route::get('interna/pdf/{facultad}/{semestre}', 'auditoria_interna_pdf')->name('auditoria.internapdf');
+        Route::get('interna/{uuid}', 'auditoria_interna')->name('auditoria.interna');
         Route::get('crear', 'create')->name('auditoria.create');
     });
 

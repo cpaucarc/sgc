@@ -24,7 +24,8 @@ class ResponsableSalida extends Model
         return $this->belongsTo(Salida::class);
     }
 
-    public function clientes() {
+    public function clientes()
+    {
         return $this->hasMany(Cliente::class)->with('entidad');
     }
 }
