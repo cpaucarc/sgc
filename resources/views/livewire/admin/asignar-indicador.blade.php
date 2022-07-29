@@ -23,7 +23,8 @@
                                 <x-utils.tables.body>{{ $ind_fac->minimo }}</x-utils.tables.body>
                                 <x-utils.tables.body>{{ $ind_fac->sobresaliente }}</x-utils.tables.body>
                                 <x-utils.tables.body>
-                                    <x-utils.buttons.danger class="text-sm" onclick="">
+                                    <x-utils.buttons.danger class="text-sm"
+                                                            onclick="eliminarIndicadorable({{$ind_fac->id}}, '{{$indicador->cod_ind_inicial}}','a la facultad', '{{\App\Models\Facultad::find($ind_fac->indicadorable_id)->nombre}}')">
                                         <x-icons.delete class="h-4 w-4"/>
                                     </x-utils.buttons.danger>
                                 </x-utils.tables.body>
@@ -64,7 +65,8 @@
                                 <x-utils.tables.body>{{ $ind_esc->minimo }}</x-utils.tables.body>
                                 <x-utils.tables.body>{{ $ind_esc->sobresaliente }}</x-utils.tables.body>
                                 <x-utils.tables.body>
-                                    <x-utils.buttons.danger class="text-sm" onclick="">
+                                    <x-utils.buttons.danger class="text-sm"
+                                                            onclick="eliminarIndicadorable({{$ind_esc->id}}, '{{$indicador->cod_ind_inicial}}','al programa de estudio', '{{\App\Models\Escuela::find($ind_esc->indicadorable_id)->nombre}}')">
                                         <x-icons.delete class="h-4 w-4"/>
                                     </x-utils.buttons.danger>
                                 </x-utils.tables.body>
@@ -210,30 +212,17 @@
     @push('js')
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
-            function eliminarRol(rol_nombre, rol_id) {
-                Swal.fire({
-                    html: `<b>¿Desea quitar el rol ${rol_nombre} del usuario?</b><br/><small>Nota: Se eliminarán las entidades correspondientes</small>`,
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Si, eliminar',
-                    cancelButtonText: `Cancelar`,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.livewire.emit('eliminarRol', rol_nombre, rol_id);
-                    }
-                })
-            }
 
-            function eliminarEntidad(entidad_id, entidad_nombre, rol_nombre) {
+            function eliminarIndicadorable(indicadorable_id, indicador, entidad, fac_or_esc) {
                 Swal.fire({
-                    html: `<b>¿Desea quitar la entidad ${entidad_nombre} del usuario?</b><br/><small>Nota: Se eliminará el rol correspondientes</small>`,
+                    html: `<b>¿Desea eliminar el indicador ${indicador}  asignado ${entidad} ${fac_or_esc}?`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Si, eliminar',
                     cancelButtonText: `Cancelar`,
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.livewire.emit('eliminarEntidad', entidad_id, entidad_nombre, rol_nombre);
+                        window.livewire.emit('eliminarIndicadorable', indicadorable_id);
                     }
                 })
             }

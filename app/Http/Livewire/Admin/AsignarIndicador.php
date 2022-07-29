@@ -22,6 +22,8 @@ class AsignarIndicador extends Component
 
     public $fac_repetidos = [];
 
+    public $listeners = ['render', 'eliminarIndicadorable'];
+
     public function mount($indicador_id)
     {
         $this->indicador_id = $indicador_id;
@@ -111,7 +113,7 @@ class AsignarIndicador extends Component
                 if (count($this->fac_repetidos) > 0) {
                     $msg = "El indicador " . $this->indicador->cod_ind_inicial . " fue asignado con éxito.\n Ya agregados anteriormente:";
                     foreach ($this->fac_repetidos as $reptido) {
-                        $msg .= $reptido . "\n";
+                        $msg .= $reptido . " - \n";
                     }
                 } else {
                     $msg = "El indicador " . $this->indicador->cod_ind_inicial . " fue asignado con éxito.";
@@ -122,6 +124,15 @@ class AsignarIndicador extends Component
                 $this->emit('error', "No ha seleccionado una facultad o un programa de estudio");
             }
 
+        } catch (\Exception $e) {
+            $this->emit('error', "Hubo un error inesperado \n " . $e);
+        }
+    }
+
+    public function eliminarIndicadorable($indicadorable_id)
+    {
+        try {
+            Indicadorable::find($indicadorable_id)->delete();
         } catch (\Exception $e) {
             $this->emit('error', "Hubo un error inesperado \n " . $e);
         }
