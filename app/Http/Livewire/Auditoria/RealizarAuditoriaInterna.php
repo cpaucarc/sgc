@@ -6,6 +6,7 @@ use App\Models\AuditoriaInterna;
 use App\Models\AuditoriaInternaDetalle;
 use App\Models\Entidad;
 use App\Models\Responsable;
+use App\Models\ResponsableSalida;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
@@ -16,6 +17,8 @@ class RealizarAuditoriaInterna extends Component
     public $responsables_internos = null, $responsables_externos = null;
     public $cantSalidas = 0, $salidasValidados = [];
     public $obs_general = "", $dni = "", $auditor = "";
+
+    public $resp_salida_selected = null, $res_selected = "", $mostrarModal = false;
 
     protected $rules = [
         'dni' => 'required|min:8|max:8',
@@ -69,7 +72,6 @@ class RealizarAuditoriaInterna extends Component
             $entidades_procesos[] = $entidad_proceso;
         }
         Log::info('$entidades_procesos', $entidades_procesos);
-
 
         $entidades = array();
         foreach ($entidades_procesos as $entidad_proceso) {
@@ -147,6 +149,18 @@ class RealizarAuditoriaInterna extends Component
     public function quitarSalida($responsable_salida)
     {
         unset($this->salidasValidados['RS-' . $responsable_salida]);
+    }
+
+    public function verDocumentos($responsable, $resp_salida_id)
+    {
+        $this->res_selected = $responsable;
+        $this->resp_salida_selected = ResponsableSalida::query()
+            ->with(['salida', 'documentos' => function ($query) {
+                $query->whereHas('documento', function ($query2) {
+                    $query2->where('semestre_id', $this->semestre_id);
+                });
+            }])->find($resp_salida_id);
+        $this->mostrarModal = true;
     }
 
     public function guardarAuditoria()

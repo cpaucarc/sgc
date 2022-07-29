@@ -60,6 +60,7 @@
                                     <td class="border border-zinc-300 px-2 py-0.5">
                                         @if( $salida['documentos_count'] > 0)
                                             <button
+                                                wire:click="verDocumentos('{{ $entidad['entidad'] }}', {{ $salida['responsable_salida_id'] }})"
                                                 class="inline-flex font-semibold text-xs px-1.5 py-0.5 rounded soft-transition bg-green-200 text-green-700 hover:underline">
                                                 Completado
                                             </button>
@@ -168,6 +169,66 @@
                 Volver
             </a>
         </x-utils.card>
+    @endif
+
+    @if($resp_salida_selected)
+        <x-jet-dialog-modal wire:model="mostrarModal" maxWidth="4xl">
+            <x-slot name="title">
+                <div class="flex items-center gap-x-2">
+                    <div
+                        class="w-10 h-10 rounded-full font-semibold text-sm grid place-items-center text-sky-800 bg-sky-100">
+                        {{ $resp_salida_selected->salida->codigo }}
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-zinc-700">
+                            {{ $resp_salida_selected->salida->nombre }}
+                        </h1>
+                        <p class="text-sm text-zinc-500">
+                            Responsable: <b>{{ $res_selected }}</b>
+                        </p>
+                    </div>
+                </div>
+                <x-utils.buttons.close-button wire:click="$set('mostrarModal', false)"/>
+            </x-slot>
+
+            <x-slot name="content">
+                <div class="space-y-8">
+                    <x-utils.tables.table>
+                        @slot('head')
+                            <x-utils.tables.head>Nombre del documento</x-utils.tables.head>
+                            <x-utils.tables.head>Enviado por</x-utils.tables.head>
+                            <x-utils.tables.head class="text-right">Fecha de envío</x-utils.tables.head>
+                            <x-utils.tables.head><span class="sr-only">Acciones</span></x-utils.tables.head>
+                        @endslot
+                        @slot('body')
+                            @foreach($resp_salida_selected->documentos as $doc)
+                                <x-utils.tables.row class="p-1">
+                                    <x-utils.tables.body class="text-left">
+                                        {{ $doc->documento->nombre }}
+                                    </x-utils.tables.body>
+                                    <x-utils.tables.body>
+                                        {{ $doc->documento->entidad->nombre }}
+                                    </x-utils.tables.body>
+                                    <x-utils.tables.body class="text-right whitespace-nowrap">
+                                        {{ $doc->documento->created_at->diffForHumans() }}
+                                    </x-utils.tables.body>
+                                    <x-utils.tables.body class="text-right">
+                                        <div
+                                            class="flex items-center justify-end w-full gap-2 whitespace-nowrap">
+                                            <x-utils.links.default class="group" target="_blank"
+                                                                   href="{{ route('archivos', $doc->documento->enlace_interno) }}">
+                                                <x-icons.documents class="h-4 w-4" stroke="1.5"/>
+                                                Ver
+                                            </x-utils.links.default>
+                                        </div>
+                                    </x-utils.tables.body>
+                                </x-utils.tables.row>
+                            @endforeach
+                        @endslot
+                    </x-utils.tables.table>
+                </div>
+            </x-slot>
+        </x-jet-dialog-modal>
     @endif
 
     @push('js')
