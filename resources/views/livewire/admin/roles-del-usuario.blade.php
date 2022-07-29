@@ -91,7 +91,7 @@
     </div>
 
 
-    @if(!is_null($roles))
+        @if(!is_null($roles))
         <x-jet-dialog-modal wire:model="open" maxWidth="4xl">
             <x-slot name="title">
                 <div class="flex justify-between w-full">
