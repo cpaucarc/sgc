@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AuditoriaInterna;
 use App\Models\Cliente;
 use App\Models\DocumentoEnviado;
 use App\Models\Entidad;
@@ -37,9 +38,13 @@ class AuditoriaController extends Controller
     {
         try {
 
+            $auditoria_interna = AuditoriaInterna::query()
+                ->where('facultad_id', $facultad)
+                ->where('semestre_id', $semestre)
+                ->first();
+
             $pdf = PDF::loadView('auditoria.interna_pdf', [
-                'facultad' => $facultad,
-                'semestre' => $semestre
+                'auditoria_interna' => $auditoria_interna
             ]);
             return $pdf->setPaper('a3')->stream('');
 
