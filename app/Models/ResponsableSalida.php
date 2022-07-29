@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class ResponsableSalida extends Model
 {
@@ -27,5 +28,12 @@ class ResponsableSalida extends Model
     public function clientes()
     {
         return $this->hasMany(Cliente::class)->with('entidad');
+    }
+
+    // relacion uno a muchos polimorfica
+    public function documentos()
+    {
+        return $this->morphMany(DocumentoEnviado::class, 'documentable')
+            ->with('documento');
     }
 }
