@@ -2,7 +2,7 @@
 
     @if(is_null($auditoria_interna))
 
-        <div class="flex justify-end text-sm gap-x-2 items-center">
+        <div class="sticky top-0 flex justify-end text-sm gap-x-2 items-center py-3 bg-zinc-50">
             <p class="bg-zinc-100 border text-zinc-800 rounded px-3 py-1">
                 <b>Validados:</b> {{ count($salidasValidados) === 0 ? 'Ninguna salida a sido validada.' : count($salidasValidados) . ' salidas.' }}
             </p>
@@ -14,7 +14,7 @@
 
         @if(count($responsables_internos))
             <table class="w-full text-sm bg-white">
-                <thead>
+                <thead class="sticky top-[53px] border border-zinc-300 ">
                 <tr class="text-zinc-600 bg-zinc-100">
                     <th class="border border-zinc-300 px-2 py-0.5 text-left">Responsable</th>
                     <th class="border border-zinc-300 px-2 py-0.5 text-left">Proceso</th>
