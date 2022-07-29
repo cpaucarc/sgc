@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class AuditoriaInternaDetalle extends Model
 {
     use HasFactory;
+
     public $timestamps = false;
     protected $table = 'auditoria_interna_detalle';
-    protected $fillable = ['observacion', 'auditoria_interna_id', 'responsable_salida_id'];
+    protected $fillable = ['observacion', 'auditoria_interna_id', 'responsable_salida_id', 'documentos'];
 }

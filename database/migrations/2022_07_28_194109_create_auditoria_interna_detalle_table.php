@@ -15,6 +15,7 @@ return new class extends Migration {
         Schema::create('auditoria_interna_detalle', function (Blueprint $table) {
             $table->id();
             $table->text('observacion')->nullable();
+            $table->tinyInteger('documentos')->default(0);
             $table->foreignId('auditoria_interna_id')->constrained('auditorias_internas')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();

@@ -176,6 +176,7 @@ class RealizarAuditoriaInterna extends Component
                     foreach ($actividad['salidas'] as $salida) {
                         $detalle = [
                             'observacion' => array_key_exists('RS-' . $salida['responsable_salida_id'], $this->salidasValidados) ? $this->salidasValidados['RS-' . $salida['responsable_salida_id']] : null,
+                            'documentos' => $salida['documentos_count'],
                             'responsable_salida_id' => $salida['responsable_salida_id'],
                             'auditoria_interna_id' => $auditoria_id
                         ];
