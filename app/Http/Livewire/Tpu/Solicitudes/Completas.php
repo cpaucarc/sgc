@@ -34,6 +34,25 @@ class Completas extends Component
         }
     }
 
+    public function render()
+    {
+        $solicitudesCompletas = Solicitud::query()
+            ->with('escuela:id,nombre')
+            ->withCount('documentos')
+            ->where('tipo_solicitud_id', 3)// 3 : Título
+            ->whereIn('escuela_id', $this->escuelas_id)
+            ->having('documentos_count', '=', 14); // 14 : Requisitos de titulo profesional
+
+        //Si la escuela seleccionada es mayor que cero.
+        if ($this->escuela_seleccionado > 0) {
+            $solicitudesCompletas = $solicitudesCompletas->where('escuela_id', $this->escuela_seleccionado);
+        }
+
+        $solicitudesCompletas = $solicitudesCompletas->orderBy('updated_at', 'desc')->get();
+
+        return view('livewire.tpu.solicitudes.completas', compact('solicitudesCompletas'));
+    }
+
     public function modalRequisitos($id)
     {
         $this->solicitudSeleccionado = Solicitud::query()
@@ -102,24 +121,5 @@ class Completas extends Component
             }
         }
         $this->emit('estadoSolicitud');
-    }
-
-    public function render()
-    {
-        $solicitudesCompletas = Solicitud::query()
-            ->with('escuela:id,nombre')
-            ->withCount('documentos')
-            ->where('tipo_solicitud_id', 3)// 3 : Título
-            ->whereIn('escuela_id', $this->escuelas_id)
-            ->having('documentos_count', '=', 8); // 8 : Requisitos de titulo profesional
-
-        //Si la escuela seleccionada es mayor que cero.
-        if ($this->escuela_seleccionado > 0) {
-            $solicitudesCompletas = $solicitudesCompletas->where('escuela_id', $this->escuela_seleccionado);
-        }
-
-        $solicitudesCompletas = $solicitudesCompletas->orderBy('updated_at', 'desc')->get();
-
-        return view('livewire.tpu.solicitudes.completas', compact('solicitudesCompletas'));
     }
 }

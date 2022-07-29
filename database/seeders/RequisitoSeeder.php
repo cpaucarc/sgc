@@ -76,7 +76,7 @@ class RequisitoSeeder extends Seeder
                 'nombre' => 'DOS FOTOGRAFÍAS DE FRENTE, TAMAÑO PASAPORTE A COLORES CON FONDO BLANCO, RECIENTES',
                 'proceso_id' => 12 // 12: Grado Bachiller (Tabla: Procesos)
             ],
-            //  Proceso de Titulo Profesional (13)
+            //  Proceso de Titulo Profesional (14)
             [
                 'nombre' => 'SOLICITUD DIRIGIDA AL DECANO DE LA FACULTAD DE CIENCIAS (FUT)',
                 'proceso_id' => 5 // 5: Titulo Profesional (Tabla: Procesos)
@@ -127,6 +127,10 @@ class RequisitoSeeder extends Seeder
             ],
             [
                 'nombre' => 'DOS (02) FOTOGRAFÍAS DE FRENTE, TAMAÑO PASAPORTE A COLORES CON FONDO BLANCO, RECIENTES',
+                'proceso_id' => 5 // 5: Titulo Profesional (Tabla: Procesos)
+            ],
+            [
+                'nombre' => 'PRESENTAR (03) EJEMPLARES DE TESIS DE ACUERDO A LA MODALIDAD Y SEGÚN EXIGENCIA DE LA FACULTAD, SIENDO UNO DE ELLOS PARTE DEL EXPEDIENTE',
                 'proceso_id' => 5 // 5: Titulo Profesional (Tabla: Procesos)
             ],
             //  Proceso de Convalidaciones (4)

@@ -140,7 +140,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
         Route::get('solicitud', 'request')->name('tpu.request');
         Route::get('solicitud/{solicitud}', 'tesis')->name('tpu.tesis');
-        Route::get('solicitud/{solicitud}/{tesis}', 'seeTesis')->name('tpu.seeTesis');
+        Route::get('solicitud/tesis/{tesis}', 'seeTesis')->name('tpu.seeTesis');
         //Route::get('solicitudes', 'requests')->name('tpu.requests');
     });
 

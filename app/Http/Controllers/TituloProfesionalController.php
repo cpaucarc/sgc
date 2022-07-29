@@ -139,10 +139,10 @@ class TituloProfesionalController extends Controller
         return view('tpu.tesis', compact('solicitud'));
     }
 
-    public function seeTesis(Solicitud $solicitud, Tesis $tesis)
+    public function seeTesis(Tesis $tesis)
     {
 
-        return view('tpu.see-tesis', compact('solicitud', 'tesis'));
+        return view('tpu.see-tesis', compact('tesis'));
     }
 
     public function incompletas()

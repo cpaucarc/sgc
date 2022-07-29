@@ -34,6 +34,25 @@ class Completas extends Component
         }
     }
 
+    public function render()
+    {
+        $solicitudesCompletas = Solicitud::query()
+            ->with('escuela:id,nombre')
+            ->withCount('documentos')
+            ->where('tipo_solicitud_id', 1)// 1 : Bachiller
+            ->whereIn('escuela_id', $this->escuelas_id)
+            ->having('documentos_count', '=', 15); // 15 : Requisitos para bachiller
+
+        //Si la escuela seleccionada es mayor que cero.
+        if ($this->escuela_seleccionado > 0) {
+            $solicitudesCompletas = $solicitudesCompletas->where('escuela_id', $this->escuela_seleccionado);
+        }
+
+        $solicitudesCompletas = $solicitudesCompletas->orderBy('updated_at', 'desc')->get();
+
+        return view('livewire.bachiller.solicitudes.completas', compact('solicitudesCompletas'));
+    }
+
     public function modalRequisitos($id)
     {
         $this->solicitudSeleccionado = Solicitud::query()
@@ -98,28 +117,11 @@ class Completas extends Component
                     'created_at' => now(),
                     'updated_at' => now()
                 ]);
-                $this->emit('guardado', 'El estudiante fue ascendido de grado al cumplir todos sus requisitos.');
+                $this->emit('guardado', 'El estudiante fue asignado como Bachiller al cumplir todos sus requisitos.');
+            } else {
+                $this->emit('guardado', 'El estudiante ya fue asignado como Bachiller.');
             }
         }
         $this->emit('estadoSolicitud');
-    }
-
-    public function render()
-    {
-        $solicitudesCompletas = Solicitud::query()
-            ->with('escuela:id,nombre')
-            ->withCount('documentos')
-            ->where('tipo_solicitud_id', 1)// 1 : Bachiller
-            ->whereIn('escuela_id', $this->escuelas_id)
-            ->having('documentos_count', '=', 15); // 15 : Requisitos para bachiller
-
-        //Si la escuela seleccionada es mayor que cero.
-        if ($this->escuela_seleccionado > 0) {
-            $solicitudesCompletas = $solicitudesCompletas->where('escuela_id', $this->escuela_seleccionado);
-        }
-
-        $solicitudesCompletas = $solicitudesCompletas->orderBy('updated_at', 'desc')->get();
-
-        return view('livewire.bachiller.solicitudes.completas', compact('solicitudesCompletas'));
     }
 }

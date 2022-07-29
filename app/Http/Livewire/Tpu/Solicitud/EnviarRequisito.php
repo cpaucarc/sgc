@@ -74,7 +74,7 @@ class EnviarRequisito extends Component
             })
             ->get();
 
-        if ($this->requisitoSeleccionado == 14) { // 14 : proyecto de investifación.
+        if ($this->requisitoSeleccionado == 29) { // 14 : proyecto de investifación.
             $this->goAddTesis = true;
         } else {
             $this->goAddTesis = false;
@@ -140,21 +140,6 @@ class EnviarRequisito extends Component
         $this->emit('guardado', 'El requisito se envió correctamente.');
     }
 
-    /*public function documentosEnviados()
-    {
-        $this->documentos = DocumentoSolicitud::query()
-            ->with('documento')
-            ->whereHas('solicitud', function ($query) {
-                $query->where('dni_estudiante', Auth::user()->dni);
-            })
-            ->whereHas('documento', function ($query) {
-                $query->where('user_id', Auth::user()->id)
-                    ->where('entidad_id', $this->entidad->id)
-                    ->where('semestre_id', $this->semestreActual->id);
-            })
-            ->get();
-    }*/
-
     public function tesisRegistrado()
     {
         $this->tesis = Tesis::query()
@@ -167,7 +152,6 @@ class EnviarRequisito extends Component
     {
         $this->requisitosFaltantes();
         $this->tesisRegistrado();
-//        $this->documentosEnviados();
         return view('livewire.tpu.solicitud.enviar-requisito');
     }
 }
