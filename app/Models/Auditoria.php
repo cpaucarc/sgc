@@ -9,7 +9,7 @@ class Auditoria extends Model
 {
     use HasFactory;
 
-    public $fillable = ['uuid', 'responsable', 'es_auditoria_interno', 'facultad_id'];
+    public $fillable = ['uuid', 'responsable', 'objetivos', 'alcances', 'criterios', 'es_auditoria_interno', 'facultad_id', 'semestre_id'];
 
     public function facultad()
     {
