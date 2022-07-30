@@ -2,7 +2,7 @@
 <html lang="es">
 
 <head>
-    <title>Auditoria Interna</title>
+    <title>Auditoria Interna {{ $facultad->abrev }} {{ $semestre->nombre }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
@@ -82,7 +82,7 @@
                 <p></p>
             </td>
             <td class="text-center">
-                <h1 class="m-0" style="font-size: 16px;">INFORME DE AUDITORIA</h1>
+                <h1 class="m-0" style="font-size: 16px;">INFORME DE AUDITORÍA</h1>
                 <h2 class="m-0" style="text-transform: uppercase;">FACULTAD DE {{ $facultad->nombre }}</h2>
                 <h2 class="m-0">SEMESTRE {{ strtoupper($semestre->nombre) }}</h2>
             </td>
@@ -141,32 +141,28 @@
         <table style="width: 100%;">
             <tbody>
             <tr>
-                <td class="border" style="width: 27%;"><b>Nombre del responsable de la auditoria</b></td>
+                <td class="border" style="width: 29%;"><b>Nombre del responsable de la auditoría</b></td>
                 <td class="border" style="text-transform: uppercase;">{{ $auditoria->auditor_nombre }}</td>
             </tr>
             <tr>
-                <td class="border" style="width: 27%;"><b>DNI del responsable de la auditoria</b></td>
+                <td class="border" style="width: 29%;"><b>DNI del responsable de la auditoría</b></td>
                 <td class="border" style="text-transform: uppercase;">{{ $auditoria->auditor_dni }}</td>
             </tr>
             <tr>
-                <td class="border" style="width: 27%;"><b>Observación general de la auditoria</b></td>
+                <td class="border" style="width: 29%;"><b>Observación general de la auditoría</b></td>
                 <td class="border" style="text-transform: uppercase;">{{ $auditoria->observacion ?? 'Ninguna' }}</td>
             </tr>
             <tr>
-                <td class="border" style="width: 27%;"><b>Fecha de la auditoria</b></td>
+                <td class="border" style="width: 29%;"><b>Fecha de la auditoría</b></td>
                 <td class="border" style="text-transform: uppercase;">{{ $auditoria->created_at->format('d-m-Y') }}</td>
             </tr>
             <tr>
-                <td class="border" style="width: 27%;"><b>Firma del responsable de la auditoria</b></td>
+                <td class="border" style="width: 29%;"><b>Firma del responsable de la auditoría</b></td>
                 <td class="border"><br><br><br><br><br></td>
             </tr>
             </tbody>
         </table>
     </div>
-
 </main>
-
-
 </body>
-
 </html>
