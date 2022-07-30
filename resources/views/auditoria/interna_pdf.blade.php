@@ -138,26 +138,26 @@
     </div>
 
     <div style="page-break-before: always;">
-        <table>
+        <table style="width: 100%;">
             <tbody>
             <tr>
-                <td class="border"><b>Nombre del responsable de la auditoria</b></td>
+                <td class="border" style="width: 27%;"><b>Nombre del responsable de la auditoria</b></td>
                 <td class="border" style="text-transform: uppercase;">{{ $auditoria->auditor_nombre }}</td>
             </tr>
             <tr>
-                <td class="border"><b>DNI del responsable de la auditoria</b></td>
+                <td class="border" style="width: 27%;"><b>DNI del responsable de la auditoria</b></td>
                 <td class="border" style="text-transform: uppercase;">{{ $auditoria->auditor_dni }}</td>
             </tr>
             <tr>
-                <td class="border"><b>Observación general de la auditoria</b></td>
-                <td class="border" style="text-transform: uppercase;">{{ $auditoria->observacion }}</td>
+                <td class="border" style="width: 27%;"><b>Observación general de la auditoria</b></td>
+                <td class="border" style="text-transform: uppercase;">{{ $auditoria->observacion ?? 'Ninguna' }}</td>
             </tr>
             <tr>
-                <td class="border"><b>Fecha de la auditoria</b></td>
+                <td class="border" style="width: 27%;"><b>Fecha de la auditoria</b></td>
                 <td class="border" style="text-transform: uppercase;">{{ $auditoria->created_at->format('d-m-Y') }}</td>
             </tr>
             <tr>
-                <td class="border"><b>Firma del responsable de la auditoria</b></td>
+                <td class="border" style="width: 27%;"><b>Firma del responsable de la auditoria</b></td>
                 <td class="border"><br><br><br><br><br></td>
             </tr>
             </tbody>
