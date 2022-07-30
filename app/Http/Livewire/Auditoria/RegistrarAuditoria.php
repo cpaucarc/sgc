@@ -11,6 +11,7 @@ use App\Models\Facultad;
 use App\Models\Semestre;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -20,15 +21,19 @@ class RegistrarAuditoria extends Component
 {
     use WithFileUploads;
 
-    public $responsable = null, $archivos = [];
+    public $archivos = [];
     public $tipo = 1; // 1:interno, 0:externo
+    public $responsable = null, $objetivos = null, $alcances = null, $criterios = null;
     public $facultad_id = [];
-    public $facultad = 0, $facultades = null, $uuid = null, $semestre_activo = null;
+    public $uuid = null, $facultad = 0, $facultades = null, $semestre = null;
     public $mensaje = null;
 
     protected $rules = [
-        'tipo' => 'required:between:0,1',
         'responsable' => 'required|string|max:250',
+        'objetivos' => 'required|string|max:1000',
+        'alcances' => 'required|string|max:1000',
+        'criterios' => 'required|string|max:1000',
+        'tipo' => 'required:between:0,1',
         'facultad' => 'required|gt:0',
         'archivos' => 'required|array|min:1|max:5'
     ];
@@ -39,21 +44,23 @@ class RegistrarAuditoria extends Component
         $this->facultades = Facultad::query()->findOrFail($this->facultad_id);
         $this->facultad = count($this->facultades) ? $this->facultades->first()->id : 0;
         $this->uuid = count($this->facultades) ? explode('-', $this->facultades->first()->uuid)[0] : null;
-        $this->semestre_activo = Semestre::query()->where('activo', true)->first()->id;
+        $this->semestre = Semestre::query()->where('activo', true)->first();
     }
 
     public function render()
     {
         $auditoria_interna = $this->tipo == 1 ? AuditoriaInterna::query()
-            ->where('semestre_id', $this->semestre_activo)->where('facultad_id', $this->facultad)->first() : null;
+            ->where('semestre_id', $this->semestre->id)->where('facultad_id', $this->facultad)->first() : null;
+
+        $this->responsable = $auditoria_interna?->auditor_nombre;
 
         return view('livewire.auditoria.registrar-auditoria', compact('auditoria_interna'));
     }
 
     public function guardarAuditoria()
     {
-        $this->validate();
         try {
+            $this->validate();
             $rutaCarpeta = 'public/';
 
             if (!Storage::exists($rutaCarpeta))
@@ -62,17 +69,20 @@ class RegistrarAuditoria extends Component
             $auditoria = Auditoria::create([
                 'uuid' => Str::uuid(),
                 'responsable' => $this->responsable,
+                'objetivos' => $this->objetivos,
+                'alcances' => $this->alcances,
+                'criterios' => $this->criterios,
                 'es_auditoria_interno' => $this->tipo,
                 'facultad_id' => $this->facultad,
+                'semestre_id' => $this->semestre->id,
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ]);
 
             $documento_ids = [];
 
             $entidad_id = Auth::user()->entidades()->first()->id;
             $user_id = Auth::user()->id;
-            $semestre_id = Semestre::where('activo', true)->first()->id;
 
             foreach ($this->archivos as $archivo) {
 
@@ -86,7 +96,7 @@ class RegistrarAuditoria extends Component
                     'nombre' => $nombreArchivo,
                     'enlace_interno' => $nuevo_nombre,
                     'entidad_id' => $entidad_id,
-                    'semestre_id' => $semestre_id,
+                    'semestre_id' => $this->semestre->id,
                     'user_id' => $user_id,
                 ]);
 
@@ -99,12 +109,13 @@ class RegistrarAuditoria extends Component
                 $auditoria->documentos()->save($documento_enviado);
             }
 
-            $msg = 'La información de Auditoria se registró correctamente.';
+            $msg = 'La información de la Auditoria se registró correctamente.';
             $this->emit('guardado', ['titulo' => 'Auditoria agregado', 'mensaje' => $msg]);
             return redirect()->route('auditoria.index');
 
         } catch (\Exception $e) {
-            $this->emit('error', 'Hubo un problema:\\n' . $e);
+            $this->emit('error', $e);
+            Log::info('- error', ['e' => $e]);
             return;
         }
     }
