@@ -17,9 +17,13 @@
          x-transition:leave-end="opacity-0">
         <div class="w-full bg-sky-200 rounded-full mt-2 overflow-hidden">
             <div
-                class="bg-sky-600 text-xs font-medium text-sky-50 text-center p-0.5 leading-none rounded-full"
-                :style="`width: ${progress}%;`" x-text="`${progress}%`">
+                class="bg-sky-600 p-0.5 leading-none rounded-full"
+                :style="`width: ${progress}%;`">
             </div>
+        </div>
+        <div class="flex justify-between items-center text-sm text-zinc-600">
+            <p>Cargando archivo...</p>
+            <p class="font-semibold" x-text="`${progress}%`"></p>
         </div>
     </div>
 </div>
