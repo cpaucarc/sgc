@@ -59,8 +59,8 @@ class RegistrarAuditoria extends Component
 
     public function guardarAuditoria()
     {
+        $this->validate();
         try {
-            $this->validate();
             $rutaCarpeta = 'public/';
 
             if (!Storage::exists($rutaCarpeta))

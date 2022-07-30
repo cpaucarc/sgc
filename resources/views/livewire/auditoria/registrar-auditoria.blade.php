@@ -19,8 +19,8 @@
             <x-jet-label for="tipo" value="Tipo de auditoría"/>
             <div class="flex items-center justify-between gap-x-2">
                 <x-utils.forms.select id="tipo" class="mt-1 block w-full" wire:model="tipo">
-                    <option value="1">auditoría Interna</option>
-                    <option value="0">auditoría Externa</option>
+                    <option value="1">Auditoría Interna</option>
+                    <option value="0">Auditoría Externa</option>
                 </x-utils.forms.select>
 
                 @if($tipo == 1 && !is_null($uuid) && !$auditoria_interna)
@@ -107,6 +107,7 @@
                     html: `<b>!Hubo un error!</b><br/><small>${msg}</small>`,
                     icon: 'error'
                 });
+                console.log('Error:', msg);
             });
         </script>
     @endpush
